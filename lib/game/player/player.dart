@@ -1,8 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:gomiland/player/player_sprite_sheet.dart';
 
-class GPlayer extends SimplePlayer {
-
+class GPlayer extends SimplePlayer with BlockMovementCollision {
   GPlayer(Vector2 position)
       : super(
           position: position,
@@ -12,6 +11,17 @@ class GPlayer extends SimplePlayer {
           initDirection: Direction.right,
           animation: PlayerSpriteSheet.playerAnimations(), //required
         );
+
+  @override
+  Future<void> onLoad() {
+    add(
+      RectangleHitbox(
+        size: Vector2(32, 16),
+        position: Vector2(0, 0),
+      ),
+    );
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {

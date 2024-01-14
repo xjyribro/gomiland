@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/buildings/home.dart';
 import 'package:gomiland/player/player.dart';
 
 void main() {
@@ -40,6 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
         map: WorldMapByTiled(
           TiledReader.asset('tiles/hood_base.json'),
           forceTileSize: Vector2(32, 32),
+          objectsBuilder:{
+            'home': (p) => Home(p.position, p.size),
+          },
         ),
         joystick: Joystick(directional: JoystickDirectional()),
         player: GPlayer(
