@@ -15,6 +15,7 @@ dependencies:
   bonfire: ^3.2.0
   flame: ^1.14.0
   flame_audio: ^2.1.7
+  flame_splash_screen: ^0.2.0
 
 dev_dependencies:
   flutter_test:

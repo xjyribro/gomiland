@@ -1,5 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:gomiland/player/player_sprite_sheet.dart';
+import 'package:gomiland/game/player/player_sprite_sheet.dart';
 
 class GPlayer extends SimplePlayer with BlockMovementCollision {
   GPlayer(Vector2 position)

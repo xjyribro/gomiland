@@ -1,9 +1,13 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/buildings/home.dart';
-import 'package:gomiland/player/player.dart';
+import 'package:gomiland/menu.dart';
 
-void main() {
+void main() async {
+  if (!kIsWeb) {
+  await Flame.device.setLandscape();
+  await Flame.device.fullScreen();
+}
   runApp(const MyApp());
 }
 
@@ -13,43 +17,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Menu(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: BonfireWidget(
-        map: WorldMapByTiled(
-          TiledReader.asset('tiles/hood_base.json'),
-          forceTileSize: Vector2(32, 32),
-          objectsBuilder:{
-            'home': (p) => Home(p.position, p.size),
-          },
-        ),
-        joystick: Joystick(directional: JoystickDirectional()),
-        player: GPlayer(
-          Vector2(32, 32),
-    ),
-      ),
-    );
-  }
-}
