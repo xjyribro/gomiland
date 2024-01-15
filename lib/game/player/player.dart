@@ -22,14 +22,4 @@ class GPlayer extends SimplePlayer with BlockMovementCollision {
     );
     return super.onLoad();
   }
-
-  @override
-  void update(double dt) {
-    super.update(dt);
-  }
-
-  @override
-  void render(Canvas canvas) {
-    super.render(canvas);
-  }
 }

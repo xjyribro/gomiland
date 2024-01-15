@@ -1,8 +1,5 @@
-import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/game/buildings/home.dart';
-import 'package:gomiland/game/components/pause_menu.dart';
-import 'package:gomiland/game/player/player.dart';
+import 'package:gomiland/game/scenes/hood_scene.dart';
 
 class GomilandGame extends StatefulWidget {
   const GomilandGame({super.key});
@@ -12,24 +9,22 @@ class GomilandGame extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<GomilandGame> {
+  late Widget _scene;
+
+  void switchScene(Widget newScene) {
+    setState(() {
+      _scene = newScene;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scene = HoodScene(switchScene: switchScene);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BonfireWidget(
-      map: WorldMapByTiled(
-        TiledReader.asset('tiles/hood_base.json'),
-        forceTileSize: Vector2(32, 32),
-        objectsBuilder: {
-          'home': (p) => Home(p.position, p.size),
-        },
-      ),
-      joystick: Joystick(directional: JoystickDirectional()),
-      overlayBuilderMap: {
-        'pause' : (context, game) => PauseMenu(),
-      },
-      player: GPlayer(
-        Vector2(32, 32),
-      ),
-      showCollisionArea: true,
-    );
+    return _scene;
   }
 }

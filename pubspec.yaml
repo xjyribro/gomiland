@@ -28,5 +28,12 @@ flutter:
   assets:
     - assets/
     - assets/images/buildings/
+    - assets/images/logo/
     - assets/images/player/
     - assets/images/tiles/
+
+  fonts:
+    - family: minecraft
+      fonts:
+        - asset: fonts/minecraft.ttf
+

@@ -26,7 +26,10 @@ class _MenuState extends State<Menu> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              // gomiland logo
+              Image.asset(
+                'assets/images/logo/gomiland_simple.png',
+                height: 164,
+              ),
               const SizedBox(
                 height: 20.0,
               ),
@@ -38,9 +41,55 @@ class _MenuState extends State<Menu> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    minimumSize: Size(100, 40), //////// HERE
+                    minimumSize: const Size(100, 40), //////// HERE
                   ),
-                  child: const Text('play'),
+                  child: const Text('New game'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const GomilandGame()),
+                    );
+                  },
+                  // choose input
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              SizedBox(
+                width: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    minimumSize: const Size(100, 40), //////// HERE
+                  ),
+                  child: const Text('Load game'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const GomilandGame()),
+                    );
+                  },
+                  // choose input
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              SizedBox(
+                width: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    minimumSize: const Size(100, 40), //////// HERE
+                  ),
+                  child: const Text('Settings'),
                   onPressed: () {
                     Navigator.push(
                       context,

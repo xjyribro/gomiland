@@ -983,6 +983,28 @@
                  "width":256,
                  "x":640,
                  "y":0
+                }, 
+                {
+                 "height":64,
+                 "id":9,
+                 "name":"park_entrance",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":128,
+                 "x":992,
+                 "y":224
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":896,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -991,7 +1013,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":8,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

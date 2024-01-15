@@ -19,12 +19,4 @@ class Home extends GameDecoration {
     ));
     return super.onLoad();
   }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
-    print('collide');
-    super.onCollisionStart(intersectionPoints, other);
-  }
-
 }
