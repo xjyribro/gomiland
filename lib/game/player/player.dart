@@ -4,9 +4,8 @@ import 'package:gomiland/game/player/player_sprite_sheet.dart';
 class GPlayer extends SimplePlayer with BlockMovementCollision {
   GPlayer(Vector2 position)
       : super(
+          size: Vector2.all(32),
           position: position,
-          size: Vector2(32.0, 32.0),
-          life: 100,
           speed: 100,
           initDirection: Direction.right,
           animation: PlayerSpriteSheet.playerAnimations(), //required

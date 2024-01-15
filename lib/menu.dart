@@ -20,6 +20,12 @@ class _MenuState extends State<Menu> {
   }
 
   @override
+  void dispose() {
+    Sounds.stopBackgroundSound();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return buildMenu();

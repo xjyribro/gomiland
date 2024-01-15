@@ -24,6 +24,12 @@ class _MyHomePageState extends State<HoodScene> {
   }
 
   @override
+  void dispose() {
+    Sounds.stopBackgroundSound();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BonfireWidget(
       map: WorldMapByTiled(
@@ -39,11 +45,10 @@ class _MyHomePageState extends State<HoodScene> {
         // g-coins
         // bag
         // menu button
-        // sound?
       },
       components: [ GameController() ],
       player: GPlayer(
-        Vector2(32, 32),
+        Vector2(300, 300),
       ),
       showCollisionArea: true,
     );
