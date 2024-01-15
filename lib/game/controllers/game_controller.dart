@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/game/dialogues/game_menu.dart';

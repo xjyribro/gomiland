@@ -27,6 +27,8 @@ flutter:
 
   assets:
     - assets/
+    - assets/audio/bgm/
+    - assets/audio/sfx/
     - assets/images/buildings/
     - assets/images/logo/
     - assets/images/player/

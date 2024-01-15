@@ -1,5 +1,6 @@
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 
 class Menu extends StatefulWidget {
@@ -13,7 +14,14 @@ class _MenuState extends State<Menu> {
   bool showSplash = true;
 
   @override
+  void initState() {
+    Sounds.playMainMenuBgm();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return buildMenu();
     return showSplash ? buildSplash() : buildMenu(); // REPLACE
   }
