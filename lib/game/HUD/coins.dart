@@ -18,7 +18,7 @@ class Coins extends GameInterface {
     }
 
     final spriteSheet = SpriteSheet(
-      image: await loadCoin('images/spritesheets/coin_small.png'),
+      image: await loadCoin('assets/images/spritesheets/coin_small.png'),
       srcSize: Vector2(32, 32),
     );
 
