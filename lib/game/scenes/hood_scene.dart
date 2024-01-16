@@ -1,6 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/game/HUD/coins.dart';
+import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/uiInterface/coins.dart';
 import 'package:gomiland/game/buildings/home.dart';
 import 'package:gomiland/game/components/park_entrance.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
@@ -39,16 +40,16 @@ class _MyHomePageState extends State<HoodScene> {
         objectsBuilder: {
           'home': (p) => Home(p.position, p.size),
           'park_entrance': (p) => ParkEntrance(p.position, p.size, switchScene: widget.switchScene),
+          'boy': (p) => Monk(position: p.position),
         },
       ),
+      cameraConfig: CameraConfig(zoom: 2),
       joystick: Joystick(directional: JoystickDirectional()),
       overlayBuilderMap: {
-        // 'coins': (context, game) => Coins(),
-        // g-coins
-        // bag
         // menu button
       },
-      components: [ GameController(), Coins() ],
+      interface: UIOverlay(),
+      components: [ GameController() ],
       player: GPlayer(
         Vector2(300, 300),
       ),

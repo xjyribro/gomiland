@@ -29,6 +29,8 @@ flutter:
     - assets/
     - assets/audio/bgm/
     - assets/audio/sfx/
+    - assets/images/npcs/
+    - assets/images/npcs/monk/
     - assets/images/buildings/
     - assets/images/spritesheets/
     - assets/images/logo/
