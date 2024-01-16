@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/game/HUD/coins.dart';
 import 'package:gomiland/game/buildings/home.dart';
 import 'package:gomiland/game/components/park_entrance.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
@@ -42,11 +43,12 @@ class _MyHomePageState extends State<HoodScene> {
       ),
       joystick: Joystick(directional: JoystickDirectional()),
       overlayBuilderMap: {
+        // 'coins': (context, game) => Coins(),
         // g-coins
         // bag
         // menu button
       },
-      components: [ GameController() ],
+      components: [ GameController(), Coins() ],
       player: GPlayer(
         Vector2(300, 300),
       ),
