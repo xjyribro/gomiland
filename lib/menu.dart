@@ -1,5 +1,6 @@
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 
@@ -41,7 +42,7 @@ class _MenuState extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                'assets/images/logo/gomiland_simple.png',
+                Assets.assets_images_logo_gomiland_simple_png,
                 height: 164,
               ),
               const SizedBox(
