@@ -1,7 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/menu.dart';
+import 'package:gomiland/screens/menu.dart';
 import 'package:gomiland/providers/game_state.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        fontFamily: 'minecraft',
+        textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: 'minecraft',
+          fontSizeFactor: 2,
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: const Menu(),
