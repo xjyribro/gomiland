@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 
 class GomilandGame extends StatefulWidget {
@@ -12,6 +13,7 @@ class _MyHomePageState extends State<GomilandGame> {
   late Widget _scene;
 
   void switchScene(Widget newScene) {
+    Sounds.stopBackgroundSound();
     setState(() {
       _scene = newScene;
     });
