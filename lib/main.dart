@@ -2,14 +2,21 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/menu.dart';
+import 'package:gomiland/providers/game_state.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {
-  await Flame.device.setLandscape();
-  await Flame.device.fullScreen();
-}
-  runApp(const MyApp());
+    await Flame.device.setLandscape();
+    await Flame.device.fullScreen();
+  }
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => GameState()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,4 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

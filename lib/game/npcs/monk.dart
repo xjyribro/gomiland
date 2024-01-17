@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:bonfire/bonfire.dart';
+import 'package:gomiland/game/npcs/utils.dart';
 
 class Monk extends SimpleNpc with BlockMovementCollision {
   Monk({required Vector2 position})
       : super(
-          animation: BoySpriteSheet.boyAnimations(),
+          animation: MonkSpriteSheet.MonkAnimations(),
           position: position,
           size: Vector2.all(32),
         );
@@ -32,28 +31,7 @@ class Monk extends SimpleNpc with BlockMovementCollision {
   }
 }
 
-SimpleAnimationEnum GetDirectionAnimation(double deg) {
-  if (deg > -45 && deg < 45) {
-    return SimpleAnimationEnum.idleLeft;
-  }
-  if (deg > -135 && deg < -45) {
-    return SimpleAnimationEnum.idleDown;
-  }
-  if (deg > 45 && deg < 135) {
-    return SimpleAnimationEnum.idleUp;
-  }
-  return SimpleAnimationEnum.idleRight;
-}
-
-double GetPlayerAngle(Vector2 playerPosit, Vector2 objectPosit) {
-  double dx = playerPosit.x - objectPosit.x;
-  double dy = playerPosit.y - objectPosit.y;
-
-  double angleRadians = atan2(objectPosit.y - playerPosit.y, objectPosit.x - playerPosit.x);
-  return angleRadians * (180 / pi);
-}
-
-class BoySpriteSheet {
+class MonkSpriteSheet {
   static Future<SpriteAnimation> idleUp() => SpriteAnimation.load(
         'npcs/monk/idle_up.png',
         SpriteAnimationData.sequenced(
@@ -126,7 +104,7 @@ class BoySpriteSheet {
         ),
       );
 
-  static SimpleDirectionAnimation boyAnimations() => SimpleDirectionAnimation(
+  static SimpleDirectionAnimation MonkAnimations() => SimpleDirectionAnimation(
         idleDown: idleDown(),
         idleUp: idleUp(),
         idleLeft: idleLeft(),
