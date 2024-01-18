@@ -1,13 +1,11 @@
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
-import 'package:flame/game.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/contants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
-
-enum Scene {HOOD, PARK, ROOM}
+import 'package:gomiland/game/scenes/gate.dart';
 
 class GomilandWorld extends World with HasGameRef<GomilandGame> {
   GomilandWorld({super.children});
@@ -20,19 +18,35 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
   late final Player player;
 
   late TiledComponent map;
+  SceneName? _newSceneName;
+
+  void _setNewSceneName(SceneName newSceneName) {
+    _newSceneName = newSceneName;
+  }
 
   @override
   Future<void> onLoad() async {
+    // load first scene
     map = await TiledComponent.load(
-      'park.tmx',
+      'hood.tmx',
       Vector2.all(tileSize),
     );
-
-    player = Player(position: Vector2.all(32));
+    player = Player(position: Vector2.all(200));
     addAll([map, player]);
-
     // Set up Camera
     gameRef.cameraComponent.follow(player);
+
+    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates')!;
+    for (final TiledObject object in objectLayer.objects) {
+      add(
+        Gate(
+          position: Vector2(object.x, object.y),
+          size: Vector2(object.width, object.height),
+          switchScene: () => _setNewSceneName(SceneName.PARK),
+        ),
+      );
+    }
+    gameRef.overlays.add('MuteButton');
   }
 
   @override
@@ -52,27 +66,36 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
     );
   }
 
-  Future<void> _switchScene(Scene scene) async{
-    switch (scene) {
-      case Scene.HOOD:
+  Future<void> _switchScene(SceneName sceneName) async {
+    switch (sceneName) {
+      case SceneName.HOOD:
+        remove(map);
         map = await TiledComponent.load(
           'hood.tmx',
           Vector2.all(tileSize),
         );
+        add(map);
         break;
-      case Scene.PARK:
+      case SceneName.PARK:
+        remove(map);
         map = await TiledComponent.load(
           'park.tmx',
           Vector2.all(tileSize),
         );
+        add(map);
         break;
-      case Scene.ROOM:
+      case SceneName.ROOM:
         break;
-      default: return;
+      default:
+        return;
     }
   }
 
   @override
   void update(double dt) async {
+    if (_newSceneName != null) {
+      _switchScene(_newSceneName!) ;
+      _newSceneName = null;
+    }
   }
 }

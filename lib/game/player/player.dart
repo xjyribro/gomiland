@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
@@ -37,7 +38,7 @@ class Player extends SpriteAnimationComponent
   void onLoad() {
     final spriteSheet = SpriteSheet(
       image: game.images.fromCache(
-        Assets.assets_assets_images_player_player_png,
+        Assets.assets_images_player_player_png,
       ),
       srcSize: Vector2.all(tileSize),
     );
@@ -53,11 +54,12 @@ class Player extends SpriteAnimationComponent
 
     player = SpriteAnimationComponent(
       animation: moveDown,
-      position: Vector2(100, 100),
+      position: Vector2(200, 200),
       size: Vector2.all(32),
     );
 
     animation = idleDown;
+    add(RectangleHitbox(position: Vector2.zero(), size: size));
   }
 
   @override

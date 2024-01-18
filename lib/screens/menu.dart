@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/uiInterface/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/instructions.dart';
 import 'package:gomiland/screens/settings.dart';
@@ -45,7 +46,7 @@ class _MenuState extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                Assets.assets_assets_images_logo_gomiland_simple_png,
+                Assets.assets_images_logo_gomiland_simple_png,
                 height: 164,
               ),
               const SizedBox(
@@ -113,6 +114,7 @@ class _MenuState extends State<Menu> {
                   );
                 },
               ),
+              const MuteButton(),
             ],
           ),
         ),

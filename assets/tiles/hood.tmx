@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="28">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="29">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -1244,5 +1244,8 @@
  </objectgroup>
  <objectgroup id="8" name="npc" visible="0">
   <object id="27" name="boy" x="256" y="128" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="11" name="gates">
+  <object id="28" name="park_gate" x="416" y="320" width="64" height="64"/>
  </objectgroup>
 </map>

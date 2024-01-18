@@ -30,14 +30,16 @@ flutter:
 
   assets:
     - assets/
+    - assets/tiles/
     - assets/audio/bgm/
     - assets/audio/sfx/
-    - assets/assets/images/npcs/
-    - assets/assets/images/npcs/monk/
-    - assets/assets/images/buildings/
-    - assets/assets/images/spritesheets/
-    - assets/assets/images/logo/
-    - assets/assets/images/player/
+    - assets/images/
+    - assets/images/npcs/
+    - assets/images/npcs/monk/
+    - assets/images/buildings/
+    - assets/images/spritesheets/
+    - assets/images/logo/
+    - assets/images/player/
 
   fonts:
     - family: minecraft
