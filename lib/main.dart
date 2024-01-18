@@ -1,9 +1,8 @@
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/providers/prefs.dart';
+import 'package:gomiland/bloc/game_state.dart';
 import 'package:gomiland/screens/menu.dart';
-import 'package:gomiland/providers/game_state.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -14,8 +13,7 @@ void main() async {
   }
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => GameState()),
-      ChangeNotifierProvider(create: (_) => Prefs()),
+      BlocProvider<GameStateBloc>(create: (_) => GameStateBloc()),
     ],
     child: const MyApp(),
   ));

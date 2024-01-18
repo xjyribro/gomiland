@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/contants.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/providers/game_state.dart';
-import 'package:gomiland/providers/prefs.dart';
+import 'package:gomiland/bloc/game_state.dart';
 import 'package:provider/provider.dart';
 
 class MuteButton extends StatelessWidget {

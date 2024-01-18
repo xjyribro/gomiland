@@ -15,8 +15,7 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
     map.tileMap.map.height * tileSize,
   );
   final unwalkableComponentEdges = <Line>[];
-  late final Player player;
-
+  late Player player;
   late TiledComponent map;
   SceneName? _newSceneName;
 
@@ -24,29 +23,69 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
     _newSceneName = newSceneName;
   }
 
-  @override
-  Future<void> onLoad() async {
-    // load first scene
+  void _removeSceneComponents() {
+    removeAll([map, player]);
+  }
+
+  Future<void> _loadPlayer(Vector2 position) async {
+    player = Player(position: position);
+    add(player);
+    gameRef.cameraComponent.follow(player);
+  }
+
+  Future<void> _loadHoodMap() async {
     map = await TiledComponent.load(
       'hood.tmx',
       Vector2.all(tileSize),
     );
-    player = Player(position: Vector2.all(200));
-    addAll([map, player]);
-    // Set up Camera
-    gameRef.cameraComponent.follow(player);
+    add(map);
 
-    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates')!;
-    for (final TiledObject object in objectLayer.objects) {
-      add(
-        Gate(
-          position: Vector2(object.x, object.y),
-          size: Vector2(object.width, object.height),
-          switchScene: () => _setNewSceneName(SceneName.PARK),
-        ),
-      );
+    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
+
+    if (objectLayer != null) {
+      for (final TiledObject object in objectLayer.objects) {
+        add(
+          Gate(
+            position: Vector2(object.x, object.y),
+            size: Vector2(object.width, object.height),
+            switchScene: () => _setNewSceneName(SceneName.PARK),
+          ),
+        );
+      }
     }
-    gameRef.overlays.add('MuteButton');
+  }
+
+  Future<void> _loadParkMap() async {
+    map = await TiledComponent.load(
+      'park.tmx',
+      Vector2.all(tileSize),
+    );
+    add(map);
+
+    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
+    if (objectLayer != null) {
+      for (final TiledObject object in objectLayer.objects) {
+        add(
+          Gate(
+            position: Vector2(object.x, object.y),
+            size: Vector2(object.width, object.height),
+            switchScene: () => _setNewSceneName(SceneName.HOOD),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _loadHoodScene() async {
+    await _loadHoodMap();
+    Vector2 playerStartingPosit = Vector2.all(200);
+    await _loadPlayer(playerStartingPosit);
+  }
+
+  Future<void> _loadParkScene() async {
+    await _loadParkMap();
+    Vector2 playerStartingPosit = Vector2.all(150);
+    await _loadPlayer(playerStartingPosit);
   }
 
   @override
@@ -69,20 +108,12 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
   Future<void> _switchScene(SceneName sceneName) async {
     switch (sceneName) {
       case SceneName.HOOD:
-        remove(map);
-        map = await TiledComponent.load(
-          'hood.tmx',
-          Vector2.all(tileSize),
-        );
-        add(map);
+        _removeSceneComponents();
+        await _loadHoodScene();
         break;
       case SceneName.PARK:
-        remove(map);
-        map = await TiledComponent.load(
-          'park.tmx',
-          Vector2.all(tileSize),
-        );
-        add(map);
+        _removeSceneComponents();
+        await _loadParkScene();
         break;
       case SceneName.ROOM:
         break;
@@ -92,9 +123,15 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
   }
 
   @override
+  Future<void> onLoad() async {
+    await _loadHoodScene();
+    gameRef.overlays.add('MuteButton');
+  }
+
+  @override
   void update(double dt) async {
     if (_newSceneName != null) {
-      _switchScene(_newSceneName!) ;
+      _switchScene(_newSceneName!);
       _newSceneName = null;
     }
   }
