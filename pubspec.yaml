@@ -12,11 +12,11 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  bonfire: ^3.2.0
   flame: ^1.14.0
   flame_audio: ^2.1.7
   flame_splash_screen: ^0.2.0
   provider: ^6.1.1
+  flame_tiled: ^1.18.3
 
 dev_dependencies:
   assets_gen: ^1.5.0
@@ -32,13 +32,12 @@ flutter:
     - assets/
     - assets/audio/bgm/
     - assets/audio/sfx/
-    - assets/images/npcs/
-    - assets/images/npcs/monk/
-    - assets/images/buildings/
-    - assets/images/spritesheets/
-    - assets/images/logo/
-    - assets/images/player/
-    - assets/images/tiles/
+    - assets/assets/images/npcs/
+    - assets/assets/images/npcs/monk/
+    - assets/assets/images/buildings/
+    - assets/assets/images/spritesheets/
+    - assets/assets/images/logo/
+    - assets/assets/images/player/
 
   fonts:
     - family: minecraft

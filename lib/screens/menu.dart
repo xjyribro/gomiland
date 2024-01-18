@@ -45,7 +45,7 @@ class _MenuState extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Image.asset(
-                Assets.assets_images_logo_gomiland_simple_png,
+                Assets.assets_assets_images_logo_gomiland_simple_png,
                 height: 164,
               ),
               const SizedBox(
@@ -57,7 +57,7 @@ class _MenuState extends State<Menu> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const GomilandGame()),
+                        builder: (context) => const GameWidgetWrapper()),
                   );
                 },
               ),
@@ -70,7 +70,7 @@ class _MenuState extends State<Menu> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const GomilandGame()),
+                        builder: (context) => const GameWidgetWrapper()),
                   );
                 },
               ),
