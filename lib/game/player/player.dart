@@ -7,9 +7,9 @@ import 'package:gomiland/game/game.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame> {
-  Player()
+  Player({required Vector2 position})
       : super(
-          position: Vector2(128, 128),
+          position: position,
           size: Vector2.all(32),
           anchor: Anchor.center,
           priority: 1,
@@ -25,9 +25,13 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
 
-  Vector2 movement = Vector2.zero();
-  double speed = tileSize * 4;
-  double stepTime = 0.2;
+  bool _isMovingUp = false;
+  bool _isMovingDown = false;
+  bool _isMovingLeft = false;
+  bool _isMovingRight = false;
+  Vector2 _movement = Vector2.zero();
+  final double _speed = tileSize * 4;
+  final double _stepTime = 0.2;
 
   @override
   void onLoad() {
@@ -38,14 +42,14 @@ class Player extends SpriteAnimationComponent
       srcSize: Vector2.all(tileSize),
     );
 
-    moveUp = spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 1);
-    moveDown = spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 1);
-    moveLeft = spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 1);
-    moveRight = spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 1);
-    idleUp = spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
+    moveUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 1);
+    moveDown = spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 1);
+    moveLeft = spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 1);
+    moveRight = spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 1);
+    idleUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 0, to: 1);
+    idleDown = spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 0, to: 1);
+    idleLeft = spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 0, to: 1);
+    idleRight = spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 0, to: 1);
 
     player = SpriteAnimationComponent(
       animation: moveDown,
@@ -53,7 +57,7 @@ class Player extends SpriteAnimationComponent
       size: Vector2.all(32),
     );
 
-    animation = moveDown;
+    animation = idleDown;
   }
 
   @override
@@ -61,7 +65,7 @@ class Player extends SpriteAnimationComponent
     super.update(dt);
     // Save this to use after we zero out movement for unwalkable terrain.
     final originalPosition = position.clone();
-    final movementThisFrame = movement * speed * dt;
+    final movementThisFrame = _movement * _speed * dt;
     // Fake update the position so our anchor calculations take into account
     // what movement we want to do this turn.
     position.add(movementThisFrame);
@@ -70,39 +74,49 @@ class Player extends SpriteAnimationComponent
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (event is RawKeyDownEvent) {
+      bool isMoving = _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
+      if (isMoving) return false;
       if (event.logicalKey == LogicalKeyboardKey.keyW) {
-        movement = Vector2(movement.x, -1);
+        _movement = Vector2(_movement.x, -1);
         animation = moveUp;
+        _isMovingUp = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyS) {
-        movement = Vector2(movement.x, 1);
+        _movement = Vector2(_movement.x, 1);
         animation = moveDown;
+        _isMovingDown = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyA) {
-        movement = Vector2(-1, movement.y);
+        _movement = Vector2(-1, _movement.y);
         animation = moveLeft;
+        _isMovingLeft = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyD) {
-        movement = Vector2(1, movement.y);
+        _movement = Vector2(1, _movement.y);
         animation = moveRight;
+        _isMovingRight = true;
       }
       return false;
     } else if (event is RawKeyUpEvent) {
-      if (event.logicalKey == LogicalKeyboardKey.keyW) {
-        movement.y = keysPressed.contains(LogicalKeyboardKey.keyS) ? 1 : 0;
+      if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {
+        _movement.y = 0;
         animation = idleUp;
+        _isMovingUp = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyS) {
-        movement.y = keysPressed.contains(LogicalKeyboardKey.keyW) ? -1 : 0;
+      if (event.logicalKey == LogicalKeyboardKey.keyS&& _isMovingDown) {
+        _movement.y = 0;
         animation = idleDown;
+        _isMovingDown = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyA) {
-        movement.x = keysPressed.contains(LogicalKeyboardKey.keyD) ? 1 : 0;
+      if (event.logicalKey == LogicalKeyboardKey.keyA&& _isMovingLeft) {
+        _movement.x = 0;
         animation = idleLeft;
+        _isMovingLeft = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyD) {
-        movement.x = keysPressed.contains(LogicalKeyboardKey.keyA) ? -1 : 0;
+      if (event.logicalKey == LogicalKeyboardKey.keyD&& _isMovingRight) {
+        _movement.x = 0;
         animation = idleRight;
+        _isMovingRight = false;
       }
       return false;
     }
