@@ -45,9 +45,6 @@ class Assets {
   static const String assets_images_buildings_home_png = 'assets/images/buildings/home.png';
   static const String gomiland$assets_images_buildings_home_png = 'packages/gomiland/assets/images/buildings/home.png';
 
-  static const String assets_images_dialogue_box_png = 'assets/images/dialogue_box.png';
-  static const String gomiland$assets_images_dialogue_box_png = 'packages/gomiland/assets/images/dialogue_box.png';
-
   static const String assets_images_grass_png = 'assets/images/grass.png';
   static const String gomiland$assets_images_grass_png = 'packages/gomiland/assets/images/grass.png';
 
@@ -95,6 +92,9 @@ class Assets {
 
   static const String assets_images_spritesheets_coin_small_png = 'assets/images/spritesheets/coin_small.png';
   static const String gomiland$assets_images_spritesheets_coin_small_png = 'packages/gomiland/assets/images/spritesheets/coin_small.png';
+
+  static const String assets_images_ui_dialogue_box_png = 'assets/images/ui/dialogue_box.png';
+  static const String gomiland$assets_images_ui_dialogue_box_png = 'packages/gomiland/assets/images/ui/dialogue_box.png';
 
   static const String assets_images_water_png = 'assets/images/water.png';
   static const String gomiland$assets_images_water_png = 'packages/gomiland/assets/images/water.png';

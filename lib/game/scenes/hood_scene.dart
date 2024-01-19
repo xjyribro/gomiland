@@ -1,27 +1,35 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
-class HoodMap extends TiledComponent {
-  late Function setNewSceneName;
+class HoodMap extends Component {
+  late Function _setNewSceneName;
 
-  HoodMap({required RenderableTiledMap tiledMap, required setNewSceneName})
-      : super(tiledMap) {
-    setNewSceneName = setNewSceneName;
+  HoodMap({required setNewSceneName}) : super() {
+    _setNewSceneName = setNewSceneName;
   }
 
   @override
   Future<void> onLoad() async {
-    final objectLayer = tileMap.getLayer<ObjectGroup>('gates');
+    final TiledComponent map = await TiledComponent.load(
+      'hood.tmx',
+      Vector2.all(tileSize),
+    );
+    await add(map);
+
+    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
 
     if (objectLayer != null) {
       for (final TiledObject object in objectLayer.objects) {
-        add(
+        await add(
           Gate(
             position: Vector2(object.x, object.y),
             size: Vector2(object.width, object.height),
-            switchScene: () => setNewSceneName(SceneName.hood),
+            switchScene: () {
+              _setNewSceneName(SceneName.park);
+            },
           ),
         );
       }

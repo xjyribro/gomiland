@@ -1,31 +1,42 @@
 import 'package:flame/components.dart';
-import 'package:flame/experimental.dart';
 import 'package:flame/geometry.dart';
-import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flame_bloc/flame_bloc.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
-import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
-import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/scenes/hood_scene.dart';
+import 'package:gomiland/game/scenes/park_scene.dart';
 
-class GomilandWorld extends World with HasGameRef<GomilandGame> {
+class GomilandWorld extends World
+    with HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
 
-  late Vector2 size = Vector2(
-    map.tileMap.map.width * tileSize,
-    map.tileMap.map.height * tileSize,
-  );
   final unwalkableComponentEdges = <Line>[];
   late Player player;
-  late TiledComponent map;
   SceneName? _newSceneName;
+
+  late HoodMap hoodMap;
+  late ParkMap parkMap;
 
   void _setNewSceneName(SceneName newSceneName) {
     _newSceneName = newSceneName;
   }
 
-  void _removeSceneComponents() {
-    removeAll([map, player]);
+  void _removeComponents() {
+    remove(player);
+    SceneName sceneName = bloc.state.sceneName;
+    switch (sceneName) {
+      case SceneName.hood:
+        remove(hoodMap);
+        break;
+      case SceneName.park:
+        remove(parkMap);
+        break;
+      case SceneName.room:
+        break;
+      default:
+        return;
+    }
   }
 
   Future<void> _loadPlayer(Vector2 position) async {
@@ -35,46 +46,11 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
   }
 
   Future<void> _loadHoodMap() async {
-    map = await TiledComponent.load(
-      'hood.tmx',
-      Vector2.all(tileSize),
-    );
-    add(map);
-
-    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
-
-    if (objectLayer != null) {
-      for (final TiledObject object in objectLayer.objects) {
-        add(
-          Gate(
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(SceneName.park),
-          ),
-        );
-      }
-    }
+    await add(hoodMap);
   }
 
   Future<void> _loadParkMap() async {
-    map = await TiledComponent.load(
-      'park.tmx',
-      Vector2.all(tileSize),
-    );
-    add(map);
-
-    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
-    if (objectLayer != null) {
-      for (final TiledObject object in objectLayer.objects) {
-        add(
-          Gate(
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(SceneName.hood),
-          ),
-        );
-      }
-    }
+    await add(parkMap);
   }
 
   Future<void> _loadHoodScene() async {
@@ -89,31 +65,13 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
     await _loadPlayer(playerStartingPosit);
   }
 
-  @override
-  void onGameResize(Vector2 size) {
-    super.onGameResize(size);
-    setCameraBounds(size);
-  }
-
-  void setCameraBounds(Vector2 gameSize) {
-    gameRef.cameraComponent.setBounds(
-      Rectangle.fromLTRB(
-        gameSize.x / 2,
-        gameSize.y / 2,
-        size.x - gameSize.x / 2,
-        size.y - gameSize.y / 2,
-      ),
-    );
-  }
-
   Future<void> _switchScene(SceneName sceneName) async {
+    _removeComponents();
     switch (sceneName) {
       case SceneName.hood:
-        _removeSceneComponents();
         await _loadHoodScene();
         break;
       case SceneName.park:
-        _removeSceneComponents();
         await _loadParkScene();
         break;
       case SceneName.room:
@@ -121,10 +79,14 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
       default:
         return;
     }
+    game.gameStateBloc.add(SceneChanged(sceneName));
   }
 
   @override
   Future<void> onLoad() async {
+    super.onLoad();
+    hoodMap = HoodMap(setNewSceneName: _setNewSceneName);
+    parkMap = ParkMap(setNewSceneName: _setNewSceneName);
     await _loadHoodScene();
     gameRef.overlays.add('MuteButton');
     gameRef.overlays.add('DialogueBox');

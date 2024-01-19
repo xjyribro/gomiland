@@ -20,7 +20,7 @@ class DialogueBox extends StatelessWidget {
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: Image.asset(
-              Assets.assets_images_dialogue_box_png,
+              Assets.assets_images_ui_dialogue_box_png,
               width: size.width,
             ),
           ),
