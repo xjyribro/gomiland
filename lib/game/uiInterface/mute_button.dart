@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:gomiland/contants.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/bloc/game_state.dart';
-import 'package:provider/provider.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 
 class MuteButton extends StatelessWidget {
   const MuteButton({super.key});
 
-  void _playBgm(BuildContext context) {
-    SceneName sceneName =
-        Provider.of<GameState>(context, listen: false).sceneName;
+  void _playBgm(BuildContext context, SceneName sceneName) {
     switch (sceneName) {
-      case SceneName.MENU:
+      case SceneName.menu:
         Sounds.playMainMenuBgm();
-      case SceneName.HOOD:
+      case SceneName.hood:
         Sounds.playHoodBgm();
         break;
-      case SceneName.PARK:
+      case SceneName.park:
         Sounds.playParkBgm();
         break;
-      case SceneName.ROOM:
+      case SceneName.room:
         Sounds.playMainMenuBgm();
         break;
       default:
@@ -30,19 +27,20 @@ class MuteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMuted = Provider.of<Prefs>(context, listen: true).isMuted;
-    return IconButton(
-      onPressed: () {
-        if (isMuted) {
-          _playBgm(context);
-        } else {
-          Sounds.stopBackgroundSound();
-        }
-        Provider.of<Prefs>(context, listen: false).setIsMuted(!isMuted);
-      },
-      icon: Icon(
-        isMuted ? Icons.volume_off : Icons.volume_down,
-        size: 60,
+    return BlocBuilder<GameStateBloc, GameState>(
+      builder: (context, state) => IconButton(
+        onPressed: () {
+          if (state.isMute) {
+            _playBgm(context, state.sceneName);
+          } else {
+            Sounds.stopBackgroundSound();
+          }
+          context.read<GameStateBloc>().add(const MuteChanged());
+        },
+        icon: Icon(
+          state.isMute ? Icons.volume_off : Icons.volume_down,
+          size: 60,
+        ),
       ),
     );
   }

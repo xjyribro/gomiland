@@ -3,41 +3,25 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+enum SceneName { menu, hood, park, room }
+
 class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
   GameStateBloc() : super(const GameState.empty()) {
-    on<ScoreEventAdded>(
+    on<SceneChanged>(
+          (event, emit) => emit(
+        state.copyWith(sceneName: event.sceneName),
+      ),
+    );
+
+    on<ScoreAdded>(
           (event, emit) => emit(
         state.copyWith(score: state.score + event.score),
       ),
     );
 
-    on<PlayerRespawned>(
+    on<MuteChanged>(
           (event, emit) => emit(
-        state.copyWith(status: GameStatus.respawned),
-      ),
-    );
-
-    on<PlayerDied>((event, emit) {
-      if (state.lives > 1) {
-        emit(
-          state.copyWith(
-            lives: state.lives - 1,
-            status: GameStatus.respawn,
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            lives: 0,
-            status: GameStatus.gameOver,
-          ),
-        );
-      }
-    });
-
-    on<GameReset>(
-          (event, emit) => emit(
-        const GameState.empty(),
+        state.copyWith(isMute: !state.isMute),
       ),
     );
   }
@@ -47,8 +31,17 @@ abstract class GameStatesEvent extends Equatable {
   const GameStatesEvent();
 }
 
-class ScoreEventAdded extends GameStatesEvent {
-  const ScoreEventAdded(this.score);
+class SceneChanged extends GameStatesEvent {
+  const SceneChanged(this.sceneName);
+
+  final SceneName sceneName;
+
+  @override
+  List<Object?> get props => [sceneName];
+}
+
+class ScoreAdded extends GameStatesEvent {
+  const ScoreAdded(this.score);
 
   final int score;
 
@@ -56,64 +49,43 @@ class ScoreEventAdded extends GameStatesEvent {
   List<Object?> get props => [score];
 }
 
-class PlayerDied extends GameStatesEvent {
-  const PlayerDied();
+class MuteChanged extends GameStatesEvent {
+  const MuteChanged();
 
   @override
   List<Object?> get props => [];
-}
-
-class PlayerRespawned extends GameStatesEvent {
-  const PlayerRespawned();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class GameReset extends GameStatesEvent {
-  const GameReset();
-
-  @override
-  List<Object?> get props => [];
-}
-
-enum GameStatus {
-  initial,
-  respawn,
-  respawned,
-  gameOver,
 }
 
 class GameState extends Equatable {
   final int score;
-  final int lives;
-  final GameStatus status;
+  final bool isMute;
+  final SceneName sceneName;
 
   const GameState({
     required this.score,
-    required this.lives,
-    required this.status,
+    required this.isMute,
+    required this.sceneName,
   });
 
   const GameState.empty()
       : this(
     score: 0,
-    lives: 3,
-    status: GameStatus.initial,
+    isMute: false,
+    sceneName: SceneName.menu,
   );
 
   GameState copyWith({
     int? score,
-    int? lives,
-    GameStatus? status,
+    bool? isMute,
+    SceneName? sceneName,
   }) {
     return GameState(
       score: score ?? this.score,
-      lives: lives ?? this.lives,
-      status: status ?? this.status,
+      isMute: isMute ?? this.isMute,
+      sceneName: sceneName ?? this.sceneName,
     );
   }
 
   @override
-  List<Object?> get props => [score, lives, status];
+  List<Object?> get props => [score, isMute, sceneName];
 }

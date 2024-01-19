@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:gomiland/bloc/game_state.dart';
 import 'package:gomiland/contants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
@@ -48,7 +49,7 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
           Gate(
             position: Vector2(object.x, object.y),
             size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(SceneName.PARK),
+            switchScene: () => _setNewSceneName(SceneName.park),
           ),
         );
       }
@@ -69,7 +70,7 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
           Gate(
             position: Vector2(object.x, object.y),
             size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(SceneName.HOOD),
+            switchScene: () => _setNewSceneName(SceneName.hood),
           ),
         );
       }
@@ -107,15 +108,15 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
 
   Future<void> _switchScene(SceneName sceneName) async {
     switch (sceneName) {
-      case SceneName.HOOD:
+      case SceneName.hood:
         _removeSceneComponents();
         await _loadHoodScene();
         break;
-      case SceneName.PARK:
+      case SceneName.park:
         _removeSceneComponents();
         await _loadParkScene();
         break;
-      case SceneName.ROOM:
+      case SceneName.room:
         break;
       default:
         return;

@@ -1,6 +1,7 @@
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/bloc/game_state.dart';
 import 'package:gomiland/screens/menu.dart';
 import 'package:provider/provider.dart';
@@ -11,12 +12,14 @@ void main() async {
     await Flame.device.setLandscape();
     await Flame.device.fullScreen();
   }
-  runApp(MultiProvider(
-    providers: [
-      BlocProvider<GameStateBloc>(create: (_) => GameStateBloc()),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        BlocProvider<GameStateBloc>(create: (_) => GameStateBloc()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,9 +31,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(
-          fontFamily: 'minecraft',
-          fontSizeFactor: 2,
-        ),
+              fontFamily: 'minecraft',
+              fontSizeFactor: 2,
+            ),
       ),
       debugShowCheckedModeBanner: false,
       home: const Menu(),
