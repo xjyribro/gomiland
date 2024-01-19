@@ -2,7 +2,7 @@ import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/bloc/game_state.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/uiInterface/mute_button.dart';

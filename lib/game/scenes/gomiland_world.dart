@@ -2,8 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:gomiland/bloc/game_state.dart';
-import 'package:gomiland/contants.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
@@ -127,6 +127,7 @@ class GomilandWorld extends World with HasGameRef<GomilandGame> {
   Future<void> onLoad() async {
     await _loadHoodScene();
     gameRef.overlays.add('MuteButton');
+    gameRef.overlays.add('DialogueBox');
   }
 
   @override

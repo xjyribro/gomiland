@@ -5,8 +5,9 @@ import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/bloc/game_state.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gomiland_world.dart';
+import 'package:gomiland/game/uiInterface/dialogue_box.dart';
 import 'package:gomiland/game/uiInterface/mute_button.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
@@ -20,6 +21,9 @@ class GameWidgetWrapper extends StatelessWidget {
         'MuteButton': (BuildContext context, GomilandGame game) {
           return const MuteButton();
         },
+        'DialogueBox': (BuildContext context, GomilandGame game) {
+          return const DialogueBox(text: 'abduabfbwiubiwreg');
+        },
       },
     );
   }
@@ -32,6 +36,7 @@ class GomilandGame extends FlameGame
     images.prefix = '';
   }
 
+  @override
   World world;
   GameStateBloc gameStateBloc;
   late final CameraComponent cameraComponent;
@@ -50,7 +55,5 @@ class GomilandGame extends FlameGame
     );
 
     debugMode = true;
-
-    // addAll([cameraComponent, world]);
   }
 }

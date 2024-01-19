@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/contants.dart';
+import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/game.dart';
 
 class Player extends SpriteAnimationComponent

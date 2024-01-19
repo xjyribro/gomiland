@@ -2,7 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gomiland/bloc/game_state.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/screens/menu.dart';
 import 'package:provider/provider.dart';
 

@@ -3,10 +3,10 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
-class ParkScene extends TiledComponent {
+class HoodMap extends TiledComponent {
   late Function setNewSceneName;
 
-  ParkScene({required RenderableTiledMap tiledMap, required setNewSceneName})
+  HoodMap({required RenderableTiledMap tiledMap, required setNewSceneName})
       : super(tiledMap) {
     setNewSceneName = setNewSceneName;
   }
