@@ -60,6 +60,8 @@ class GameState extends Equatable {
   final int score;
   final bool isMute;
   final SceneName sceneName;
+  // time
+  // bag items
 
   const GameState({
     required this.score,

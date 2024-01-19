@@ -5,9 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/npcs/monk.dart';
 
 class Player extends SpriteAnimationComponent
-    with KeyboardHandler, HasGameReference<GomilandGame> {
+    with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {
   Player({required Vector2 position})
       : super(
           position: position,
@@ -44,13 +45,20 @@ class Player extends SpriteAnimationComponent
     );
 
     moveUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 1);
-    moveDown = spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 1);
-    moveLeft = spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 1);
-    moveRight = spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 1);
-    idleUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 0, to: 1);
+    moveDown =
+        spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 1);
+    moveLeft =
+        spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 1);
+    moveRight =
+        spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 1);
+    idleUp = spriteSheet.createAnimation(
+        row: 1, stepTime: _stepTime, from: 0, to: 1);
+    idleDown = spriteSheet.createAnimation(
+        row: 0, stepTime: _stepTime, from: 0, to: 1);
+    idleLeft = spriteSheet.createAnimation(
+        row: 3, stepTime: _stepTime, from: 0, to: 1);
+    idleRight = spriteSheet.createAnimation(
+        row: 2, stepTime: _stepTime, from: 0, to: 1);
 
     player = SpriteAnimationComponent(
       animation: moveDown,
@@ -74,9 +82,28 @@ class Player extends SpriteAnimationComponent
   }
 
   @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    if (other is Monk) {
+      if (intersectionPoints.length == 2) {
+        final mid = (intersectionPoints.elementAt(0) +
+                intersectionPoints.elementAt(1)) /
+            2;
+        final collisionNormal = absoluteCenter - mid;
+        final separationDistance = (size.x / 2) - collisionNormal.length;
+        collisionNormal.normalize();
+
+        position += collisionNormal.scaled(separationDistance);
+      }
+    }
+//
+  }
+
+  @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (event is RawKeyDownEvent) {
-      bool isMoving = _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
+      bool isMoving =
+          _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
       if (isMoving) return false;
       if (event.logicalKey == LogicalKeyboardKey.keyW) {
         _movement = Vector2(_movement.x, -1);
@@ -105,17 +132,17 @@ class Player extends SpriteAnimationComponent
         animation = idleUp;
         _isMovingUp = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyS&& _isMovingDown) {
+      if (event.logicalKey == LogicalKeyboardKey.keyS && _isMovingDown) {
         _movement.y = 0;
         animation = idleDown;
         _isMovingDown = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyA&& _isMovingLeft) {
+      if (event.logicalKey == LogicalKeyboardKey.keyA && _isMovingLeft) {
         _movement.x = 0;
         animation = idleLeft;
         _isMovingLeft = false;
       }
-      if (event.logicalKey == LogicalKeyboardKey.keyD&& _isMovingRight) {
+      if (event.logicalKey == LogicalKeyboardKey.keyD && _isMovingRight) {
         _movement.x = 0;
         animation = idleRight;
         _isMovingRight = false;

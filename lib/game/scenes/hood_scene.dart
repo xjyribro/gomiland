@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/constants.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
 class HoodMap extends Component {
@@ -19,10 +20,10 @@ class HoodMap extends Component {
     );
     await add(map);
 
-    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
+    final interactionsLayer = map.tileMap.getLayer<ObjectGroup>('gates');
 
-    if (objectLayer != null) {
-      for (final TiledObject object in objectLayer.objects) {
+    if (interactionsLayer != null) {
+      for (final TiledObject object in interactionsLayer.objects) {
         await add(
           Gate(
             position: Vector2(object.x, object.y),
@@ -32,6 +33,20 @@ class HoodMap extends Component {
             },
           ),
         );
+      }
+    }
+
+    final npcLayer = map.tileMap.getLayer<ObjectGroup>('npc');
+
+    if (npcLayer != null) {
+      for (final TiledObject npc in npcLayer.objects) {
+        if (npc.name == 'boy') {
+          await add(
+            Monk(position: Vector2(npc.x, npc.y),
+            ),
+          );
+
+        }
       }
     }
   }
