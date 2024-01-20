@@ -6,6 +6,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
+import 'package:gomiland/game/uiInterface/dialogue_box.dart';
 
 class GomilandWorld extends World
     with HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
@@ -89,7 +90,6 @@ class GomilandWorld extends World
     parkMap = ParkMap(setNewSceneName: _setNewSceneName);
     await _loadHoodScene();
     gameRef.overlays.add('MuteButton');
-    gameRef.overlays.add('DialogueBox');
   }
 
   @override

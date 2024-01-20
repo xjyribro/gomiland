@@ -2,6 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/screens/menu.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ void main() async {
     MultiProvider(
       providers: [
         BlocProvider<GameStateBloc>(create: (_) => GameStateBloc()),
+        BlocProvider<DialogueBloc>(create: (_) => DialogueBloc()),
       ],
       child: const MyApp(),
     ),

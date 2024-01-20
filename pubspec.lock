@@ -440,6 +440,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  jenny:
+    dependency: "direct main"
+    description:
+      name: jenny
+      sha256: "6b1c51c41aa31e32b6966702f72d98e7b7346f268f5b72d2ae54b103fc5fc8e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   js:
     dependency: transitive
     description:

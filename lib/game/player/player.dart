@@ -4,6 +4,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants.dart';
+import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 
@@ -124,6 +125,20 @@ class Player extends SpriteAnimationComponent
         _movement = Vector2(1, _movement.y);
         animation = moveRight;
         _isMovingRight = true;
+      }
+
+      if (event.logicalKey == LogicalKeyboardKey.keyR) {
+        game.overlays.add('DialogueBox');
+        game.dialogueRunner.startDialogue('example');
+      }
+      if (event.logicalKey == LogicalKeyboardKey.keyT) {
+        game.overlays.remove('DialogueBox');
+      }
+      if (event.logicalKey == LogicalKeyboardKey.keyY) {
+        game.dialogueBloc.add(const ChangeText('qwe'));
+      }
+      if (event.logicalKey == LogicalKeyboardKey.keyU) {
+        game.dialogueBloc.add(const ChangeText('rty'));
       }
       return false;
     } else if (event is RawKeyUpEvent) {
