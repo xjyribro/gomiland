@@ -6,6 +6,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
+import 'package:gomiland/game/scenes/room/room_scene.dart';
 import 'package:gomiland/game/uiInterface/dialogue_box.dart';
 
 class GomilandWorld extends World
@@ -18,6 +19,7 @@ class GomilandWorld extends World
 
   late HoodMap hoodMap;
   late ParkMap parkMap;
+  late RoomMap roomMap;
 
   void _setNewSceneName(SceneName newSceneName) {
     _newSceneName = newSceneName;
@@ -34,6 +36,7 @@ class GomilandWorld extends World
         remove(parkMap);
         break;
       case SceneName.room:
+        remove(roomMap);
         break;
       default:
         return;
@@ -52,6 +55,10 @@ class GomilandWorld extends World
 
   Future<void> _loadParkMap() async {
     await add(parkMap);
+  }
+
+  Future<void> _loadRoomMap() async {
+    await add(roomMap);
   }
 
   Future<void> _loadHoodScene() async {
@@ -88,7 +95,8 @@ class GomilandWorld extends World
     super.onLoad();
     hoodMap = HoodMap(setNewSceneName: _setNewSceneName);
     parkMap = ParkMap(setNewSceneName: _setNewSceneName);
-    await _loadHoodScene();
+    roomMap = RoomMap(setNewSceneName: _setNewSceneName);
+    await _loadRoomMap();
     gameRef.overlays.add('MuteButton');
   }
 

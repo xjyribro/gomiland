@@ -45,15 +45,16 @@ class GomilandGame extends FlameGame
     images.prefix = '';
   }
 
-  YarnProject yarnProject = YarnProject();
-  late DialogueRunner dialogueRunner;
-  DialogueControllerComponent dialogueControllerComponent = DialogueControllerComponent();
-
   @override
   World world;
   GameStateBloc gameStateBloc;
   DialogueBloc dialogueBloc;
   late final CameraComponent cameraComponent;
+
+  YarnProject yarnProject = YarnProject();
+  late DialogueRunner dialogueRunner;
+  DialogueControllerComponent dialogueControllerComponent =
+      DialogueControllerComponent();
 
   @override
   Future<void> onLoad() async {
@@ -83,8 +84,10 @@ class GomilandGame extends FlameGame
     ]);
 
     // DIALOGUE
-    yarnProject..parse(await rootBundle.loadString('assets/yarn/example.yarn'))..parse(await rootBundle.loadString('assets/yarn/example.yarn'));
-    dialogueRunner = DialogueRunner(yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
+    yarnProject
+      ..parse(await rootBundle.loadString('assets/yarn/example.yarn'));
+    dialogueRunner = DialogueRunner(
+        yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     add(dialogueControllerComponent);
   }
 }
