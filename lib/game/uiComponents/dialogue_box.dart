@@ -12,7 +12,6 @@ import 'package:jenny/jenny.dart';
 
 class DialogueControllerComponent extends Component
     with DialogueView, HasGameReference<GomilandGame> {
-  late SpriteButtonComponent buttonComponent;
   late GomilandGame ref;
 
   Completer<void> _forwardCompleter = Completer();
@@ -26,16 +25,17 @@ class DialogueControllerComponent extends Component
 
   @override
   Future<void> onLoad() async {
-    ButtonComponent forwardButtonComponent = ButtonComponent(
-        button: PositionComponent(),
-        size: game.size,
-        onPressed: () {
-          if (!_forwardCompleter.isCompleted) {
-            _forwardCompleter.complete();
-          }
-        });
-
     ref = game;
+
+    ButtonComponent forwardButtonComponent = ButtonComponent(
+      button: PositionComponent(position: Vector2.zero()),
+      size: game.size,
+      onPressed: () {
+        if (!_forwardCompleter.isCompleted) {
+          _forwardCompleter.complete();
+        }
+      },
+    );
     addAll([
       forwardButtonComponent,
     ]);

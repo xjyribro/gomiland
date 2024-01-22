@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="3">
  <tileset firstgid="1" source="room_tiles.tsx"/>
  <tileset firstgid="36" source="room_door.tsx"/>
  <tileset firstgid="72" source="table.tsx"/>
@@ -44,6 +44,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="4" name="gates">
+  <object id="1" name="door" x="512" y="0" width="224" height="128"/>
+ </objectgroup>
  <layer id="3" name="objects" width="25" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

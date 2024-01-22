@@ -4,9 +4,9 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants.dart';
-import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {
@@ -128,17 +128,13 @@ class Player extends SpriteAnimationComponent
       }
 
       if (event.logicalKey == LogicalKeyboardKey.keyR) {
+        add(game.dialogueControllerComponent);
         game.overlays.add('DialogueBox');
         game.dialogueRunner.startDialogue('example');
       }
       if (event.logicalKey == LogicalKeyboardKey.keyT) {
+        remove(game.dialogueControllerComponent);
         game.overlays.remove('DialogueBox');
-      }
-      if (event.logicalKey == LogicalKeyboardKey.keyY) {
-        game.dialogueBloc.add(const ChangeText('qwe'));
-      }
-      if (event.logicalKey == LogicalKeyboardKey.keyU) {
-        game.dialogueBloc.add(const ChangeText('rty'));
       }
       return false;
     } else if (event is RawKeyUpEvent) {

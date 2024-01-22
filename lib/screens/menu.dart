@@ -5,7 +5,7 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/uiInterface/mute_button.dart';
+import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/instructions.dart';
 import 'package:gomiland/screens/settings.dart';

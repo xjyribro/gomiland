@@ -9,8 +9,8 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gomiland_world.dart';
-import 'package:gomiland/game/uiInterface/dialogue_box.dart';
-import 'package:gomiland/game/uiInterface/mute_button.dart';
+import 'package:gomiland/game/uiComponents/dialogue_box.dart';
+import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:jenny/jenny.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
@@ -84,10 +84,8 @@ class GomilandGame extends FlameGame
     ]);
 
     // DIALOGUE
-    yarnProject
-      ..parse(await rootBundle.loadString('assets/yarn/example.yarn'));
+    yarnProject.parse(await rootBundle.loadString('assets/yarn/example.yarn'));
     dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    add(dialogueControllerComponent);
   }
 }

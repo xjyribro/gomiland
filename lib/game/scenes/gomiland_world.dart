@@ -1,16 +1,16 @@
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
-import 'package:gomiland/game/uiInterface/dialogue_box.dart';
 
 class GomilandWorld extends World
-    with HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
+    with KeyboardHandler, HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
 
   final unwalkableComponentEdges = <Line>[];
@@ -106,5 +106,22 @@ class GomilandWorld extends World
       _switchScene(_newSceneName!);
       _newSceneName = null;
     }
+  }
+
+  @override
+  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (event is RawKeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.keyR) {
+        add(game.dialogueControllerComponent);
+        game.overlays.add('DialogueBox');
+        game.dialogueRunner.startDialogue('example');
+      }
+      if (event.logicalKey == LogicalKeyboardKey.keyT) {
+        remove(game.dialogueControllerComponent);
+        game.overlays.remove('DialogueBox');
+      }
+      return false;
+    }
+    return true;
   }
 }
