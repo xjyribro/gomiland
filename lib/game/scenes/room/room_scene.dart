@@ -19,7 +19,9 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       'room.tmx',
       Vector2.all(tileSize),
     );
-    game.cameraComponent.moveTo(Vector2(map.width / 2, map.height / 2));
+
+    final _centerOfScene = Vector2(map.width / 2, map.height / 2);
+    game.cameraComponent.moveTo(_centerOfScene);
 
     final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
 
@@ -38,7 +40,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
-    RubbishSpawner rubbishSpawner = RubbishSpawner();
+    RubbishSpawner rubbishSpawner = RubbishSpawner(centerOfScene: _centerOfScene);
     await addAll([map, rubbishSpawner]);
   }
 }
