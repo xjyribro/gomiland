@@ -25,6 +25,7 @@ class DialogueControllerComponent extends Component
 
   @override
   Future<void> onLoad() async {
+
     ref = game;
 
     ButtonComponent forwardButtonComponent = ButtonComponent(

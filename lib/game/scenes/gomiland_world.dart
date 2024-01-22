@@ -26,14 +26,13 @@ class GomilandWorld extends World
   }
 
   void _removeComponents() {
-    remove(player);
     SceneName sceneName = bloc.state.sceneName;
     switch (sceneName) {
       case SceneName.hood:
-        remove(hoodMap);
+        removeAll([hoodMap, player]);
         break;
       case SceneName.park:
-        remove(parkMap);
+        removeAll([parkMap, player]);
         break;
       case SceneName.room:
         remove(roomMap);
@@ -50,14 +49,17 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadHoodMap() async {
+    game.gameStateBloc.add(const SceneChanged(SceneName.hood));
     await add(hoodMap);
   }
 
   Future<void> _loadParkMap() async {
+    game.gameStateBloc.add(const SceneChanged(SceneName.park));
     await add(parkMap);
   }
 
   Future<void> _loadRoomMap() async {
+    game.gameStateBloc.add(const SceneChanged(SceneName.room));
     await add(roomMap);
   }
 
@@ -83,6 +85,7 @@ class GomilandWorld extends World
         await _loadParkScene();
         break;
       case SceneName.room:
+        await _loadRoomMap();
         break;
       default:
         return;
