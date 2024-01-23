@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/constants/values.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
 import 'package:gomiland/game/scenes/room/rubbish_spawner.dart';

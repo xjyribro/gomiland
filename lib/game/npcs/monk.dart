@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/values.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/utils/directions.dart';
 

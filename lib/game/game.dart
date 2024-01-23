@@ -13,6 +13,8 @@ import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:jenny/jenny.dart';
 
+import 'uiComponents/hud.dart';
+
 class GameWidgetWrapper extends StatelessWidget {
   const GameWidgetWrapper({super.key});
 
@@ -24,6 +26,9 @@ class GameWidgetWrapper extends StatelessWidget {
         dialogueBloc: context.read<DialogueBloc>(),
       ),
       overlayBuilderMap: {
+        'GameMenu': (BuildContext context, GomilandGame game) {
+          return const MuteButton();
+        },
         'MuteButton': (BuildContext context, GomilandGame game) {
           return const MuteButton();
         },
@@ -60,6 +65,9 @@ class GomilandGame extends FlameGame
   Future<void> onLoad() async {
     debugMode = true;
 
+    // UI
+    camera.viewport.add(Hud());
+
     // BLOC
     await add(
       FlameMultiBlocProvider(
@@ -89,6 +97,5 @@ class GomilandGame extends FlameGame
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
 
     gameStateBloc.add(const BagCountChange(2));
-
   }
 }

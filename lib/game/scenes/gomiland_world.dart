@@ -10,6 +10,7 @@ import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
 
+// scene manager
 class GomilandWorld extends World
     with KeyboardHandler, HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
@@ -100,7 +101,7 @@ class GomilandWorld extends World
     hoodMap = HoodMap(setNewSceneName: _setNewSceneName);
     parkMap = ParkMap(setNewSceneName: _setNewSceneName);
     roomMap = RoomMap(setNewSceneName: _setNewSceneName);
-    await _loadRoomMap();
+    await _loadHoodScene();
     gameRef.overlays.add('MuteButton');
   }
 

@@ -6,6 +6,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:jenny/jenny.dart';
@@ -58,7 +59,7 @@ class DialogueBox extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return DefaultTextStyle(
       style: const TextStyle(
-        fontFamily: 'minecraft',
+        fontFamily: Strings.minecraft,
         fontSize: 32,
       ),
       child: Stack(
