@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:gomiland/constants.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/constants/values.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
 class ParkMap extends Component {

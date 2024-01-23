@@ -1,9 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:gomiland/constants.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/constants/values.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/scenes/room/bin.dart';
 import 'package:gomiland/game/scenes/room/rubbish_spawner.dart';
 
 class RoomMap extends Component with HasGameReference<GomilandGame> {
@@ -20,13 +21,13 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       Vector2.all(tileSize),
     );
 
-    final _centerOfScene = Vector2(map.width / 2, map.height / 2);
-    game.cameraComponent.moveTo(_centerOfScene);
+    final Vector2 centerOfScene = Vector2(map.width / 2, map.height / 2);
+    game.cameraComponent.moveTo(centerOfScene);
 
-    final objectLayer = map.tileMap.getLayer<ObjectGroup>('gates');
+    final gatesLayer = map.tileMap.getLayer<ObjectGroup>('gates');
 
-    if (objectLayer != null) {
-      for (final TiledObject object in objectLayer.objects) {
+    if (gatesLayer != null) {
+      for (final TiledObject object in gatesLayer.objects) {
         ButtonComponent exitDoor = ButtonComponent(
           position: Vector2(object.x, object.y),
           button: PositionComponent(),
@@ -40,7 +41,22 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
-    RubbishSpawner rubbishSpawner = RubbishSpawner(centerOfScene: _centerOfScene);
+    final binsLayer = map.tileMap.getLayer<ObjectGroup>('bins');
+
+    if (binsLayer != null) {
+      for (final TiledObject object in binsLayer.objects) {
+        RubbishType binType = object.name.rubbishType;
+        Bin bin = Bin(
+          openingPosition: Vector2(object.x, object.y),
+          openingSize: Vector2(object.width, object.height),
+          binType: binType,
+        );
+        add(bin);
+      }
+    }
+
+    RubbishSpawner rubbishSpawner =
+        RubbishSpawner(centerOfScene: centerOfScene);
     await addAll([map, rubbishSpawner]);
   }
 }

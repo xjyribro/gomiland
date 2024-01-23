@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="3">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="14">
  <tileset firstgid="1" source="room_tiles.tsx"/>
  <tileset firstgid="36" source="room_door.tsx"/>
  <tileset firstgid="72" source="table.tsx"/>
@@ -44,9 +44,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="4" name="gates">
-  <object id="1" name="door" x="512" y="0" width="224" height="128"/>
- </objectgroup>
  <layer id="3" name="objects" width="25" height="16">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -67,4 +64,15 @@
 0,0,0,0,635,636,0,0,0,0,0,0,0,0,0,0,0,0,0,538,539,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="4" name="gates">
+  <object id="1" name="door" x="512" y="0" width="224" height="128"/>
+ </objectgroup>
+ <objectgroup id="5" name="bins">
+  <object id="3" name="metal" x="128" y="128" width="64" height="64"/>
+  <object id="4" name="paper" x="128" y="256" width="64" height="64"/>
+  <object id="10" name="food" x="128" y="384" width="64" height="64"/>
+  <object id="11" name="electronic" x="608" y="128" width="64" height="64"/>
+  <object id="12" name="glass" x="608" y="256" width="64" height="64"/>
+  <object id="13" name="plastic" x="608" y="384" width="64" height="64"/>
+ </objectgroup>
 </map>

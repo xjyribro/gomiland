@@ -3,10 +3,9 @@ import 'package:flame/components.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants.dart';
+import 'package:gomiland/constants/values.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
-import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {

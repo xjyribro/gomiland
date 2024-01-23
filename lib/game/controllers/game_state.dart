@@ -2,8 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-enum SceneName { menu, hood, park, room }
+import 'package:gomiland/constants/enums.dart';
 
 class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
   GameStateBloc() : super(const GameState.empty()) {
@@ -13,7 +12,7 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
       ),
     );
 
-    on<ScoreAdded>(
+    on<ScoreChanged>(
           (event, emit) => emit(
         state.copyWith(score: state.score + event.score),
       ),
@@ -22,6 +21,12 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
     on<MuteChanged>(
           (event, emit) => emit(
         state.copyWith(isMute: !state.isMute),
+      ),
+    );
+
+    on<BagCountChange>(
+          (event, emit) => emit(
+        state.copyWith(bagCount: state.bagCount + event.bagCount),
       ),
     );
   }
@@ -40,8 +45,8 @@ class SceneChanged extends GameStatesEvent {
   List<Object?> get props => [sceneName];
 }
 
-class ScoreAdded extends GameStatesEvent {
-  const ScoreAdded(this.score);
+class ScoreChanged extends GameStatesEvent {
+  const ScoreChanged(this.score);
 
   final int score;
 
@@ -56,17 +61,27 @@ class MuteChanged extends GameStatesEvent {
   List<Object?> get props => [];
 }
 
+class BagCountChange extends GameStatesEvent {
+  const BagCountChange(this. bagCount);
+
+  final int bagCount;
+
+  @override
+  List<Object?> get props => [bagCount];
+}
+
 class GameState extends Equatable {
   final int score;
   final bool isMute;
   final SceneName sceneName;
+  final int bagCount;
   // time
-  // bag items
 
   const GameState({
     required this.score,
     required this.isMute,
     required this.sceneName,
+    required this.bagCount,
   });
 
   const GameState.empty()
@@ -74,20 +89,23 @@ class GameState extends Equatable {
     score: 0,
     isMute: false,
     sceneName: SceneName.menu,
+    bagCount: 0,
   );
 
   GameState copyWith({
     int? score,
     bool? isMute,
     SceneName? sceneName,
+    int? bagCount,
   }) {
     return GameState(
       score: score ?? this.score,
       isMute: isMute ?? this.isMute,
       sceneName: sceneName ?? this.sceneName,
+      bagCount: bagCount ?? this.bagCount,
     );
   }
 
   @override
-  List<Object?> get props => [score, isMute, sceneName];
+  List<Object?> get props => [score, isMute, sceneName, bagCount];
 }
