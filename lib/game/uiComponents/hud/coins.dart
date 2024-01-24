@@ -5,8 +5,9 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/utils/load_images.dart';
 
-class Hud extends PositionComponent with HasGameReference<GomilandGame> {
-  Hud({super.priority = 3});
+class CoinsComponent extends PositionComponent
+    with HasGameReference<GomilandGame> {
+  CoinsComponent({required Vector2 position}) : super(position: position);
 
   late TextComponent _bagCountTextComponent;
 
@@ -16,12 +17,12 @@ class Hud extends PositionComponent with HasGameReference<GomilandGame> {
       text: '${game.gameStateBloc.state.bagCount}',
       textRenderer: TextPaint(
         style: const TextStyle(
-          fontSize: 32,
+          fontSize: 20,
           fontFamily: Strings.minecraft,
         ),
       ),
-      anchor: Anchor.center,
-      position: Vector2(game.size.x - 60, 20),
+      position: Vector2(32, 0),
+      anchor: Anchor.centerLeft,
     );
     add(_bagCountTextComponent);
 
@@ -31,12 +32,13 @@ class Hud extends PositionComponent with HasGameReference<GomilandGame> {
     );
 
     final coinAnimation =
-        spriteSheet.createAnimation(row: 0, stepTime: 0.2, to: 6);
+    spriteSheet.createAnimation(row: 0, stepTime: 0.2, to: 6);
 
     final animatedCoin = SpriteAnimationComponent(
       animation: coinAnimation,
-      position: Vector2(150, 100),
+      position: Vector2(0, 0),
       size: Vector2(32, 32),
+      anchor: Anchor.center,
     );
 
     add(animatedCoin);
@@ -44,6 +46,6 @@ class Hud extends PositionComponent with HasGameReference<GomilandGame> {
 
   @override
   void update(double dt) {
-    _bagCountTextComponent.text = 'hhhhhh';
+    _bagCountTextComponent.text = 'Coins';
   }
 }

@@ -9,13 +9,17 @@ import 'package:gomiland/game/npcs/monk.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {
-  Player({required Vector2 position})
+  Player({required Vector2 position, JoystickComponent? joystickComponent})
       : super(
           position: position,
           size: Vector2.all(32),
           anchor: Anchor.center,
           priority: 1,
-        );
+        ) {
+    _joystick = joystickComponent;
+  }
+
+  late JoystickComponent? _joystick;
 
   late SpriteAnimationComponent player;
   late SpriteAnimation moveUp;
@@ -41,7 +45,7 @@ class Player extends SpriteAnimationComponent
       image: game.images.fromCache(
         Assets.assets_images_player_player_png,
       ),
-      srcSize: Vector2.all(tileSize),
+      srcSize: Vector2.all(32),
     );
 
     moveUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 1);
@@ -73,12 +77,76 @@ class Player extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
+
+    if (_joystick != null) {
+      if (_joystick!.direction == JoystickDirection.idle) {
+        _onJoystickStop();
+      } else {
+        _moveWithJoystick(_joystick!.direction);
+      }
+    }
     // Save this to use after we zero out movement for unwalkable terrain.
     final originalPosition = position.clone();
     final movementThisFrame = _movement * _speed * dt;
     // Fake update the position so our anchor calculations take into account
     // what movement we want to do this turn.
     position.add(movementThisFrame);
+  }
+
+  void _onJoystickStop() {
+    _movement = Vector2.zero();
+    if (_isMovingUp) {
+      animation = idleUp;
+      _isMovingUp = false;
+    } else if (_isMovingDown) {
+      animation = idleDown;
+      _isMovingDown = false;
+    } else if (_isMovingLeft) {
+      animation = idleLeft;
+      _isMovingLeft = false;
+    } else if (_isMovingRight) {
+      animation = idleRight;
+      _isMovingRight = false;
+    }
+  }
+
+  void _moveWithJoystick(JoystickDirection direction) {
+    switch (direction) {
+      case JoystickDirection.up:
+        _movement = Vector2(_movement.x, -1);
+        animation = moveUp;
+        _isMovingUp = true;
+        _isMovingDown = false;
+        _isMovingLeft = false;
+        _isMovingRight = false;
+        break;
+      case JoystickDirection.down:
+        _movement = Vector2(_movement.x, 1);
+        animation = moveDown;
+        _isMovingUp = false;
+        _isMovingDown = true;
+        _isMovingLeft = false;
+        _isMovingRight = false;
+        break;
+      case JoystickDirection.left:
+        _movement = Vector2(-1, _movement.y);
+        animation = moveLeft;
+        _isMovingUp = false;
+        _isMovingDown = false;
+        _isMovingLeft = true;
+        _isMovingRight = false;
+        break;
+      case JoystickDirection.right:
+        _movement = Vector2(1, _movement.y);
+        animation = moveRight;
+        _isMovingUp = false;
+        _isMovingDown = false;
+        _isMovingLeft = false;
+        _isMovingRight = true;
+        break;
+      default:
+        return;
+    }
   }
 
   @override
@@ -96,7 +164,6 @@ class Player extends SpriteAnimationComponent
         position += collisionNormal.scaled(separationDistance);
       }
     }
-//
   }
 
   @override

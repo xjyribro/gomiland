@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -16,7 +16,7 @@ class HoodMap extends Component {
   Future<void> onLoad() async {
     final TiledComponent map = await TiledComponent.load(
       'hood.tmx',
-      Vector2.all(tileSize),
+      Vector2.all(32),
     );
     await add(map);
 
@@ -42,10 +42,31 @@ class HoodMap extends Component {
       for (final TiledObject npc in npcLayer.objects) {
         if (npc.name == 'boy') {
           await add(
-            Monk(position: Vector2(npc.x, npc.y),
+            Monk(
+              position: Vector2(npc.x, npc.y),
             ),
           );
+        }
+      }
+    }
 
+    final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
+
+    if (buildings != null) {
+      for (final TiledObject building in buildings.objects) {
+        switch (building.name) {
+          case 'home':
+            await add(
+              SpriteComponent(
+                sprite:
+                    await Sprite.load(Assets.assets_images_buildings_home_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+            break;
+          default:
+            break;
         }
       }
     }

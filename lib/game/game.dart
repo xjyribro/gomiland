@@ -10,10 +10,11 @@ import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gomiland_world.dart';
 import 'package:gomiland/game/uiComponents/dialogue_box.dart';
+import 'package:gomiland/game/uiComponents/game_menu.dart';
 import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:jenny/jenny.dart';
 
-import 'uiComponents/hud.dart';
+import 'uiComponents/hud/hud.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
   const GameWidgetWrapper({super.key});
@@ -27,10 +28,17 @@ class GameWidgetWrapper extends StatelessWidget {
       ),
       overlayBuilderMap: {
         'GameMenu': (BuildContext context, GomilandGame game) {
-          return const MuteButton();
+          return GameMenu(
+            game: game,
+          );
         },
         'MuteButton': (BuildContext context, GomilandGame game) {
           return const MuteButton();
+        },
+        'MobileKeypad': (BuildContext context, GomilandGame game) {
+          return GameMenu(
+            game: game,
+          );
         },
         'DialogueBox': (BuildContext context, GomilandGame game) {
           return const DialogueBox();
@@ -46,7 +54,11 @@ class GomilandGame extends FlameGame
     required this.gameStateBloc,
     required this.dialogueBloc,
   }) : world = GomilandWorld() {
-    cameraComponent = CameraComponent(world: world);
+    cameraComponent = CameraComponent.withFixedResolution(
+      world: world,
+      width: 800,
+      height: 400,
+    );
     images.prefix = '';
   }
 
@@ -60,14 +72,14 @@ class GomilandGame extends FlameGame
   late DialogueRunner dialogueRunner;
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
+  late final JoystickComponent joystick;
 
   @override
   Future<void> onLoad() async {
     debugMode = true;
 
     // UI
-    camera.viewport.add(Hud());
-
+    cameraComponent.viewport.add(Hud());
     // BLOC
     await add(
       FlameMultiBlocProvider(

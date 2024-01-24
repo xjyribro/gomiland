@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
+import 'package:flame/palette.dart';
 import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
@@ -12,7 +16,10 @@ import 'package:gomiland/game/scenes/room/room_scene.dart';
 
 // scene manager
 class GomilandWorld extends World
-    with KeyboardHandler, HasGameRef<GomilandGame>, FlameBlocReader<GameStateBloc, GameState> {
+    with
+        KeyboardHandler,
+        HasGameRef<GomilandGame>,
+        FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
 
   final unwalkableComponentEdges = <Line>[];
@@ -45,9 +52,20 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadPlayer(Vector2 position) async {
-    player = Player(position: position);
+    final knobPaint = BasicPalette.blue.withAlpha(200).paint();
+    final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
+    JoystickComponent joystick = JoystickComponent(
+      knob: CircleComponent(radius: 16, paint: knobPaint),
+      background: CircleComponent(radius: 32, paint: backgroundPaint),
+      margin: const EdgeInsets.only(left: 40, bottom: 40),
+    );
+    player = Player(
+      position: position,
+      joystickComponent: joystick,
+    );
     add(player);
     gameRef.cameraComponent.follow(player);
+    gameRef.cameraComponent.viewport.add(joystick);
   }
 
   Future<void> _loadHoodMap() async {
