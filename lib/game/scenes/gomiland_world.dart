@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/palette.dart';
@@ -13,6 +11,7 @@ import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
+import 'package:flutter/foundation.dart';
 
 // scene manager
 class GomilandWorld extends World
@@ -59,13 +58,16 @@ class GomilandWorld extends World
       background: CircleComponent(radius: 32, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
+
     player = Player(
       position: position,
-      joystickComponent: joystick,
+      joystickComponent: kIsWeb ? null : joystick,
     );
+    if (!kIsWeb) {
+      gameRef.cameraComponent.viewport.add(joystick);
+    }
     add(player);
     gameRef.cameraComponent.follow(player);
-    gameRef.cameraComponent.viewport.add(joystick);
   }
 
   Future<void> _loadHoodMap() async {

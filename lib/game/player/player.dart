@@ -113,7 +113,7 @@ class Player extends SpriteAnimationComponent
   void _moveWithJoystick(JoystickDirection direction) {
     switch (direction) {
       case JoystickDirection.up:
-        _movement = Vector2(_movement.x, -1);
+        _movement = Vector2(0, -1);
         animation = moveUp;
         _isMovingUp = true;
         _isMovingDown = false;
@@ -121,7 +121,7 @@ class Player extends SpriteAnimationComponent
         _isMovingRight = false;
         break;
       case JoystickDirection.down:
-        _movement = Vector2(_movement.x, 1);
+        _movement = Vector2(0, 1);
         animation = moveDown;
         _isMovingUp = false;
         _isMovingDown = true;
@@ -129,7 +129,7 @@ class Player extends SpriteAnimationComponent
         _isMovingRight = false;
         break;
       case JoystickDirection.left:
-        _movement = Vector2(-1, _movement.y);
+        _movement = Vector2(-1, 0);
         animation = moveLeft;
         _isMovingUp = false;
         _isMovingDown = false;
@@ -137,7 +137,7 @@ class Player extends SpriteAnimationComponent
         _isMovingRight = false;
         break;
       case JoystickDirection.right:
-        _movement = Vector2(1, _movement.y);
+        _movement = Vector2(1, 0);
         animation = moveRight;
         _isMovingUp = false;
         _isMovingDown = false;
@@ -173,22 +173,22 @@ class Player extends SpriteAnimationComponent
           _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
       if (isMoving) return false;
       if (event.logicalKey == LogicalKeyboardKey.keyW) {
-        _movement = Vector2(_movement.x, -1);
+        _movement = Vector2(0, -1);
         animation = moveUp;
         _isMovingUp = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyS) {
-        _movement = Vector2(_movement.x, 1);
+        _movement = Vector2(0, 1);
         animation = moveDown;
         _isMovingDown = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyA) {
-        _movement = Vector2(-1, _movement.y);
+        _movement = Vector2(-1, 0);
         animation = moveLeft;
         _isMovingLeft = true;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyD) {
-        _movement = Vector2(1, _movement.y);
+        _movement = Vector2(1, 0);
         animation = moveRight;
         _isMovingRight = true;
       }
