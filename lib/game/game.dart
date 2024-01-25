@@ -118,7 +118,5 @@ class GomilandGame extends FlameGame
     yarnProject.parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
     dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-
-    gameStateBloc.add(const BagCountChange(2));
   }
 }

@@ -6,7 +6,6 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
-import 'package:gomiland/game/player/raycaster.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {
@@ -73,9 +72,12 @@ class Player extends SpriteAnimationComponent
     );
 
     animation = idleDown;
-    _playerHitbox = RectangleHitbox(position: Vector2.zero(), size: size);
-    Raycaster playerRaycaster = Raycaster(ignoredHitbox: _playerHitbox);
-    addAll([_playerHitbox, playerRaycaster]);
+    _playerHitbox = RectangleHitbox(
+      position: Vector2(16, 16),
+      size: Vector2(size.x - 8, size.y),
+      anchor: Anchor.center,
+    );
+    add(_playerHitbox);
   }
 
   @override
@@ -206,6 +208,14 @@ class Player extends SpriteAnimationComponent
         remove(game.dialogueControllerComponent);
         game.overlays.remove('DialogueBox');
       }
+      // if (event.logicalKey == LogicalKeyboardKey.keyE) {
+      //   final ray = Ray2(
+      //     origin: Vector2(x, y),
+      //     direction: Vector2(1, 0),
+      //   );
+      //   final result = collisionDetection.raycast(ray, ignoreHitboxes: [_playerHitbox]);
+      //   print(result?.intersectionPoint);
+      // }
 
       return false;
     } else if (event is RawKeyUpEvent) {

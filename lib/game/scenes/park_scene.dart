@@ -25,15 +25,15 @@ class ParkMap extends Component {
 
     if (objectLayer != null) {
       for (final TiledObject object in objectLayer.objects) {
-        await add(
-          Gate(
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-            switchScene: () {
-              _setNewSceneName(SceneName.hood);
-            },
-          ),
-        );
+        // await add(
+        //   Gate(
+        //     position: Vector2(object.x, object.y),
+        //     size: Vector2(object.width, object.height),
+        //     switchScene: () {
+        //       _setNewSceneName(SceneName.hood);
+        //     },
+        //   ),
+        // );
       }
     }
   }

@@ -6,7 +6,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/utils/load_images.dart';
 
-class BagComponent extends HudMarginComponent{
+class BagComponent extends HudMarginComponent {
   BagComponent({
     required GomilandGame game,
     super.margin = const EdgeInsets.only(
@@ -23,7 +23,8 @@ class BagComponent extends HudMarginComponent{
   @override
   Future<void> onLoad() async {
     _bagCountTextComponent = TextComponent(
-      text: '${_game.gameStateBloc.state.bagCount}',
+      text:
+          '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}',
       textRenderer: TextPaint(
         style: const TextStyle(
           color: Colors.white70,
@@ -56,6 +57,7 @@ class BagComponent extends HudMarginComponent{
 
   @override
   void update(double dt) {
-    _bagCountTextComponent.text = 'Bag x/x';
+    _bagCountTextComponent.text =
+        '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}';
   }
 }

@@ -24,6 +24,7 @@ class Gate extends PositionComponent with CollisionCallbacks {
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    print('gate: $intersectionPoints');
     _switchScene();
   }
 }

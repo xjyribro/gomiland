@@ -26,7 +26,13 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
 
     on<BagCountChange>(
           (event, emit) => emit(
-        state.copyWith(bagCount: state.bagCount + event.bagCount),
+        state.copyWith(bagCount: event.bagCount),
+      ),
+    );
+
+    on<MaxBagCountChange>(
+          (event, emit) => emit(
+        state.copyWith(bagCount: event.maxBagCount),
       ),
     );
   }
@@ -70,11 +76,21 @@ class BagCountChange extends GameStatesEvent {
   List<Object?> get props => [bagCount];
 }
 
+class MaxBagCountChange extends GameStatesEvent {
+  const MaxBagCountChange(this.maxBagCount);
+
+  final int maxBagCount;
+
+  @override
+  List<Object?> get props => [maxBagCount];
+}
+
 class GameState extends Equatable {
   final int score;
   final bool isMute;
   final SceneName sceneName;
   final int bagCount;
+  final int maxBagCount;
   // time
 
   const GameState({
@@ -82,6 +98,7 @@ class GameState extends Equatable {
     required this.isMute,
     required this.sceneName,
     required this.bagCount,
+    required this.maxBagCount,
   });
 
   const GameState.empty()
@@ -90,6 +107,7 @@ class GameState extends Equatable {
     isMute: false,
     sceneName: SceneName.menu,
     bagCount: 0,
+    maxBagCount: 10,
   );
 
   GameState copyWith({
@@ -97,15 +115,17 @@ class GameState extends Equatable {
     bool? isMute,
     SceneName? sceneName,
     int? bagCount,
+    int? maxBagCount,
   }) {
     return GameState(
       score: score ?? this.score,
       isMute: isMute ?? this.isMute,
       sceneName: sceneName ?? this.sceneName,
       bagCount: bagCount ?? this.bagCount,
+      maxBagCount: maxBagCount ?? this.maxBagCount,
     );
   }
 
   @override
-  List<Object?> get props => [score, isMute, sceneName, bagCount];
+  List<Object?> get props => [score, isMute, sceneName, bagCount, maxBagCount];
 }
