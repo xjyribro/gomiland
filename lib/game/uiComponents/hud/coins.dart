@@ -26,6 +26,7 @@ class CoinsComponent extends HudMarginComponent {
       text: '${_game.gameStateBloc.state.bagCount}',
       textRenderer: TextPaint(
         style: const TextStyle(
+          color: Colors.white70,
           fontSize: 20,
           fontFamily: Strings.minecraft,
         ),

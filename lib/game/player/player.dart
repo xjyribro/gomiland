@@ -6,6 +6,7 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/player/raycaster.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, HasGameReference<GomilandGame>, CollisionCallbacks {
@@ -30,6 +31,7 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
+  late RectangleHitbox _playerHitbox;
 
   bool _isMovingUp = false;
   bool _isMovingDown = false;
@@ -71,7 +73,9 @@ class Player extends SpriteAnimationComponent
     );
 
     animation = idleDown;
-    add(RectangleHitbox(position: Vector2.zero(), size: size));
+    _playerHitbox = RectangleHitbox(position: Vector2.zero(), size: size);
+    Raycaster playerRaycaster = Raycaster(ignoredHitbox: _playerHitbox);
+    addAll([_playerHitbox, playerRaycaster]);
   }
 
   @override
@@ -202,6 +206,7 @@ class Player extends SpriteAnimationComponent
         remove(game.dialogueControllerComponent);
         game.overlays.remove('DialogueBox');
       }
+
       return false;
     } else if (event is RawKeyUpEvent) {
       if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {

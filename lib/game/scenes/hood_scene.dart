@@ -4,6 +4,7 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
 class HoodMap extends Component {
@@ -70,6 +71,18 @@ class HoodMap extends Component {
           default:
             break;
         }
+      }
+    }
+
+    final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
+
+    if (spawners != null) {
+      for (final TiledObject spawner in spawners.objects) {
+        await add(
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+          ),
+        );
       }
     }
   }

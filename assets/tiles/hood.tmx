@@ -1114,7 +1114,7 @@
   <object id="44" name="room" x="1568" y="512" width="64" height="32"/>
   <object id="45" name="room" x="1760" y="512" width="64" height="32"/>
  </objectgroup>
- <objectgroup id="12" name="rubbish">
+ <objectgroup id="12" name="spawners">
   <object id="49" name="spawner" x="3552" y="1184" width="32" height="32"/>
   <object id="64" name="spawner" x="1920" y="2752" width="32" height="32"/>
   <object id="65" name="spawner" x="2240" y="4192" width="32" height="32"/>

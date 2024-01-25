@@ -7,7 +7,7 @@ import 'package:gomiland/game/controllers/audio_controller.dart';
 class GameMenuButton extends HudButtonComponent {
   GameMenuButton({
     super.margin = const EdgeInsets.only(
-      right: 96,
+      right: 128,
       top: 16,
     ),
   });

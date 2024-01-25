@@ -23,7 +23,7 @@ class GameMenu extends StatelessWidget {
         child: Center(
           child: Container(
             padding: const EdgeInsets.all(10.0),
-            height: 400,
+            height: 600,
             width: 400,
             decoration: const BoxDecoration(
               color: blackTextColor,
@@ -37,7 +37,7 @@ class GameMenu extends StatelessWidget {
                   Assets.assets_images_logo_gomiland_simple_png,
                   height: 164,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 32),
                 SizedBox(
                   width: 192,
                   height: 64,
@@ -53,9 +53,10 @@ class GameMenu extends StatelessWidget {
                     child: const Text(
                       'Resume',
                       style: TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 24,
                         color: blackTextColor,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -73,9 +74,10 @@ class GameMenu extends StatelessWidget {
                     child: const Text(
                       'Save game',
                       style: TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 24,
                         color: blackTextColor,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -94,9 +96,10 @@ class GameMenu extends StatelessWidget {
                     child: const Text(
                       'Back to main menu',
                       style: TextStyle(
-                        fontSize: 40.0,
+                        fontSize: 24,
                         color: blackTextColor,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),

@@ -95,7 +95,7 @@ class GomilandWorld extends World
 
   Future<void> _loadHoodScene() async {
     await _loadHoodMap();
-    Vector2 playerStartingPosit = Vector2.all(200);
+    Vector2 playerStartingPosit = Vector2(1400, 500);
     await _loadPlayer(playerStartingPosit);
   }
 
