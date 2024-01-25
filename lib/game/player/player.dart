@@ -78,8 +78,8 @@ class Player extends SpriteAnimationComponent
     animation = idleDown;
     _playerHitbox = RectangleHitbox(
       position: Vector2(16, 16),
-      size: Vector2(size.x - 8, size.y),
-      anchor: Anchor.center,
+      size: Vector2(size.x - 8, size.y - 16),
+      anchor: Anchor.topCenter,
     );
     add(_playerHitbox);
   }
