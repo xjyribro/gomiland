@@ -4,6 +4,7 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -57,12 +58,41 @@ class HoodMap extends Component {
 
     if (buildings != null) {
       for (final TiledObject building in buildings.objects) {
+
         switch (building.name) {
           case 'home':
             await add(
               SpriteComponent(
                 sprite:
                     await Sprite.load(Assets.assets_images_buildings_home_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+            break;
+          case 'apt1':
+            await add(
+              SpriteComponent(
+                sprite:
+                await Sprite.load(Assets.assets_images_buildings_home_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+            break;
+          case 'apt2':
+            await add(
+              SpriteComponent(
+                sprite:
+                await Sprite.load(Assets.assets_images_buildings_home_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+            break;
+          case 'apt3':
+            await add(
+              Apt3(
                 position: Vector2(building.x, building.y),
                 size: Vector2(building.width, building.height),
               ),

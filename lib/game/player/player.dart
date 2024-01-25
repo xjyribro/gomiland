@@ -36,7 +36,11 @@ class Player extends SpriteAnimationComponent
   bool _isMovingDown = false;
   bool _isMovingLeft = false;
   bool _isMovingRight = false;
-  Vector2 _movement = Vector2.zero();
+  bool _canMoveUp = true;
+  bool _canMoveDown = true;
+  bool _canMoveLeft = true;
+  bool _canMoveRight = true;
+  int _moveDirection = 0;
   final double _speed = tileSize * 4;
   final double _stepTime = 0.2;
 
@@ -93,14 +97,33 @@ class Player extends SpriteAnimationComponent
     }
     // Save this to use after we zero out movement for unwalkable terrain.
     final originalPosition = position.clone();
-    final movementThisFrame = _movement * _speed * dt;
+
+    Vector2 movement = _getMovement(_moveDirection);
+    final movementThisFrame = movement * _speed * dt;
     // Fake update the position so our anchor calculations take into account
     // what movement we want to do this turn.
     position.add(movementThisFrame);
   }
 
+  Vector2 _getMovement(int moveDirection) {
+    switch (moveDirection) {
+      case 0:
+        return Vector2.zero();
+      case 1:
+        return _canMoveUp ? Vector2(0, -1) : Vector2.zero();
+      case 2:
+        return _canMoveDown ? Vector2(0, 1) : Vector2.zero();
+      case 3:
+        return _canMoveLeft ? Vector2(-1, 0) : Vector2.zero();
+      case 4:
+        return _canMoveRight ? Vector2(1, 0) : Vector2.zero();
+      default:
+        return Vector2.zero();
+    }
+  }
+
   void _onJoystickStop() {
-    _movement = Vector2.zero();
+    _moveDirection = 0;
     if (_isMovingUp) {
       animation = idleUp;
       _isMovingUp = false;
@@ -119,36 +142,44 @@ class Player extends SpriteAnimationComponent
   void _moveWithJoystick(JoystickDirection direction) {
     switch (direction) {
       case JoystickDirection.up:
-        _movement = Vector2(0, -1);
         animation = moveUp;
-        _isMovingUp = true;
-        _isMovingDown = false;
-        _isMovingLeft = false;
-        _isMovingRight = false;
+        if (_canMoveUp) {
+          _moveDirection = 1;
+          _isMovingUp = true;
+          _isMovingDown = false;
+          _isMovingLeft = false;
+          _isMovingRight = false;
+        }
         break;
       case JoystickDirection.down:
-        _movement = Vector2(0, 1);
         animation = moveDown;
-        _isMovingUp = false;
-        _isMovingDown = true;
-        _isMovingLeft = false;
-        _isMovingRight = false;
+        if (_canMoveDown) {
+          _moveDirection = 2;
+          _isMovingUp = false;
+          _isMovingDown = true;
+          _isMovingLeft = false;
+          _isMovingRight = false;
+        }
         break;
       case JoystickDirection.left:
-        _movement = Vector2(-1, 0);
         animation = moveLeft;
-        _isMovingUp = false;
-        _isMovingDown = false;
-        _isMovingLeft = true;
-        _isMovingRight = false;
+        if (_canMoveLeft) {
+          _moveDirection = 3;
+          _isMovingUp = false;
+          _isMovingDown = false;
+          _isMovingLeft = true;
+          _isMovingRight = false;
+        }
         break;
       case JoystickDirection.right:
-        _movement = Vector2(1, 0);
         animation = moveRight;
-        _isMovingUp = false;
-        _isMovingDown = false;
-        _isMovingLeft = false;
-        _isMovingRight = true;
+        if (_canMoveRight) {
+          _moveDirection = 4;
+          _isMovingUp = false;
+          _isMovingDown = false;
+          _isMovingLeft = false;
+          _isMovingRight = true;
+        }
         break;
       default:
         return;
@@ -172,6 +203,28 @@ class Player extends SpriteAnimationComponent
     }
   }
 
+  void handleCollisionStart() {
+    if (_isMovingUp) {
+      _canMoveUp = false;
+    }
+    if (_isMovingDown) {
+      _canMoveDown = false;
+    }
+    if (_isMovingLeft) {
+      _canMoveLeft = false;
+    }
+    if (_isMovingRight) {
+      _canMoveRight = false;
+    }
+  }
+
+  void handleCollisionEnd() {
+    _canMoveDown = true;
+    _canMoveUp = true;
+    _canMoveRight = true;
+    _canMoveLeft = true;
+  }
+
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (event is RawKeyDownEvent) {
@@ -179,24 +232,32 @@ class Player extends SpriteAnimationComponent
           _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
       if (isMoving) return false;
       if (event.logicalKey == LogicalKeyboardKey.keyW) {
-        _movement = Vector2(0, -1);
         animation = moveUp;
-        _isMovingUp = true;
+        if (_canMoveUp) {
+          _isMovingUp = true;
+          _moveDirection = 1;
+        }
       }
       if (event.logicalKey == LogicalKeyboardKey.keyS) {
-        _movement = Vector2(0, 1);
         animation = moveDown;
-        _isMovingDown = true;
+        if (_canMoveDown) {
+          _moveDirection = 2;
+          _isMovingDown = true;
+        }
       }
       if (event.logicalKey == LogicalKeyboardKey.keyA) {
-        _movement = Vector2(-1, 0);
         animation = moveLeft;
-        _isMovingLeft = true;
+        if (_canMoveLeft) {
+          _moveDirection = 3;
+          _isMovingLeft = true;
+        }
       }
       if (event.logicalKey == LogicalKeyboardKey.keyD) {
-        _movement = Vector2(1, 0);
         animation = moveRight;
-        _isMovingRight = true;
+        if (_canMoveRight) {
+          _moveDirection = 4;
+          _isMovingRight = true;
+        }
       }
 
       if (event.logicalKey == LogicalKeyboardKey.keyR) {
@@ -208,34 +269,26 @@ class Player extends SpriteAnimationComponent
         remove(game.dialogueControllerComponent);
         game.overlays.remove('DialogueBox');
       }
-      // if (event.logicalKey == LogicalKeyboardKey.keyE) {
-      //   final ray = Ray2(
-      //     origin: Vector2(x, y),
-      //     direction: Vector2(1, 0),
-      //   );
-      //   final result = collisionDetection.raycast(ray, ignoreHitboxes: [_playerHitbox]);
-      //   print(result?.intersectionPoint);
-      // }
 
       return false;
     } else if (event is RawKeyUpEvent) {
       if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {
-        _movement.y = 0;
+        _moveDirection = 0;
         animation = idleUp;
         _isMovingUp = false;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyS && _isMovingDown) {
-        _movement.y = 0;
+        _moveDirection = 0;
         animation = idleDown;
         _isMovingDown = false;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyA && _isMovingLeft) {
-        _movement.x = 0;
+        _moveDirection = 0;
         animation = idleLeft;
         _isMovingLeft = false;
       }
       if (event.logicalKey == LogicalKeyboardKey.keyD && _isMovingRight) {
-        _movement.x = 0;
+        _moveDirection = 0;
         animation = idleRight;
         _isMovingRight = false;
       }
