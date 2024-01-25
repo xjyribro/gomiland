@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
-import 'package:flame/palette.dart';
 import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
@@ -12,7 +12,6 @@ import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
-import 'package:flutter/foundation.dart';
 
 // scene manager
 class GomilandWorld extends World
@@ -52,15 +51,21 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadPlayer(Vector2 position) async {
-    final knobPaint = BasicPalette.blue.withAlpha(200).paint();
-    JoystickComponent? joystick = kIsWeb ? null : JoystickComponent(
-      knob: CircleComponent(radius: 16, paint: knobPaint),
-      background: SpriteComponent(
-        sprite: await Sprite.load(Assets.assets_images_ui_directional_pad_png),
-        size: Vector2.all(64),
-      ),
-      margin: const EdgeInsets.only(left: 40, bottom: 40),
-    );
+    JoystickComponent? joystick = kIsWeb
+        ? null
+        : JoystickComponent(
+            knob: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_knob_png),
+              size: Vector2.all(64),
+            ),
+            background: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_pad_png),
+              size: Vector2.all(96),
+            ),
+            margin: const EdgeInsets.only(left: 40, bottom: 40),
+          );
 
     player = Player(
       position: position,
