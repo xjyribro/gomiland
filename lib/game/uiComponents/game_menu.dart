@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 
 class GameMenu extends StatelessWidget {
@@ -42,6 +43,7 @@ class GameMenu extends StatelessWidget {
                   height: 64,
                   child: ElevatedButton(
                     onPressed: () {
+                      Sounds.resumeBackgroundSound();
                       game.resumeEngine();
                       game.overlays.remove('GameMenu');
                     },
@@ -49,7 +51,48 @@ class GameMenu extends StatelessWidget {
                       backgroundColor: whiteTextColor,
                     ),
                     child: const Text(
-                      'Play',
+                      'Resume',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        color: blackTextColor,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: 192,
+                  height: 64,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // TODO save game
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: whiteTextColor,
+                    ),
+                    child: const Text(
+                      'Save game',
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        color: blackTextColor,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: 192,
+                  height: 64,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      //TODO prompt save game
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: whiteTextColor,
+                    ),
+                    child: const Text(
+                      'Back to main menu',
                       style: TextStyle(
                         fontSize: 40.0,
                         color: blackTextColor,

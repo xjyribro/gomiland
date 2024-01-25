@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -14,6 +15,7 @@ class HoodMap extends Component {
 
   @override
   Future<void> onLoad() async {
+    Sounds.playHoodBgm();
     final TiledComponent map = await TiledComponent.load(
       'hood.tmx',
       Vector2.all(32),

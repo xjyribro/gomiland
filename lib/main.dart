@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
-import 'package:gomiland/screens/menu.dart';
+import 'package:gomiland/screens/main_menu.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const Menu(),
+      home: const MainMenu(),
     );
   }
 }

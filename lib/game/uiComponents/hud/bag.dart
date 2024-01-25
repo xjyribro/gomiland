@@ -1,20 +1,29 @@
 import 'package:flame/components.dart';
+import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/utils/load_images.dart';
 
-class BagComponent extends PositionComponent
-    with HasGameReference<GomilandGame> {
-  BagComponent({required Vector2 position}) : super(position: position);
+class BagComponent extends HudMarginComponent{
+  BagComponent({
+    required GomilandGame game,
+    super.margin = const EdgeInsets.only(
+      left: 320,
+      top: 32,
+    ),
+  }) : super() {
+    _game = game;
+  }
 
   late TextComponent _bagCountTextComponent;
+  late GomilandGame _game;
 
   @override
   Future<void> onLoad() async {
     _bagCountTextComponent = TextComponent(
-      text: '${game.gameStateBloc.state.bagCount}',
+      text: '${_game.gameStateBloc.state.bagCount}',
       textRenderer: TextPaint(
         style: const TextStyle(
           fontSize: 20,

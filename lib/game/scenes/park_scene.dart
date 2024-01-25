@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
 class ParkMap extends Component {
@@ -13,6 +14,7 @@ class ParkMap extends Component {
 
   @override
   Future<void> onLoad() async {
+    Sounds.playParkBgm();
     final TiledComponent map = await TiledComponent.load(
       'park.tmx',
       Vector2.all(tileSize),

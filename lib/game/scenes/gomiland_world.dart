@@ -4,6 +4,7 @@ import 'package:flame/palette.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
@@ -52,18 +53,20 @@ class GomilandWorld extends World
 
   Future<void> _loadPlayer(Vector2 position) async {
     final knobPaint = BasicPalette.blue.withAlpha(200).paint();
-    final backgroundPaint = BasicPalette.blue.withAlpha(100).paint();
-    JoystickComponent joystick = JoystickComponent(
+    JoystickComponent? joystick = kIsWeb ? null : JoystickComponent(
       knob: CircleComponent(radius: 16, paint: knobPaint),
-      background: CircleComponent(radius: 32, paint: backgroundPaint),
+      background: SpriteComponent(
+        sprite: await Sprite.load(Assets.assets_images_ui_directional_pad_png),
+        size: Vector2.all(64),
+      ),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
 
     player = Player(
       position: position,
-      joystickComponent: kIsWeb ? null : joystick,
+      joystickComponent: joystick,
     );
-    if (!kIsWeb) {
+    if (joystick != null) {
       gameRef.cameraComponent.viewport.add(joystick);
     }
     add(player);

@@ -11,10 +11,12 @@ import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/scenes/gomiland_world.dart';
 import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 import 'package:gomiland/game/uiComponents/game_menu.dart';
+import 'package:gomiland/game/uiComponents/hud/bag.dart';
+import 'package:gomiland/game/uiComponents/hud/coins.dart';
+import 'package:gomiland/game/uiComponents/hud/game_menu_button.dart';
 import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:jenny/jenny.dart';
 
-import 'uiComponents/hud/hud.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
   const GameWidgetWrapper({super.key});
@@ -79,7 +81,16 @@ class GomilandGame extends FlameGame
     debugMode = true;
 
     // UI
-    cameraComponent.viewport.add(Hud());
+    final BagComponent bagComponent = BagComponent(game: this);
+    final CoinsComponent coinsComponent = CoinsComponent(game: this);
+    final GameMenuButton gameMenuButton = GameMenuButton();
+
+    cameraComponent.viewport.addAll([
+      coinsComponent,
+      bagComponent,
+      gameMenuButton,
+    ]);
+
     // BLOC
     await add(
       FlameMultiBlocProvider(
@@ -104,7 +115,7 @@ class GomilandGame extends FlameGame
     ]);
 
     // DIALOGUE
-    yarnProject.parse(await rootBundle.loadString('assets/yarn/example.yarn'));
+    yarnProject.parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
     dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
 
