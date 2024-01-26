@@ -1,14 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame_bloc/flame_bloc.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
@@ -21,8 +16,6 @@ class GomilandWorld extends World
         FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
 
-  final unwalkableComponentEdges = <Line>[];
-  late Player player;
   SceneName? _newSceneName;
 
   late HoodMap hoodMap;
@@ -37,10 +30,10 @@ class GomilandWorld extends World
     SceneName sceneName = bloc.state.sceneName;
     switch (sceneName) {
       case SceneName.hood:
-        removeAll([hoodMap, player]);
+        remove(hoodMap);
         break;
       case SceneName.park:
-        removeAll([parkMap, player]);
+        remove(parkMap);
         break;
       case SceneName.room:
         remove(roomMap);
@@ -50,69 +43,36 @@ class GomilandWorld extends World
     }
   }
 
-  Future<void> _loadPlayer(Vector2 position) async {
-    JoystickComponent? joystick = kIsWeb
-        ? null
-        : JoystickComponent(
-            knob: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_knob_png),
-              size: Vector2.all(64),
-            ),
-            background: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_pad_png),
-              size: Vector2.all(96),
-            ),
-            margin: const EdgeInsets.only(left: 40, bottom: 40),
-          );
-
-    player = Player(
-      position: position,
-      joystickComponent: joystick,
-    );
-    if (joystick != null) {
-      gameRef.cameraComponent.viewport.add(joystick);
-    }
-    add(player);
-    gameRef.cameraComponent.follow(player);
-  }
-
   Future<void> _loadHoodMap() async {
-    game.gameStateBloc.add(const SceneChanged(SceneName.hood));
+    SceneName sceneName = game.gameStateBloc.state.sceneName;
+    final bool comingFromPark = sceneName == SceneName.park;
+    Vector2 playerStartPosit =
+        comingFromPark ? Vector2(1800, 650) : Vector2(1800, 650);
+    hoodMap = HoodMap(
+      setNewSceneName: _setNewSceneName,
+      playerStartPosit: playerStartPosit,
+    );
     await add(hoodMap);
   }
 
   Future<void> _loadParkMap() async {
-    game.gameStateBloc.add(const SceneChanged(SceneName.park));
+    parkMap = ParkMap(setNewSceneName: _setNewSceneName);
     await add(parkMap);
   }
 
   Future<void> _loadRoomMap() async {
-    game.gameStateBloc.add(const SceneChanged(SceneName.room));
+    roomMap = RoomMap(setNewSceneName: _setNewSceneName);
     await add(roomMap);
-  }
-
-  Future<void> _loadHoodScene() async {
-    await _loadHoodMap();
-    Vector2 playerStartingPosit = Vector2(1800, 650);
-    await _loadPlayer(playerStartingPosit);
-  }
-
-  Future<void> _loadParkScene() async {
-    await _loadParkMap();
-    Vector2 playerStartingPosit = Vector2.all(150);
-    await _loadPlayer(playerStartingPosit);
   }
 
   Future<void> _switchScene(SceneName sceneName) async {
     _removeComponents();
     switch (sceneName) {
       case SceneName.hood:
-        await _loadHoodScene();
+        await _loadHoodMap();
         break;
       case SceneName.park:
-        await _loadParkScene();
+        await _loadParkMap();
         break;
       case SceneName.room:
         await _loadRoomMap();
@@ -126,10 +86,7 @@ class GomilandWorld extends World
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    hoodMap = HoodMap(setNewSceneName: _setNewSceneName);
-    parkMap = ParkMap(setNewSceneName: _setNewSceneName);
-    roomMap = RoomMap(setNewSceneName: _setNewSceneName);
-    await _loadHoodScene();
+    await _loadHoodMap();
     gameRef.overlays.add('MuteButton');
   }
 

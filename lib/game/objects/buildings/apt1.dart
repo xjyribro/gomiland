@@ -12,19 +12,12 @@ class Apt1 extends SpriteComponent with CollisionCallbacks {
   Future<void> onLoad() async {
     sprite = await Sprite.load(Assets.assets_images_buildings_apt1_png);
     RectangleHitbox hitbox = RectangleHitbox(
-      size: Vector2(320, 96),
-      position: Vector2(-16, 224),
-      collisionType: CollisionType.passive,
+        size: Vector2(288, 224),
+        position: Vector2.zero(),
+        collisionType: CollisionType.passive,
+        isSolid: true
     );
     add(hitbox);
-    add(
-      FadeHitbox(
-        position: Vector2.zero(),
-        size: Vector2(288, 224),
-        onFade: _onFade,
-        removeFade: _removeFade,
-      ),
-    );
   }
 
   void _onFade() {
@@ -37,52 +30,6 @@ class Apt1 extends SpriteComponent with CollisionCallbacks {
     List<OpacityEffect> effects = children.query<OpacityEffect>();
     removeAll(effects);
     add(OpacityEffect.fadeIn(EffectController(duration: 0.5)));
-  }
-
-  @override
-  void onCollisionStart(
-      Set<Vector2> intersectionPoints, PositionComponent other) {
-    super.onCollisionStart(intersectionPoints, other);
-    if (other is Player) {
-      other.handleCollisionStart();
-    }
-  }
-
-  @override
-  void onCollisionEnd(PositionComponent other) {
-    super.onCollisionEnd(other);
-    if (other is Player) {
-      other.handleCollisionEnd();
-    }
-  }
-}
-
-class FadeHitbox extends PositionComponent with CollisionCallbacks {
-  FadeHitbox({
-    required Vector2 position,
-    required Vector2 size,
-    required Function onFade,
-    required Function removeFade,
-  }) : super(
-    position: position,
-    size: size,
-  ) {
-    _onFade = onFade;
-    _removeFade = removeFade;
-  }
-
-  late Function _onFade;
-  late Function _removeFade;
-
-  @override
-  Future<void> onLoad() async {
-    RectangleHitbox hitbox = RectangleHitbox(
-        size: size,
-        position: Vector2.zero(),
-        collisionType: CollisionType.passive,
-        isSolid: true
-    );
-    add(hitbox);
   }
 
   @override

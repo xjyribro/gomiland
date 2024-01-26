@@ -63,7 +63,6 @@ class GomilandGame extends FlameGame
     images.prefix = '';
   }
 
-  @override
   World world;
   GameStateBloc gameStateBloc;
   DialogueBloc dialogueBloc;
@@ -78,6 +77,11 @@ class GomilandGame extends FlameGame
   @override
   Future<void> onLoad() async {
     debugMode = true;
+
+    // IMAGES
+    await images.loadAll([
+      Assets.assets_images_player_player_png,
+    ]);
 
     // UI
     final BagComponent bagComponent = BagComponent(game: this);
@@ -107,11 +111,6 @@ class GomilandGame extends FlameGame
         ],
       ),
     );
-
-    // IMAGES
-    await images.loadAll([
-      Assets.assets_images_player_player_png,
-    ]);
 
     // DIALOGUE
     yarnProject

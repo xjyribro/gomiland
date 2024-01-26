@@ -1,22 +1,60 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/objects/buildings/apt1.dart';
 import 'package:gomiland/game/objects/buildings/apt2.dart';
 import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/buildings/combini.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
+import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
+import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
-class HoodMap extends Component {
+class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
+  late Vector2 _playerStartPosit;
 
-  HoodMap({required setNewSceneName}) : super() {
+  HoodMap({
+    required Function setNewSceneName,
+    required Vector2 playerStartPosit,
+  }) : super() {
     _setNewSceneName = setNewSceneName;
+    _playerStartPosit = playerStartPosit;
+  }
+
+  Future<void> _loadPlayer(Vector2 position) async {
+    JoystickComponent? joystick = kIsWeb
+        ? null
+        : JoystickComponent(
+            knob: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_knob_png),
+              size: Vector2.all(64),
+            ),
+            background: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_pad_png),
+              size: Vector2.all(96),
+            ),
+            margin: const EdgeInsets.only(left: 40, bottom: 40),
+          );
+
+    Player player = Player(
+      position: position,
+      joystickComponent: joystick,
+    );
+    if (joystick != null) {
+      game.cameraComponent.viewport.add(joystick);
+    }
+    await add(player);
+    game.cameraComponent.follow(player);
   }
 
   @override
@@ -27,6 +65,8 @@ class HoodMap extends Component {
       Vector2.all(32),
     );
     await add(map);
+
+    await _loadPlayer(_playerStartPosit);
 
     final interactionsLayer = map.tileMap.getLayer<ObjectGroup>('gates');
 
@@ -62,7 +102,6 @@ class HoodMap extends Component {
 
     if (buildings != null) {
       for (final TiledObject building in buildings.objects) {
-
         switch (building.name) {
           case 'home':
             await add(
@@ -128,12 +167,22 @@ class HoodMap extends Component {
 
     if (lights != null) {
       for (final TiledObject lights in lights.objects) {
-        await add(
-          StreetLight(
-            position: Vector2(lights.x, lights.y),
-            size: Vector2(lights.width, lights.height),
-          ),
+        StreetLight streetLight = StreetLight(
+          position: Vector2(lights.x, lights.y),
+          size: Vector2(lights.width, lights.height),
         );
+        await add(streetLight);
+      }
+    }
+
+    final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
+
+    if (obstacles != null) {
+      for (final TiledObject obstacle in obstacles.objects) {
+        add(Obstacle(
+          position: Vector2(obstacle.x, obstacle.y),
+          size: Vector2(obstacle.width, obstacle.height),
+        ));
       }
     }
   }
