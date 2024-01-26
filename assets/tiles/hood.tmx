@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="148">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="155">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -1126,6 +1126,9 @@
   <object id="141" name="eng_house1" x="2240" y="3232" width="128" height="224"/>
   <object id="142" name="eng_house2" x="2368" y="3232" width="128" height="224"/>
   <object id="143" name="eng_house3" x="2496" y="3232" width="128" height="224"/>
+ </objectgroup>
+ <objectgroup id="15" name="lights">
+  <object id="153" name="street_light" x="1568" y="640" width="32" height="64"/>
  </objectgroup>
  <objectgroup id="8" name="npc">
   <object id="27" name="boy" x="1504" y="608" width="32" height="32"/>

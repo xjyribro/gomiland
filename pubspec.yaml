@@ -45,6 +45,7 @@ flutter:
     - assets/images/spritesheets/
     - assets/images/logo/
     - assets/images/player/
+    - assets/images/objects/
     - assets/images/rubbish/
     - assets/yarn/
 

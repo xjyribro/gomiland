@@ -8,6 +8,7 @@ import 'package:gomiland/game/objects/buildings/apt1.dart';
 import 'package:gomiland/game/objects/buildings/apt2.dart';
 import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/buildings/combini.dart';
+import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -128,8 +129,9 @@ class HoodMap extends Component {
     if (lights != null) {
       for (final TiledObject lights in lights.objects) {
         await add(
-          RubbishSpawner(
+          StreetLight(
             position: Vector2(lights.x, lights.y),
+            size: Vector2(lights.width, lights.height),
           ),
         );
       }
