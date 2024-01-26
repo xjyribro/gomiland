@@ -41,7 +41,7 @@ class Player extends SpriteAnimationComponent
   bool _canMoveLeft = true;
   bool _canMoveRight = true;
   int _moveDirection = 0;
-  final double _speed = tileSize * 4;
+  final double _speed = tileSize * 16;
   final double _stepTime = 0.2;
 
   @override

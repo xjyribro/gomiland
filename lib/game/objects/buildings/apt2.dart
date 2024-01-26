@@ -4,23 +4,23 @@ import 'package:flame/effects.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class Apt3 extends SpriteComponent with CollisionCallbacks {
-  Apt3({required Vector2 position, required Vector2 size})
+class Apt2 extends SpriteComponent with CollisionCallbacks {
+  Apt2({required Vector2 position, required Vector2 size})
       : super(position: position, size: size);
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_buildings_apt3_png);
+    sprite = await Sprite.load(Assets.assets_images_buildings_apt2_png);
     RectangleHitbox hitbox = RectangleHitbox(
-      size: Vector2(274, 96),
-      position: Vector2(0, 224),
+      size: Vector2(320, 96),
+      position: Vector2(-16, 160),
       collisionType: CollisionType.passive,
     );
     add(hitbox);
     add(
       FadeHitbox(
         position: Vector2.zero(),
-        size: Vector2(256, 224),
+        size: Vector2(288, 160),
         onFade: _onFade,
         removeFade: _removeFade,
       ),
@@ -64,9 +64,9 @@ class FadeHitbox extends PositionComponent with CollisionCallbacks {
     required Function onFade,
     required Function removeFade,
   }) : super(
-          position: position,
-          size: size,
-        ) {
+    position: position,
+    size: size,
+  ) {
     _onFade = onFade;
     _removeFade = removeFade;
   }
@@ -77,10 +77,10 @@ class FadeHitbox extends PositionComponent with CollisionCallbacks {
   @override
   Future<void> onLoad() async {
     RectangleHitbox hitbox = RectangleHitbox(
-      size: size,
-      position: Vector2.zero(),
-      collisionType: CollisionType.passive,
-      isSolid: true
+        size: size,
+        position: Vector2.zero(),
+        collisionType: CollisionType.passive,
+        isSolid: true
     );
     add(hitbox);
   }
