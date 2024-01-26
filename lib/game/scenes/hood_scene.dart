@@ -122,5 +122,17 @@ class HoodMap extends Component {
         );
       }
     }
+
+    final lights = map.tileMap.getLayer<ObjectGroup>('lights');
+
+    if (lights != null) {
+      for (final TiledObject lights in lights.objects) {
+        await add(
+          RubbishSpawner(
+            position: Vector2(lights.x, lights.y),
+          ),
+        );
+      }
+    }
   }
 }
