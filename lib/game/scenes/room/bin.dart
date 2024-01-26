@@ -23,7 +23,6 @@ class Bin extends PositionComponent {
 
   @override
   Future<void> onLoad() async {
-    priority = 1;
     RectangleHitbox binOpening = RectangleHitbox(
       position: _openingPosition,
       size: _openingSize,

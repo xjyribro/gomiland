@@ -3,36 +3,37 @@ import 'package:flame/effects.dart';
 import 'package:flutter/animation.dart';
 import 'package:gomiland/assets.dart';
 
-class StreetLight extends PositionComponent {
-  StreetLight({
+class ParkLight extends PositionComponent {
+  ParkLight({
     required Vector2 position,
     required Vector2 size,
   }) : super(
-          position: position,
-          size: size,
-        );
+    position: position,
+    size: size,
+
+  );
 
   @override
   Future<void> onLoad() async {
     addAll([
-      StreetLamp(position: Vector2.zero(), size: size),
-      Light(position: Vector2(-36, -56)),
+      ParkLamp(position: Vector2.zero(), size: size),
+      Light(position: Vector2.all(-48)),
     ]);
   }
 }
 
-class StreetLamp extends SpriteComponent {
-  StreetLamp({
+class ParkLamp extends SpriteComponent {
+  ParkLamp({
     required Vector2 position,
     required Vector2 size,
   }) : super(
-          position: position,
-          size: size,
-        );
+    position: position,
+    size: size,
+  );
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_objects_street_lamp_png);
+    sprite = await Sprite.load(Assets.assets_images_objects_park_lamp_png);
   }
 }
 
@@ -40,16 +41,16 @@ class Light extends SpriteComponent {
   Light({
     required Vector2 position,
   }) : super(
-          position: position,
-          size: Vector2(128, 128),
-        );
+    position: position,
+    size: Vector2(128, 128),
+  );
 
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(Assets.assets_images_objects_light_png);
     add(
       OpacityEffect.to(
-        0.85,
+        0.9,
         EffectController(
           duration: 0.4,
           reverseDuration: .4,

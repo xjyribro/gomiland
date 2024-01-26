@@ -13,8 +13,6 @@ class Player extends SpriteAnimationComponent
       : super(
           position: position,
           size: Vector2.all(32),
-          anchor: Anchor.center,
-          priority: 1,
         ) {
     _joystick = joystickComponent;
   }
@@ -46,6 +44,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   void onLoad() {
+    priority = 0;
     final spriteSheet = SpriteSheet(
       image: game.images.fromCache(
         Assets.assets_images_player_player_png,

@@ -13,7 +13,6 @@ class Monk extends SpriteAnimationComponent with CollisionCallbacks {
           position: position,
           size: Vector2.all(32),
           anchor: Anchor.center,
-          priority: 1,
         );
 
   late SpriteAnimationComponent monk;
