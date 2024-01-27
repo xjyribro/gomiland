@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/utils/load_images.dart';
@@ -37,7 +38,7 @@ class CoinsComponent extends HudMarginComponent {
     add(_bagCountTextComponent);
 
     final spriteSheet = SpriteSheet(
-      image: await LoadImage('assets/images/spritesheets/coin_small.png'),
+      image: await LoadImage(Assets.assets_images_spritesheets_coin_small_png),
       srcSize: Vector2(32, 32),
     );
 

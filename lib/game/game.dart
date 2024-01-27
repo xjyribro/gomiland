@@ -8,10 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
-import 'package:gomiland/game/scenes/gomiland_world.dart';
+import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 import 'package:gomiland/game/uiComponents/game_menu.dart';
 import 'package:gomiland/game/uiComponents/hud/bag.dart';
+import 'package:gomiland/game/uiComponents/hud/clock.dart';
 import 'package:gomiland/game/uiComponents/hud/coins.dart';
 import 'package:gomiland/game/uiComponents/hud/game_menu_button.dart';
 import 'package:gomiland/game/uiComponents/mute_button.dart';
@@ -86,11 +87,13 @@ class GomilandGame extends FlameGame
     // UI
     final BagComponent bagComponent = BagComponent(game: this);
     final CoinsComponent coinsComponent = CoinsComponent(game: this);
+    final ClockComponent clockComponent = ClockComponent(game: this);
     final GameMenuButton gameMenuButton = GameMenuButton();
 
     cameraComponent.viewport.addAll([
       coinsComponent,
       bagComponent,
+      clockComponent,
       gameMenuButton,
     ]);
 
