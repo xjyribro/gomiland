@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class InfoDialogs {
+class InfoPopups {
   static void showGameOver(BuildContext context, VoidCallback playAgain) {
     showDialog(
       context: context,
@@ -88,7 +88,7 @@ class InfoDialogs {
                           fontFamily: 'Normal',
                           fontSize: 17.0)),
                   onPressed: () {
-
+                    Navigator.of(context).pop();
                   },
                 )
               ],

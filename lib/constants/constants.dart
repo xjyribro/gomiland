@@ -1,4 +1,5 @@
 const double tileSize = 32;
+const double playerSpeed = 4;
 const gameMinToRealSecond = 0.01;
 const minsInADay = 1440;
 

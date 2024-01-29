@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/controllers/player_state.dart';
+import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/screens/main_menu.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,8 @@ void main() async {
       providers: [
         BlocProvider<GameStateBloc>(create: (_) => GameStateBloc()),
         BlocProvider<DialogueBloc>(create: (_) => DialogueBloc()),
+        BlocProvider<PlayerStateBloc>(create: (_) => PlayerStateBloc()),
+        BlocProvider<ProgressStateBloc>(create: (_) => ProgressStateBloc()),
       ],
       child: const MyApp(),
     ),

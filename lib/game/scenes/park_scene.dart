@@ -68,7 +68,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
     if (objectLayer != null) {
       for (final TiledObject object in objectLayer.objects) {
-        print(Vector2(object.x, object.y));
         await add(
           Gate(
             position: Vector2(object.x, object.y),

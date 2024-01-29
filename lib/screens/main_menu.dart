@@ -6,6 +6,7 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/uiComponents/info_popup.dart';
 import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/instructions.dart';
@@ -113,11 +114,12 @@ class _MainMenuState extends State<MainMenu> {
               MainMenuButton(
                 text: 'Credits',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreditsPage()),
-                  );
+                  InfoPopups.showCongratulations(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const CreditsPage()),
+                  // );
                 },
               ),
               const MuteButton(),

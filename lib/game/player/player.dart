@@ -4,6 +4,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/player/obstacle_checker.dart';
@@ -14,8 +15,10 @@ class Player extends SpriteAnimationComponent
         HasGameReference<GomilandGame>,
         CollisionCallbacks,
         ObstacleChecker {
-  Player({required Vector2 position, JoystickComponent? joystickComponent})
-      : super(
+  Player({
+    required Vector2 position,
+    JoystickComponent? joystickComponent,
+  }) : super(
           position: position,
           size: Vector2.all(32),
         ) {
@@ -32,14 +35,14 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  late RectangleHitbox _playerHitbox;
+  late RectangleHitbox playerHitbox;
 
   bool _isMovingUp = false;
   bool _isMovingDown = false;
   bool _isMovingLeft = false;
   bool _isMovingRight = false;
   int _moveDirection = 0;
-  final double _speed = tileSize * 16;
+  final double _speed = tileSize * playerSpeed;
   final double _stepTime = 0.2;
 
   @override
@@ -68,12 +71,14 @@ class Player extends SpriteAnimationComponent
         row: 2, stepTime: _stepTime, from: 0, to: 1);
 
     animation = idleDown;
-    _playerHitbox = RectangleHitbox(
+    playerHitbox = RectangleHitbox(
       position: Vector2(16, 16),
       size: Vector2(size.x - 8, size.y - 16),
       anchor: Anchor.topCenter,
     );
-    add(_playerHitbox);
+    add(playerHitbox);
+
+    game.playerStateBloc.add(PlayerHitboxChange(playerHitbox));
   }
 
   @override
@@ -99,6 +104,7 @@ class Player extends SpriteAnimationComponent
       movementThisFrame: movementThisFrame,
       originalPosition: originalPosition,
     );
+    game.playerStateBloc.add(PlayerPositionChange(position));
   }
 
   Vector2 _getMovement(int moveDirection) {
@@ -201,21 +207,25 @@ class Player extends SpriteAnimationComponent
         animation = moveUp;
         _isMovingUp = true;
         _moveDirection = 1;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, -1)));
       }
       if (event.logicalKey == LogicalKeyboardKey.keyS) {
         animation = moveDown;
         _moveDirection = 2;
         _isMovingDown = true;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, 1)));
       }
       if (event.logicalKey == LogicalKeyboardKey.keyA) {
         animation = moveLeft;
         _moveDirection = 3;
         _isMovingLeft = true;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(-1, 0)));
       }
       if (event.logicalKey == LogicalKeyboardKey.keyD) {
         animation = moveRight;
         _moveDirection = 4;
         _isMovingRight = true;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(1, 0)));
       }
 
       if (event.logicalKey == LogicalKeyboardKey.keyR) {
