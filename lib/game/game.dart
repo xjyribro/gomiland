@@ -122,6 +122,11 @@ class GomilandGame extends FlameGame
     }
   }
 
+  void showDialogue() {
+    cameraComponent.viewport.add(dialogueControllerComponent);
+    dialogueRunner.startDialogue('example');
+  }
+
   @override
   Future<void> onLoad() async {
     debugMode = isDebugMode;

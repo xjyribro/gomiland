@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/game.dart';
 
-class EButton extends HudMarginComponent with HasGameReference<GomilandGame> {
+class EButton extends HudMarginComponent{
   EButton({
     required GomilandGame game,
     super.margin = const EdgeInsets.only(
-      right: 320,
-      bottom: 160,
+      right: 160,
+      bottom: 96,
     ),
   }) : super() {
     _game = game;
@@ -20,7 +20,7 @@ class EButton extends HudMarginComponent with HasGameReference<GomilandGame> {
   @override
   Future<void> onLoad() async {
     final SpriteButtonComponent bag = SpriteButtonComponent(
-        button: await Sprite.load(Assets.assets_images_ui_bag_png),
+        button: await Sprite.load(Assets.assets_images_ui_e_button_png),
         onPressed: () {
           _game.castRay();
         });

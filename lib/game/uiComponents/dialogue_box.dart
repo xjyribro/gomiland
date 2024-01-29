@@ -13,9 +13,9 @@ import 'package:jenny/jenny.dart';
 
 class DialogueControllerComponent extends Component
     with DialogueView, HasGameReference<GomilandGame> {
-  late GomilandGame ref;
 
   Completer<void> _forwardCompleter = Completer();
+  // late DialogueBoxComponent dialogueBoxComponent;
 
   @override
   FutureOr<bool> onLineStart(DialogueLine line) async {
@@ -26,9 +26,8 @@ class DialogueControllerComponent extends Component
 
   @override
   Future<void> onLoad() async {
-
-    ref = game;
-
+    // dialogueBoxComponent = DialogueBoxComponent(text: '');
+    // game.cameraComponent.viewport.add(dialogueBoxComponent);
     ButtonComponent forwardButtonComponent = ButtonComponent(
       button: PositionComponent(position: Vector2.zero()),
       size: game.size,
@@ -46,8 +45,49 @@ class DialogueControllerComponent extends Component
   Future<void> _advance(DialogueLine line) async {
     var characterName = line.character?.name ?? '';
     var dialogueLineText = '$characterName: ${line.text}';
-    ref.dialogueBloc.add(ChangeText(dialogueLineText));
+    // dialogueBoxComponent.changeText(dialogueLineText);
+    game.dialogueBloc.add(ChangeText(dialogueLineText));
     return _forwardCompleter.future;
+  }
+}
+
+class DialogueBoxComponent extends HudMarginComponent {
+  DialogueBoxComponent({
+    required String text,
+    super.margin = const EdgeInsets.only(
+      left: 32,
+      top: 320,
+    ),
+  }) : super() {
+    _text = text;
+  }
+
+  late TextComponent _dialgoueTextComponent;
+  late String _text;
+
+  @override
+  Future<void> onLoad() async {
+    _dialgoueTextComponent = TextComponent(
+      text: _text,
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          color: Colors.white70,
+          fontSize: 20,
+          fontFamily: Strings.minecraft,
+        ),
+      ),
+      position: Vector2(32, 32),
+    );
+    final SpriteComponent box = SpriteComponent(
+        sprite: await Sprite.load(Assets.assets_images_ui_dialogue_box_png),
+        size: Vector2(512, 96)
+    );
+    box.add(_dialgoueTextComponent);
+    add(box);
+  }
+
+  void changeText(String newText) {
+    _dialgoueTextComponent.text = newText;
   }
 }
 
@@ -65,17 +105,16 @@ class DialogueBox extends StatelessWidget {
       child: Stack(
         children: [
           Align(
-            alignment: FractionalOffset.bottomCenter,
+            alignment: Alignment.bottomCenter,
             child: Image.asset(
               Assets.assets_images_ui_dialogue_box_png,
               width: size.width,
             ),
           ),
-          Positioned(
-            bottom: 100,
-            left: 150,
+          Align(
+            alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.all(32),
+              padding: const EdgeInsets.all(64),
               child: BlocBuilder<DialogueBloc, DialogueState>(
                 builder: (context, state) => AnimatedTextKit(
                   key: Key(state.text),
