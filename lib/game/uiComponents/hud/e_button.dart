@@ -8,8 +8,8 @@ class EButton extends HudMarginComponent{
   EButton({
     required GomilandGame game,
     super.margin = const EdgeInsets.only(
-      right: 160,
-      bottom: 96,
+      left: 700,
+      top: 250,
     ),
   }) : super() {
     _game = game;

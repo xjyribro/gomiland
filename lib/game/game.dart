@@ -30,31 +30,39 @@ class GameWidgetWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GameWidget(
-      game: GomilandGame(
-        gameStateBloc: context.read<GameStateBloc>(),
-        dialogueBloc: context.read<DialogueBloc>(),
-        playerStateBloc: context.read<PlayerStateBloc>(),
-        progressStateBloc: context.read<ProgressStateBloc>(),
+    return Center(
+      child: ClipRect(
+        child: SizedBox(
+          width: 1000,
+          height: 600,
+          child: GameWidget(
+            game: GomilandGame(
+              gameStateBloc: context.read<GameStateBloc>(),
+              dialogueBloc: context.read<DialogueBloc>(),
+              playerStateBloc: context.read<PlayerStateBloc>(),
+              progressStateBloc: context.read<ProgressStateBloc>(),
+            ),
+            overlayBuilderMap: {
+              'GameMenu': (BuildContext context, GomilandGame game) {
+                return GameMenu(
+                  game: game,
+                );
+              },
+              'MuteButton': (BuildContext context, GomilandGame game) {
+                return const MuteButton();
+              },
+              'MobileKeypad': (BuildContext context, GomilandGame game) {
+                return GameMenu(
+                  game: game,
+                );
+              },
+              'DialogueBox': (BuildContext context, GomilandGame game) {
+                return const DialogueBox();
+              },
+            },
+          ),
+        ),
       ),
-      overlayBuilderMap: {
-        'GameMenu': (BuildContext context, GomilandGame game) {
-          return GameMenu(
-            game: game,
-          );
-        },
-        'MuteButton': (BuildContext context, GomilandGame game) {
-          return const MuteButton();
-        },
-        'MobileKeypad': (BuildContext context, GomilandGame game) {
-          return GameMenu(
-            game: game,
-          );
-        },
-        'DialogueBox': (BuildContext context, GomilandGame game) {
-          return const DialogueBox();
-        },
-      },
     );
   }
 }
