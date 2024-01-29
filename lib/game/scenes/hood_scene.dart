@@ -60,7 +60,12 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-    Sounds.playHoodBgm();
+    
+    final bool isMute = game.gameStateBloc.state.isMute;
+    if (!isMute) {
+      Sounds.playHoodBgm();
+    }
+
     final TiledComponent map = await TiledComponent.load(
       'hood.tmx',
       Vector2.all(32),

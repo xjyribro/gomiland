@@ -48,6 +48,10 @@ class Sounds {
     FlameAudio.bgm.play('bgm/roomboi.mp3');
   }
 
+  static void playRoomBgm() {
+    FlameAudio.bgm.play('bgm/behind_the_rocks.mp3');
+  }
+
   static void pauseBackgroundSound() {
     FlameAudio.bgm.pause();
   }

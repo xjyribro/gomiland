@@ -18,7 +18,7 @@ class MuteButton extends StatelessWidget {
         Sounds.playParkBgm();
         break;
       case SceneName.room:
-        Sounds.playMainMenuBgm();
+        Sounds.playRoomBgm();
         break;
       default:
         Sounds.playMainMenuBgm();

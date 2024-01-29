@@ -57,7 +57,11 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-    Sounds.playParkBgm();
+
+    final bool isMute = game.gameStateBloc.state.isMute;
+    if (!isMute) {
+      Sounds.playParkBgm();
+    }
     final TiledComponent map = await TiledComponent.load(
       'park.tmx',
       Vector2.all(tileSize),
@@ -120,7 +124,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
 
     if (trees != null) {
-      print(trees.objects.length);
       for (final TiledObject tree in trees.objects) {
         switch (tree.name) {
           case 'bamboo':
