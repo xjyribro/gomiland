@@ -30,6 +30,20 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     _playerStartPosit = playerStartPosit;
   }
 
+  void turnOnLights() {
+    List<StreetLight> streetLights = children.query<StreetLight>();
+    for (StreetLight light in streetLights) {
+      light.addLight();
+    }
+  }
+
+  void turnOffLights() {
+    List<StreetLight> streetLights = children.query<StreetLight>();
+    for (StreetLight light in streetLights) {
+      light.removeLight();
+    }
+  }
+
   Future<void> _loadPlayer(Vector2 position) async {
     JoystickComponent? joystick = kIsWeb
         ? null
@@ -60,7 +74,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-    
     final bool isMute = game.gameStateBloc.state.isMute;
     if (!isMute) {
       Sounds.playHoodBgm();
@@ -89,12 +102,14 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
+        SceneName sceneName =
+            object.name == 'park' ? SceneName.park : SceneName.room;
         await add(
           Gate(
             position: Vector2(object.x, object.y),
             size: Vector2(object.width, object.height),
             switchScene: () {
-              _setNewSceneName(SceneName.park);
+              _setNewSceneName(sceneName);
             },
           ),
         );

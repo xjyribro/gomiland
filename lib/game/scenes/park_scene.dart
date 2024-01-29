@@ -27,6 +27,20 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     _playerStartPosit = playerStartPosit;
   }
 
+  void turnOnLights() {
+    List<ParkLight> streetLights = children.query<ParkLight>();
+    for (ParkLight light in streetLights) {
+      light.addLight();
+    }
+  }
+
+  void turnOffLights() {
+    List<ParkLight> streetLights = children.query<ParkLight>();
+    for (ParkLight light in streetLights) {
+      light.removeLight();
+    }
+  }
+
   Future<void> _loadPlayer(Vector2 position) async {
     JoystickComponent? joystick = kIsWeb
         ? null

@@ -10,15 +10,23 @@ class ParkLight extends PositionComponent {
   }) : super(
     position: position,
     size: size,
-
   );
+
+  Light light = Light(position: Vector2(-48, -36));
 
   @override
   Future<void> onLoad() async {
-    addAll([
+    add(
       ParkLamp(position: Vector2.zero(), size: size),
-      Light(position: Vector2(-48, -36)),
-    ]);
+    );
+  }
+
+  void addLight() {
+    add(light);
+  }
+
+  void removeLight() {
+    remove(light);
   }
 }
 

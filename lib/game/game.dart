@@ -18,6 +18,7 @@ import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/uiComponents/dialogue_box.dart';
 import 'package:gomiland/game/uiComponents/game_menu.dart';
 import 'package:gomiland/game/uiComponents/hud/bag.dart';
+import 'package:gomiland/game/uiComponents/hud/brightness.dart';
 import 'package:gomiland/game/uiComponents/hud/clock.dart';
 import 'package:gomiland/game/uiComponents/hud/coins.dart';
 import 'package:gomiland/game/uiComponents/hud/e_button.dart';
@@ -89,6 +90,7 @@ class GomilandGame extends FlameGame
   PlayerStateBloc playerStateBloc;
   ProgressStateBloc progressStateBloc;
   late final CameraComponent cameraComponent;
+  final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
 
   YarnProject yarnProject = YarnProject();
   late DialogueRunner dialogueRunner;
@@ -156,7 +158,8 @@ class GomilandGame extends FlameGame
       bagComponent,
       clockComponent,
       gameMenuButton,
-      eButton
+      eButton,
+      brightnessOverlay
     ]);
 
     // BLOC

@@ -12,12 +12,19 @@ class StreetLight extends PositionComponent {
           size: size,
         );
 
+  Light light = Light(position: Vector2(-36, -24));
+
   @override
   Future<void> onLoad() async {
-    addAll([
-      StreetLamp(position: Vector2.zero(), size: size),
-      Light(position: Vector2(-36, -24)),
-    ]);
+    add(StreetLamp(position: Vector2.zero(), size: size));
+  }
+
+  void addLight() {
+    add(light);
+  }
+
+  void removeLight() {
+    remove(light);
   }
 }
 

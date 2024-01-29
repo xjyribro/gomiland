@@ -3,8 +3,10 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/gomiland_world.dart';
 
 class ClockComponent extends HudMarginComponent {
   ClockComponent({
@@ -55,6 +57,33 @@ class ClockComponent extends HudMarginComponent {
         _gameMins = 0;
       }
       _game.gameStateBloc.add(MinuteChanged(_gameMins));
+    }
+    if (_gameMins == eveningStartMins) {
+      _game.brightnessOverlay.makeEveningDim();
+      if (_game.world is GomilandWorld) {
+        GomilandWorld world = _game.world as GomilandWorld;
+        if (_game.gameStateBloc.state.sceneName == SceneName.hood) {
+          world.hoodMap.turnOnLights();
+        }
+        if (_game.gameStateBloc.state.sceneName == SceneName.park) {
+          world.parkMap.turnOnLights();
+        }
+      }
+    }
+    if (_gameMins == nightStartMins) {
+      _game.brightnessOverlay.makeNightDim();
+    }
+    if (_gameMins == morningStartMins) {
+      _game.brightnessOverlay.removeNightDim();
+      if (_game.world is GomilandWorld) {
+        GomilandWorld world = _game.world as GomilandWorld;
+        if (_game.gameStateBloc.state.sceneName == SceneName.hood) {
+          world.hoodMap.turnOffLights();
+        }
+        if (_game.gameStateBloc.state.sceneName == SceneName.park) {
+          world.parkMap.turnOffLights();
+        }
+      }
     }
     final int hours = (_gameMins / 60).floor();
     final int mins = _gameMins % 60;
