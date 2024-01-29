@@ -17,7 +17,7 @@ class ParkLight extends PositionComponent {
   Future<void> onLoad() async {
     addAll([
       ParkLamp(position: Vector2.zero(), size: size),
-      Light(position: Vector2.all(-48)),
+      Light(position: Vector2(-48, -36)),
     ]);
   }
 }

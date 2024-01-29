@@ -8,7 +8,6 @@ mixin ObstacleChecker on PositionComponent, HasGameReference<GomilandGame> {
     required Vector2 originalPosition,
   }) {
     if (movementThisFrame.y < 0) {
-      // Moving up
       final newTop = positionOfAnchor(Anchor.topCenter);
       for (final component in game.world.componentsAtPoint(newTop)) {
         if (component is Obstacle) {
@@ -18,7 +17,6 @@ mixin ObstacleChecker on PositionComponent, HasGameReference<GomilandGame> {
       }
     }
     if (movementThisFrame.y > 0) {
-      // Moving down
       final newBottom = positionOfAnchor(Anchor.bottomCenter);
       for (final component in game.world.componentsAtPoint(newBottom)) {
         if (component is Obstacle) {
@@ -28,7 +26,6 @@ mixin ObstacleChecker on PositionComponent, HasGameReference<GomilandGame> {
       }
     }
     if (movementThisFrame.x < 0) {
-      // Moving left
       final newLeft = positionOfAnchor(Anchor.centerLeft);
       for (final component in game.world.componentsAtPoint(newLeft)) {
         if (component is Obstacle) {
@@ -38,7 +35,6 @@ mixin ObstacleChecker on PositionComponent, HasGameReference<GomilandGame> {
       }
     }
     if (movementThisFrame.x > 0) {
-      // Moving right
       final newRight = positionOfAnchor(Anchor.centerRight);
       for (final component in game.world.componentsAtPoint(newRight)) {
         if (component is Obstacle) {

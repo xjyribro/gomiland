@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
@@ -100,7 +101,7 @@ class GomilandGame extends FlameGame
       );
       final result = collisionDetection.raycast(
         ray,
-        maxDistance: 40,
+        maxDistance: maxRaycastDist,
         ignoreHitboxes: playerHitbox != null ? [playerHitbox] : null,
       );
       if (result != null && result.hitbox != null) {
@@ -109,6 +110,13 @@ class GomilandGame extends FlameGame
           if (parent is RubbishSpawner) {
             parent.pickupRubbish();
           }
+          // TODO
+          // if (parent is Npc) {
+          //   parent.pickupRubbish();
+          // }
+          // if (parent is Sign) {
+          //   parent.pickupRubbish();
+          // }
         }
       }
     }
@@ -116,7 +124,7 @@ class GomilandGame extends FlameGame
 
   @override
   Future<void> onLoad() async {
-    debugMode = true;
+    debugMode = isDebugMode;
 
     // IMAGES
     await images.loadAll([

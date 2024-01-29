@@ -56,7 +56,7 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadParkMap() async {
-    Vector2 playerStartPosit = Vector2(1800, 650);
+    Vector2 playerStartPosit = Vector2(1500, 4225);
     parkMap = ParkMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,

@@ -14,6 +14,7 @@ import 'package:gomiland/game/objects/buildings/combini.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
+import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -68,10 +69,21 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     await _loadPlayer(_playerStartPosit);
 
-    final interactionsLayer = map.tileMap.getLayer<ObjectGroup>('gates');
+    final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
 
-    if (interactionsLayer != null) {
-      for (final TiledObject object in interactionsLayer.objects) {
+    if (obstacles != null) {
+      for (final TiledObject obstacle in obstacles.objects) {
+        add(Obstacle(
+          position: Vector2(obstacle.x, obstacle.y),
+          size: Vector2(obstacle.width, obstacle.height),
+        ));
+      }
+    }
+
+    final gates = map.tileMap.getLayer<ObjectGroup>('gates');
+
+    if (gates != null) {
+      for (final TiledObject object in gates.objects) {
         await add(
           Gate(
             position: Vector2(object.x, object.y),
@@ -84,16 +96,18 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
-    final npcLayer = map.tileMap.getLayer<ObjectGroup>('npc');
+    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
 
-    if (npcLayer != null) {
-      for (final TiledObject npc in npcLayer.objects) {
-        if (npc.name == 'boy') {
-          await add(
-            Monk(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+    if (npcs != null) {
+      for (final TiledObject npc in npcs.objects) {
+        switch (npc.name) {
+          case 'monk':
+            await add(
+              Monk(
+                position: Vector2(npc.x, npc.y),
+              ),
+            );
+            break;
         }
       }
     }
@@ -151,6 +165,23 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
+    final trees = map.tileMap.getLayer<ObjectGroup>('trees');
+
+    if (trees != null) {
+      for (final TiledObject tree in trees.objects) {
+        switch (tree.name) {
+          case 'bamboo':
+            await add(
+              Bamboo(
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+            break;
+        }
+      }
+    }
+
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
 
     if (spawners != null) {
@@ -172,17 +203,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           size: Vector2(lights.width, lights.height),
         );
         await add(streetLight);
-      }
-    }
-
-    final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
-
-    if (obstacles != null) {
-      for (final TiledObject obstacle in obstacles.objects) {
-        add(Obstacle(
-          position: Vector2(obstacle.x, obstacle.y),
-          size: Vector2(obstacle.width, obstacle.height),
-        ));
       }
     }
   }
