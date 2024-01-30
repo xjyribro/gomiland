@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/info_popup.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/instructions.dart';
 import 'package:gomiland/screens/settings.dart';
-import 'package:gomiland/screens/widgets/mainMenuButton.dart';
+import 'package:gomiland/screens/widgets/main_menu_button.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -61,11 +60,12 @@ class _MainMenuState extends State<MainMenu> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) {
-                          context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
-                          return const GameWidgetWrapper();
-                        }),
+                    MaterialPageRoute(builder: (context) {
+                      context
+                          .read<GameStateBloc>()
+                          .add(const SceneChanged(SceneName.hood));
+                      return const GameWidgetWrapper();
+                    }),
                   );
                 },
               ),

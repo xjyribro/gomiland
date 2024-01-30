@@ -3,7 +3,6 @@ import 'package:flame/input.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/utils/load_images.dart';

@@ -85,6 +85,7 @@ class GomilandGame extends FlameGame
     images.prefix = '';
   }
 
+  @override
   World world;
   GameStateBloc gameStateBloc;
   DialogueBloc dialogueBloc;
