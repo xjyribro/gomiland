@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/gomiland_world.dart';
@@ -29,11 +30,7 @@ class ClockComponent extends HudMarginComponent {
     _timeTextComponent = TextComponent(
       text: '00: 00',
       textRenderer: TextPaint(
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 20,
-          fontFamily: Strings.minecraft,
-        ),
+        style: TextStyles.hudTextStyle,
       ),
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
@@ -56,7 +53,7 @@ class ClockComponent extends HudMarginComponent {
       if (_gameMins > minsInADay) {
         _gameMins = 0;
       }
-      _game.gameStateBloc.add(MinuteChanged(_gameMins));
+      _game.gameStateBloc.add(const AddOneMin());
     }
     if (_gameMins == eveningStartMins) {
       _game.brightnessOverlay.makeEveningDim();

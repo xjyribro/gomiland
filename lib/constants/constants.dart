@@ -8,6 +8,7 @@ const morningStartMins = 180;
 const afternoonStartMins = 720;
 const eveningStartMins = 60;
 const nightStartMins = 120;
+const textSpeed = 50;
 
 class Strings{
   static const String minecraft = 'minecraft';

@@ -36,9 +36,15 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
       ),
     );
 
-    on<MinuteChanged>(
-          (event, emit) => emit(
+    on<AddOneMin>(
+      (event, emit) => emit(
         state.copyWith(minutes: state.minutes + 1),
+      ),
+    );
+
+    on<PlayerFrozen>(
+      (event, emit) => emit(
+        state.copyWith(playerFrozen: event.playerFrozen),
       ),
     );
   }
@@ -91,13 +97,20 @@ class MaxBagCountChange extends GameStatesEvent {
   List<Object?> get props => [maxBagCount];
 }
 
-class MinuteChanged extends GameStatesEvent {
-  const MinuteChanged(this.minutes);
-
-  final int minutes;
+class AddOneMin extends GameStatesEvent {
+  const AddOneMin();
 
   @override
-  List<Object?> get props => [minutes];
+  List<Object?> get props => [];
+}
+
+class PlayerFrozen extends GameStatesEvent {
+  const PlayerFrozen(this.playerFrozen);
+
+  final bool playerFrozen;
+
+  @override
+  List<Object?> get props => [playerFrozen];
 }
 
 class GameState extends Equatable {
@@ -107,8 +120,7 @@ class GameState extends Equatable {
   final int bagCount;
   final int maxBagCount;
   final int minutes;
-
-  // time
+  final bool playerFrozen;
 
   const GameState({
     required this.score,
@@ -117,6 +129,7 @@ class GameState extends Equatable {
     required this.bagCount,
     required this.maxBagCount,
     required this.minutes,
+    required this.playerFrozen,
   });
 
   const GameState.empty()
@@ -127,6 +140,7 @@ class GameState extends Equatable {
           bagCount: 0,
           maxBagCount: 10,
           minutes: 0,
+          playerFrozen: false,
         );
 
   GameState copyWith({
@@ -136,6 +150,7 @@ class GameState extends Equatable {
     int? bagCount,
     int? maxBagCount,
     int? minutes,
+    bool? playerFrozen,
   }) {
     return GameState(
       score: score ?? this.score,
@@ -144,6 +159,7 @@ class GameState extends Equatable {
       bagCount: bagCount ?? this.bagCount,
       maxBagCount: maxBagCount ?? this.maxBagCount,
       minutes: minutes ?? this.minutes,
+      playerFrozen: playerFrozen ?? this.playerFrozen,
     );
   }
 
@@ -155,5 +171,6 @@ class GameState extends Equatable {
         bagCount,
         maxBagCount,
         minutes,
+        playerFrozen,
       ];
 }

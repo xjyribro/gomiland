@@ -15,15 +15,16 @@ import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
-import 'package:gomiland/game/uiComponents/dialogue_box.dart';
-import 'package:gomiland/game/uiComponents/game_menu.dart';
-import 'package:gomiland/game/uiComponents/hud/bag.dart';
-import 'package:gomiland/game/uiComponents/hud/brightness.dart';
-import 'package:gomiland/game/uiComponents/hud/clock.dart';
-import 'package:gomiland/game/uiComponents/hud/coins.dart';
-import 'package:gomiland/game/uiComponents/hud/e_button.dart';
-import 'package:gomiland/game/uiComponents/hud/game_menu_button.dart';
-import 'package:gomiland/game/uiComponents/mute_button.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
+import 'package:gomiland/game/ui/game_menu.dart';
+import 'package:gomiland/game/ui/hud/bag.dart';
+import 'package:gomiland/game/ui/hud/brightness.dart';
+import 'package:gomiland/game/ui/hud/clock.dart';
+import 'package:gomiland/game/ui/hud/coins.dart';
+import 'package:gomiland/game/ui/hud/e_button.dart';
+import 'package:gomiland/game/ui/hud/game_menu_button.dart';
+import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:jenny/jenny.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
@@ -133,7 +134,8 @@ class GomilandGame extends FlameGame
   }
 
   void showDialogue() {
-    cameraComponent.viewport.add(dialogueControllerComponent);
+    gameStateBloc.add(const PlayerFrozen(true));
+    overlays.add('DialogueBox');
     dialogueRunner.startDialogue('example');
   }
 
@@ -185,5 +187,7 @@ class GomilandGame extends FlameGame
         .parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
     dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
+    cameraComponent.viewport.add(dialogueControllerComponent);
+    dialogueBloc.add(ChangeDialogueController(dialogueControllerComponent));
   }
 }

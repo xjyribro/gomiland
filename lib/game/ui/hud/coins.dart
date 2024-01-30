@@ -1,15 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/utils/load_images.dart';
 
-class BagComponent extends HudMarginComponent {
-  BagComponent({
+class CoinsComponent extends HudMarginComponent {
+  CoinsComponent({
     required GomilandGame game,
     super.margin = const EdgeInsets.only(
-      left: 320,
+      left: 128,
       top: 32,
     ),
   }) : super() {
@@ -22,30 +25,35 @@ class BagComponent extends HudMarginComponent {
   @override
   Future<void> onLoad() async {
     _bagCountTextComponent = TextComponent(
-      text:
-          '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}',
+      text: '${_game.gameStateBloc.state.bagCount}',
       textRenderer: TextPaint(
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 20,
-          fontFamily: Strings.minecraft,
-        ),
+        style: TextStyles.hudTextStyle,
       ),
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
     );
     add(_bagCountTextComponent);
 
-    final SpriteComponent bag = SpriteComponent(
-      sprite: await Sprite.load(Assets.assets_images_ui_bag_png),
+    final spriteSheet = SpriteSheet(
+      image: await LoadImage(Assets.assets_images_spritesheets_coin_small_png),
+      srcSize: Vector2(32, 32),
+    );
+
+    final coinAnimation =
+        spriteSheet.createAnimation(row: 0, stepTime: 0.2, to: 6);
+
+    final animatedCoin = SpriteAnimationComponent(
+      animation: coinAnimation,
+      position: Vector2(0, 0),
+      size: Vector2(32, 32),
       anchor: Anchor.center,
     );
-    add(bag);
+
+    add(animatedCoin);
   }
 
   @override
   void update(double dt) {
-    _bagCountTextComponent.text =
-        '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}';
+    _bagCountTextComponent.text = 'Coins';
   }
 }

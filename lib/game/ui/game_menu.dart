@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 
@@ -10,15 +11,12 @@ class GameMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const blackTextColor = Color.fromRGBO(0, 0, 0, 1.0);
-    const whiteTextColor = Color.fromRGBO(255, 255, 255, 1.0);
-    const whiteTranslucent = Color.fromRGBO(255, 255, 255, 0.5);
     Size screenSize = MediaQuery.of(context).size;
 
     return Material(
       color: Colors.transparent,
       child: Container(
-        color: whiteTranslucent,
+        color: GameColors.whiteTranslucent,
         width: screenSize.width,
         child: Center(
           child: Container(
@@ -26,7 +24,7 @@ class GameMenu extends StatelessWidget {
             height: 600,
             width: 400,
             decoration: const BoxDecoration(
-              color: blackTextColor,
+              color: GameColors.blackTextColor,
               borderRadius: BorderRadius.all(
                 Radius.circular(64),
               ),
@@ -48,14 +46,11 @@ class GameMenu extends StatelessWidget {
                       game.overlays.remove('GameMenu');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: whiteTextColor,
+                      backgroundColor: GameColors.whiteTextColor,
                     ),
                     child: const Text(
                       'Resume',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: blackTextColor,
-                      ),
+                      style: TextStyles.mainMenuTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -69,14 +64,11 @@ class GameMenu extends StatelessWidget {
                       // TODO save game
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: whiteTextColor,
+                      backgroundColor: GameColors.whiteTextColor,
                     ),
                     child: const Text(
                       'Save game',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: blackTextColor,
-                      ),
+                      style: TextStyles.mainMenuTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -91,14 +83,11 @@ class GameMenu extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: whiteTextColor,
+                      backgroundColor: GameColors.whiteTextColor,
                     ),
                     child: const Text(
                       'Back to main menu',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: blackTextColor,
-                      ),
+                      style: TextStyles.mainMenuTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),

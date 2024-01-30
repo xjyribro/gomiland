@@ -229,12 +229,9 @@ class Player extends SpriteAnimationComponent
       }
 
       if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        add(game.dialogueControllerComponent);
-        game.overlays.add('DialogueBox');
-        game.dialogueRunner.startDialogue('example');
+        game.showDialogue();
       }
       if (event.logicalKey == LogicalKeyboardKey.keyT) {
-        remove(game.dialogueControllerComponent);
         game.overlays.remove('DialogueBox');
       }
 
