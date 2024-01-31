@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/day_controller.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
@@ -43,6 +44,7 @@ class GameWidgetWrapper extends StatelessWidget {
               dialogueBloc: context.read<DialogueBloc>(),
               playerStateBloc: context.read<PlayerStateBloc>(),
               progressStateBloc: context.read<ProgressStateBloc>(),
+              dayStateBloc: context.read<DayStateBloc>(),
             ),
             overlayBuilderMap: {
               'GameMenu': (BuildContext context, GomilandGame game) {
@@ -76,6 +78,7 @@ class GomilandGame extends FlameGame
     required this.dialogueBloc,
     required this.playerStateBloc,
     required this.progressStateBloc,
+    required this.dayStateBloc,
   }) : world = GomilandWorld() {
     cameraComponent = CameraComponent.withFixedResolution(
       world: world,
@@ -91,6 +94,7 @@ class GomilandGame extends FlameGame
   DialogueBloc dialogueBloc;
   PlayerStateBloc playerStateBloc;
   ProgressStateBloc progressStateBloc;
+  DayStateBloc dayStateBloc;
   late final CameraComponent cameraComponent;
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
 
@@ -183,7 +187,11 @@ class GomilandGame extends FlameGame
       ),
     );
 
+    void addRubbish() {
+      gameStateBloc.add(const BagCountChange(14));
+    }
     // DIALOGUE
+    yarnProject.commands.addCommand0('AddRubbish', addRubbish);
     yarnProject
         .parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
     dialogueRunner = DialogueRunner(

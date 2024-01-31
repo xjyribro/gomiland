@@ -11,6 +11,12 @@ class DialogueBloc extends Bloc<DialogueEvent, DialogueState> {
       ),
     );
 
+    on<SetIsCompleted>(
+          (event, emit) => emit(
+        state.copyWith(isCompleted: event.isCompleted),
+      ),
+    );
+
     on<ChangeDialogueController>(
       (event, emit) => emit(
         state.copyWith(dialogueController: event.dialogueController),
@@ -38,6 +44,15 @@ class ChangeText extends DialogueEvent {
   List<Object?> get props => [text];
 }
 
+class SetIsCompleted extends DialogueEvent {
+  const SetIsCompleted(this.isCompleted);
+
+  final bool isCompleted;
+
+  @override
+  List<Object?> get props => [isCompleted];
+}
+
 class ChangeDialogueController extends DialogueEvent {
   const ChangeDialogueController(this.dialogueController);
 
@@ -58,11 +73,13 @@ class ChangeDialogueOptions extends DialogueEvent {
 
 class DialogueState extends Equatable {
   final String text;
+  final bool isCompleted;
   final List<DialogueOption> dialogueOptions;
   final DialogueControllerComponent dialogueController;
 
   const DialogueState({
     required this.text,
+    required this.isCompleted,
     required this.dialogueOptions,
     required this.dialogueController,
   });
@@ -70,22 +87,25 @@ class DialogueState extends Equatable {
   DialogueState.empty()
       : this(
           text: '',
+          isCompleted: false,
           dialogueOptions: [],
           dialogueController: DialogueControllerComponent(),
         );
 
   DialogueState copyWith({
     String? text,
+    bool? isCompleted,
     List<DialogueOption>? dialogueOptions,
     DialogueControllerComponent? dialogueController,
   }) {
     return DialogueState(
       text: text ?? this.text,
+      isCompleted: isCompleted ?? this.isCompleted,
       dialogueOptions: dialogueOptions ?? this.dialogueOptions,
       dialogueController: dialogueController ?? this.dialogueController,
     );
   }
 
   @override
-  List<Object?> get props => [text, dialogueOptions, dialogueController];
+  List<Object?> get props => [text, isCompleted, dialogueOptions, dialogueController];
 }

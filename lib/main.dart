@@ -2,6 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/game/controllers/day_controller.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
@@ -22,6 +23,7 @@ void main() async {
         BlocProvider<DialogueBloc>(create: (_) => DialogueBloc()),
         BlocProvider<PlayerStateBloc>(create: (_) => PlayerStateBloc()),
         BlocProvider<ProgressStateBloc>(create: (_) => ProgressStateBloc()),
+        BlocProvider<DayStateBloc>(create: (_) => DayStateBloc()),
       ],
       child: const MyApp(),
     ),

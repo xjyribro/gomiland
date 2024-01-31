@@ -13,31 +13,31 @@ class ProgressStateBloc extends Bloc<ProgressStatesEvent, ProgressState> {
 
     on<PaperProgressChange>(
       (event, emit) => emit(
-        state.copyWith(plastic: event.paper),
+        state.copyWith(paper: event.paper),
       ),
     );
 
     on<MetalProgressChange>(
       (event, emit) => emit(
-        state.copyWith(plastic: event.metal),
+        state.copyWith(metal: event.metal),
       ),
     );
 
     on<ElectronicsProgressChange>(
       (event, emit) => emit(
-        state.copyWith(plastic: event.electronics),
+        state.copyWith(electronics: event.electronics),
       ),
     );
 
     on<GlassProgressChange>(
       (event, emit) => emit(
-        state.copyWith(plastic: event.glass),
+        state.copyWith(glass: event.glass),
       ),
     );
 
     on<FoodProgressChange>(
       (event, emit) => emit(
-        state.copyWith(plastic: event.food),
+        state.copyWith(food: event.food),
       ),
     );
   }
@@ -108,8 +108,6 @@ class ProgressState extends Equatable {
   final int electronics;
   final int glass;
   final int food;
-
-  // time
 
   const ProgressState({
     required this.plastic,

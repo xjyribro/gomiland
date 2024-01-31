@@ -26,6 +26,11 @@ class DialogueControllerComponent extends Component
   }
 
   @override
+  Future<void> onNodeStart(Node node) async {
+    game.dialogueBloc.add(const SetIsCompleted(false));
+  }
+
+  @override
   FutureOr<bool> onLineStart(DialogueLine line) async {
     _forwardCompleter = Completer();
     await _advance(line);
@@ -41,19 +46,12 @@ class DialogueControllerComponent extends Component
 
   @override
   FutureOr<int?> onChoiceStart(DialogueChoice choice) async {
+    _forwardCompleter = Completer();
     _choiceCompleter = Completer<int>();
-
     game.dialogueBloc.add(ChangeDialogueOptions(choice.options));
-    for (var option in choice.options) {
-      print(option.text);
-    }
     await _awaitChoice();
+    game.dialogueBloc.add(const ChangeDialogueOptions([]));
     return _choiceCompleter.future;
-  }
-
-  @override
-  FutureOr<void> onChoiceFinish(DialogueOption option) {
-    print(option.text);
   }
 
   Future<void> _awaitChoice() async {
@@ -62,6 +60,11 @@ class DialogueControllerComponent extends Component
 
   @override
   Future<void> onNodeFinish(Node node) async {
-    print('end');
+    game.dialogueBloc.add(const SetIsCompleted(true));
+  }
+
+  @override
+  FutureOr<void> onCommand(UserDefinedCommand command) {
+    print('command: ${command.name}');
   }
 }
