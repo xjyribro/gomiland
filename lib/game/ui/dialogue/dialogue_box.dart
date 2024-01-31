@@ -5,18 +5,24 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/button_row.dart';
 
 class DialogueBox extends StatelessWidget {
-  const DialogueBox({super.key});
+  final GomilandGame game;
+
+  const DialogueBox({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return DefaultTextStyle(
       style: TextStyles.dialogueTextStyle,
-      child: BlocBuilder<DialogueBloc, DialogueState>(
-        builder: (context, state) => Stack(
+      child:
+          BlocBuilder<DialogueBloc, DialogueState>(builder: (context, state) {
+        Key dialogueKey = Key(
+            state.dialogueOptions.toString() + state.isCompleted.toString());
+        return Stack(
           children: [
             Align(
               alignment: Alignment.bottomCenter,
@@ -47,14 +53,15 @@ class DialogueBox extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: ButtonRow(
-                key: Key(state.dialogueOptions.toString()),
+                key: dialogueKey,
                 state: state,
                 options: state.dialogueOptions,
+                game: game,
               ),
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

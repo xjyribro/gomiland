@@ -5,7 +5,6 @@ import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
@@ -15,6 +14,7 @@ import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/gomiland_world.dart';
+import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
@@ -61,7 +61,7 @@ class GameWidgetWrapper extends StatelessWidget {
                 );
               },
               'DialogueBox': (BuildContext context, GomilandGame game) {
-                return const DialogueBox();
+                return DialogueBox(game: game);
               },
             },
           ),
@@ -98,11 +98,12 @@ class GomilandGame extends FlameGame
   late final CameraComponent cameraComponent;
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
 
-  YarnProject yarnProject = YarnProject();
-  late DialogueRunner dialogueRunner;
+  late final JoystickComponent joystick;
+
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
-  late final JoystickComponent joystick;
+  YarnProject yarnProject = YarnProject();
+  late DialogueRunner dialogueRunner;
 
   void castRay() {
     final Vector2 playerPosition = playerStateBloc.state.playerPosition;
@@ -126,22 +127,15 @@ class GomilandGame extends FlameGame
           if (parent is RubbishSpawner) {
             parent.pickupRubbish();
           }
-          // TODO
-          // if (parent is Npc) {
-          //   parent.pickupRubbish();
-          // }
+          if (parent is Monk) {
+            parent.startConversation(playerPosition);
+          }
           // if (parent is Sign) {
           //   parent.pickupRubbish();
           // }
         }
       }
     }
-  }
-
-  void showDialogue() {
-    gameStateBloc.add(const PlayerFrozen(true));
-    overlays.add('DialogueBox');
-    dialogueRunner.startDialogue('example');
   }
 
   @override
@@ -169,6 +163,9 @@ class GomilandGame extends FlameGame
       brightnessOverlay
     ]);
 
+    add(dialogueControllerComponent);
+    dialogueBloc.add(ChangeDialogueController(dialogueControllerComponent));
+
     // BLOC
     await add(
       FlameMultiBlocProvider(
@@ -186,17 +183,5 @@ class GomilandGame extends FlameGame
         ],
       ),
     );
-
-    void addRubbish() {
-      gameStateBloc.add(const BagCountChange(14));
-    }
-    // DIALOGUE
-    yarnProject.commands.addCommand0('AddRubbish', addRubbish);
-    yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
-    dialogueRunner = DialogueRunner(
-        yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    cameraComponent.viewport.add(dialogueControllerComponent);
-    dialogueBloc.add(ChangeDialogueController(dialogueControllerComponent));
   }
 }

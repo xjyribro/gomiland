@@ -3,10 +3,4 @@
 title: example
 ---
 You : Good morning!
-Gardener: You call this good? 'Tis as crappy as could be
--> Yes
-    <<AddRubbish>>
-    Gardener: Great!
--> No
-    Gardener: You should go find Mr Moon.
 ===

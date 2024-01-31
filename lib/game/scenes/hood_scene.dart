@@ -121,7 +121,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     if (npcs != null) {
       for (final TiledObject npc in npcs.objects) {
         switch (npc.name) {
-          case 'monk':
+          case 'boy':
             await add(
               Monk(
                 position: Vector2(npc.x, npc.y),

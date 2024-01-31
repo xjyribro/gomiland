@@ -2,16 +2,38 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/controllers/dialogue_controller.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
 import 'package:jenny/jenny.dart';
 
 class ButtonRow extends StatelessWidget {
   final DialogueState state;
   final List<DialogueOption> options;
+  final GomilandGame game;
 
-  const ButtonRow({super.key, required this.state, required this.options});
+  const ButtonRow({
+    super.key,
+    required this.state,
+    required this.options,
+    required this.game,
+  });
 
-  List<Widget> _getChoiceButtons(List<DialogueOption> options) {
+  void onDialogueEnd() {
+    game.gameStateBloc.add(const PlayerFrozen(false));
+    game.overlays.remove('DialogueBox');
+  }
+
+  List<Widget> _getChoiceButtons() {
+    if (state.isCompleted) {
+      return [
+        DialogueButton(
+          imageAssetPath: Assets.assets_images_ui_blue_button_png,
+          text: 'Close',
+          onTap: onDialogueEnd,
+        )
+      ];
+    }
     if (options.isEmpty) {
       return [
         DialogueButton(
@@ -41,7 +63,7 @@ class ButtonRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: _getChoiceButtons(options),
+        children: _getChoiceButtons(),
       ),
     );
   }

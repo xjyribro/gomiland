@@ -228,11 +228,8 @@ class Player extends SpriteAnimationComponent
         game.playerStateBloc.add(PlayerDirectionChange(Vector2(1, 0)));
       }
 
-      if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        game.showDialogue();
-      }
-      if (event.logicalKey == LogicalKeyboardKey.keyT) {
-        game.overlays.remove('DialogueBox');
+      if (event.logicalKey == LogicalKeyboardKey.keyE) {
+        game.castRay();
       }
 
       return false;

@@ -62,9 +62,4 @@ class DialogueControllerComponent extends Component
   Future<void> onNodeFinish(Node node) async {
     game.dialogueBloc.add(const SetIsCompleted(true));
   }
-
-  @override
-  FutureOr<void> onCommand(UserDefinedCommand command) {
-    print('command: ${command.name}');
-  }
 }
