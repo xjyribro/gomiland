@@ -4,10 +4,10 @@ const gameMinToRealSecond = 0.01;
 const minsInADay = 1440;
 const double maxRaycastDist = 40;
 const isDebugMode = true;
-const morningStartMins = 180;
+const morningStartMins = 360;
 const afternoonStartMins = 720;
-const eveningStartMins = 60;
-const nightStartMins = 120;
+const eveningStartMins = 1080;
+const nightStartMins = 0;
 const textSpeed = 50;
 
 class Strings{

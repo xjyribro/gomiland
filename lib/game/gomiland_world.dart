@@ -47,7 +47,7 @@ class GomilandWorld extends World
     SceneName sceneName = game.gameStateBloc.state.sceneName;
     final bool comingFromPark = sceneName == SceneName.park;
     Vector2 playerStartPosit =
-        comingFromPark ? Vector2(1800, 650) : Vector2(1800, 650);
+        comingFromPark ? Vector2(1800, 650) : Vector2(5700, 4000);
     hoodMap = HoodMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,
@@ -56,7 +56,7 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadParkMap() async {
-    Vector2 playerStartPosit = Vector2(1500, 4225);
+    Vector2 playerStartPosit = Vector2(1500, 2225);
     parkMap = ParkMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,

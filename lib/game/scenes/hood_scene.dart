@@ -11,6 +11,10 @@ import 'package:gomiland/game/objects/buildings/apt1.dart';
 import 'package:gomiland/game/objects/buildings/apt2.dart';
 import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/buildings/combini.dart';
+import 'package:gomiland/game/objects/buildings/house_eng.dart';
+import 'package:gomiland/game/objects/buildings/inn.dart';
+import 'package:gomiland/game/objects/buildings/shop_eng.dart';
+import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
@@ -119,87 +123,19 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
 
     if (npcs != null) {
-      for (final TiledObject npc in npcs.objects) {
-        switch (npc.name) {
-          case 'boy':
-            await add(
-              Monk(
-                position: Vector2(npc.x, npc.y),
-              ),
-            );
-            break;
-        }
-      }
+      _loadNpcs(npcs);
     }
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
 
     if (buildings != null) {
-      for (final TiledObject building in buildings.objects) {
-        switch (building.name) {
-          case 'home':
-            await add(
-              SpriteComponent(
-                sprite:
-                    await Sprite.load(Assets.assets_images_buildings_home_png),
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-            break;
-          case 'apt1':
-            await add(
-              Apt1(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-            break;
-          case 'apt2':
-            await add(
-              Apt2(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-            break;
-          case 'apt3':
-            await add(
-              Apt3(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-            break;
-          case 'combini':
-            await add(
-              Combini(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-            break;
-          default:
-            break;
-        }
-      }
+      _loadBuildings(buildings);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
 
     if (trees != null) {
-      for (final TiledObject tree in trees.objects) {
-        switch (tree.name) {
-          case 'bamboo':
-            await add(
-              Bamboo(
-                position: Vector2(tree.x, tree.y),
-                size: Vector2(tree.width, tree.height),
-              ),
-            );
-            break;
-        }
-      }
+      _loadTrees(trees);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
@@ -223,6 +159,230 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           size: Vector2(lights.width, lights.height),
         );
         await add(streetLight);
+      }
+    }
+  }
+
+  Future<void> _loadTrees(ObjectGroup trees) async {
+    for (final TiledObject tree in trees.objects) {
+      switch (tree.name) {
+        case 'bamboo':
+          await add(
+            Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree1':
+          await add(
+            Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree2':
+          await add(
+            Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree3':
+          await add(
+            Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+      }
+    }
+  }
+
+  Future<void> _loadNpcs(ObjectGroup npcs) async {
+    for (final TiledObject npc in npcs.objects) {
+      switch (npc.name) {
+        case 'man':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'women':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'manuka':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'asimov':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'moon':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'stark':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'plastic':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'qianbi':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+      }
+    }
+  }
+
+  Future<void> _loadBuildings(ObjectGroup buildings) async {
+    for (final TiledObject building in buildings.objects) {
+      switch (building.name) {
+        case 'home':
+          await add(
+            SpriteComponent(
+              sprite:
+                  await Sprite.load(Assets.assets_images_buildings_home_png),
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'inn':
+          await add(
+            Inn(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_1':
+          await add(
+            Apt1(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_2':
+          await add(
+            Apt2(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_3':
+          await add(
+            Apt3(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'shop_eng_1':
+          await add(
+            ShopEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_eng_2':
+          await add(
+            ShopEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'shop_side_eng_1':
+          await add(
+            ShopSideEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_side_eng_2':
+          await add(
+            ShopSideEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'house_eng_1':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'house_eng_2':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'house_eng_3':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 2,
+            ),
+          );
+          break;
+        case 'combini':
+          await add(
+            Combini(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        default:
+          break;
       }
     }
   }

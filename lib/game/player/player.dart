@@ -92,13 +92,10 @@ class Player extends SpriteAnimationComponent
         _moveWithJoystick(_joystick!.direction);
       }
     }
-    // Save this to use after we zero out movement for unwalkable terrain.
     final originalPosition = position.clone();
 
     Vector2 movement = _getMovement(_moveDirection);
     final movementThisFrame = movement * _speed * dt;
-    // Fake update the position so our anchor calculations take into account
-    // what movement we want to do this turn.
     position.add(movementThisFrame);
     checkMovement(
       movementThisFrame: movementThisFrame,

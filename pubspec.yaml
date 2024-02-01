@@ -49,6 +49,7 @@ flutter:
     - assets/images/player/
     - assets/images/objects/
     - assets/images/rubbish/
+    - assets/images/tile_maps/
     - assets/yarn/
 
   fonts:

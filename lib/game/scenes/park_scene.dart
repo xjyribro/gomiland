@@ -9,6 +9,7 @@ import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
+import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
@@ -32,11 +33,19 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     for (ParkLight light in streetLights) {
       light.addLight();
     }
+    List<StoneLight> stoneLights = children.query<StoneLight>();
+    for (StoneLight light in stoneLights) {
+      light.addLight();
+    }
   }
 
   void turnOffLights() {
     List<ParkLight> streetLights = children.query<ParkLight>();
     for (ParkLight light in streetLights) {
+      light.removeLight();
+    }
+    List<StoneLight> stoneLights = children.query<StoneLight>();
+    for (StoneLight light in stoneLights) {
       light.removeLight();
     }
   }
@@ -116,7 +125,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     if (npcs != null) {
       for (final TiledObject npc in npcs.objects) {
         switch (npc.name) {
-          case 'monk':
+          case 'qianbi':
             await add(
               Monk(
                 position: Vector2(npc.x, npc.y),
@@ -167,12 +176,21 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
 
     if (lights != null) {
-      for (final TiledObject lights in lights.objects) {
-        ParkLight streetLight = ParkLight(
-          position: Vector2(lights.x, lights.y),
-          size: Vector2(lights.width, lights.height),
-        );
-        await add(streetLight);
+      for (final TiledObject light in lights.objects) {
+        if (light.name == 'park_light') {
+          ParkLight parkLight = ParkLight(
+            position: Vector2(light.x, light.y),
+            size: Vector2(light.width, light.height),
+          );
+          await add(parkLight);
+        }
+        if (light.name == 'stone_light') {
+          StoneLight stoneLight = StoneLight(
+            position: Vector2(light.x, light.y),
+            size: Vector2(light.width, light.height),
+          );
+          await add(stoneLight);
+        }
       }
     }
   }

@@ -22,11 +22,17 @@ class ParkLight extends PositionComponent {
   }
 
   void addLight() {
-    add(light);
+    List<Light> lightChildren = children.query<Light>();
+    if (lightChildren.isEmpty) {
+      add(light);
+    }
   }
 
   void removeLight() {
-    remove(light);
+    List<Light> lightChildren = children.query<Light>();
+    if (lightChildren.isNotEmpty) {
+      remove(light);
+    }
   }
 }
 

@@ -20,7 +20,6 @@ class Monk extends SpriteAnimationComponent
           anchor: Anchor.center,
         );
 
-  late SpriteAnimationComponent monk;
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
@@ -29,7 +28,7 @@ class Monk extends SpriteAnimationComponent
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_monk_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_qianbi_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -43,12 +42,6 @@ class Monk extends SpriteAnimationComponent
         row: 3, stepTime: _stepTime, from: 0, to: 1);
     idleRight = spriteSheet.createAnimation(
         row: 2, stepTime: _stepTime, from: 0, to: 1);
-
-    monk = SpriteAnimationComponent(
-      animation: idleDown,
-      position: Vector2(300, 300),
-      size: Vector2.all(32),
-    );
 
     animation = idleDown;
     add(RectangleHitbox(
