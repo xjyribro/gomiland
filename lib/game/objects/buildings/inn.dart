@@ -4,6 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/player/player.dart';
 
 class Inn extends SpriteAnimationComponent with CollisionCallbacks {
@@ -11,17 +12,29 @@ class Inn extends SpriteAnimationComponent with CollisionCallbacks {
     required Vector2 position,
     required Vector2 size,
   }) : super(position: position, size: size);
-  final double _stepTime = 0.2;
 
   @override
   Future<void> onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_buildings_inn_png);
+    final image =
+        await Flame.images.load(Assets.assets_images_buildings_inn_png);
     final spriteSheet = SpriteSheet(
       image: image,
-      srcSize: Vector2(128,256),
+      srcSize: Vector2(128, 256),
     );
-    animation = spriteSheet.createAnimation(
-        row: 0, stepTime: _stepTime, from: 0, to: 4);
+    animation = SpriteAnimation.fromFrameData(
+        spriteSheet.image,
+        SpriteAnimationData([
+          spriteSheet.createFrameData(0, 0, stepTime: stepTime),
+          spriteSheet.createFrameData(0, 1, stepTime: stepTime),
+          spriteSheet.createFrameData(0, 2, stepTime: stepTime),
+          spriteSheet.createFrameData(0, 3, stepTime: stepTime),
+          spriteSheet.createFrameData(0, 4, stepTime: stepTime),
+          spriteSheet.createFrameData(1, 0, stepTime: stepTime),
+          spriteSheet.createFrameData(1, 1, stepTime: stepTime),
+          spriteSheet.createFrameData(1, 2, stepTime: stepTime),
+          spriteSheet.createFrameData(1, 3, stepTime: stepTime),
+          spriteSheet.createFrameData(1, 4, stepTime: stepTime),
+        ]));
 
     RectangleHitbox hitbox = RectangleHitbox(
         size: Vector2(128, 160),
