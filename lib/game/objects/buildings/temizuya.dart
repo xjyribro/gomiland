@@ -1,11 +1,8 @@
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/player/player.dart';
 
 class Temizuya extends SpriteAnimationComponent {
   Temizuya({

@@ -1,11 +1,8 @@
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/player/player.dart';
 
 class Fountain extends SpriteAnimationComponent {
   Fountain({
@@ -15,10 +12,11 @@ class Fountain extends SpriteAnimationComponent {
 
   @override
   Future<void> onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_spritesheets_fountain_png);
+    final image =
+        await Flame.images.load(Assets.assets_images_spritesheets_fountain_png);
     final spriteSheet = SpriteSheet(
       image: image,
-      srcSize: Vector2(64,96),
+      srcSize: Vector2(64, 96),
     );
     animation = spriteSheet.createAnimation(row: 0, stepTime: stepTime);
   }
