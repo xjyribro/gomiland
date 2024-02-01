@@ -14,16 +14,5 @@ class LightSprite extends SpriteComponent {
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(Assets.assets_images_objects_light_png);
-    add(
-      OpacityEffect.to(
-        0.85,
-        EffectController(
-          duration: 0.4,
-          reverseDuration: .4,
-          infinite: true,
-          curve: Curves.easeOut,
-        ),
-      ),
-    );
   }
 }

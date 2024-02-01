@@ -24,7 +24,6 @@ class Monk extends SpriteAnimationComponent
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  final double _stepTime = 0.2;
 
   @override
   void onLoad() async {
@@ -35,13 +34,13 @@ class Monk extends SpriteAnimationComponent
     );
 
     idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: _stepTime, from: 0, to: 1);
+        row: 1, stepTime: stepTime, from: 0, to: 1);
     idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: _stepTime, from: 0, to: 1);
+        row: 0, stepTime: stepTime, from: 0, to: 1);
     idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: _stepTime, from: 0, to: 1);
+        row: 3, stepTime: stepTime, from: 0, to: 1);
     idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: _stepTime, from: 0, to: 1);
+        row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     add(RectangleHitbox(

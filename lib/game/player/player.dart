@@ -43,7 +43,6 @@ class Player extends SpriteAnimationComponent
   bool _isMovingRight = false;
   int _moveDirection = 0;
   final double _speed = tileSize * playerSpeed;
-  final double _stepTime = 0.2;
 
   @override
   void onLoad() {
@@ -54,21 +53,21 @@ class Player extends SpriteAnimationComponent
       srcSize: Vector2.all(32),
     );
 
-    moveUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 1);
+    moveUp = spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 1);
     moveDown =
-        spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 1);
+        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 1);
     moveLeft =
-        spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 1);
+        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 1);
     moveRight =
-        spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 1);
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 1);
     idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: _stepTime, from: 0, to: 1);
+        row: 1, stepTime: stepTime, from: 0, to: 1);
     idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: _stepTime, from: 0, to: 1);
+        row: 0, stepTime: stepTime, from: 0, to: 1);
     idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: _stepTime, from: 0, to: 1);
+        row: 3, stepTime: stepTime, from: 0, to: 1);
     idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: _stepTime, from: 0, to: 1);
+        row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     playerHitbox = RectangleHitbox(
@@ -147,6 +146,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = false;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, -1)));
         break;
       case JoystickDirection.down:
         animation = moveDown;
@@ -155,6 +155,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = true;
         _isMovingLeft = false;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, 1)));
         break;
       case JoystickDirection.left:
         animation = moveLeft;
@@ -163,6 +164,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = true;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(-1, 0)));
         break;
       case JoystickDirection.right:
         animation = moveRight;
@@ -171,6 +173,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = false;
         _isMovingRight = true;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(1, 0)));
         break;
       default:
         return;

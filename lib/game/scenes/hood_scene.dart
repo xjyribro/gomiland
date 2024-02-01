@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
@@ -100,7 +101,20 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'hood.tmx',
       Vector2.all(32),
     );
-    await add(map);
+    final mapComponent = await TiledComponent.load('hood.tmx', Vector2.all(32));
+    final imageCompiler = ImageBatchCompiler();
+    final ground = imageCompiler
+        .compileMapLayer(tileMap: mapComponent.tileMap, layerNames: [
+      'water',
+      'sand',
+      'road',
+      'pavement',
+      'grass',
+      'overlays',
+      'barriers',
+    ]);
+    add(ground);
+    // await add(map);
 
     await _loadPlayer(_playerStartPosit);
 

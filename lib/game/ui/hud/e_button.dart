@@ -20,9 +20,9 @@ class EButton extends HudMarginComponent{
   @override
   Future<void> onLoad() async {
     final SpriteButtonComponent bag = SpriteButtonComponent(
-        button: await Sprite.load(Assets.assets_images_ui_e_button_png),
+        button: await Sprite.load(Assets.assets_images_ui_a_button_png),
+        buttonDown: await Sprite.load(Assets.assets_images_ui_a_button_down_png),
         onPressed: () {
-          print('tap');
           _game.castRay();
         });
     add(bag);

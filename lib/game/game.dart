@@ -117,11 +117,10 @@ class GomilandGame extends FlameGame
       );
       final result = collisionDetection.raycast(
         ray,
-        maxDistance: 200,
+        maxDistance: maxRaycastDist,
         ignoreHitboxes: playerHitbox != null ? [playerHitbox] : null,
       );
       if (result != null && result.hitbox != null) {
-        print(result.distance);
         final Component? parent = result.hitbox!.parent;
         if (parent != null) {
           if (parent is RubbishSpawner) {
@@ -156,7 +155,6 @@ class GomilandGame extends FlameGame
     final GameMenuButton gameMenuButton = GameMenuButton();
     final EButton eButton = EButton(game: this);
 
-
     cameraComponent.viewport.addAll([
       hudTranslucent,
       coinsComponent,
@@ -165,6 +163,7 @@ class GomilandGame extends FlameGame
       gameMenuButton,
       eButton,
       brightnessOverlay,
+      FpsTextComponent(),
     ]);
 
     await addAll([

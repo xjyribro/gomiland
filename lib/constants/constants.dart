@@ -31,7 +31,8 @@ const textSpeed = 50;
 const gameMinToRealSecond = 0.01;
 
 //animation
-const stepTime = 0.2;
+
+const stepTime = 0.1;
 
 class Strings {
   static const String minecraft = 'minecraft';
