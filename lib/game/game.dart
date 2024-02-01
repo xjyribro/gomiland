@@ -117,10 +117,11 @@ class GomilandGame extends FlameGame
       );
       final result = collisionDetection.raycast(
         ray,
-        maxDistance: maxRaycastDist,
+        maxDistance: 200,
         ignoreHitboxes: playerHitbox != null ? [playerHitbox] : null,
       );
       if (result != null && result.hitbox != null) {
+        print(result.distance);
         final Component? parent = result.hitbox!.parent;
         if (parent != null) {
           if (parent is RubbishSpawner) {

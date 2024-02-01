@@ -22,6 +22,7 @@ class EButton extends HudMarginComponent{
     final SpriteButtonComponent bag = SpriteButtonComponent(
         button: await Sprite.load(Assets.assets_images_ui_e_button_png),
         onPressed: () {
+          print('tap');
           _game.castRay();
         });
     add(bag);

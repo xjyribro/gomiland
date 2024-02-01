@@ -14,6 +14,12 @@ import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
+import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
+import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
+import 'package:gomiland/game/objects/trees/tree_normal.dart';
+import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
+import 'package:gomiland/game/objects/trees/tree_sakura.dart';
+import 'package:gomiland/game/objects/trees/tree_spiky.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -128,7 +134,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
-
     if (trees != null) {
       _loadTrees(trees);
     }
@@ -176,6 +181,54 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         case 'bamboo':
           await add(
             Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_bonsai':
+          await add(
+            TreeBonsai(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_fluffy':
+          await add(
+            TreeFluffy(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_normal':
+          await add(
+            TreeNormal(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_popsicle':
+          await add(
+            TreePopsicle(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_sakura':
+          await add(
+            Sakura(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_spiky':
+          await add(
+            TreeSpiky(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),
