@@ -8,6 +8,7 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/objects/buildings/temizuya.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
@@ -80,7 +81,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-
     final bool isMute = game.gameStateBloc.state.isMute;
     if (!isMute) {
       Sounds.playParkBgm();
@@ -90,11 +90,9 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       Vector2.all(tileSize),
     );
     await add(map);
-
     await _loadPlayer(_playerStartPosit);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
-
     if (obstacles != null) {
       for (final TiledObject obstacle in obstacles.objects) {
         add(Obstacle(
@@ -105,7 +103,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final gates = map.tileMap.getLayer<ObjectGroup>('gates');
-
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
         await add(
@@ -121,48 +118,22 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
-
     if (npcs != null) {
-      for (final TiledObject npc in npcs.objects) {
-        switch (npc.name) {
-          case 'qianbi':
-            await add(
-              Monk(
-                position: Vector2(npc.x, npc.y),
-              ),
-            );
-            break;
-        }
-      }
+      _loadNpcs(npcs);
     }
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
-
     if (buildings != null) {
-      for (final TiledObject building in buildings.objects) {
-        switch (building.name) {}
-      }
+      _loadBuildings(buildings);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
 
     if (trees != null) {
-      for (final TiledObject tree in trees.objects) {
-        switch (tree.name) {
-          case 'bamboo':
-            await add(
-              Bamboo(
-                position: Vector2(tree.x, tree.y),
-                size: Vector2(tree.width, tree.height),
-              ),
-            );
-            break;
-        }
-      }
+      _loadTrees(trees);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
-
     if (spawners != null) {
       for (final TiledObject spawner in spawners.objects) {
         await add(
@@ -174,13 +145,16 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
-
     if (lights != null) {
+      bool shouldAddLight =
+          game.gameStateBloc.state.minutes > eveningStartMins ||
+              game.gameStateBloc.state.minutes < morningStartMins;
       for (final TiledObject light in lights.objects) {
         if (light.name == 'park_light') {
           ParkLight parkLight = ParkLight(
             position: Vector2(light.x, light.y),
             size: Vector2(light.width, light.height),
+            shouldAddLight: shouldAddLight,
           );
           await add(parkLight);
         }
@@ -188,9 +162,54 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           StoneLight stoneLight = StoneLight(
             position: Vector2(light.x, light.y),
             size: Vector2(light.width, light.height),
+            shouldAddLight: shouldAddLight,
           );
           await add(stoneLight);
         }
+      }
+    }
+  }
+
+  Future<void> _loadTrees(ObjectGroup trees) async {
+    for (final TiledObject tree in trees.objects) {
+      switch (tree.name) {
+        case 'bamboo':
+          await add(
+            Bamboo(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+      }
+    }
+  }
+
+  Future<void> _loadBuildings(ObjectGroup buildings) async {
+    for (final TiledObject building in buildings.objects) {
+      switch (building.name) {
+        case 'temizuya':
+          await add(
+            Temizuya(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+      }
+    }
+  }
+
+  Future<void> _loadNpcs(ObjectGroup npcs) async {
+    for (final TiledObject npc in npcs.objects) {
+      switch (npc.name) {
+        case 'qianbi':
+          await add(
+            Monk(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
       }
     }
   }

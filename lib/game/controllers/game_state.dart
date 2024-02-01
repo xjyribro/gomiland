@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 
 class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
@@ -139,7 +140,7 @@ class GameState extends Equatable {
           sceneName: SceneName.menu,
           bagCount: 0,
           maxBagCount: 10,
-          minutes: 0,
+          minutes: gameStartTime,
           playerFrozen: false,
         );
 

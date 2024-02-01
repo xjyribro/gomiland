@@ -43,7 +43,7 @@ class GomilandWorld extends World
     SceneName sceneName = game.gameStateBloc.state.sceneName;
     final bool comingFromPark = sceneName == SceneName.park;
     Vector2 playerStartPosit = comingFromPark
-        ? Vector2(parkStartFromParkX, parkStartFromParkY)
+        ? Vector2(hoodStartFromParkX, hoodStartFromParkY)
         : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
     hoodMap = HoodMap(
       setNewSceneName: _setNewSceneName,

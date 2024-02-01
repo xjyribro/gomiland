@@ -1,22 +1,23 @@
 // game
 const isDebugMode = true;
+const double gameWidth = 1000;
+const double gameHeight = 600;
 
 // map
 const double tileSize = 32;
-const double parkStartX = 1500;
-const double parkStartY = 2225;
+const double parkStartX = 96;
+const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1585;
 const double hoodStartFromRoomY = 578;
-// const double hoodStartFromRoomX = 4585;
-// const double hoodStartFromRoomY = 3578;
-const double parkStartFromParkX = 1800;
-const double parkStartFromParkY = 650;
+const double hoodStartFromParkX = 1800;
+const double hoodStartFromParkY = 650;
 
 // player
-const double playerSpeed = 8;
+const double playerSpeed = 16;
 const double maxRaycastDist = 40;
 
 // day cycle
+const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;
 const afternoonStartMins = 720;

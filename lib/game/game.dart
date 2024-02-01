@@ -35,8 +35,8 @@ class GameWidgetWrapper extends StatelessWidget {
     return Center(
       child: ClipRect(
         child: SizedBox(
-          width: 1000,
-          height: 600,
+          width: gameWidth,
+          height: gameHeight,
           child: GameWidget(
             game: GomilandGame(
               gameStateBloc: context.read<GameStateBloc>(),
@@ -154,6 +154,7 @@ class GomilandGame extends FlameGame
     final ClockComponent clockComponent = ClockComponent(game: this);
     final GameMenuButton gameMenuButton = GameMenuButton();
     final EButton eButton = EButton(game: this);
+
 
     cameraComponent.viewport.addAll([
       hudTranslucent,

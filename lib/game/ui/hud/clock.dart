@@ -23,12 +23,12 @@ class ClockComponent extends HudMarginComponent {
   late TextComponent _timeTextComponent;
   late GomilandGame _game;
   double _seconds = 0;
-  int _gameMins = 0;
+  int _gameMins = gameStartTime;
 
   @override
   Future<void> onLoad() async {
     _timeTextComponent = TextComponent(
-      text: '00: 00',
+      text: '',
       textRenderer: TextPaint(
         style: TextStyles.hudTextStyle,
       ),

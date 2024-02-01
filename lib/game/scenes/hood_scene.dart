@@ -3,6 +3,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
@@ -17,11 +18,16 @@ import 'package:gomiland/game/objects/buildings/inn.dart';
 import 'package:gomiland/game/objects/buildings/piler.dart';
 import 'package:gomiland/game/objects/buildings/shop_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
-import 'package:gomiland/game/objects/buildings/temizuya.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
+import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
+import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
+import 'package:gomiland/game/objects/trees/tree_normal.dart';
+import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
+import 'package:gomiland/game/objects/trees/tree_sakura.dart';
+import 'package:gomiland/game/objects/trees/tree_spiky.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -95,7 +101,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     await _loadPlayer(_playerStartPosit);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
-
     if (obstacles != null) {
       for (final TiledObject obstacle in obstacles.objects) {
         add(Obstacle(
@@ -106,7 +111,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final gates = map.tileMap.getLayer<ObjectGroup>('gates');
-
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
         SceneName sceneName =
@@ -115,34 +119,28 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           Gate(
             position: Vector2(object.x, object.y),
             size: Vector2(object.width, object.height),
-            switchScene: () {
-              _setNewSceneName(sceneName);
-            },
+            switchScene: () => _setNewSceneName(sceneName),
           ),
         );
       }
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
-
     if (npcs != null) {
       _loadNpcs(npcs);
     }
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
-
     if (buildings != null) {
       _loadBuildings(buildings);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
-
     if (trees != null) {
       _loadTrees(trees);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
-
     if (spawners != null) {
       for (final TiledObject spawner in spawners.objects) {
         await add(
@@ -154,12 +152,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
-
     if (lights != null) {
+      bool shouldAddLight =
+          game.gameStateBloc.state.minutes > eveningStartMins ||
+              game.gameStateBloc.state.minutes < morningStartMins;
       for (final TiledObject lights in lights.objects) {
         StreetLight streetLight = StreetLight(
           position: Vector2(lights.x, lights.y),
           size: Vector2(lights.width, lights.height),
+          shouldAddLight: shouldAddLight,
         );
         await add(streetLight);
       }
@@ -177,25 +178,49 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
-        case 'tree1':
+        case 'tree_bonsai':
           await add(
-            Bamboo(
+            TreeBonsai(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),
           );
           break;
-        case 'tree2':
+        case 'tree_fluffy':
           await add(
-            Bamboo(
+            TreeFluffy(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),
           );
           break;
-        case 'tree3':
+        case 'tree_normal':
           await add(
-            Bamboo(
+            TreeNormal(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_popsicle':
+          await add(
+            TreePopsicle(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_sakura':
+          await add(
+            Sakura(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_spiky':
+          await add(
+            TreeSpiky(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),
@@ -387,14 +412,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'piler':
           await add(
             Piler(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
-        case 'temizuya':
-          await add(
-            Temizuya(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
             ),
