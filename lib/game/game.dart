@@ -3,7 +3,6 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
-import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
@@ -141,13 +140,15 @@ class GomilandGame extends FlameGame
   @override
   Future<void> onLoad() async {
     debugMode = isDebugMode;
-
-    // IMAGES
     await images.loadAll([
       Assets.assets_images_player_player_png,
     ]);
 
     // UI
+    final RectangleComponent hudTranslucent = RectangleComponent(
+      size: Vector2(size.x, 96),
+      paint: Paint()..color = const Color.fromARGB(32, 255, 255, 255),
+    );
     final BagComponent bagComponent = BagComponent(game: this);
     final CoinsComponent coinsComponent = CoinsComponent(game: this);
     final ClockComponent clockComponent = ClockComponent(game: this);
@@ -155,33 +156,20 @@ class GomilandGame extends FlameGame
     final EButton eButton = EButton(game: this);
 
     cameraComponent.viewport.addAll([
+      hudTranslucent,
       coinsComponent,
       bagComponent,
       clockComponent,
       gameMenuButton,
       eButton,
-      brightnessOverlay
+      brightnessOverlay,
     ]);
 
-    add(dialogueControllerComponent);
+    await addAll([
+      world,
+      cameraComponent,
+      dialogueControllerComponent,
+    ]);
     dialogueBloc.add(ChangeDialogueController(dialogueControllerComponent));
-
-    // BLOC
-    await add(
-      FlameMultiBlocProvider(
-        providers: [
-          FlameBlocProvider<GameStateBloc, GameState>.value(
-            value: gameStateBloc,
-          ),
-          FlameBlocProvider<DialogueBloc, DialogueState>.value(
-            value: dialogueBloc,
-          ),
-        ],
-        children: [
-          cameraComponent,
-          world,
-        ],
-      ),
-    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
-import 'package:flame_bloc/flame_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
@@ -8,12 +8,8 @@ import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
 
-// scene manager
 class GomilandWorld extends World
-    with
-        KeyboardHandler,
-        HasGameRef<GomilandGame>,
-        FlameBlocReader<GameStateBloc, GameState> {
+    with KeyboardHandler, HasGameRef<GomilandGame> {
   GomilandWorld({super.children});
 
   SceneName? _newSceneName;
@@ -27,7 +23,7 @@ class GomilandWorld extends World
   }
 
   void _removeComponents() {
-    SceneName sceneName = bloc.state.sceneName;
+    SceneName sceneName = game.gameStateBloc.state.sceneName;
     switch (sceneName) {
       case SceneName.hood:
         remove(hoodMap);
@@ -46,8 +42,9 @@ class GomilandWorld extends World
   Future<void> _loadHoodMap() async {
     SceneName sceneName = game.gameStateBloc.state.sceneName;
     final bool comingFromPark = sceneName == SceneName.park;
-    Vector2 playerStartPosit =
-        comingFromPark ? Vector2(1800, 650) : Vector2(5700, 4000);
+    Vector2 playerStartPosit = comingFromPark
+        ? Vector2(parkStartFromParkX, parkStartFromParkY)
+        : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
     hoodMap = HoodMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,
@@ -56,7 +53,7 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadParkMap() async {
-    Vector2 playerStartPosit = Vector2(1500, 2225);
+    Vector2 playerStartPosit = Vector2(parkStartX, parkStartY);
     parkMap = ParkMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,

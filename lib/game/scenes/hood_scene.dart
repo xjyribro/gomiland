@@ -13,6 +13,7 @@ import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/buildings/combini.dart';
 import 'package:gomiland/game/objects/buildings/house_eng.dart';
 import 'package:gomiland/game/objects/buildings/inn.dart';
+import 'package:gomiland/game/objects/buildings/piler.dart';
 import 'package:gomiland/game/objects/buildings/shop_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
@@ -376,6 +377,14 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'combini':
           await add(
             Combini(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'piler':
+          await add(
+            Piler(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
             ),
