@@ -1,33 +1,22 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class BuildingWithFade extends SpriteComponent with CollisionCallbacks {
-  BuildingWithFade({
-    required Vector2 position,
-    required Vector2 size,
-    required Vector2 hitboxSize,
-    required String spritePath,
-    Vector2? hitboxPosition,
-  }) : super(position: position, size: size) {
-    _spritePath = spritePath;
-    _hitboxSize = hitboxSize;
-    _hitboxPosition = hitboxPosition;
-  }
-
-  late String _spritePath;
-  late Vector2 _hitboxSize;
-  late Vector2? _hitboxPosition;
+class TreeWillow extends SpriteComponent with CollisionCallbacks {
+  TreeWillow({required Vector2 position, required Vector2 size})
+      : super(position: position, size: size);
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(_spritePath);
+    sprite = await Sprite.load(Assets.assets_images_trees_tree_willow_png);
     RectangleHitbox hitbox = RectangleHitbox(
-        size: _hitboxSize,
-        position: _hitboxPosition ?? Vector2.zero(),
+        size: Vector2(96, 96),
+        position: Vector2.zero(),
         collisionType: CollisionType.passive,
-        isSolid: true);
+        isSolid: true
+    );
     add(hitbox);
   }
 

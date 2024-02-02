@@ -21,11 +21,14 @@ import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
+import 'package:gomiland/game/objects/trees/tree_cone.dart';
 import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
 import 'package:gomiland/game/objects/trees/tree_normal.dart';
+import 'package:gomiland/game/objects/trees/tree_orange.dart';
 import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
-import 'package:gomiland/game/objects/trees/tree_sakura.dart';
+import 'package:gomiland/game/objects/trees/sakura.dart';
 import 'package:gomiland/game/objects/trees/tree_spiky.dart';
+import 'package:gomiland/game/objects/trees/tree_willow.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -250,7 +253,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
-        case 'tree_sakura':
+        case 'sakura':
           await add(
             Sakura(
               position: Vector2(tree.x, tree.y),
@@ -261,6 +264,30 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         case 'tree_spiky':
           await add(
             TreeSpiky(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_cone':
+          await add(
+            TreeCone(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_willow':
+          await add(
+            TreeWillow(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+            ),
+          );
+          break;
+        case 'tree_orange':
+          await add(
+            TreeOrange(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),

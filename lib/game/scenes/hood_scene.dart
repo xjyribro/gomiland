@@ -31,7 +31,6 @@ import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
 import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
 import 'package:gomiland/game/objects/trees/tree_normal.dart';
 import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
-import 'package:gomiland/game/objects/trees/tree_sakura.dart';
 import 'package:gomiland/game/objects/trees/tree_spiky.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
@@ -238,14 +237,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'tree_popsicle':
           await add(
             TreePopsicle(
-              position: Vector2(tree.x, tree.y),
-              size: Vector2(tree.width, tree.height),
-            ),
-          );
-          break;
-        case 'tree_sakura':
-          await add(
-            Sakura(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
             ),

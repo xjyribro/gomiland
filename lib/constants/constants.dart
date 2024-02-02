@@ -1,5 +1,5 @@
 // game
-const isDebugMode = false;
+const isDebugMode = true;
 const double gameWidth = 1000;
 const double gameHeight = 600;
 
