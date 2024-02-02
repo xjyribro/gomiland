@@ -9,28 +9,19 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/monk.dart';
-import 'package:gomiland/game/objects/buildings/apt1.dart';
-import 'package:gomiland/game/objects/buildings/apt2.dart';
-import 'package:gomiland/game/objects/buildings/apt3.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
-import 'package:gomiland/game/objects/buildings/combini.dart';
+import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
 import 'package:gomiland/game/objects/buildings/fountain.dart';
-import 'package:gomiland/game/objects/buildings/hospital.dart';
 import 'package:gomiland/game/objects/buildings/house_eng.dart';
 import 'package:gomiland/game/objects/buildings/inn.dart';
-import 'package:gomiland/game/objects/buildings/kiosk_roof.dart';
-import 'package:gomiland/game/objects/buildings/office.dart';
-import 'package:gomiland/game/objects/buildings/pilar.dart';
 import 'package:gomiland/game/objects/buildings/piler.dart';
-import 'package:gomiland/game/objects/buildings/school.dart';
 import 'package:gomiland/game/objects/buildings/shop_back_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
 import 'package:gomiland/game/objects/buildings/shop_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_jap.dart';
 import 'package:gomiland/game/objects/buildings/shoukudou.dart';
-import 'package:gomiland/game/objects/buildings/soup_kitchen.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
@@ -71,34 +62,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
-  Future<void> _loadPlayer(Vector2 position) async {
-    JoystickComponent? joystick = kIsWeb
-        ? null
-        : JoystickComponent(
-            knob: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_knob_png),
-              size: Vector2.all(128),
-            ),
-            background: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_pad_png),
-              size: Vector2.all(128),
-            ),
-            margin: const EdgeInsets.only(left: 40, bottom: 40),
-          );
-
-    Player player = Player(
-      position: position,
-      joystickComponent: joystick,
-    );
-    if (joystick != null) {
-      game.cameraComponent.viewport.add(joystick);
-    }
-    await add(player);
-    game.cameraComponent.follow(player);
-  }
-
   @override
   Future<void> onLoad() async {
     final bool isMute = game.gameStateBloc.state.isMute;
@@ -110,20 +73,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'hood.tmx',
       Vector2.all(32),
     );
-    add(map);
-    // final mapComponent = await TiledComponent.load('hood.tmx', Vector2.all(32));
-    // final imageCompiler = ImageBatchCompiler();
-    // final ground = imageCompiler
-    //     .compileMapLayer(tileMap: mapComponent.tileMap, layerNames: [
-    //   'water',
-    //   'sand',
-    //   'road',
-    //   'pavement',
-    //   'grass',
-    //   'overlays',
-    //   'barriers',
-    // ]);
-    // add(ground);
+
+    await _loadMap(map);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
     if (obstacles != null) {
@@ -139,7 +90,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
         SceneName sceneName =
-        object.name == 'park' ? SceneName.park : SceneName.room;
+            object.name == 'park' ? SceneName.park : SceneName.room;
         await add(
           Gate(
             position: Vector2(object.x, object.y),
@@ -192,6 +143,61 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         await add(streetLight);
       }
     }
+  }
+
+  Future<void> _loadPlayer(Vector2 position) async {
+    JoystickComponent? joystick = kIsWeb
+        ? null
+        : JoystickComponent(
+            knob: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_knob_png),
+              size: Vector2.all(128),
+            ),
+            background: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_pad_png),
+              size: Vector2.all(128),
+            ),
+            margin: const EdgeInsets.only(left: 40, bottom: 40),
+          );
+
+    Player player = Player(
+      position: position,
+      joystickComponent: joystick,
+    );
+    if (joystick != null) {
+      game.cameraComponent.viewport.add(joystick);
+    }
+    await add(player);
+    game.cameraComponent.follow(player);
+  }
+
+  Future<void> _loadMap(TiledComponent map) async {
+    final animationCompiler = AnimationBatchCompiler();
+    await TileProcessor.processTileType(
+        tileMap: map.tileMap,
+        processorByType: <String, TileProcessorFunc>{
+          'water': ((tile, position, size) async {
+            return animationCompiler.addTile(position, tile);
+          }),
+        },
+        layersToLoad: [
+          'water',
+        ]);
+    final animatedWater = await animationCompiler.compile();
+    add(animatedWater);
+    final imageCompiler = ImageBatchCompiler();
+    final ground =
+        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+      'sand',
+      'road',
+      'pavement',
+      'grass',
+      'overlays',
+      'barriers',
+    ]);
+    add(ground);
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {
@@ -341,14 +347,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
-        case 'combini':
-          await add(
-            Combini(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
         case 'piler':
           await add(
             Piler(
@@ -391,49 +389,81 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'pilar':
           await add(
-            Pilar(
+            SpriteComponent(
+              sprite:
+                  await Sprite.load(Assets.assets_images_buildings_school_png),
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'combini':
+          await add(
+            BuildingWithFade(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(192, 128),
+              spritePath: Assets.assets_images_buildings_combini_png,
             ),
           );
           break;
         case 'kiosk_roof':
           await add(
-            KioskRoof(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(320, 192),
+              spritePath: Assets.assets_images_buildings_kiosk_roof_png,
             ),
           );
           break;
         case 'school':
           await add(
-            School(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(576, 192),
+              spritePath: Assets.assets_images_buildings_school_png,
             ),
           );
           break;
         case 'office':
           await add(
-            Office(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(320, 160),
+              spritePath: Assets.assets_images_buildings_office_png,
             ),
           );
           break;
         case 'soup_kitchen':
           await add(
-            SoupKitchen(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(256, 96),
+              spritePath: Assets.assets_images_buildings_soup_kitchen_png,
             ),
           );
           break;
         case 'hospital':
           await add(
-            Hospital(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(512, 224),
+              spritePath: Assets.assets_images_buildings_hostpital_png,
+            ),
+          );
+          break;
+        case 'cafe':
+          await add(
+            BuildingWithFade(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(256, 192),
+              spritePath: Assets.assets_images_buildings_cafe_png,
             ),
           );
           break;
@@ -529,25 +559,31 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'apt_1':
           await add(
-            Apt1(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(288, 224),
+              spritePath: Assets.assets_images_buildings_apt1_png,
             ),
           );
           break;
         case 'apt_2':
           await add(
-            Apt2(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(288, 160),
+              spritePath: Assets.assets_images_buildings_apt2_png,
             ),
           );
           break;
         case 'apt_3':
           await add(
-            Apt3(
+            BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(256, 224),
+              spritePath: Assets.assets_images_buildings_apt3_png,
             ),
           );
           break;

@@ -1,21 +1,31 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class KioskRoof extends SpriteComponent with CollisionCallbacks {
-  KioskRoof({
+class BuildingWithFade extends SpriteComponent with CollisionCallbacks {
+  BuildingWithFade({
     required Vector2 position,
     required Vector2 size,
-  }) : super(position: position, size: size);
+    required Vector2 hitboxSize,
+    required String spritePath,
+    Vector2? hitboxPosition,
+  }) : super(position: position, size: size) {
+    spritePath = _spritePath;
+    hitboxSize = _hitboxSize;
+    hitboxPosition = _hitboxPosition;
+  }
+
+  late String _spritePath;
+  late Vector2 _hitboxSize;
+  late Vector2? _hitboxPosition;
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_buildings_school_png);
+    sprite = await Sprite.load(_spritePath);
     RectangleHitbox hitbox = RectangleHitbox(
-        size: Vector2(320, 192),
-        position: Vector2.zero(),
+        size: _hitboxSize,
+        position: _hitboxPosition ?? Vector2.zero(),
         collisionType: CollisionType.passive,
         isSolid: true);
     add(hitbox);
