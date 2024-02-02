@@ -20,15 +20,7 @@ import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
-import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
-import 'package:gomiland/game/objects/trees/tree_cone.dart';
-import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
-import 'package:gomiland/game/objects/trees/tree_normal.dart';
-import 'package:gomiland/game/objects/trees/tree_orange.dart';
-import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
-import 'package:gomiland/game/objects/trees/sakura.dart';
-import 'package:gomiland/game/objects/trees/tree_spiky.dart';
-import 'package:gomiland/game/objects/trees/tree_willow.dart';
+import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -162,18 +154,18 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     JoystickComponent? joystick = kIsWeb
         ? null
         : JoystickComponent(
-      knob: SpriteComponent(
-        sprite: await Sprite.load(
-            Assets.assets_images_ui_directional_knob_png),
-        size: Vector2.all(128),
-      ),
-      background: SpriteComponent(
-        sprite: await Sprite.load(
-            Assets.assets_images_ui_directional_pad_png),
-        size: Vector2.all(128),
-      ),
-      margin: const EdgeInsets.only(left: 40, bottom: 40),
-    );
+            knob: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_knob_png),
+              size: Vector2.all(128),
+            ),
+            background: SpriteComponent(
+              sprite: await Sprite.load(
+                  Assets.assets_images_ui_directional_pad_png),
+              size: Vector2.all(128),
+            ),
+            margin: const EdgeInsets.only(left: 40, bottom: 40),
+          );
 
     Player player = Player(
       position: position,
@@ -188,18 +180,21 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadMap(TiledComponent map) async {
     final animationCompiler = AnimationBatchCompiler();
-    await TileProcessor.processTileType(tileMap: map.tileMap, processorByType: <String, TileProcessorFunc>{
-      'water': ((tile, position, size) async {
-        return animationCompiler.addTile(position, tile);
-      }),
-    }, layersToLoad: [
-      'water',
-    ]);
+    await TileProcessor.processTileType(
+        tileMap: map.tileMap,
+        processorByType: <String, TileProcessorFunc>{
+          'water': ((tile, position, size) async {
+            return animationCompiler.addTile(position, tile);
+          }),
+        },
+        layersToLoad: [
+          'water',
+        ]);
     final animatedWater = await animationCompiler.compile();
     add(animatedWater);
     final imageCompiler = ImageBatchCompiler();
-    final ground = imageCompiler
-        .compileMapLayer(tileMap: map.tileMap, layerNames: [
+    final ground =
+        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
       'sand',
       'bridge',
       'pavement',
@@ -223,75 +218,99 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'tree_bonsai':
           await add(
-            TreeBonsai(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_bonsai_png,
+              hitboxSize: Vector2(96, 96),
             ),
           );
           break;
         case 'tree_fluffy':
           await add(
-            TreeFluffy(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_fluffy_png,
+              hitboxSize: Vector2(64, 64),
             ),
           );
           break;
         case 'tree_normal':
           await add(
-            TreeNormal(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_normal_png,
+              hitboxSize: Vector2(128, 96),
             ),
           );
           break;
         case 'tree_popsicle':
           await add(
-            TreePopsicle(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
-            ),
-          );
-          break;
-        case 'sakura':
-          await add(
-            Sakura(
-              position: Vector2(tree.x, tree.y),
-              size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_popsicle_png,
+              hitboxSize: Vector2(64, 128),
             ),
           );
           break;
         case 'tree_spiky':
           await add(
-            TreeSpiky(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_spiky_png,
+              hitboxSize: Vector2(32, 96),
+            ),
+          );
+          break;
+        case 'sakura':
+          await add(
+            TreeWthFade(
+              position: Vector2(tree.x, tree.y),
+              size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_sakura_png,
+              hitboxSize: Vector2(96, 64),
+              hitboxPosition: Vector2.zero(),
             ),
           );
           break;
         case 'tree_cone':
           await add(
-            TreeCone(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_cone_png,
+              hitboxSize: Vector2(96, 160),
+              hitboxPosition: Vector2.zero(),
             ),
           );
           break;
         case 'tree_willow':
           await add(
-            TreeWillow(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_willow_png,
+              hitboxSize: Vector2(96, 96),
+              hitboxPosition: Vector2.zero(),
             ),
           );
           break;
         case 'tree_orange':
           await add(
-            TreeOrange(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_orange_png,
+              hitboxSize: Vector2(160, 64),
+              hitboxPosition: Vector2.zero(),
             ),
           );
+          break;
+        default:
           break;
       }
     }
@@ -363,8 +382,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         case 'tori_small':
           await add(
             SpriteComponent(
-              sprite:
-              await Sprite.load(Assets.assets_images_buildings_tori_small_png),
+              sprite: await Sprite.load(
+                  Assets.assets_images_buildings_tori_small_png),
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
             ),
@@ -373,8 +392,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         case 'tori_big':
           await add(
             SpriteComponent(
-              sprite:
-              await Sprite.load(Assets.assets_images_buildings_tori_big_png),
+              sprite: await Sprite.load(
+                  Assets.assets_images_buildings_tori_big_png),
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
             ),

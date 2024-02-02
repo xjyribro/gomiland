@@ -1,5 +1,5 @@
 // game
-const isDebugMode = true;
+const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
 
@@ -13,7 +13,7 @@ const double hoodStartFromParkX = 1800;
 const double hoodStartFromParkY = 650;
 
 // player
-const double playerSpeed = 16;
+const double playerSpeed = 3;
 const double maxRaycastDist = 40;
 
 // day cycle

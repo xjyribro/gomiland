@@ -26,12 +26,7 @@ import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/trees/bamboo.dart';
-import 'package:gomiland/game/objects/trees/tree_bonsai.dart';
-import 'package:gomiland/game/objects/trees/tree_fluffy.dart';
-import 'package:gomiland/game/objects/trees/tree_normal.dart';
-import 'package:gomiland/game/objects/trees/tree_popsicle.dart';
-import 'package:gomiland/game/objects/trees/tree_spiky.dart';
+import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -202,51 +197,53 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadTrees(ObjectGroup trees) async {
     for (final TiledObject tree in trees.objects) {
       switch (tree.name) {
-        case 'bamboo':
-          await add(
-            Bamboo(
-              position: Vector2(tree.x, tree.y),
-              size: Vector2(tree.width, tree.height),
-            ),
-          );
-          break;
         case 'tree_bonsai':
           await add(
-            TreeBonsai(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_bonsai_png,
+              hitboxSize: Vector2(96, 96),
             ),
           );
           break;
         case 'tree_fluffy':
           await add(
-            TreeFluffy(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_fluffy_png,
+              hitboxSize: Vector2(64, 64),
             ),
           );
           break;
         case 'tree_normal':
           await add(
-            TreeNormal(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_normal_png,
+              hitboxSize: Vector2(128, 96),
             ),
           );
           break;
         case 'tree_popsicle':
           await add(
-            TreePopsicle(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_popsicle_png,
+              hitboxSize: Vector2(64, 128),
             ),
           );
           break;
         case 'tree_spiky':
           await add(
-            TreeSpiky(
+            TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
+              spritePath: Assets.assets_images_trees_tree_spiky_png,
+              hitboxSize: Vector2(32, 96),
             ),
           );
           break;
