@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/game.dart';
 
-class EButton extends HudMarginComponent{
-  EButton({
+class AButton extends HudMarginComponent{
+  AButton({
     required GomilandGame game,
     super.margin = const EdgeInsets.only(
       left: 700,

@@ -12,16 +12,25 @@ import 'package:gomiland/game/npcs/monk.dart';
 import 'package:gomiland/game/objects/buildings/apt1.dart';
 import 'package:gomiland/game/objects/buildings/apt2.dart';
 import 'package:gomiland/game/objects/buildings/apt3.dart';
+import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/combini.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
 import 'package:gomiland/game/objects/buildings/fountain.dart';
+import 'package:gomiland/game/objects/buildings/hospital.dart';
 import 'package:gomiland/game/objects/buildings/house_eng.dart';
 import 'package:gomiland/game/objects/buildings/inn.dart';
+import 'package:gomiland/game/objects/buildings/kiosk_roof.dart';
+import 'package:gomiland/game/objects/buildings/office.dart';
+import 'package:gomiland/game/objects/buildings/pilar.dart';
 import 'package:gomiland/game/objects/buildings/piler.dart';
+import 'package:gomiland/game/objects/buildings/school.dart';
+import 'package:gomiland/game/objects/buildings/shop_back_eng.dart';
+import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
 import 'package:gomiland/game/objects/buildings/shop_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_jap.dart';
 import 'package:gomiland/game/objects/buildings/shoukudou.dart';
+import 'package:gomiland/game/objects/buildings/soup_kitchen.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
@@ -69,12 +78,12 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             knob: SpriteComponent(
               sprite: await Sprite.load(
                   Assets.assets_images_ui_directional_knob_png),
-              size: Vector2.all(64),
+              size: Vector2.all(128),
             ),
             background: SpriteComponent(
               sprite: await Sprite.load(
                   Assets.assets_images_ui_directional_pad_png),
-              size: Vector2.all(96),
+              size: Vector2.all(128),
             ),
             margin: const EdgeInsets.only(left: 40, bottom: 40),
           );
@@ -101,22 +110,20 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'hood.tmx',
       Vector2.all(32),
     );
-    final mapComponent = await TiledComponent.load('hood.tmx', Vector2.all(32));
-    final imageCompiler = ImageBatchCompiler();
-    final ground = imageCompiler
-        .compileMapLayer(tileMap: mapComponent.tileMap, layerNames: [
-      'water',
-      'sand',
-      'road',
-      'pavement',
-      'grass',
-      'overlays',
-      'barriers',
-    ]);
-    add(ground);
-    // await add(map);
-
-    await _loadPlayer(_playerStartPosit);
+    add(map);
+    // final mapComponent = await TiledComponent.load('hood.tmx', Vector2.all(32));
+    // final imageCompiler = ImageBatchCompiler();
+    // final ground = imageCompiler
+    //     .compileMapLayer(tileMap: mapComponent.tileMap, layerNames: [
+    //   'water',
+    //   'sand',
+    //   'road',
+    //   'pavement',
+    //   'grass',
+    //   'overlays',
+    //   'barriers',
+    // ]);
+    // add(ground);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
     if (obstacles != null) {
@@ -132,7 +139,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
         SceneName sceneName =
-            object.name == 'park' ? SceneName.park : SceneName.room;
+        object.name == 'park' ? SceneName.park : SceneName.room;
         await add(
           Gate(
             position: Vector2(object.x, object.y),
@@ -141,21 +148,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           ),
         );
       }
-    }
-
-    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
-    if (npcs != null) {
-      _loadNpcs(npcs);
-    }
-
-    final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
-    if (buildings != null) {
-      _loadBuildings(buildings);
-    }
-
-    final trees = map.tileMap.getLayer<ObjectGroup>('trees');
-    if (trees != null) {
-      _loadTrees(trees);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
@@ -167,6 +159,23 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           ),
         );
       }
+    }
+
+    await _loadPlayer(_playerStartPosit);
+
+    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
+    if (npcs != null) {
+      _loadNpcs(npcs);
+    }
+
+    final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
+    if (buildings != null) {
+      await _loadBuildings(buildings);
+    }
+
+    final trees = map.tileMap.getLayer<ObjectGroup>('trees');
+    if (trees != null) {
+      await _loadTrees(trees);
     }
 
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
@@ -332,93 +341,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
-        case 'apt_1':
-          await add(
-            Apt1(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
-        case 'apt_2':
-          await add(
-            Apt2(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
-        case 'apt_3':
-          await add(
-            Apt3(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
-        case 'shop_eng_1':
-          await add(
-            ShopEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 0,
-            ),
-          );
-          break;
-        case 'shop_eng_2':
-          await add(
-            ShopEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 1,
-            ),
-          );
-          break;
-        case 'shop_side_eng_1':
-          await add(
-            ShopSideEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 0,
-            ),
-          );
-          break;
-        case 'shop_side_eng_2':
-          await add(
-            ShopSideEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 1,
-            ),
-          );
-          break;
-        case 'house_eng_1':
-          await add(
-            HouseEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 0,
-            ),
-          );
-          break;
-        case 'house_eng_2':
-          await add(
-            HouseEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 1,
-            ),
-          );
-          break;
-        case 'house_eng_3':
-          await add(
-            HouseEng(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-              id: 2,
-            ),
-          );
-          break;
         case 'combini':
           await add(
             Combini(
@@ -467,12 +389,210 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
+        case 'pilar':
+          await add(
+            Pilar(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'kiosk_roof':
+          await add(
+            KioskRoof(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'school':
+          await add(
+            School(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'office':
+          await add(
+            Office(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'soup_kitchen':
+          await add(
+            SoupKitchen(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'hospital':
+          await add(
+            Hospital(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'house_eng_1':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'house_eng_2':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'house_eng_3':
+          await add(
+            HouseEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 2,
+            ),
+          );
+          break;
+        case 'shop_eng_1':
+          await add(
+            ShopEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_eng_2':
+          await add(
+            ShopEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'shop_side_eng_1':
+          await add(
+            ShopSideEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_side_eng_2':
+          await add(
+            ShopSideEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'shop_back_eng_1':
+          await add(
+            ShopBackEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_back_eng_2':
+          await add(
+            ShopBackEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'shop_back_eng_3':
+          await add(
+            ShopBackEng(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 2,
+            ),
+          );
+          break;
+        case 'apt_1':
+          await add(
+            Apt1(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_2':
+          await add(
+            Apt2(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_3':
+          await add(
+            Apt3(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'apt_side_1':
+          await add(
+            AptSide(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'apt_side_2':
+          await add(
+            AptSide(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'apt_side_3':
+          await add(
+            AptSide(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 2,
+            ),
+          );
+          break;
+        case 'apt_side_4':
+          await add(
+            AptSide(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 3,
+            ),
+          );
+          break;
         case 'shop_side_jap_1':
           await add(
             ShopSideJap(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              id: 1,
+              id: 0,
             ),
           );
           break;
@@ -481,7 +601,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ShopSideJap(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              id: 2,
+              id: 1,
             ),
           );
           break;
@@ -490,7 +610,34 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ShopSideJap(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              id: 3,
+              id: 2,
+            ),
+          );
+          break;
+        case 'shop_back_jap_1':
+          await add(
+            ShopBackJap(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 0,
+            ),
+          );
+          break;
+        case 'shop_back_jap_2':
+          await add(
+            ShopBackJap(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 1,
+            ),
+          );
+          break;
+        case 'shop_back_jap_3':
+          await add(
+            ShopBackJap(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              id: 2,
             ),
           );
           break;

@@ -22,7 +22,7 @@ import 'package:gomiland/game/ui/hud/bag.dart';
 import 'package:gomiland/game/ui/hud/brightness.dart';
 import 'package:gomiland/game/ui/hud/clock.dart';
 import 'package:gomiland/game/ui/hud/coins.dart';
-import 'package:gomiland/game/ui/hud/e_button.dart';
+import 'package:gomiland/game/ui/hud/a_button.dart';
 import 'package:gomiland/game/ui/hud/game_menu_button.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:jenny/jenny.dart';
@@ -153,7 +153,7 @@ class GomilandGame extends FlameGame
     final CoinsComponent coinsComponent = CoinsComponent(game: this);
     final ClockComponent clockComponent = ClockComponent(game: this);
     final GameMenuButton gameMenuButton = GameMenuButton();
-    final EButton eButton = EButton(game: this);
+    final AButton eButton = AButton(game: this);
 
     cameraComponent.viewport.addAll([
       hudTranslucent,
@@ -163,7 +163,7 @@ class GomilandGame extends FlameGame
       gameMenuButton,
       eButton,
       brightnessOverlay,
-      FpsTextComponent(),
+      FpsTextComponent(), //TODO remove this
     ]);
 
     await addAll([

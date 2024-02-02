@@ -1,22 +1,38 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/sprite.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class TreeBonsai extends SpriteComponent with CollisionCallbacks {
-  TreeBonsai({required Vector2 position, required Vector2 size})
-      : super(position: position, size: size);
+class ShopBackJap extends SpriteComponent with CollisionCallbacks {
+  ShopBackJap({
+    required Vector2 position,
+    required Vector2 size,
+    required int id,
+  }) : super(position: position, size: size) {
+    _id = id;
+  }
+
+  late int _id;
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_trees_tree_bonsai_png);
-    RectangleHitbox hitbox = RectangleHitbox(
-        size: Vector2(96, 96),
-        position: Vector2(32, 0),
-        collisionType: CollisionType.passive,
-        isSolid: true
+    final bool isLarge = _id == 2;
+    final image = await Flame.images.load(isLarge
+        ? Assets.assets_images_buildings_shop_back_jap1_png
+        : Assets.assets_images_buildings_shop_back_jap_png);
+    final spriteSheet = SpriteSheet(
+      image: image,
+      srcSize: Vector2(192, 192),
     );
+    sprite = isLarge ? Sprite(image) : spriteSheet.getSprite(0, _id);
+    RectangleHitbox hitbox = RectangleHitbox(
+        size: Vector2(128, 160),
+        position: Vector2.zero(),
+        collisionType: CollisionType.passive,
+        isSolid: true);
     add(hitbox);
   }
 

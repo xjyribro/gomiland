@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
@@ -95,8 +96,20 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       'park.tmx',
       Vector2.all(tileSize),
     );
-    await add(map);
-    await _loadPlayer(_playerStartPosit);
+    add(map);
+    // final mapComponent = await TiledComponent.load('park.tmx', Vector2.all(32));
+    // final imageCompiler = ImageBatchCompiler();
+    // final ground = imageCompiler
+    //     .compileMapLayer(tileMap: mapComponent.tileMap, layerNames: [
+    //   'water',
+    //   'sand',
+    //   'bridge',
+    //   'pavement',
+    //   'grass',
+    //   'overlays',
+    //   'barriers',
+    // ]);
+    // add(ground);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
     if (obstacles != null) {
@@ -123,6 +136,19 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
+    final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
+    if (spawners != null) {
+      for (final TiledObject spawner in spawners.objects) {
+        await add(
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+          ),
+        );
+      }
+    }
+
+    await _loadPlayer(_playerStartPosit);
+
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
     if (npcs != null) {
       _loadNpcs(npcs);
@@ -136,17 +162,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
     if (trees != null) {
       _loadTrees(trees);
-    }
-
-    final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
-    if (spawners != null) {
-      for (final TiledObject spawner in spawners.objects) {
-        await add(
-          RubbishSpawner(
-            position: Vector2(spawner.x, spawner.y),
-          ),
-        );
-      }
     }
 
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');

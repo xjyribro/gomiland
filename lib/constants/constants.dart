@@ -13,7 +13,7 @@ const double hoodStartFromParkX = 1800;
 const double hoodStartFromParkY = 650;
 
 // player
-const double playerSpeed = 3;
+const double playerSpeed = 16;
 const double maxRaycastDist = 40;
 
 // day cycle
