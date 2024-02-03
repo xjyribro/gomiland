@@ -11,7 +11,7 @@ class RubbishComponent extends SpriteComponent
     required Vector2 position,
     required String name,
     required RubbishType rubbishType,
-    required Function removeRubbish,
+    required Function onRubbishRemoved,
   }) : super(
           sprite: sprite,
           position: position,
@@ -19,7 +19,7 @@ class RubbishComponent extends SpriteComponent
     _originalPosition = position;
     _name = name;
     _rubbishType = rubbishType;
-    _removeRubbish = removeRubbish;
+    _onRubbishRemoved = onRubbishRemoved;
   }
 
   // game world vars
@@ -29,7 +29,7 @@ class RubbishComponent extends SpriteComponent
   late String _name;
   late RubbishType _rubbishType;
 
-  late Function _removeRubbish;
+  late Function _onRubbishRemoved;
 
   RubbishType? _binType;
 

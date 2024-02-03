@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flutter/services.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
@@ -97,22 +96,5 @@ class GomilandWorld extends World
       _switchScene(_newSceneName!);
       _newSceneName = null;
     }
-  }
-
-  @override
-  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (event is RawKeyDownEvent) {
-      if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        add(game.dialogueControllerComponent);
-        game.overlays.add('DialogueBox');
-        game.dialogueRunner.startDialogue('example');
-      }
-      if (event.logicalKey == LogicalKeyboardKey.keyT) {
-        remove(game.dialogueControllerComponent);
-        game.overlays.remove('DialogueBox');
-      }
-      return false;
-    }
-    return true;
   }
 }

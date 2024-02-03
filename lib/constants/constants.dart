@@ -9,11 +9,11 @@ const double parkStartX = 96;
 const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1585;
 const double hoodStartFromRoomY = 578;
-const double hoodStartFromParkX = 1800;
-const double hoodStartFromParkY = 650;
+const double hoodStartFromParkX = 6270;
+const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 3;
+const double playerSpeed = 32;
 const double maxRaycastDist = 40;
 
 // day cycle

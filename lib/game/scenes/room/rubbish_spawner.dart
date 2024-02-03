@@ -17,18 +17,18 @@ class RubbishSpawner extends PositionComponent
 
   void _addRubbish() async {
     Sprite rubbishSprite =
-        await Sprite.load(Assets.assets_images_rubbish_jar_png);
+        await Sprite.load(Assets.assets_images_rubbish_glass_jar_png);
     _rubbishComponent = RubbishComponent(
       sprite: rubbishSprite,
       position: _centerOfScene,
       name: 'jar',
       rubbishType: RubbishType.glass,
-      removeRubbish: _removeRubbish,
+      onRubbishRemoved: _onRubbishRemoved,
     );
     await add(_rubbishComponent);
   }
 
-  void _removeRubbish() {
+  void _onRubbishRemoved() {
     _bagCount -= 1;
     game.gameStateBloc.add(BagCountChange(_bagCount -1));
     remove(_rubbishComponent);
@@ -37,7 +37,6 @@ class RubbishSpawner extends PositionComponent
       // control sorting game
     }
   }
-
 
   @override
   Future<void> onLoad() async {

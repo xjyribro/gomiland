@@ -169,6 +169,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadMap(TiledComponent map) async {
     final animationCompiler = AnimationBatchCompiler();
+    List<String> nam = map.tileMap.map.layers.map((e) => e.name).toList();
+    print(nam);
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
         processorByType: <String, TileProcessorFunc>{

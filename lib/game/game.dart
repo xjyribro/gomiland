@@ -18,14 +18,13 @@ import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/game/ui/game_menu.dart';
+import 'package:gomiland/game/ui/hud/a_button.dart';
 import 'package:gomiland/game/ui/hud/bag.dart';
 import 'package:gomiland/game/ui/hud/brightness.dart';
 import 'package:gomiland/game/ui/hud/clock.dart';
 import 'package:gomiland/game/ui/hud/coins.dart';
-import 'package:gomiland/game/ui/hud/a_button.dart';
 import 'package:gomiland/game/ui/hud/game_menu_button.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:jenny/jenny.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
   const GameWidgetWrapper({super.key});
@@ -97,12 +96,8 @@ class GomilandGame extends FlameGame
   late final CameraComponent cameraComponent;
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
 
-  late final JoystickComponent joystick;
-
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
-  YarnProject yarnProject = YarnProject();
-  late DialogueRunner dialogueRunner;
 
   void castRay() {
     final Vector2 playerPosition = playerStateBloc.state.playerPosition;
