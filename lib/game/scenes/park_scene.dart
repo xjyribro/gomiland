@@ -179,6 +179,17 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadMap(TiledComponent map) async {
+    final imageCompiler = ImageBatchCompiler();
+    final ground =
+        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+      'sand',
+      'bridge',
+      'pavement',
+      'grass',
+      'overlays',
+      'barriers',
+    ]);
+    add(ground);
     final animationCompiler = AnimationBatchCompiler();
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
@@ -191,18 +202,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           'water',
         ]);
     final animatedWater = await animationCompiler.compile();
+    animatedWater.priority = -1;
     add(animatedWater);
-    final imageCompiler = ImageBatchCompiler();
-    final ground =
-        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
-      'sand',
-      'bridge',
-      'pavement',
-      'grass',
-      'overlays',
-      'barriers',
-    ]);
-    add(ground);
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {

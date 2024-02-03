@@ -169,8 +169,17 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadMap(TiledComponent map) async {
     final animationCompiler = AnimationBatchCompiler();
-    List<String> nam = map.tileMap.map.layers.map((e) => e.name).toList();
-    print(nam);
+    final imageCompiler = ImageBatchCompiler();
+    final ground =
+    imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+      'sand',
+      'road',
+      'pavement',
+      'grass',
+      'overlays',
+      'barriers',
+    ]);
+    add(ground);
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
         processorByType: <String, TileProcessorFunc>{
@@ -182,18 +191,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           'water',
         ]);
     final animatedWater = await animationCompiler.compile();
+    animatedWater.priority = -1;
     add(animatedWater);
-    final imageCompiler = ImageBatchCompiler();
-    final ground =
-        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
-      'sand',
-      'road',
-      'pavement',
-      'grass',
-      'overlays',
-      'barriers',
-    ]);
-    add(ground);
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {
