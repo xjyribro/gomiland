@@ -20,8 +20,8 @@ class ExitRoomButton extends HudMarginComponent{
   @override
   Future<void> onLoad() async {
     final SpriteButtonComponent buttonSprite = SpriteButtonComponent(
-        button: await Sprite.load(Assets.assets_images_ui_a_button_png),
-        // buttonDown: await Sprite.load(Assets.assets_images_ui_a_button_down_png),
+        button: await Sprite.load(Assets.assets_images_ui_exit_button_png),
+        buttonDown: await Sprite.load(Assets.assets_images_ui_exit_button_down_png),
         onPressed: () {
           _switchScene();
         });
