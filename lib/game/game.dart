@@ -5,17 +5,14 @@ import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/day_controller.dart';
-import 'package:gomiland/game/controllers/dialogue_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
-import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/game/ui/game_menu.dart';
 import 'package:gomiland/game/ui/hud/a_button.dart';
@@ -39,7 +36,6 @@ class GameWidgetWrapper extends StatelessWidget {
           child: GameWidget(
             game: GomilandGame(
               gameStateBloc: context.read<GameStateBloc>(),
-              dialogueBloc: context.read<DialogueBloc>(),
               playerStateBloc: context.read<PlayerStateBloc>(),
               progressStateBloc: context.read<ProgressStateBloc>(),
               dayStateBloc: context.read<DayStateBloc>(),
@@ -58,9 +54,6 @@ class GameWidgetWrapper extends StatelessWidget {
                   game: game,
                 );
               },
-              'DialogueBox': (BuildContext context, GomilandGame game) {
-                return DialogueBox(game: game);
-              },
             },
           ),
         ),
@@ -73,7 +66,6 @@ class GomilandGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
   GomilandGame({
     required this.gameStateBloc,
-    required this.dialogueBloc,
     required this.playerStateBloc,
     required this.progressStateBloc,
     required this.dayStateBloc,
@@ -89,7 +81,6 @@ class GomilandGame extends FlameGame
   @override
   World world;
   GameStateBloc gameStateBloc;
-  DialogueBloc dialogueBloc;
   PlayerStateBloc playerStateBloc;
   ProgressStateBloc progressStateBloc;
   DayStateBloc dayStateBloc;
@@ -135,7 +126,8 @@ class GomilandGame extends FlameGame
   }
 
   void addHudComponentsForWorld() {
-    List<BrightnessOverlay> brightnessOverlays = cameraComponent.viewport.children.query<BrightnessOverlay>();
+    List<BrightnessOverlay> brightnessOverlays =
+        cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isEmpty) {
       cameraComponent.viewport.add(brightnessOverlay);
     }
@@ -146,7 +138,8 @@ class GomilandGame extends FlameGame
   }
 
   void removeHudComponentsForRoom() {
-    List<BrightnessOverlay> brightnessOverlays = cameraComponent.viewport.children.query<BrightnessOverlay>();
+    List<BrightnessOverlay> brightnessOverlays =
+        cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isNotEmpty) {
       cameraComponent.viewport.remove(brightnessOverlay);
     }
@@ -159,9 +152,6 @@ class GomilandGame extends FlameGame
   @override
   Future<void> onLoad() async {
     debugMode = isDebugMode;
-    await images.loadAll([
-      Assets.assets_images_player_player_png,
-    ]);
 
     // UI
     final RectangleComponent hudTranslucent = RectangleComponent(
@@ -185,11 +175,10 @@ class GomilandGame extends FlameGame
       FpsTextComponent(), //TODO remove this
     ]);
 
-    await addAll([
+    addAll([
       world,
       cameraComponent,
       dialogueControllerComponent,
     ]);
-    dialogueBloc.add(ChangeDialogueController(dialogueControllerComponent));
   }
 }

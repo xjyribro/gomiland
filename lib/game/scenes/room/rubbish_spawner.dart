@@ -6,7 +6,6 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/spawner_utils.dart';
-import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:jenny/jenny.dart';
 
 class RubbishSpawner extends PositionComponent
@@ -34,8 +33,8 @@ class RubbishSpawner extends PositionComponent
     game.gameStateBloc.add(BagCountChange(bagCount - 1));
   }
 
-  void _binCheck(
-      RubbishType binType, RubbishType rubbishType, String rubbishName) {
+  Future<void> _binCheck(
+      RubbishType binType, RubbishType rubbishType, String rubbishName) async {
     if (rubbishType == binType) {
       // show reward
       int reward = _rewardMap[rubbishType] ?? 1;
@@ -48,7 +47,7 @@ class RubbishSpawner extends PositionComponent
       int totalFine = rubbishFine + binFine;
       game.gameStateBloc.add(CoinAmountChange(-totalFine));
       _showScore(binType, -totalFine);
-      _showErrorDialogue(binType, rubbishType, rubbishName);
+      await _showErrorDialogue(binType, rubbishType, rubbishName);
     }
 
     int bagCount = game.gameStateBloc.state.bagCount;
@@ -59,23 +58,20 @@ class RubbishSpawner extends PositionComponent
   }
 
   Future<void> _showErrorDialogue(
-      RubbishType binType, RubbishType rubbishType, String rubbishName) async {
-    // stop sorting game
-    game.overlays.add('DialogueBox');
-
-    DialogueControllerComponent dialogueControllerComponent =
-        game.dialogueControllerComponent;
+    RubbishType binType,
+    RubbishType rubbishType,
+    String rubbishName,
+  ) async {
     YarnProject yarnProject = YarnProject();
-
-    // DIALOGUE
     yarnProject
       ..parse(
           await rootBundle.loadString(Assets.assets_yarn_rubbish_error_yarn))
       ..variables
           .setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
     DialogueRunner dialogueRunner = DialogueRunner(
-        yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    dialogueRunner.startDialogue(getDialogueName(binType));
+        yarnProject: yarnProject,
+        dialogueViews: [game.dialogueControllerComponent]);
+    await dialogueRunner.startDialogue(getDialogueName(binType));
   }
 
   String getDialogueName(RubbishType binType) {

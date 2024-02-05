@@ -2,4 +2,9 @@
 title: intro
 ---
 Asimov: Good morning!
+Asimov: Good afternoon!
+-> Yes
+    Asimov: ok!
+-> No
+    Asimov: no ok!
 ===

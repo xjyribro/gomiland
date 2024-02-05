@@ -24,7 +24,12 @@ Stark: Wrong! {$rubbishName} is not made of metal.
 ===
 title: electronics_error
 ---
-Asimov: Wrong! {$rubbishName} is not an electronic waste.
+Asimov: Good morning!
+Asimov: Good afternoon!
+-> Yes
+    Asimov: ok!
+-> No
+    Asimov: no ok!
 ===
 title: paper_error
 ---

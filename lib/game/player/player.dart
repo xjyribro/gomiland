@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
@@ -45,29 +46,25 @@ class Player extends SpriteAnimationComponent
   final double _speed = tileSize * playerSpeed;
 
   @override
-  void onLoad() {
+  Future<void> onLoad() async {
     final spriteSheet = SpriteSheet(
-      image: game.images.fromCache(
-        Assets.assets_images_player_player_png,
-      ),
+      image: await Flame.images.load(Assets.assets_images_player_player_png),
       srcSize: Vector2.all(32),
     );
 
     moveUp = spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 1);
-    moveDown =
-        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 1);
-    moveLeft =
-        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 1);
+    moveDown = spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 1);
+    moveLeft = spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 1);
     moveRight =
         spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 1);
-    idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: stepTime, from: 0, to: 1);
+    idleUp =
+        spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 0, to: 1);
+    idleDown =
+        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 0, to: 1);
+    idleLeft =
+        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 0, to: 1);
+    idleRight =
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     playerHitbox = RectangleHitbox(

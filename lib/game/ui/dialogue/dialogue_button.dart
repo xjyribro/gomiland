@@ -1,51 +1,52 @@
+import 'package:flame/components.dart';
+import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/constants/constants.dart';
 
-class DialogueButton extends StatelessWidget {
-  final String imageAssetPath;
-  final String text;
-  final Function onTap;
+class DialogueButton extends SpriteButtonComponent {
+  DialogueButton({
+    required Vector2 posit,
+    required String assetPath,
+    required String text,
+    required Function onTap,
+    super.anchor = Anchor.center,
+  }) : super() {
+    position = posit;
+    _text = text;
+    _assetPath = assetPath;
+    _onTap = onTap;
+  }
 
-  const DialogueButton({
-    super.key,
-    required this.imageAssetPath,
-    required this.text,
-    required this.onTap,
-  });
+  late String _text;
+  late String _assetPath;
+  late Function _onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      child: Stack(
-        children: [
-          GestureDetector(
-            onTap: () {
-              onTap();
-            },
-            child: Image.asset(
-              imageAssetPath,
-              width: 96,
-              height: 64,
-            ),
-          ),
-          SizedBox(
-            width: 96,
-            height: 64,
-            child: GestureDetector(
-              onTap: () {
-                onTap();
-              },
-              child: Center(
-                child: Text(
-                  text,
-                  style: TextStyles.dialogueButtonsTextStyle,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+  Future<void> onLoad() async {
+    Sprite dButton = await Sprite.load(_assetPath);
+    button = dButton;
+    ButtonText buttonText = ButtonText(text: _text);
+    add(buttonText);
+    onPressed = () {
+      _onTap();
+    };
   }
+}
+
+class ButtonText extends TextComponent {
+  ButtonText({
+    required String text,
+  }) : super(
+          text: text,
+          position: Vector2(48, 32),
+          anchor: Anchor.center,
+          size: Vector2(88, 56),
+          textRenderer: TextPaint(
+            style: const TextStyle(
+              fontSize: dialogueButtonFontSize,
+              color: Colors.white70,
+              fontFamily: Strings.minecraft,
+            ),
+          ),
+        );
 }

@@ -72,8 +72,6 @@ class QianBi extends SpriteAnimationComponent
   Future<void> startConversation(Vector2 playerPosition) async {
     _facePlayer(playerPosition);
     game.gameStateBloc.add(const PlayerFrozen(true));
-    game.overlays.add('DialogueBox');
-
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();

@@ -26,6 +26,9 @@ const nightStartMins = 0;
 
 // dialogue
 const textSpeed = 50;
+const double dialogueBoxFontSize = 32;
+const double dialogueButtonFontSize = 24;
+const double timePerChar = 0.1;
 
 // time
 const gameMinToRealSecond = 0.01;

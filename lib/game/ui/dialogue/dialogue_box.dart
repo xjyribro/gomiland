@@ -1,67 +1,99 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flame/components.dart';
+import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/dialogue_controller.dart';
-import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/button_row.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_main_text_box.dart';
+import 'package:jenny/jenny.dart';
 
-class DialogueBox extends StatelessWidget {
-  final GomilandGame game;
+class DialogueBoxComponent extends HudMarginComponent {
+  DialogueBoxComponent({
+    super.margin = const EdgeInsets.only(
+      left: 1,
+      top: 250,
+    ),
+  });
 
-  const DialogueBox({super.key, required this.game});
+  late final DialogueBoxSpriteComponent _dialogueBoxSpriteComponent =
+      DialogueBoxSpriteComponent();
+
+  void changeText(String text, bool isFirstLine) {
+    _dialogueBoxSpriteComponent.changeText(text, isFirstLine);
+  }
+
+  void showNextButton(Function onClose) {
+    _dialogueBoxSpriteComponent.showNextButton(onClose);
+  }
+
+  void showOptions({
+    required Function onChoice,
+    required DialogueOption option1,
+    required DialogueOption option2,
+  }) {
+    _dialogueBoxSpriteComponent.showOptions(
+      onChoice: onChoice,
+      option1: option1,
+      option2: option2,
+    );
+  }
+
+  void showCloseButton(Function onClose) {
+    _dialogueBoxSpriteComponent.showCloseButton(onClose);
+  }
 
   @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return DefaultTextStyle(
-      style: TextStyles.dialogueTextStyle,
-      child:
-          BlocBuilder<DialogueBloc, DialogueState>(builder: (context, state) {
-        Key dialogueKey = Key(
-            state.dialogueOptions.toString() + state.isCompleted.toString());
-        return Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Image.asset(
-                Assets.assets_images_ui_dialogue_box_png,
-                width: size.width,
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(64),
-                child: AnimatedTextKit(
-                  key: Key(state.text),
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      state.text,
-                      speed: const Duration(milliseconds: textSpeed),
-                    ),
-                  ],
-                  isRepeatingAnimation: false,
-                  onFinished: () {
-                    // TODO add next button?
-                  },
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ButtonRow(
-                key: dialogueKey,
-                state: state,
-                options: state.dialogueOptions,
-                game: game,
-              ),
-            ),
-          ],
-        );
-      }),
+  Future<void> onLoad() async {
+    add(_dialogueBoxSpriteComponent);
+  }
+}
+
+class DialogueBoxSpriteComponent extends SpriteComponent {
+  DialogueMainTextBox _textBox = DialogueMainTextBox(text: '');
+  late final ButtonRow _buttonRow = ButtonRow();
+
+  @override
+  Future<void> onLoad() async {
+    sprite = await Sprite.load(
+      Assets.assets_images_ui_dialogue_box_png,
+      srcSize: Vector2(800, 192),
     );
+    add(_buttonRow);
+    return super.onLoad();
+  }
+
+  void removeTextBox() {
+    remove(_textBox);
+  }
+
+  void changeText(String text, bool isFirstLine) {
+    if (!isFirstLine) {
+      removeTextBox();
+    }
+    _textBox = DialogueMainTextBox(text: text);
+    add(_textBox);
+  }
+
+  void showOptions({
+    required Function onChoice,
+    required DialogueOption option1,
+    required DialogueOption option2,
+  }) {
+    _buttonRow.showOptionButtons(
+      onChoice: onChoice,
+      option1: option1,
+      option2: option2,
+    );
+  }
+
+  void showNextButton(Function goNextLine) {
+    _buttonRow.showNextButton(goNextLine);
+  }
+
+  void showCloseButton(Function onClose) {
+    void closeDialogue () {
+      removeTextBox();
+      onClose();
+    }
+    _buttonRow.showCloseButton(closeDialogue);
   }
 }
