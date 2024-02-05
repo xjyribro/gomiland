@@ -40,6 +40,7 @@ const baseGlassReward = 1;
 const baseElectronicsReward = 2;
 const baseMetalReward = 2;
 const baseFoodReward = 1;
+const List<String> vowels = ['a', 'e', 'i', 'o', 'u'];
 
 class Strings {
   static const String minecraft = 'minecraft';

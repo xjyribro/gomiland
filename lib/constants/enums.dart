@@ -4,7 +4,7 @@ class RubbishTypeStrings {
   static const String paper = 'paper';
   static const String plastic = 'plastic';
   static const String metal = 'metal';
-  static const String electronic = 'electronic';
+  static const String electronics = 'electronics';
   static const String food = 'food';
   static const String glass = 'glass';
   static const String unknown = 'unknown';
@@ -22,7 +22,7 @@ extension RubbishTypeExtension on RubbishType {
       case RubbishType.metal:
         return RubbishTypeStrings.metal;
       case RubbishType.electronics:
-        return RubbishTypeStrings.electronic;
+        return RubbishTypeStrings.electronics;
       case RubbishType.food:
         return RubbishTypeStrings.food;
       case RubbishType.glass:
@@ -42,7 +42,7 @@ extension GetRubbishType on String {
         return RubbishType.plastic;
       case RubbishTypeStrings.metal:
         return RubbishType.metal;
-      case RubbishTypeStrings.electronic:
+      case RubbishTypeStrings.electronics:
         return RubbishType.electronics;
       case RubbishTypeStrings.food:
         return RubbishType.food;

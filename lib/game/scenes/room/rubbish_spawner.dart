@@ -29,16 +29,19 @@ class RubbishSpawner extends PositionComponent
     game.gameStateBloc.add(BagCountChange(bagCount - 1));
   }
 
-  void _binCheck(RubbishType binType, RubbishType rubbishType, String rubbishName) {
+  void _binCheck(
+      RubbishType binType, RubbishType rubbishType, String rubbishName) {
     if (rubbishType == binType) {
+      // show reward
       int reward = _rewardMap[rubbishType] ?? 1;
       game.gameStateBloc.add(CoinAmountChange(reward));
     } else {
+      // show penalty
       int rubbishFine = _rewardMap[rubbishType] ?? 1;
       int binFine = _rewardMap[binType] ?? 1;
       int totalFine = (rubbishFine + binFine);
       game.gameStateBloc.add(CoinAmountChange(-totalFine));
-      _showErrorDialogue();
+      _showErrorDialogue(binType, rubbishType, rubbishName);
     }
 
     int bagCount = game.gameStateBloc.state.bagCount;
@@ -48,7 +51,8 @@ class RubbishSpawner extends PositionComponent
     }
   }
 
-  Future<void> _showErrorDialogue() async {
+  Future<void> _showErrorDialogue(
+      RubbishType binType, RubbishType rubbishType, String rubbishName) async {
     // stop sorting game
     game.overlays.add('DialogueBox');
 
@@ -58,18 +62,41 @@ class RubbishSpawner extends PositionComponent
 
     // DIALOGUE
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
+      ..parse(
+          await rootBundle.loadString(Assets.assets_yarn_rubbish_error_yarn))
+      ..variables.setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    dialogueRunner.startDialogue('example');
+    dialogueRunner.startDialogue(getDialogueName(binType));
+  }
+
+  String getDialogueName(RubbishType binType) {
+    switch (binType) {
+      case RubbishType.plastic:
+        return 'plastic_error';
+      case RubbishType.electronics:
+        return 'electronics_error';
+      case RubbishType.glass:
+        return 'glass_error';
+      case RubbishType.food:
+        return 'food_error';
+      case RubbishType.metal:
+        return 'metal_error';
+      case RubbishType.paper:
+        return 'paper_error';
+      default:
+        return 'rubbish_error';
+    }
   }
 
   void _initRewardMap() {
-    int plasticReward = basePlasticReward + game.progressStateBloc.state.plastic;
+    int plasticReward =
+        basePlasticReward + game.progressStateBloc.state.plastic;
     int paperReward = basePaperReward + game.progressStateBloc.state.paper;
     int metalReward = baseMetalReward + game.progressStateBloc.state.metal;
     int foodReward = baseFoodReward + game.progressStateBloc.state.food;
-    int electronicsReward = baseElectronicsReward + game.progressStateBloc.state.electronics;
+    int electronicsReward =
+        baseElectronicsReward + game.progressStateBloc.state.electronics;
     int glassReward = baseGlassReward + game.progressStateBloc.state.glass;
     _rewardMap[RubbishType.plastic] = plasticReward;
     _rewardMap[RubbishType.paper] = paperReward;

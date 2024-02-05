@@ -94,7 +94,9 @@ class GomilandGame extends FlameGame
   ProgressStateBloc progressStateBloc;
   DayStateBloc dayStateBloc;
   late final CameraComponent cameraComponent;
+
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
+  late final AButton _aButton;
 
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
@@ -132,6 +134,28 @@ class GomilandGame extends FlameGame
     }
   }
 
+  void addHudComponentsForWorld() {
+    List<BrightnessOverlay> brightnessOverlays = cameraComponent.viewport.children.query<BrightnessOverlay>();
+    if (brightnessOverlays.isEmpty) {
+      cameraComponent.viewport.add(brightnessOverlay);
+    }
+    List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
+    if (aButtons.isEmpty) {
+      cameraComponent.viewport.add(_aButton);
+    }
+  }
+
+  void removeHudComponentsForRoom() {
+    List<BrightnessOverlay> brightnessOverlays = cameraComponent.viewport.children.query<BrightnessOverlay>();
+    if (brightnessOverlays.isNotEmpty) {
+      cameraComponent.viewport.remove(brightnessOverlay);
+    }
+    List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
+    if (aButtons.isNotEmpty) {
+      cameraComponent.viewport.remove(_aButton);
+    }
+  }
+
   @override
   Future<void> onLoad() async {
     debugMode = isDebugMode;
@@ -148,16 +172,16 @@ class GomilandGame extends FlameGame
     final CoinsComponent coinsComponent = CoinsComponent(game: this);
     final ClockComponent clockComponent = ClockComponent(game: this);
     final GameMenuButton gameMenuButton = GameMenuButton();
-    final AButton eButton = AButton(game: this);
+    _aButton = AButton(game: this);
 
     cameraComponent.viewport.addAll([
-      hudTranslucent,
       coinsComponent,
       bagComponent,
       clockComponent,
       gameMenuButton,
-      eButton,
+      hudTranslucent,
       brightnessOverlay,
+      _aButton,
       FpsTextComponent(), //TODO remove this
     ]);
 

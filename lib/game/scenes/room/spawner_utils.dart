@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/data/rubbish.dart';
 import 'package:gomiland/game/scenes/room/rubbish_component.dart';
@@ -91,4 +92,11 @@ Future<Sprite> getRandomSprite(RubbishObject rubbishObject) async {
     srcSize: rubbishObject.size,
   );
   return spriteSheet.getSprite(0, index);
+}
+
+String getIndefiniteArticle(String word) {
+  String lowercaseWord = word.toLowerCase();
+  bool startsWithVowel = vowels.contains(lowercaseWord[0]);
+  String article = startsWithVowel ? 'an' : 'a';
+  return '$article $word';
 }
