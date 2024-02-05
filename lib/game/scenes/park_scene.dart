@@ -482,6 +482,26 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
+        case 'park_centre_1':
+          await add(
+            BuildingWithFade(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(192, 128),
+              spritePath: Assets.assets_images_buildings_park_centre1_png,
+            ),
+          );
+          break;
+        case 'park_centre_2':
+          await add(
+            BuildingWithFade(
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(192, 128),
+              spritePath: Assets.assets_images_buildings_park_centre2_png,
+            ),
+          );
+          break;
       }
     }
   }
