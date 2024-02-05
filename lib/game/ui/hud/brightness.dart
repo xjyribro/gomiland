@@ -7,7 +7,7 @@ class BrightnessOverlay extends RectangleComponent
     with HasGameReference<GomilandGame> {
   @override
   Future<void> onLoad() async {
-    size = game.size;
+    size = game.size + Vector2(1000, 1000); // this adds a buffer
     paint = Paint()..color = const Color.fromARGB(0, 40, 40, 70);
   }
 

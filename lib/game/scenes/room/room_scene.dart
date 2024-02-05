@@ -5,6 +5,7 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
 import 'package:gomiland/game/scenes/room/rubbish_spawner.dart';
@@ -18,6 +19,8 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
+    game.gameStateBloc.add(const BagCountChange(10));
+
     final bool isMute = game.gameStateBloc.state.isMute;
     if (!isMute) {
       Sounds.playRoomBgm();

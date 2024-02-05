@@ -11,9 +11,9 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Monk extends SpriteAnimationComponent
+class QianBi extends SpriteAnimationComponent
     with HasGameReference<GomilandGame> {
-  Monk({required Vector2 position})
+  QianBi({required Vector2 position})
       : super(
           position: position,
           size: Vector2.all(32),

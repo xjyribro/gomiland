@@ -13,10 +13,13 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
       ),
     );
 
-    on<ScoreChanged>(
-      (event, emit) => emit(
-        state.copyWith(score: state.score + event.score),
-      ),
+    on<CoinAmountChange>(
+      (event, emit) {
+        int coinAmount = state.coinAmount + event.coinAmount;
+        return emit(
+          state.copyWith(coinAmount: coinAmount.clamp(0, 999999)),
+        );
+      },
     );
 
     on<MuteChanged>(
@@ -64,13 +67,13 @@ class SceneChanged extends GameStatesEvent {
   List<Object?> get props => [sceneName];
 }
 
-class ScoreChanged extends GameStatesEvent {
-  const ScoreChanged(this.score);
+class CoinAmountChange extends GameStatesEvent {
+  const CoinAmountChange(this.coinAmount);
 
-  final int score;
+  final int coinAmount;
 
   @override
-  List<Object?> get props => [score];
+  List<Object?> get props => [coinAmount];
 }
 
 class MuteChanged extends GameStatesEvent {
@@ -115,7 +118,7 @@ class PlayerFrozen extends GameStatesEvent {
 }
 
 class GameState extends Equatable {
-  final int score;
+  final int coinAmount;
   final bool isMute;
   final SceneName sceneName;
   final int bagCount;
@@ -124,7 +127,7 @@ class GameState extends Equatable {
   final bool playerFrozen;
 
   const GameState({
-    required this.score,
+    required this.coinAmount,
     required this.isMute,
     required this.sceneName,
     required this.bagCount,
@@ -135,7 +138,7 @@ class GameState extends Equatable {
 
   const GameState.empty()
       : this(
-          score: 0,
+          coinAmount: 0,
           isMute: false,
           sceneName: SceneName.menu,
           bagCount: 0,
@@ -145,7 +148,7 @@ class GameState extends Equatable {
         );
 
   GameState copyWith({
-    int? score,
+    int? coinAmount,
     bool? isMute,
     SceneName? sceneName,
     int? bagCount,
@@ -154,7 +157,7 @@ class GameState extends Equatable {
     bool? playerFrozen,
   }) {
     return GameState(
-      score: score ?? this.score,
+      coinAmount: coinAmount ?? this.coinAmount,
       isMute: isMute ?? this.isMute,
       sceneName: sceneName ?? this.sceneName,
       bagCount: bagCount ?? this.bagCount,
@@ -166,7 +169,7 @@ class GameState extends Equatable {
 
   @override
   List<Object?> get props => [
-        score,
+        coinAmount,
         isMute,
         sceneName,
         bagCount,

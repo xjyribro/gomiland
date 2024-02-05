@@ -13,7 +13,7 @@ import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/gomiland_world.dart';
-import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
@@ -121,7 +121,7 @@ class GomilandGame extends FlameGame
           if (parent is RubbishSpawner) {
             parent.pickupRubbish();
           }
-          if (parent is Monk) {
+          if (parent is QianBi) {
             parent.startConversation(playerPosition);
           }
           // if (parent is Sign) {

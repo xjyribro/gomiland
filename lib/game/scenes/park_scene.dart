@@ -8,7 +8,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
 import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
@@ -487,7 +487,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       switch (npc.name) {
         case 'qianbi':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );

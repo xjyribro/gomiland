@@ -1,5 +1,5 @@
-// game
-const isDebugMode = false;
+// flame
+const isDebugMode = true;
 const double gameWidth = 1000;
 const double gameHeight = 600;
 
@@ -31,8 +31,15 @@ const textSpeed = 50;
 const gameMinToRealSecond = 0.01;
 
 //animation
-
 const stepTime = 0.1;
+
+// sorting game
+const basePlasticReward = 1;
+const basePaperReward = 1;
+const baseGlassReward = 1;
+const baseElectronicsReward = 2;
+const baseMetalReward = 2;
+const baseFoodReward = 1;
 
 class Strings {
   static const String minecraft = 'minecraft';

@@ -8,7 +8,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
@@ -257,56 +257,56 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       switch (npc.name) {
         case 'man':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'women':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'manuka':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'asimov':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'moon':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'stark':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'plastic':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'qianbi':
           await add(
-            Monk(
+            QianBi(
               position: Vector2(npc.x, npc.y),
             ),
           );

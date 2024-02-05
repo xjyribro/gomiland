@@ -6,7 +6,7 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/player/obstacle_checker.dart';
 
 class Player extends SpriteAnimationComponent
@@ -183,7 +183,7 @@ class Player extends SpriteAnimationComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is Monk) {
+    if (other is QianBi) {
       if (intersectionPoints.length == 2) {
         final mid = (intersectionPoints.elementAt(0) +
                 intersectionPoints.elementAt(1)) /
