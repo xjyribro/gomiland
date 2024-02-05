@@ -19,20 +19,20 @@ class CoinsComponent extends HudMarginComponent {
     _game = game;
   }
 
-  late TextComponent _bagCountTextComponent;
+  late TextComponent _coinCountTextComponent;
   late GomilandGame _game;
 
   @override
   Future<void> onLoad() async {
-    _bagCountTextComponent = TextComponent(
-      text: '${_game.gameStateBloc.state.bagCount}',
+    _coinCountTextComponent = TextComponent(
+      text: '',
       textRenderer: TextPaint(
         style: TextStyles.hudTextStyle,
       ),
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
     );
-    add(_bagCountTextComponent);
+    add(_coinCountTextComponent);
 
     final spriteSheet = SpriteSheet(
       image: await LoadImage(Assets.assets_images_spritesheets_coin_small_png),
@@ -57,6 +57,6 @@ class CoinsComponent extends HudMarginComponent {
 
   @override
   void update(double dt) {
-    _bagCountTextComponent.text = 'Coins';
+    _coinCountTextComponent.text = 'Coins: ${_game.gameStateBloc.state.coinAmount}';
   }
 }

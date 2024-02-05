@@ -16,6 +16,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
   }
 
   late Function _setNewSceneName;
+  late final Map<RubbishType, Bin> _bins = {};
 
   void _removeHudComponentsForRoom() {
     game.removeHudComponentsForRoom();
@@ -42,6 +43,13 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
 
   void _centreCamera(Vector2 centerOfScene) {
     game.cameraComponent.moveTo(centerOfScene);
+  }
+
+  void _showScore(RubbishType binType, int score) {
+    Bin? bin = _bins[binType];
+    if (bin != null) {
+      bin.showScore(score);
+    }
   }
 
   @override
@@ -78,11 +86,14 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
           binType: binType,
         );
         add(bin);
+        _bins[binType] = bin;
       }
     }
 
-    RubbishSpawner rubbishSpawner =
-        RubbishSpawner(centerOfScene: centerOfScene);
+    RubbishSpawner rubbishSpawner = RubbishSpawner(
+      centerOfScene: centerOfScene,
+      showScore: _showScore,
+    );
     await add(rubbishSpawner);
   }
 }

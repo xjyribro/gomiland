@@ -58,12 +58,16 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
-  @override
-  Future<void> onLoad() async {
+  void _checkBgm() {
     final bool isMute = game.gameStateBloc.state.isMute;
     if (!isMute) {
       Sounds.playParkBgm();
     }
+  }
+
+  @override
+  Future<void> onLoad() async {
+    _checkBgm();
     final TiledComponent map = await TiledComponent.load(
       'park.tmx',
       Vector2.all(tileSize),

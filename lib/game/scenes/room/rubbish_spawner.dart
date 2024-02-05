@@ -11,11 +11,16 @@ import 'package:jenny/jenny.dart';
 
 class RubbishSpawner extends PositionComponent
     with HasGameReference<GomilandGame> {
-  RubbishSpawner({required Vector2 centerOfScene}) : super() {
+  RubbishSpawner({
+    required Vector2 centerOfScene,
+    required Function showScore,
+  }) : super() {
     _centerOfScene = centerOfScene;
+    _showScore = showScore;
   }
 
   late Vector2 _centerOfScene;
+  late Function _showScore;
   late final Map<RubbishType, int> _rewardMap = {};
 
   void _addRubbishUpdateBag() async {
@@ -35,12 +40,14 @@ class RubbishSpawner extends PositionComponent
       // show reward
       int reward = _rewardMap[rubbishType] ?? 1;
       game.gameStateBloc.add(CoinAmountChange(reward));
+      _showScore(binType, reward);
     } else {
       // show penalty
       int rubbishFine = _rewardMap[rubbishType] ?? 1;
       int binFine = _rewardMap[binType] ?? 1;
-      int totalFine = (rubbishFine + binFine);
+      int totalFine = rubbishFine + binFine;
       game.gameStateBloc.add(CoinAmountChange(-totalFine));
+      _showScore(binType, -totalFine);
       _showErrorDialogue(binType, rubbishType, rubbishName);
     }
 
@@ -64,7 +71,8 @@ class RubbishSpawner extends PositionComponent
     yarnProject
       ..parse(
           await rootBundle.loadString(Assets.assets_yarn_rubbish_error_yarn))
-      ..variables.setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
+      ..variables
+          .setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     dialogueRunner.startDialogue(getDialogueName(binType));
