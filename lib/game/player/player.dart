@@ -80,6 +80,7 @@ class Player extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
+    if (game.playerIsFrozen()) return;
 
     if (_joystick != null) {
       if (_joystick!.direction == JoystickDirection.idle) {

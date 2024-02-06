@@ -7,7 +7,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
 import 'package:gomiland/game/ui/info_popup/info_popup_data.dart';
 
-class InfoPopup extends HudMarginComponent {
+class InfoPopup extends HudMarginComponent with HasGameReference<GomilandGame> {
   InfoPopup({
     required InfoPopupObject infoPopupObject,
     super.margin = const EdgeInsets.only(
@@ -22,6 +22,7 @@ class InfoPopup extends HudMarginComponent {
 
   @override
   Future<void> onLoad() async {
+    game.freezePlayer();
     InfoPopupSpriteComponent infoPopupSpriteComponent =
         InfoPopupSpriteComponent(infoPopupObject: _infoPopupObject);
     add(infoPopupSpriteComponent);
@@ -37,6 +38,15 @@ class InfoPopupSpriteComponent extends SpriteComponent
   }
 
   late InfoPopupObject _infoPopupObject;
+
+  void _onClosePopup() {
+    game.cameraComponent.viewport.children
+        .query<InfoPopup>()
+        .forEach((component) {
+      component.removeFromParent();
+    });
+    game.unfreezePlayer();
+  }
 
   @override
   Future<void> onLoad() async {
@@ -63,13 +73,7 @@ class InfoPopupSpriteComponent extends SpriteComponent
         assetPath: Assets.assets_images_ui_red_button_png,
         text: 'Close',
         posit: Vector2(size.x / 2, 10),
-        onTap: () {
-          game.cameraComponent.viewport.children
-              .query<InfoPopup>()
-              .forEach((component) {
-            component.removeFromParent();
-          });
-        },
+        onTap: _onClosePopup,
       ),
     );
     return super.onLoad();

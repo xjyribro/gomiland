@@ -150,6 +150,18 @@ class GomilandGame extends FlameGame
     }
   }
 
+  void freezePlayer() {
+    gameStateBloc.add(const PlayerFrozen(true));
+  }
+
+  void unfreezePlayer() {
+    gameStateBloc.add(const PlayerFrozen(false));
+  }
+
+  bool playerIsFrozen() {
+    return gameStateBloc.state.playerFrozen;
+  }
+
   @override
   Future<void> onLoad() async {
     debugMode = isDebugMode;

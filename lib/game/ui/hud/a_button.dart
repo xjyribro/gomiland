@@ -23,8 +23,9 @@ class AButton extends HudMarginComponent{
         button: await Sprite.load(Assets.assets_images_ui_a_button_png),
         buttonDown: await Sprite.load(Assets.assets_images_ui_a_button_down_png),
         onPressed: () {
+          if (_game.playerIsFrozen()) return;
           _game.castRay();
-        });
+         });
     add(buttonSprite);
   }
 }
