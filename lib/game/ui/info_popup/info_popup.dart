@@ -3,13 +3,15 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
 import 'package:gomiland/game/ui/info_popup/info_popup_data.dart';
 
 class InfoPopup extends HudMarginComponent {
   InfoPopup({
     required InfoPopupObject infoPopupObject,
     super.margin = const EdgeInsets.only(
-      left: 28,
+      left: boxMarginFromLeft,
       top: 16,
     ),
   }) : super() {
@@ -26,7 +28,8 @@ class InfoPopup extends HudMarginComponent {
   }
 }
 
-class InfoPopupSpriteComponent extends SpriteComponent {
+class InfoPopupSpriteComponent extends SpriteComponent
+    with HasGameReference<GomilandGame> {
   InfoPopupSpriteComponent({
     required InfoPopupObject infoPopupObject,
   }) : super() {
@@ -53,6 +56,20 @@ class InfoPopupSpriteComponent extends SpriteComponent {
             fontFamily: Strings.minecraft,
           ),
         ),
+      ),
+    );
+    add(
+      DialogueButton(
+        assetPath: Assets.assets_images_ui_red_button_png,
+        text: 'Close',
+        posit: Vector2(size.x / 2, 10),
+        onTap: () {
+          game.cameraComponent.viewport.children
+              .query<InfoPopup>()
+              .forEach((component) {
+            component.removeFromParent();
+          });
+        },
       ),
     );
     return super.onLoad();

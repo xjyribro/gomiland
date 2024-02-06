@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/ui/dialogue/button_row.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_main_text_box.dart';
 import 'package:jenny/jenny.dart';
@@ -9,8 +10,8 @@ import 'package:jenny/jenny.dart';
 class DialogueBoxComponent extends HudMarginComponent {
   DialogueBoxComponent({
     super.margin = const EdgeInsets.only(
-      left: 1,
-      top: 250,
+      left: boxMarginFromLeft,
+      top: 270,
     ),
   });
 
@@ -49,13 +50,13 @@ class DialogueBoxComponent extends HudMarginComponent {
 
 class DialogueBoxSpriteComponent extends SpriteComponent {
   DialogueMainTextBox _textBox = DialogueMainTextBox(text: '');
-  late final ButtonRow _buttonRow = ButtonRow();
-
+  late final ButtonRow _buttonRow = ButtonRow(size: _size);
+  final Vector2 _size = Vector2(736, 128);
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(
       Assets.assets_images_ui_dialogue_box_png,
-      srcSize: Vector2(800, 192),
+      srcSize: _size,
     );
     add(_buttonRow);
     return super.onLoad();

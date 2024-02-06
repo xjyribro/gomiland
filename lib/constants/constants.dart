@@ -3,6 +3,9 @@ const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
 
+// ui
+const double boxMarginFromLeft = 28;
+
 // map
 const double tileSize = 32;
 const double parkStartX = 96;
@@ -17,6 +20,7 @@ const double playerSpeed = 4;
 const double maxRaycastDist = 40;
 
 // day cycle
+const gameMinToRealSecond = 0.5;
 const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;
@@ -30,9 +34,6 @@ const double dialogueBoxFontSize = 32;
 const double infoPopupFontSize = 16;
 const double dialogueButtonFontSize = 24;
 const double timePerChar = 0.1;
-
-// time
-const gameMinToRealSecond = 0.01;
 
 //animation
 const stepTime = 0.1;

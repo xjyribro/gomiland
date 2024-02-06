@@ -2,9 +2,8 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/game/game.dart';
 
-class ExitRoomButton extends HudMarginComponent{
+class ExitRoomButton extends HudMarginComponent {
   ExitRoomButton({
     required Function switchScene,
     super.margin = const EdgeInsets.only(
@@ -21,7 +20,8 @@ class ExitRoomButton extends HudMarginComponent{
   Future<void> onLoad() async {
     final SpriteButtonComponent buttonSprite = SpriteButtonComponent(
         button: await Sprite.load(Assets.assets_images_ui_exit_button_png),
-        buttonDown: await Sprite.load(Assets.assets_images_ui_exit_button_down_png),
+        buttonDown:
+            await Sprite.load(Assets.assets_images_ui_exit_button_down_png),
         onPressed: () {
           _switchScene();
         });

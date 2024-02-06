@@ -17,8 +17,8 @@ class Sign extends SpriteComponent with HasGameReference<GomilandGame> {
   Future<void> onLoad() async {
     sprite = await Sprite.load(Assets.assets_images_objects_general_sign_png);
     RectangleHitbox hitbox = RectangleHitbox(
-      size: Vector2(32, 16),
-      position: Vector2(0, 32),
+      size: Vector2(32, 48),
+      position: Vector2(0, 16),
       collisionType: CollisionType.passive,
     );
     add(hitbox);
