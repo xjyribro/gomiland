@@ -6,9 +6,7 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/ui/info_popup.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/screens/instructions.dart';
 import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/main_menu_button.dart';
 
@@ -99,28 +97,8 @@ class _MainMenuState extends State<MainMenu> {
                 height: 20.0,
               ),
               MainMenuButton(
-                text: 'How to play',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Instructions()),
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              MainMenuButton(
                 text: 'Credits',
-                onPressed: () {
-                  InfoPopups.showCongratulations(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const CreditsPage()),
-                  // );
-                },
+                onPressed: () {},
               ),
               const MuteButton(),
             ],

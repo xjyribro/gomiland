@@ -27,6 +27,7 @@ const nightStartMins = 0;
 // dialogue
 const textSpeed = 50;
 const double dialogueBoxFontSize = 32;
+const double infoPopupFontSize = 16;
 const double dialogueButtonFontSize = 24;
 const double timePerChar = 0.1;
 

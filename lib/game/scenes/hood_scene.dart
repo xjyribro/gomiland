@@ -26,6 +26,7 @@ import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
+import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
@@ -126,6 +127,11 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       await _loadTrees(trees);
     }
 
+    final signs = map.tileMap.getLayer<ObjectGroup>('signs');
+    if (signs != null) {
+      await _loadSigns(signs);
+    }
+
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
     if (lights != null) {
       bool shouldAddLight =
@@ -174,7 +180,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     final animationCompiler = AnimationBatchCompiler();
     final imageCompiler = ImageBatchCompiler();
     final ground =
-    imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
       'sand',
       'road',
       'pavement',
@@ -196,6 +202,21 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     final animatedWater = await animationCompiler.compile();
     animatedWater.priority = -1;
     add(animatedWater);
+  }
+
+  Future<void> _loadSigns(ObjectGroup signs) async {
+    for (final TiledObject sign in signs.objects) {
+      switch (sign.name) {
+        case 'how_to_play':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'how_to_play',
+            ),
+          );
+          break;
+      }
+    }
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {

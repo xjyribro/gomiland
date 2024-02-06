@@ -19,6 +19,7 @@ import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
+import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
@@ -126,6 +127,11 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
     if (trees != null) {
       _loadTrees(trees);
+    }
+
+    final signs = map.tileMap.getLayer<ObjectGroup>('signs');
+    if (signs != null) {
+      await _loadSigns(signs);
     }
 
     final lights = map.tileMap.getLayer<ObjectGroup>('lights');
@@ -499,6 +505,21 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(building.width, building.height),
               hitboxSize: Vector2(192, 128),
               spritePath: Assets.assets_images_buildings_park_centre2_png,
+            ),
+          );
+          break;
+      }
+    }
+  }
+
+  Future<void> _loadSigns(ObjectGroup signs) async {
+    for (final TiledObject sign in signs.objects) {
+      switch (sign.name) {
+        case 'how_to_play':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'how_to_play',
             ),
           );
           break;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="1654">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="1661">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="sand.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -1573,6 +1573,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="20" name="signs"/>
  <objectgroup id="17" name="lights">
   <object id="634" name="park_light" x="192" y="3552" width="32" height="64"/>
   <object id="641" name="park_light" x="256" y="3680" width="32" height="64"/>
@@ -2470,6 +2471,12 @@
   <object id="895" x="5440" y="3968" width="32" height="32"/>
   <object id="900" x="5312" y="4000" width="32" height="32"/>
   <object id="766" x="576" y="4064" width="32" height="32"/>
+  <object id="1654" x="832" y="4128" width="32" height="32"/>
+  <object id="1657" x="1408" y="4128" width="32" height="32"/>
+  <object id="1659" x="1952" y="4128" width="32" height="32"/>
+  <object id="1655" x="1088" y="4128" width="32" height="32"/>
+  <object id="1656" x="1696" y="4128" width="32" height="32"/>
+  <object id="1658" x="2176" y="4128" width="32" height="32"/>
   <object id="767" x="544" y="4256" width="32" height="32"/>
   <object id="794" x="1280" y="544" width="32" height="32"/>
   <object id="956" x="928" y="544" width="32" height="32"/>
