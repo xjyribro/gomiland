@@ -1,10 +1,26 @@
 <<character Asimov>>
-title: intro
+title: level0
 ---
-Asimov: Good morning!
-Asimov: Good afternoon!
--> Yes
-    Asimov: ok!
--> No
-    Asimov: no ok!
+Asimov: ?? Oh hello...
+Asimov: I'm Asimov, builder of robots
+Asimov: Recently I've started building some self-thinking robots
+Asimov: I need more electronics to make them better.
+Asimov: Could you toss some electronics that no one wants into your bin?
+Asimov: Don't worry if they are broken. Asimov will make them work again.
+Asimov: I would go myself but I gotta keep an eye on these robots.
+Asimov: I think they are becoming sentient....
+===
+title: level1
+---
+Asimov: Oh it's you!
+Asimov: The electronics that you sent were perfect.
+Asimov: It's amazing how people just throw things that can still work.
+Asimov: How's the robot you ask?
+Asimov: Erm... they are not done yet.
+Asimov: More electronics!
+Asimov: 50 more to be precise.
+===
+title: level2
+---
+Asimov:
 ===

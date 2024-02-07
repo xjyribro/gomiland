@@ -2,83 +2,69 @@
 <<character Girl>>
 <<character Man>>
 <<character Woman>>
-title: boy1
+<<declare $rand = 0>>
+title: boy
 ---
-Boy : Remember to separate plastics from paper!
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Boy : Remember to separate plastics from paper!
+<<elseif  $rand == 2>>
+    Boy : I love the fresh air of this city.
+<<elseif  $rand == 3>>
+    Boy : Sustainability of the planet effects us all.
+<<elseif  $rand == 4>>
+    Boy : Our actions shape the future of our planet.
+<<elseif  $rand == 5>>
+    Boy : Have you tried upcycling?
+<<endif>>
 ===
-title: boy2
+title: girl
 ---
-Boy : I love the fresh air of this city.
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Girl : Don't forget to compost your kitchen scraps!
+<<elseif  $rand == 2>>
+    Girl : Opt for reusable bags instead of single-use plastics!
+<<elseif  $rand == 3>>
+    Girl : I love that our city has given recycling bins to everyone.
+    Girl : It makes it so much easier and fun!
+<<elseif  $rand == 4>>
+    Girl : Just came back from a stroll in Gomiland National Park.
+    Girl : I feel so refreshed.
+<<elseif  $rand == 5>>
+    Girl : Do you know about recycling projects in other countries?
+<<endif>>
 ===
-title: boy3
+title: man
 ---
-Boy : Reduce, reuse, recycle — every bit counts!
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Man : Plastic takes a really long time to decompose.
+    Man : Using less single use plastics makes the most sense.
+<<elseif  $rand == 2>>
+    Man : Have you downloaded the Online Citizen app yet?
+<<elseif  $rand == 3>>
+    Man : Reduce, reuse, recycle — every bit counts!
+<<elseif  $rand == 4>>
+    Man : Have you been to Gomiland National Park?
+    Man : It's my favorite place!
+<<elseif  $rand == 5>>
+    Man : Learning about how recycling works is interesting.
+<<endif>>
 ===
-title: boy4
+title: woman
 ---
-Boy : Our actions shape the future of our planet.
-===
-title: boy5
----
-Boy : Have you tried upcycling?
-===
-title: girl1
----
-Girl : Don't forget to compost your kitchen scraps!
-===
-title: girl2
----
-Girl : Opt for reusable bags instead of single-use plastics!
-===
-title: girl3
----
-Girl : Reduce, reuse, recycle — every bit counts!
-===
-title: girl4
----
-Girl : Our actions shape the future of our planet.
-===
-title: girl5
----
-Girl : Have you tried upcycling?
-===
-title: man1
----
-Man : Remember to separate plastics from paper!
-===
-title: man2
----
-Man : I love the fresh air of this city.
-===
-title: man3
----
-Man : Reduce, reuse, recycle — every bit counts!
-===
-title: man4
----
-Man : Our actions shape the future of our planet.
-===
-title: man5
----
-Man : Have you tried upcycling?
-===
-title: woman1
----
-Woman : Remember to separate plastics from paper!
-===
-title: woman2
----
-Woman : I love the fresh air of this city.
-===
-title: woman3
----
-Woman : Reduce, reuse, recycle — every bit counts!
-===
-title: woman4
----
-Woman : Our actions shape the future of our planet.
-===
-title: woman5
----
-Woman : Have you tried upcycling?
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Woman : I use Flutter for developing cross platform games.
+<<elseif  $rand == 2>>
+    Woman : Do you know about Friendship Square?
+    Woman : It's in the North West of the city.
+<<elseif  $rand == 3>>
+    Woman : No matter which country you are in, you can find recycling efforts.
+<<elseif  $rand == 4>>
+    Woman : I heard the local cafe is planning to reduce single-use containers.
+<<elseif  $rand == 5>>
+    Woman : It's tough sorting out rubbish.
+<<endif>>
 ===

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/controllers/progress_state.dart';
 
 class NpcNameStrings {
   static const String boy = 'boy';
@@ -46,18 +48,21 @@ extension GetNpcName on String {
   }
 }
 
-String getRandomConversation(NpcName npcName) {
-  int rand = Random().nextInt(npcDialogueCount-1) + 1;
-  switch (npcName) {
-    case NpcName.boy:
-      return 'boy$rand';
-    case NpcName.girl:
-      return 'girl$rand';
-    case NpcName.man:
-      return 'man$rand';
-    case NpcName.woman:
-      return 'woman$rand';
+int getProgressLevel(RubbishType rubbishType, ProgressState state) {
+  switch (rubbishType) {
+    case RubbishType.plastic:
+      return state.plastic;
+    case RubbishType.paper:
+      return state.paper;
+    case RubbishType.electronics:
+      return state.electronics;
+    case RubbishType.glass:
+      return state.glass;
+    case RubbishType.metal:
+      return state.metal;
+    case RubbishType.food:
+      return state.food;
     default:
-      return 'boy$rand';
+      return 0;
   }
 }

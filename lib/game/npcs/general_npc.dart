@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
@@ -89,7 +87,7 @@ class GeneralNpc extends Npc with HasGameReference<GomilandGame> {
     yarnProject.parse(await rootBundle.loadString(_dialoguePath));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getRandomConversation(_npcName));
+    await dialogueRunner.startDialogue(_npcName.string);
     game.unfreezePlayer();
   }
 }
