@@ -8,6 +8,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/npcs/boy.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
@@ -281,14 +282,14 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       switch (npc.name) {
         case 'man':
           await add(
-            QianBi(
+            Boy(
               position: Vector2(npc.x, npc.y),
             ),
           );
           break;
         case 'women':
           await add(
-            QianBi(
+            Boy(
               position: Vector2(npc.x, npc.y),
             ),
           );

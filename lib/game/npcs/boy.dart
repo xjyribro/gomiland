@@ -12,9 +12,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc
-    with HasGameReference<GomilandGame> {
-  QianBi({required super.position});
+class Boy extends Npc with HasGameReference<GomilandGame> {
+  Boy({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -23,20 +22,20 @@ class QianBi extends Npc
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_qianbi_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_boy_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
     );
 
-    idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: stepTime, from: 0, to: 1);
+    idleUp =
+        spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 0, to: 1);
+    idleDown =
+        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 0, to: 1);
+    idleLeft =
+        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 0, to: 1);
+    idleRight =
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     add(RectangleHitbox(

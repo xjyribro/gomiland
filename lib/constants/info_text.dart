@@ -11,4 +11,11 @@ class InfoText{
       '5. Sort the items from your bag into the bins. Earn G-coins for getting it right!\n'
       '6. ';
 
+  static const String constructionSite = '';
+  static const String soupKitchen = '';
+  static const String chargingKiosk = '';
+  static const String garden = '';
+  static const String cafe = '';
+  static const String parkSign = '';
+  static const String friendshipSquare = '';
 }
