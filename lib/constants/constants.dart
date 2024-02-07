@@ -34,6 +34,7 @@ const double dialogueBoxFontSize = 24;
 const double infoPopupFontSize = 16;
 const double dialogueButtonFontSize = 16;
 const double timePerChar = 0.1;
+const int npcDialogueCount = 5;
 
 //animation
 const stepTime = 0.1;

@@ -11,6 +11,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
@@ -286,7 +287,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_hood_man_yarn,
+              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
+              npcName: NpcName.man,
             ),
           );
           break;
@@ -295,7 +297,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_hood_woman_yarn,
+              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
+              npcName: NpcName.woman,
             ),
           );
           break;
@@ -304,7 +307,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_hood_boy_yarn,
+              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
+              npcName: NpcName.boy,
             ),
           );
           break;
@@ -313,7 +317,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_hood_girl_yarn,
+              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
+              npcName: NpcName.girl,
             ),
           );
           break;

@@ -10,6 +10,7 @@ import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
 import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
@@ -536,7 +537,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_park_man_yarn,
+              dialoguePath: Assets.assets_yarn_park_npcs_yarn,
+              npcName: NpcName.man,
             ),
           );
           break;
@@ -545,7 +547,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_park_woman_yarn,
+              dialoguePath: Assets.assets_yarn_park_npcs_yarn,
+              npcName: NpcName.woman,
             ),
           );
           break;
@@ -554,7 +557,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_park_boy_yarn,
+              dialoguePath: Assets.assets_yarn_park_npcs_yarn,
+              npcName: NpcName.boy,
             ),
           );
           break;
@@ -563,7 +567,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
               imgPath: Assets.assets_images_npcs_boy_png,
-              dialoguePath: Assets.assets_yarn_park_girl_yarn,
+              dialoguePath: Assets.assets_yarn_park_npcs_yarn,
+              npcName: NpcName.girl,
             ),
           );
           break;

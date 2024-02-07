@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
+import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
@@ -15,9 +18,11 @@ class GeneralNpc extends Npc with HasGameReference<GomilandGame> {
     required super.position,
     required String imgPath,
     required String dialoguePath,
+    required NpcName npcName,
   }) : super() {
     _imgPath = imgPath;
     _dialoguePath = dialoguePath;
+    _npcName = npcName;
   }
 
   late SpriteAnimation idleUp;
@@ -26,6 +31,7 @@ class GeneralNpc extends Npc with HasGameReference<GomilandGame> {
   late SpriteAnimation idleRight;
   late String _imgPath;
   late String _dialoguePath;
+  late NpcName _npcName;
 
   @override
   void onLoad() async {
@@ -83,7 +89,7 @@ class GeneralNpc extends Npc with HasGameReference<GomilandGame> {
     yarnProject.parse(await rootBundle.loadString(_dialoguePath));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue('example');
+    await dialogueRunner.startDialogue(getRandomConversation(_npcName));
     game.unfreezePlayer();
   }
 }
