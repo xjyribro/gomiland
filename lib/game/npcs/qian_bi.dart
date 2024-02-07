@@ -5,15 +5,13 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc
-    with HasGameReference<GomilandGame> {
+class QianBi extends Npc with HasGameReference<GomilandGame> {
   QianBi({required super.position});
 
   late SpriteAnimation idleUp;
@@ -29,14 +27,14 @@ class QianBi extends Npc
       srcSize: Vector2.all(tileSize),
     );
 
-    idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: stepTime, from: 0, to: 1);
+    idleUp =
+        spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 0, to: 1);
+    idleDown =
+        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 0, to: 1);
+    idleLeft =
+        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 0, to: 1);
+    idleRight =
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     add(RectangleHitbox(

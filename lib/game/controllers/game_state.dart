@@ -142,7 +142,7 @@ class GameState extends Equatable {
           isMute: false,
           sceneName: SceneName.menu,
           bagCount: 0,
-          maxBagCount: 10,
+          maxBagCount: 1,
           minutes: gameStartTime,
           playerFrozen: false,
         );

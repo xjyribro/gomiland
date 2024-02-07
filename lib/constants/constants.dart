@@ -29,10 +29,10 @@ const eveningStartMins = 1080;
 const nightStartMins = 0;
 
 // dialogue
-const textSpeed = 50;
-const double dialogueBoxFontSize = 32;
+const textSpeed = 100;
+const double dialogueBoxFontSize = 24;
 const double infoPopupFontSize = 16;
-const double dialogueButtonFontSize = 24;
+const double dialogueButtonFontSize = 16;
 const double timePerChar = 0.1;
 
 //animation

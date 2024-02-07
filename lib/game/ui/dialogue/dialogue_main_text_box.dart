@@ -7,8 +7,8 @@ class DialogueMainTextBox extends TextBoxComponent {
     required String text,
   }) : super(
     text: text,
-    position: Vector2(50, 16),
-    size: Vector2(700, 96),
+    position: Vector2(16, 16),
+    size: Vector2(704, 96),
     textRenderer: TextPaint(
       style: const TextStyle(
         fontSize: dialogueBoxFontSize,

@@ -23,6 +23,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void initState() {
     Sounds.playMainMenuBgm();
+
     super.initState();
   }
 
