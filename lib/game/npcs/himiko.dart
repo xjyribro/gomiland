@@ -5,15 +5,15 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Boy extends Npc with HasGameReference<GomilandGame> {
-  Boy({required super.position});
+class Himiko extends Npc with HasGameReference<GomilandGame> {
+  Himiko({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -22,7 +22,7 @@ class Boy extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_boy_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_himiko_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -66,17 +66,28 @@ class Boy extends Npc with HasGameReference<GomilandGame> {
 
   @override
   Future<void> startConversation(Vector2 playerPosition) async {
+    game.freezePlayer();
     _facePlayer(playerPosition);
-    game.gameStateBloc.add(const PlayerFrozen(true));
+
+    // DIALOGUE
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
-
-    // DIALOGUE
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_example_yarn));
+      ..commands.addCommand1('changeState', changeState)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_himiko_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    dialogueRunner.startDialogue('example');
+    await dialogueRunner.startDialogue(getDialogueName());
+
+    game.unfreezePlayer();
+  }
+
+  void changeState(String newState) {
+    game.progressStateBloc.add(NeighbourStateChange(newState));
+  }
+
+  String getDialogueName() {
+    return game.progressStateBloc.state.neighbourState;
   }
 }

@@ -5,7 +5,6 @@ abstract class Npc extends SpriteAnimationComponent{
       : super(
     position: position,
     size: Vector2.all(32),
-    anchor: Anchor.center,
   );
 
   Future<void> startConversation(Vector2 playerPosition);

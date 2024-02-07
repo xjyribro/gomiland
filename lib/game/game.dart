@@ -12,7 +12,6 @@ import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress_state.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
-import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';

@@ -8,6 +8,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
@@ -530,7 +531,57 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
       switch (npc.name) {
+        case 'man':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_park_man_yarn,
+            ),
+          );
+          break;
+        case 'women':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_park_woman_yarn,
+            ),
+          );
+          break;
+        case 'boy':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_park_boy_yarn,
+            ),
+          );
+          break;
+        case 'girl':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_park_girl_yarn,
+            ),
+          );
+          break;
         case 'qianbi':
+          await add(
+            QianBi(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'moon':
+          await add(
+            QianBi(
+              position: Vector2(npc.x, npc.y),
+            ),
+          );
+          break;
+        case 'manuka':
           await add(
             QianBi(
               position: Vector2(npc.x, npc.y),

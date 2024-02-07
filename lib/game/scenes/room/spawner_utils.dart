@@ -100,3 +100,22 @@ String getIndefiniteArticle(String word) {
   String article = startsWithVowel ? 'an' : 'a';
   return '$article $word';
 }
+
+String getDialogueName(RubbishType binType) {
+  switch (binType) {
+    case RubbishType.plastic:
+      return 'plastic_error';
+    case RubbishType.electronics:
+      return 'electronics_error';
+    case RubbishType.glass:
+      return 'glass_error';
+    case RubbishType.food:
+      return 'food_error';
+    case RubbishType.metal:
+      return 'metal_error';
+    case RubbishType.paper:
+      return 'paper_error';
+    default:
+      return 'rubbish_error';
+  }
+}

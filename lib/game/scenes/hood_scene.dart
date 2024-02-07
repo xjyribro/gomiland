@@ -8,7 +8,8 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/boy.dart';
+import 'package:gomiland/game/npcs/general_npc.dart';
+import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
@@ -113,14 +114,14 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     await _loadPlayer(_playerStartPosit);
 
-    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
-    if (npcs != null) {
-      _loadNpcs(npcs);
-    }
-
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
       await _loadBuildings(buildings);
+    }
+
+    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
+    if (npcs != null) {
+      _loadNpcs(npcs);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
@@ -282,59 +283,60 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       switch (npc.name) {
         case 'man':
           await add(
-            Boy(
+            GeneralNpc(
               position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_hood_man_yarn,
             ),
           );
           break;
         case 'women':
           await add(
-            Boy(
+            GeneralNpc(
               position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_hood_woman_yarn,
             ),
           );
           break;
-        case 'manuka':
+        case 'boy':
           await add(
-            QianBi(
+            GeneralNpc(
               position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_hood_boy_yarn,
             ),
           );
+          break;
+        case 'girl':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_boy_png,
+              dialoguePath: Assets.assets_yarn_hood_girl_yarn,
+            ),
+          );
+          break;
+        case 'himiko':
+          await add(Himiko(position: Vector2(npc.x, npc.y)));
           break;
         case 'asimov':
-          await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
-        case 'moon':
-          await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+        case 'boss':
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
         case 'stark':
-          await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
         case 'plastic':
-          await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
-        case 'qianbi':
-          await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
-          );
+        case 'mr_sun':
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'mrs_sun':
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

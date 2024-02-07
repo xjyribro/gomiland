@@ -198,6 +198,7 @@ class Player extends SpriteAnimationComponent
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (event is RawKeyDownEvent) {
+      if (game.playerIsFrozen()) return false;
       bool isMoving =
           _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
       if (isMoving) return false;

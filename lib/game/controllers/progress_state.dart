@@ -40,6 +40,12 @@ class ProgressStateBloc extends Bloc<ProgressStatesEvent, ProgressState> {
         state.copyWith(food: event.food),
       ),
     );
+
+    on<NeighbourStateChange>(
+      (event, emit) => emit(
+        state.copyWith(neighbourState: event.neighbourState),
+      ),
+    );
   }
 }
 
@@ -101,6 +107,15 @@ class FoodProgressChange extends ProgressStatesEvent {
   List<Object?> get props => [food];
 }
 
+class NeighbourStateChange extends ProgressStatesEvent {
+  const NeighbourStateChange(this.neighbourState);
+
+  final String neighbourState;
+
+  @override
+  List<Object?> get props => [neighbourState];
+}
+
 class ProgressState extends Equatable {
   final int plastic;
   final int paper;
@@ -108,6 +123,7 @@ class ProgressState extends Equatable {
   final int electronics;
   final int glass;
   final int food;
+  final String neighbourState;
 
   const ProgressState({
     required this.plastic,
@@ -116,6 +132,7 @@ class ProgressState extends Equatable {
     required this.electronics,
     required this.glass,
     required this.food,
+    required this.neighbourState,
   });
 
   const ProgressState.empty()
@@ -126,6 +143,7 @@ class ProgressState extends Equatable {
           electronics: 0,
           glass: 0,
           food: 0,
+          neighbourState: 'intro',
         );
 
   ProgressState copyWith({
@@ -135,6 +153,7 @@ class ProgressState extends Equatable {
     int? electronics,
     int? glass,
     int? food,
+    String? neighbourState,
   }) {
     return ProgressState(
       plastic: plastic ?? this.plastic,
@@ -143,6 +162,7 @@ class ProgressState extends Equatable {
       electronics: electronics ?? this.electronics,
       glass: glass ?? this.glass,
       food: food ?? this.food,
+      neighbourState: neighbourState ?? this.neighbourState,
     );
   }
 
