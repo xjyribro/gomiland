@@ -39,6 +39,7 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadHoodMap() async {
+    game.overlays.add('Loading');
     SceneName sceneName = game.gameStateBloc.state.sceneName;
     final bool comingFromPark = sceneName == SceneName.park;
     Vector2 playerStartPosit = comingFromPark
@@ -49,15 +50,18 @@ class GomilandWorld extends World
       playerStartPosit: playerStartPosit,
     );
     await add(hoodMap);
+    game.overlays.remove('Loading');
   }
 
   Future<void> _loadParkMap() async {
+    game.overlays.add('Loading');
     Vector2 playerStartPosit = Vector2(parkStartX, parkStartY);
     parkMap = ParkMap(
       setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,
     );
     await add(parkMap);
+    game.overlays.remove('Loading');
   }
 
   Future<void> _loadRoomMap() async {

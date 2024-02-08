@@ -152,6 +152,10 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           shouldAddLight: shouldAddLight,
         );
         await add(streetLight);
+        add(Obstacle(
+          position: Vector2(lights.x + 4, lights.y + 48),
+          size: Vector2(24, 16),
+        ));
       }
     }
   }
@@ -195,6 +199,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'grass',
       'overlays',
       'barriers',
+      'bases',
+      'trees',
+      'buildings',
     ]);
     add(ground);
     await TileProcessor.processTileType(
@@ -220,6 +227,54 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             Sign(
               position: Vector2(sign.x, sign.y),
               signName: 'how_to_play',
+            ),
+          );
+          break;
+        case 'construction_site':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'construction_site',
+            ),
+          );
+          break;
+        case 'soup_kitchen':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'soup_kitchen',
+            ),
+          );
+          break;
+        case 'charging_kiosk':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'charging_kiosk',
+            ),
+          );
+          break;
+        case 'garden':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'garden',
+            ),
+          );
+          break;
+        case 'friendship_square':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'friendship_square',
+            ),
+          );
+          break;
+        case 'park_sign':
+          await add(
+            Sign(
+              position: Vector2(sign.x, sign.y),
+              signName: 'park_sign',
             ),
           );
           break;

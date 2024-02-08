@@ -23,6 +23,7 @@ import 'package:gomiland/game/ui/hud/brightness.dart';
 import 'package:gomiland/game/ui/hud/clock.dart';
 import 'package:gomiland/game/ui/hud/coins.dart';
 import 'package:gomiland/game/ui/hud/game_menu_button.dart';
+import 'package:gomiland/game/ui/loading_overlay.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
@@ -43,6 +44,9 @@ class GameWidgetWrapper extends StatelessWidget {
               dayStateBloc: context.read<DayStateBloc>(),
             ),
             overlayBuilderMap: {
+              'Loading': (BuildContext context, GomilandGame game) {
+                return const LoadingOverlay();
+              },
               'GameMenu': (BuildContext context, GomilandGame game) {
                 return GameMenu(
                   game: game,
