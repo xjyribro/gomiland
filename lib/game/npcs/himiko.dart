@@ -5,6 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
@@ -75,6 +76,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
     yarnProject
       ..commands.addCommand1('changeState', changeState)
+      ..commands.addCommand1('increaseBagSize', increaseBagSize)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_himiko_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
@@ -85,6 +87,10 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
 
   void changeState(String newState) {
     game.progressStateBloc.add(NeighbourStateChange(newState));
+  }
+
+  void increaseBagSize(int newSize) {
+    game.gameStateBloc.add(BagSizeChange(newSize));
   }
 
   String getDialogueName() {

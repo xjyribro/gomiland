@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
@@ -165,9 +166,12 @@ class RubbishSpawner extends PositionComponent
     RubbishType rubbishType,
     String rubbishName,
   ) async {
+    bool isMute = game.gameStateBloc.state.isMute;
     if (rubbishType == binType) {
+      if (!isMute) Sounds.correct();
       _handleCorrectBin(binType, rubbishType);
     } else {
+      if (!isMute) Sounds.incorrect();
       _handleWrongBin(binType, rubbishType, rubbishName);
     }
 

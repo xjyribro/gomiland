@@ -6,6 +6,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/day_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
@@ -112,13 +113,16 @@ class GomilandGame extends FlameGame
       if (result != null && result.hitbox != null) {
         final Component? parent = result.hitbox!.parent;
         if (parent != null) {
+          bool isMute = gameStateBloc.state.isMute;
           if (parent is RubbishSpawner) {
             parent.pickupRubbish();
           }
           if (parent is Npc) {
+            if (!isMute) Sounds.next();
             parent.startConversation(playerPosition);
           }
           if (parent is Sign) {
+            if (!isMute) Sounds.next();
             parent.readSign();
           }
         }

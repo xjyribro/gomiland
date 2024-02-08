@@ -7,6 +7,8 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:jenny/jenny.dart';
 
+import '../controllers/audio_controller.dart';
+
 class RubbishSpawner extends SpriteComponent
     with HasGameReference<GomilandGame> {
   RubbishSpawner({required Vector2 position}) : super(position: position);
@@ -42,9 +44,11 @@ class RubbishSpawner extends SpriteComponent
 
   void pickupRubbish() {
     final int bagCount = game.gameStateBloc.state.bagCount;
-    final int maxBagCount = game.gameStateBloc.state.maxBagCount;
-    if (bagCount < maxBagCount) {
+    final int bagSize = game.gameStateBloc.state.bagSize;
+    if (bagCount < bagSize) {
       game.gameStateBloc.add(BagCountChange(bagCount + 1));
+      bool isMute = game.gameStateBloc.state.isMute;
+      if (!isMute) Sounds.pickup();
       sprite = null;
       remove(_hitbox);
     } else {

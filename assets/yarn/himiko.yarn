@@ -1,7 +1,7 @@
 <<character Himiko>>
 title: intro
 ---
-Himiko: Hello neighbour! wo;rgnvzsorngvsuegb rh rfg ui9 rg8h3948 h89hw3948h9384t 9p83498th 893498 t
+Himiko: Hello neighbour!
 Himiko: How was your holiday?
 Himiko: While you were away, the recycling initiative started.
 Himiko: All rubbish has to be sorted before being thrown.
@@ -30,6 +30,7 @@ Himiko: Congratulations! You got some coins from the city.
 Himiko: Here is a bigger bag for you to hold more rubbish.
 Himiko: Let's go clean up Gomiland!
 Himiko: Oh and don't forget to stop and talk to others.
+<<increaseBagSize 10>>
 <<changeState "level_2">>
 ===
 title: level_1_incorrect

@@ -34,9 +34,9 @@ class GameStateBloc extends Bloc<GameStatesEvent, GameState> {
       ),
     );
 
-    on<MaxBagCountChange>(
+    on<BagSizeChange>(
       (event, emit) => emit(
-        state.copyWith(bagCount: event.maxBagCount),
+        state.copyWith(bagSize: event.bagSize),
       ),
     );
 
@@ -92,13 +92,13 @@ class BagCountChange extends GameStatesEvent {
   List<Object?> get props => [bagCount];
 }
 
-class MaxBagCountChange extends GameStatesEvent {
-  const MaxBagCountChange(this.maxBagCount);
+class BagSizeChange extends GameStatesEvent {
+  const BagSizeChange(this.bagSize);
 
-  final int maxBagCount;
+  final int bagSize;
 
   @override
-  List<Object?> get props => [maxBagCount];
+  List<Object?> get props => [bagSize];
 }
 
 class AddOneMin extends GameStatesEvent {
@@ -122,7 +122,7 @@ class GameState extends Equatable {
   final bool isMute;
   final SceneName sceneName;
   final int bagCount;
-  final int maxBagCount;
+  final int bagSize;
   final int minutes;
   final bool playerFrozen;
 
@@ -131,7 +131,7 @@ class GameState extends Equatable {
     required this.isMute,
     required this.sceneName,
     required this.bagCount,
-    required this.maxBagCount,
+    required this.bagSize,
     required this.minutes,
     required this.playerFrozen,
   });
@@ -142,7 +142,7 @@ class GameState extends Equatable {
           isMute: false,
           sceneName: SceneName.menu,
           bagCount: 1,
-          maxBagCount: 1,
+          bagSize: 1,
           minutes: gameStartTime,
           playerFrozen: false,
         );
@@ -152,7 +152,7 @@ class GameState extends Equatable {
     bool? isMute,
     SceneName? sceneName,
     int? bagCount,
-    int? maxBagCount,
+    int? bagSize,
     int? minutes,
     bool? playerFrozen,
   }) {
@@ -161,7 +161,7 @@ class GameState extends Equatable {
       isMute: isMute ?? this.isMute,
       sceneName: sceneName ?? this.sceneName,
       bagCount: bagCount ?? this.bagCount,
-      maxBagCount: maxBagCount ?? this.maxBagCount,
+      bagSize: bagSize ?? this.bagSize,
       minutes: minutes ?? this.minutes,
       playerFrozen: playerFrozen ?? this.playerFrozen,
     );
@@ -173,7 +173,7 @@ class GameState extends Equatable {
         isMute,
         sceneName,
         bagCount,
-        maxBagCount,
+        bagSize,
         minutes,
         playerFrozen,
       ];

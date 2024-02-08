@@ -23,7 +23,7 @@ class BagComponent extends HudMarginComponent {
   Future<void> onLoad() async {
     _bagCountTextComponent = TextComponent(
       text:
-          '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}',
+          '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.bagSize}',
       textRenderer: TextPaint(
         style: TextStyles.hudTextStyle,
       ),
@@ -42,6 +42,6 @@ class BagComponent extends HudMarginComponent {
   @override
   void update(double dt) {
     _bagCountTextComponent.text =
-        '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.maxBagCount}';
+        '${_game.gameStateBloc.state.bagCount} / ${_game.gameStateBloc.state.bagSize}';
   }
 }
