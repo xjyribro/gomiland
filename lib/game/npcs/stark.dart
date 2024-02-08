@@ -14,8 +14,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc with HasGameReference<GomilandGame> {
-  QianBi({required super.position});
+class Stark extends Npc with HasGameReference<GomilandGame> {
+  Stark({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -70,24 +70,24 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-    int progressLevel =
-        getCharacterProgress(RubbishType.paper, game.progressStateBloc.state);
+    int progress =
+        getCharacterProgress(RubbishType.metal, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
+
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
-      ..variables.setVariable('\$progress', progressLevel)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_qian_bi_yarn));
+      ..variables.setVariable('\$progress', progress)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_stark_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
-
     game.unfreezePlayer();
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(QianBiProgressChange(newLevel));
+    game.progressStateBloc.add(StarkProgressChange(newLevel));
   }
 }

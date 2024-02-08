@@ -14,8 +14,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc with HasGameReference<GomilandGame> {
-  QianBi({required super.position});
+class Asimov extends Npc with HasGameReference<GomilandGame> {
+  Asimov({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -24,7 +24,7 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_qianbi_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_asimov_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -70,24 +70,25 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-    int progressLevel =
-        getCharacterProgress(RubbishType.paper, game.progressStateBloc.state);
 
+    int progressLevel =
+        getCharacterProgress(RubbishType.metal, game.progressStateBloc.state);
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
+
+    // DIALOGUE
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
       ..variables.setVariable('\$progress', progressLevel)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_qian_bi_yarn));
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_asimov_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
-
     game.unfreezePlayer();
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(QianBiProgressChange(newLevel));
+    game.progressStateBloc.add(AsimovProgressChange(newLevel));
   }
 }

@@ -1,0 +1,34 @@
+<<character Risa>>
+<<declare $remainder = 0>>
+title: talk
+---
+<<if $progress == -1>>
+    Risa: Hey kid!
+    Risa: Are you the one picking up rubbish from the streets...
+    Risa: then sorting'em out at home?
+    Risa: Our construction need some metal materials.
+    Risa: If you help us we won't need to mine more ores.
+    Risa: Toss 30 metal pieces in your bin and we'll pick'em up.
+    <<changeProgress 100>>
+<<elseif $progress < 130>>
+    <<set $remainder = 130 - $progress>>
+    Risa: If you help us we won't need to mine more ores.
+    Risa: Toss {$remainder} metal pieces in your bin and we'll pick'em up.
+<<elseif $progress >= 130 and $progress < 200>>
+    Risa: Yo kid!
+    Risa: Wait a go on collecting those unwanted metal items.
+    Risa: We could melt them down and reuse the metals.
+    Risa: I'll give'ya extra coin for more.
+    Risa: If you collect 50 more metals, I can make something neat.
+    <<changeProgress 200>>
+<<elseif $progress < 250>>
+    <<set $remainder = 250 - $progress>>
+    If you collect {$remainder} more metals, I can make something neat.
+<<else>>
+    Risa: Woah woah where you goin' kid!
+    Risa: We are going to be able to finish the construction...
+    Risa: thanks to all the metals that you collected off the streets.
+    Risa: Be ready to get more money for metals in the future.
+    <<changeProgress 300>>
+<<endif>>
+===

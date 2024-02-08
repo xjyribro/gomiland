@@ -14,8 +14,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc with HasGameReference<GomilandGame> {
-  QianBi({required super.position});
+class Risa extends Npc with HasGameReference<GomilandGame> {
+  Risa({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -71,11 +71,13 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
     int progressLevel =
-        getCharacterProgress(RubbishType.paper, game.progressStateBloc.state);
+        getCharacterProgress(RubbishType.plastic, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
+
+    // DIALOGUE
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
       ..variables.setVariable('\$progress', progressLevel)
@@ -88,6 +90,6 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(QianBiProgressChange(newLevel));
+    game.progressStateBloc.add(RisaProgressChange(newLevel));
   }
 }

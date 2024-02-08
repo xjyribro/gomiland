@@ -48,6 +48,12 @@ const baseMetalReward = 2;
 const baseFoodReward = 1;
 const List<String> vowels = ['a', 'e', 'i', 'o', 'u'];
 
+// progress
+const newCharProgress = -1;
+const levelOneBaseInt = 100;
+const levelTwoBaseInt = 200;
+const completedCharInt = 300;
+
 class Strings {
   static const String minecraft = 'minecraft';
 }

@@ -669,8 +669,8 @@ class Assets {
   static const String assets_yarn_park_npcs_yarn = 'assets/yarn/park_npcs.yarn';
   static const String gomiland$assets_yarn_park_npcs_yarn = 'packages/gomiland/assets/yarn/park_npcs.yarn';
 
-  static const String assets_yarn_plastic_yarn = 'assets/yarn/plastic.yarn';
-  static const String gomiland$assets_yarn_plastic_yarn = 'packages/gomiland/assets/yarn/plastic.yarn';
+  static const String assets_yarn_plastic_yarn = 'assets/yarn/risa.yarn';
+  static const String gomiland$assets_yarn_plastic_yarn = 'packages/gomiland/assets/yarn/risa.yarn';
 
   static const String assets_yarn_qian_bi_yarn = 'assets/yarn/qian_bi.yarn';
   static const String gomiland$assets_yarn_qian_bi_yarn = 'packages/gomiland/assets/yarn/qian_bi.yarn';

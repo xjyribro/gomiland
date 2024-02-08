@@ -1,38 +1,46 @@
 <<character "Mr Sun" MrSun>>
 <<character "Mrs Sun" MrsSun>>
-title: mr_sun_level0
+<<declare $remainder = 0>>
+title: mr_sun
 ---
-MrSun: Good $timeOfDay!
-MrSun: This garden here is a community led effort.
-MrSun: We grow our own plants for cooking!
-MrSun: I think Mr Moon requires some help.
-MrSun: You can find him in the park.
+<<if $progress == -1>>
+    MrSun: Good $timeOfDay!
+    MrSun: This garden here is a community led effort.
+    MrSun: We grow our own plants for cooking!
+    MrSun: I think Mr Moon requires some help.
+    MrSun: You can find him in the park.
+<<elseif $progress < 130>>
+    MrSun: Mr Moon asked to collect food waste?
+    MrSun: Great idea. We can make natural compost with them.
+<<elseif $progress >= 130 and $progress < 200>>
+    MrSun: Thanks for collecting all that food waste.
+    MrSun: It's a shame how much food people throw out.
+<<elseif $progress < 250>>
+    MrSun: Mr Moon asked to collect more food waste?
+    MrSun: Yes of course. We can make more compost with them.
+<<else>>
+    MrSun: Thanks for collecting all that food waste.
+    MrSun: It's a shame how much food people throw out.
+<<endif>>
 ===
-title: mr_sun_level0
+title: mrs_sun
 ---
-MrsSun: Good $timeOfDay!
-MrsSun: This garden here is a community led effort.
-MrsSun: We grow our own plants for medicine!
-MrsSun: I think Mr Moon is looking for some help.
-MrsSun: You can find him in the park.
-===
-title: mr_sun_level1
----
-MrSun: Mr Moon asked to collect food waste?
-MrSun: Great idea. We can make natural compost with them.
-===
-title: mr_sun_level1
----
-MrsSun: Mr Moon asked to collect food waste?
-MrsSun: Great idea. We can make natural compost with them.
-===
-title: mr_sun_level2
----
-MrSun: Thanks for collecting all that food waste.
-MrSun: It's a shame how much food people throw out.
-===
-title: mr_sun_level2
----
-MrsSun: Thanks for collecting all that food waste.
-MrsSun: We never waste any food in our house.
-===
+<<if $progress == -1>>
+    MrsSun: Good $timeOfDay!
+    MrsSun: This garden here is a community led effort.
+    MrsSun: We grow our own plants for medicine!
+    MrsSun: I think Mr Moon is looking for some help.
+    MrsSun: You can find him in the park.
+<<elseif $progress < 130>>
+    MrSun: Mr Moon asked to collect food waste?
+    MrSun: Great idea. We can make natural compost with them.
+<<elseif $progress >= 130 and $progress < 200>>
+    MrsSun: Thanks for collecting all that food waste.
+    MrsSun: We never waste any food in our house.
+<<elseif $progress < 250>>
+    MrsSun: Mr Moon asked to collect more food waste?
+    MrsSun: Yes of course. We can make more compost with them.
+<<else>>
+    MrsSun: Thanks for collecting all that food waste.
+    MrsSun: We never waste any food in our house.
+<<endif>>

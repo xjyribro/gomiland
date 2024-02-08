@@ -9,6 +9,8 @@ import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
+import 'package:gomiland/game/npcs/manuka.dart';
+import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
@@ -574,23 +576,17 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'qianbi':
           await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
+            QianBi(position: Vector2(npc.x, npc.y)),
           );
           break;
         case 'moon':
           await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
+            MrMoon(position: Vector2(npc.x, npc.y)),
           );
           break;
         case 'manuka':
           await add(
-            QianBi(
-              position: Vector2(npc.x, npc.y),
-            ),
+            Manuka(position: Vector2(npc.x, npc.y)),
           );
           break;
       }

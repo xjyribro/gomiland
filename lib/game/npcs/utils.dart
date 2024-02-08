@@ -1,8 +1,5 @@
-import 'dart:math';
-
-import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/controllers/progress_state.dart';
+import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 
 class NpcNameStrings {
   static const String boy = 'boy';
@@ -48,20 +45,20 @@ extension GetNpcName on String {
   }
 }
 
-int getProgressLevel(RubbishType rubbishType, ProgressState state) {
+int getCharacterProgress(RubbishType rubbishType, ProgressState state) {
   switch (rubbishType) {
     case RubbishType.plastic:
-      return state.plastic;
+      return state.risa;
     case RubbishType.paper:
-      return state.paper;
+      return state.qianBi;
     case RubbishType.electronics:
-      return state.electronics;
+      return state.asimov;
     case RubbishType.glass:
-      return state.glass;
+      return state.manuka;
     case RubbishType.metal:
-      return state.metal;
+      return state.stark;
     case RubbishType.food:
-      return state.food;
+      return state.moon;
     default:
       return 0;
   }

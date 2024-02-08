@@ -1,25 +1,35 @@
 <<character "Qian Bi" QianBi>>
-title: level0
+<<declare $remainder = 0>>
+title: talk
 ---
-QianBi: Peace be with you visitor.
-QianBi: We need paper for writing at our shrine.
-QianBi: However we don't want to cut more trees.
-QianBi: If you toss 30 paper items into the bin in your home...
-QianBi: we can receive them to make recycled parchment.
-===
-title: level1
----
-QianBi: Thank you for your help.
-QianBi: We have turned old paper products into new parchment.
-QianBi: It saves us from cutting down more trees.
-QianBi: You will receive more coins for paper you dispose into bins.
-QianBi: If you would be so kind...
-QianBi: Toss another 50 paper items and we will make charms.
-===
-title: level2
----
-QianBi: We turned the extra paper into charms for our visitors.
-QianBi: They bring good fortune and safe travels.
-QianBi: More coins will be give for paper disposals.
-QianBi: Feel free to ome visit anytime.
+<<if $progress == -1>>
+    QianBi: Peace be with you visitor.
+    QianBi: We need paper for writing at our shrine.
+    QianBi: However we don't want to cut more trees.
+    QianBi: If you toss another 30 paper items into the bin at home...
+    QianBi: we can receive them to make recycled parchment.
+    <<changeProgress 100>>
+<<elseif $progress < 130>>
+    <<set $remainder = 130 - $progress>>
+    QianBi: If you toss another {$remainder} paper items into the bin at home...
+    QianBi: we can receive them to make recycled parchment.
+<<elseif $progress >= 130 and $progress < 200>>
+    QianBi: Thank you for your help.
+    QianBi: We have turned old paper products into new parchment.
+    QianBi: It saves us from cutting down more trees.
+    QianBi: You will receive more coins for paper you dispose into bins.
+    QianBi: If you would be so kind...
+    QianBi: Toss another 50 paper items and we will make charms.
+    <<changeProgress 200>>
+<<elseif $progress < 250>>
+    <<set $remainder = 250 - $progress>>
+    QianBi: If you would be so kind...
+    QianBi: Toss another {$remainder} paper items and we will make charms.
+<<else>>
+    QianBi: We turned the extra paper into charms for our visitors.
+    QianBi: They bring good fortune and safe travels.
+    QianBi: More coins will be give for paper disposals.
+    QianBi: Feel free to ome visit anytime.
+    <<changeProgress 300>>
+<<endif>>
 ===

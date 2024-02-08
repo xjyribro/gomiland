@@ -8,9 +8,14 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
+import 'package:gomiland/game/npcs/manuka.dart';
+import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/risa.dart';
+import 'package:gomiland/game/npcs/stark.dart';
 import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
@@ -326,22 +331,37 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(Himiko(position: Vector2(npc.x, npc.y)));
           break;
         case 'asimov':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+          await add(Asimov(position: Vector2(npc.x, npc.y)));
           break;
         case 'boss':
           await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
         case 'stark':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+          await add(Stark(position: Vector2(npc.x, npc.y)));
           break;
-        case 'plastic':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+        case 'risa':
+          await add(Risa(position: Vector2(npc.x, npc.y)));
           break;
         case 'mr_sun':
           await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
         case 'mrs_sun':
           await add(QianBi(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'qianbi':
+          await add(
+            QianBi(position: Vector2(npc.x, npc.y)),
+          );
+          break;
+        case 'moon':
+          await add(
+            MrMoon(position: Vector2(npc.x, npc.y)),
+          );
+          break;
+        case 'manuka':
+          await add(
+            Manuka(position: Vector2(npc.x, npc.y)),
+          );
           break;
       }
     }

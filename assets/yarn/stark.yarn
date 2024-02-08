@@ -1,25 +1,35 @@
 <<character Stark>>
-title: intro
+<<declare $remainder = 0>>
+title: talk
 ---
-Stark: Hey kid!
-Stark: Are you the one picking up rubbish from the streets...
-Stark: then sorting'em out at home?
-Stark: Our construction need some metal materials.
-Stark: If you help us we won't need to mine more ores.
-Stark: Toss 30 metal pieces in your bin and we'll pick'em up.
+<<if $progress == -1>>
+    Stark: Hey kid!
+    Stark: Are you the one picking up rubbish from the streets...
+    Stark: then sorting'em out at home?
+    Stark: Our construction need some metal materials.
+    Stark: If you help us we won't need to mine more ores.
+    Stark: Toss 30 metal pieces in your bin and we'll pick'em up.
+    <<changeProgress 100>>
+<<elseif $progress < 130>>
+    <<set $remainder = 130 - $progress>>
+    Stark: If you help us we won't need to mine more ores.
+    Stark: Toss {$remainder} metal pieces in your bin and we'll pick'em up.
+<<elseif $progress >= 130 and $progress < 200>>
+    Stark: Yo kid!
+    Stark: Wait a go on collecting those unwanted metal items.
+    Stark: We could melt them down and reuse the metals.
+    Stark: I'll give'ya extra coin for more.
+    Stark: If you collect 50 more metals, I can make something neat.
+    <<changeProgress 200>>
+<<elseif $progress < 250>>
+    <<set $remainder = 250 - $progress>>
+    If you collect {$remainder} more metals, I can make something neat.
+<<else>>
+    Stark: Woah woah where you goin' kid!
+    Stark: We are going to be able to finish the construction...
+    Stark: thanks to all the metals that you collected off the streets.
+    Stark: Be ready to get more money for metals in the future.
+    <<changeProgress 300>>
+<<endif>>
 ===
-title: level1
----
-Stark: Yo kid!
-Stark: Wait a go on collecting those unwanted metal items.
-Stark: We could melt them down and reuse the metals.
-Stark: I'll give'ya extra coin for more.
-Stark: If you collect 50 more metals, I can make something neat.
-===
-title: level2
----
-Stark: Woah woah where you goin' kid!
-Stark: We are going to be able to finish the construction...
-Stark: thanks to all the metals that you collected off the streets.
-Stark: Be ready to get more money for metals in the future.
-===
+

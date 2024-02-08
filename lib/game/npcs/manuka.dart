@@ -14,8 +14,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class QianBi extends Npc with HasGameReference<GomilandGame> {
-  QianBi({required super.position});
+class Manuka extends Npc with HasGameReference<GomilandGame> {
+  Manuka({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -24,7 +24,7 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_qianbi_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_manuka_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -71,23 +71,23 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
     int progressLevel =
-        getCharacterProgress(RubbishType.paper, game.progressStateBloc.state);
+    getCharacterProgress(RubbishType.glass, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
+
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
       ..variables.setVariable('\$progress', progressLevel)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_qian_bi_yarn));
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_manuka_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
-
     game.unfreezePlayer();
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(QianBiProgressChange(newLevel));
+    game.progressStateBloc.add(ManukaProgressChange(newLevel));
   }
 }

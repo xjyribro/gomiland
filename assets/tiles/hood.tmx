@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="1430">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="1441">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -2473,6 +2473,12 @@
   <object id="1413" name="man" x="448" y="1824" width="32" height="32"/>
   <object id="1410" name="man" x="6144" y="1280" width="32" height="32"/>
   <object id="1391" name="florence" x="2752" y="2496" width="32" height="32"/>
+  <object id="1431" name="asimov" x="896" y="576" width="32" height="32"/>
+  <object id="1434" name="moon" x="896" y="672" width="32" height="32"/>
+  <object id="1435" name="risa" x="992" y="608" width="32" height="32"/>
+  <object id="1436" name="manuka" x="864" y="448" width="32" height="32"/>
+  <object id="1437" name="stark" x="768" y="384" width="32" height="32"/>
+  <object id="1440" name="qianbi" x="992" y="512" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="11" name="gates">
   <object id="28" name="park" x="1504" y="416" width="64" height="64"/>
