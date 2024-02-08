@@ -206,6 +206,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       'grass',
       'overlays',
       'barriers',
+      'trees',
+      'lights',
     ]);
     add(ground);
     final animationCompiler = AnimationBatchCompiler();
