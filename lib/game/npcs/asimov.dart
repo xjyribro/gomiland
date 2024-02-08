@@ -71,8 +71,8 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
 
-    int progressLevel =
-        getCharacterProgress(RubbishType.metal, game.progressStateBloc.state);
+    int progress =
+        getCharProgress(RubbishType.metal, game.progressStateBloc.state);
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
@@ -80,7 +80,7 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
     // DIALOGUE
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
-      ..variables.setVariable('\$progress', progressLevel)
+      ..variables.setVariable('\$progress', progress)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_asimov_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);

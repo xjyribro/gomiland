@@ -70,15 +70,15 @@ class MrMoon extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-    int progressLevel =
-    getCharacterProgress(RubbishType.food, game.progressStateBloc.state);
+    int progress =
+    getCharProgress(RubbishType.food, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
-      ..variables.setVariable('\$progress', progressLevel)
+      ..variables.setVariable('\$progress', progress)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_moon_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);

@@ -45,7 +45,7 @@ extension GetNpcName on String {
   }
 }
 
-int getCharacterProgress(RubbishType rubbishType, ProgressState state) {
+int getCharProgress(RubbishType rubbishType, ProgressState state) {
   switch (rubbishType) {
     case RubbishType.plastic:
       return state.risa;

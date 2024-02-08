@@ -50,9 +50,9 @@ const List<String> vowels = ['a', 'e', 'i', 'o', 'u'];
 
 // progress
 const newCharProgress = -1;
-const levelOneBaseInt = 100;
-const levelTwoBaseInt = 200;
-const completedCharInt = 300;
+const levelOneBaseInt = 0;
+const levelTwoBaseInt = 100;
+const completedCharInt = 200;
 
 class Strings {
   static const String minecraft = 'minecraft';

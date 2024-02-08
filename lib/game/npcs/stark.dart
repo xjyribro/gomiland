@@ -71,7 +71,7 @@ class Stark extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
     int progress =
-        getCharacterProgress(RubbishType.metal, game.progressStateBloc.state);
+        getCharProgress(RubbishType.metal, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;

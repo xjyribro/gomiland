@@ -70,8 +70,8 @@ class Manuka extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-    int progressLevel =
-    getCharacterProgress(RubbishType.glass, game.progressStateBloc.state);
+    int progress =
+        getCharProgress(RubbishType.glass, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -79,7 +79,7 @@ class Manuka extends Npc with HasGameReference<GomilandGame> {
 
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
-      ..variables.setVariable('\$progress', progressLevel)
+      ..variables.setVariable('\$progress', progress)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_manuka_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);

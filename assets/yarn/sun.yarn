@@ -31,13 +31,13 @@ title: mrs_sun
     MrsSun: We grow our own plants for medicine!
     MrsSun: I think Mr Moon is looking for some help.
     MrsSun: You can find him in the park.
-<<elseif $progress < 130>>
+<<elseif $progress < 30>>
     MrSun: Mr Moon asked to collect food waste?
     MrSun: Great idea. We can make natural compost with them.
-<<elseif $progress >= 130 and $progress < 200>>
+<<elseif $progress >= 30 and $progress < 100>>
     MrsSun: Thanks for collecting all that food waste.
     MrsSun: We never waste any food in our house.
-<<elseif $progress < 250>>
+<<elseif $progress < 150>>
     MrsSun: Mr Moon asked to collect more food waste?
     MrsSun: Yes of course. We can make more compost with them.
 <<else>>

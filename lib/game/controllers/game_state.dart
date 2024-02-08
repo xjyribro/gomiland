@@ -141,7 +141,7 @@ class GameState extends Equatable {
           coinAmount: 0,
           isMute: false,
           sceneName: SceneName.menu,
-          bagCount: 0,
+          bagCount: 1,
           maxBagCount: 1,
           minutes: gameStartTime,
           playerFrozen: false,

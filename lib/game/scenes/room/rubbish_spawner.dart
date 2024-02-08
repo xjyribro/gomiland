@@ -53,8 +53,9 @@ class RubbishSpawner extends PositionComponent
     int binFine = _rewardMap[binType] ?? 1;
     int totalFine = rubbishFine + binFine;
     _showScore(binType, -totalFine);
-    await _showErrorDialogue(binType, rubbishType, rubbishName);
     game.gameStateBloc.add(CoinAmountChange(-totalFine));
+    _updateFailureProgress();
+    await _showErrorDialogue(binType, rubbishType, rubbishName);
   }
 
   void _updateProgress(RubbishType rubbishType) {
@@ -140,16 +141,23 @@ class RubbishSpawner extends PositionComponent
         int moon = game.progressStateBloc.state.moon;
         if (moon >= levelOneBaseInt && moon < levelTwoBaseInt) {
           moon += 1;
-          game.progressStateBloc.add(MoonProgressChange(moon.clamp(levelOneBaseInt, 199)));
+          game.progressStateBloc
+              .add(MoonProgressChange(moon.clamp(levelOneBaseInt, 199)));
         }
         if (moon >= levelTwoBaseInt && moon < completedCharInt) {
           moon += 1;
-          game.progressStateBloc.add(MoonProgressChange(moon.clamp(levelTwoBaseInt, 299)));
+          game.progressStateBloc
+              .add(MoonProgressChange(moon.clamp(levelTwoBaseInt, 299)));
         }
         break;
       default:
         break;
     }
+  }
+
+  void _updateFailureProgress() {
+    game.progressStateBloc
+        .add(WrongProgressChange(game.progressStateBloc.state.wrong + 1));
   }
 
   Future<void> _binCheck(
@@ -187,14 +195,19 @@ class RubbishSpawner extends PositionComponent
   }
 
   void _initRewardMap() {
-    int plasticReward =
-        basePlasticReward + game.progressStateBloc.state.plastic;
-    int paperReward = basePaperReward + game.progressStateBloc.state.paper;
-    int metalReward = baseMetalReward + game.progressStateBloc.state.metal;
-    int foodReward = baseFoodReward + game.progressStateBloc.state.food;
-    int electronicsReward =
-        baseElectronicsReward + game.progressStateBloc.state.electronics;
-    int glassReward = baseGlassReward + game.progressStateBloc.state.glass;
+    int risaReward = getExtraReward(game.progressStateBloc.state.risa);
+    int qianbiReward = getExtraReward(game.progressStateBloc.state.qianBi);
+    int starkReward = getExtraReward(game.progressStateBloc.state.stark);
+    int moonReward = getExtraReward(game.progressStateBloc.state.moon);
+    int asimovReward = getExtraReward(game.progressStateBloc.state.asimov);
+    int manukaReward = getExtraReward(game.progressStateBloc.state.manuka);
+
+    int plasticReward = basePlasticReward + risaReward;
+    int paperReward = basePaperReward + qianbiReward;
+    int metalReward = baseMetalReward + starkReward;
+    int foodReward = baseFoodReward + moonReward;
+    int electronicsReward = baseElectronicsReward + asimovReward;
+    int glassReward = baseGlassReward + manukaReward;
     _rewardMap[RubbishType.plastic] = plasticReward;
     _rewardMap[RubbishType.paper] = paperReward;
     _rewardMap[RubbishType.metal] = metalReward;

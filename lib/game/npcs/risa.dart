@@ -70,8 +70,8 @@ class Risa extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-    int progressLevel =
-        getCharacterProgress(RubbishType.plastic, game.progressStateBloc.state);
+    int progress =
+        getCharProgress(RubbishType.plastic, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -80,8 +80,8 @@ class Risa extends Npc with HasGameReference<GomilandGame> {
     // DIALOGUE
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
-      ..variables.setVariable('\$progress', progressLevel)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_qian_bi_yarn));
+      ..variables.setVariable('\$progress', progress)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_risa_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');

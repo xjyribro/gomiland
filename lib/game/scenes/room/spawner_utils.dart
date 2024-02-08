@@ -119,3 +119,8 @@ String getDialogueName(RubbishType binType) {
       return 'rubbish_error';
   }
 }
+
+int getExtraReward(int progress) {
+  int reward = progress.clamp(0, completedCharInt);
+  return (reward / 100).floor();
+}

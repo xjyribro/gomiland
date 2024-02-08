@@ -3,32 +3,29 @@
 title: talk
 ---
 <<if $progress == -1>>
-    Risa: Hey kid!
-    Risa: Are you the one picking up rubbish from the streets...
-    Risa: then sorting'em out at home?
-    Risa: Our construction need some metal materials.
-    Risa: If you help us we won't need to mine more ores.
-    Risa: Toss 30 metal pieces in your bin and we'll pick'em up.
+    Risa: Nice to meet you. Hajimemashite!
+    Risa: My name is Risa. I run a company that creates things from old plastics.
+    Risa: We work with the city to collect plastics that people throw away.
+    Risa: Ah you are sorting out plastics from other trash?
+    Risa: Perfect! If you help us collect 30 plastic items, we will reward you.
+    <<changeProgress 0>>
+<<elseif $progress < 30>>
+    <<set $remainder = 30 - $progress>>
+    Risa: Collect any plastic pieces you find and throw them at home.
+    Risa: {$remainder} more to go!
+<<elseif $progress >= 30 and $progress < 100>>
+    Risa: Thank you for your hard work. Otsukaresamadeshita!
+    Risa: Every plastic item you throw in the bin is now worth more.
+    Risa: Our products are receiving plenty of attention!
+    Risa: Help us collect 50 more and we will give you an increase in coins.
     <<changeProgress 100>>
-<<elseif $progress < 130>>
-    <<set $remainder = 130 - $progress>>
-    Risa: If you help us we won't need to mine more ores.
-    Risa: Toss {$remainder} metal pieces in your bin and we'll pick'em up.
-<<elseif $progress >= 130 and $progress < 200>>
-    Risa: Yo kid!
-    Risa: Wait a go on collecting those unwanted metal items.
-    Risa: We could melt them down and reuse the metals.
-    Risa: I'll give'ya extra coin for more.
-    Risa: If you collect 50 more metals, I can make something neat.
-    <<changeProgress 200>>
-<<elseif $progress < 250>>
-    <<set $remainder = 250 - $progress>>
-    If you collect {$remainder} more metals, I can make something neat.
+<<elseif $progress < 150>>
+    <<set $remainder = 150 - $progress>>
+    Risa: Help us collect {$remainder} more and we will give you an increase in coins.
 <<else>>
-    Risa: Woah woah where you goin' kid!
-    Risa: We are going to be able to finish the construction...
-    Risa: thanks to all the metals that you collected off the streets.
-    Risa: Be ready to get more money for metals in the future.
-    <<changeProgress 300>>
+    Risa: Thank you for your hard work. Otsukaresamadeshita!
+    Risa: The recycled plastics look great and we make a good profit.
+    Risa: Sustainability means coming up with solutions that benefit the planet without great costs!
+    <<changeProgress 200>>
 <<endif>>
 ===

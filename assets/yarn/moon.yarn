@@ -9,23 +9,23 @@ title: talk
     MrMoon: I have an idea. My neighbours and I run a community garden.
     MrMoon: If you help us collect food scraps, we can make fertilizer.
     MrMoon: Toss 30 food waste then come see me.
-    <<changeProgress 100>>
-<<elseif $progress < 130>>
-    <<set $remainder = 130 - $progress>>
+    <<changeProgress 0>>
+<<elseif $progress < 30>>
+    <<set $remainder = 30 - $progress>>
     MrMoon: If you help us collect food scraps, we can make fertilizer.
     MrMoon: Toss another {$remainder} food waste then come see me.
-<<elseif $progress >= 130 and $progress < 200>>
+<<elseif $progress >= 30 and $progress < 100>>
     MrMoon: Our plants have grown splendidly well all thanks to you.
     MrMoon: Making compost from food waste saves us from buying fertilizer...
     MrMoon: and it is all natural as well!
     MrMoon: I will ask the city to give you more coins for each food waste.
     MrMoon: Collect another 50 and maybe we can produce better crops.
-    <<changeProgress 200>>
-<<elseif $progress < 250>>
-    <<set $remainder = 250 - $progress>>
+    <<changeProgress 100>>
+<<elseif $progress < 150>>
+    <<set $remainder = 150 - $progress>>
     MrMoon: Collect another {$remainder} and maybe we can produce better crops.
 <<else>>
     MrMoon: end
-    <<changeProgress 300>>
+    <<changeProgress 200>>
 <<endif>>
 ===
