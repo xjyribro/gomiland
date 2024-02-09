@@ -1,5 +1,5 @@
 class InfoText{
-  static const String howToPlay = 'How to move:\n'
+  static const String how_to_play = 'How to move:\n'
       'For mobile devices, the Directional Joystick and A button is automatically enabled.\n'
       'For Web and desktop, use WASD keys for movement. Use keyboard E for interactions.\n'
       'You can enable the Directional Joystick and A button in settings.\n\n'
@@ -11,11 +11,21 @@ class InfoText{
       '5. Sort the items from your bag into the bins. Earn G-coins for getting it right!\n'
       '6. ';
 
-  static const String constructionSite = '';
-  static const String soupKitchen = '';
-  static const String chargingKiosk = '';
-  static const String garden = '';
-  static const String cafe = '';
-  static const String parkSign = '';
-  static const String friendshipSquare = '';
+  static const String construction_site = 'construction_site';
+  static const String soup_kitchen = 'soup_kitchen';
+  static const String charging_kisok = 'charging_kisok';
+  static const String garden = 'garden';
+  static const String cafe = 'cafe';
+  static const String friendship_square = 'friendship_square';
+  static const String park_sign = 'park_sign';
+
+  static const String zen_garden = 'zen_garden';
+  static const String shrine_complex = 'shrine_complex';
+  static const String bamboo_forest = 'bamboo_forest';
+  static const String hood_sign = 'hood_sign';
+  static const String park_centre = 'park_centre';
+  static const String castle = 'castle';
+  static const String sakuras = 'sakuras';
+  static const String bee_colony = 'bee_colony';
+  static const String world_forest = 'world_forest';
 }

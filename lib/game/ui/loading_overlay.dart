@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomiland/constants/styles.dart';
 
 class LoadingOverlay extends StatelessWidget {
   const LoadingOverlay({super.key});
@@ -14,10 +15,7 @@ class LoadingOverlay extends StatelessWidget {
         child: const Center(
           child: Text(
             'Loading...',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 24,
-            ),
+            style: TextStyles.menuWhiteTextStyle,
           ),
         ),
       ),

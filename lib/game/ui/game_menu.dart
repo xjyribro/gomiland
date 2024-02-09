@@ -24,7 +24,7 @@ class GameMenu extends StatelessWidget {
             height: 600,
             width: 400,
             decoration: const BoxDecoration(
-              color: GameColors.blackTextColor,
+              color: GameColors.black,
               borderRadius: BorderRadius.all(
                 Radius.circular(64),
               ),
@@ -46,7 +46,7 @@ class GameMenu extends StatelessWidget {
                       game.overlays.remove('GameMenu');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GameColors.whiteTextColor,
+                      backgroundColor: GameColors.white,
                     ),
                     child: const Text(
                       'Resume',
@@ -64,7 +64,7 @@ class GameMenu extends StatelessWidget {
                       // TODO save game
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GameColors.whiteTextColor,
+                      backgroundColor: GameColors.white,
                     ),
                     child: const Text(
                       'Save game',
@@ -83,7 +83,7 @@ class GameMenu extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: GameColors.whiteTextColor,
+                      backgroundColor: GameColors.white,
                     ),
                     child: const Text(
                       'Back to main menu',

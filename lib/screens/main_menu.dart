@@ -8,6 +8,7 @@ import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
+import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/main_menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -89,7 +90,8 @@ class _MainMenuState extends State<MainMenu> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SettingsPage()),
+                      builder: (context) => const SettingsPage(),
+                    ),
                   );
                 },
               ),
@@ -97,7 +99,14 @@ class _MainMenuState extends State<MainMenu> {
               MainMenuButton(
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreditsPage(),
+                    ),
+                  );
+                },
               ),
               const MuteButton(),
               const SpacerNormal(),

@@ -72,7 +72,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-    _checkBgm();
     final TiledComponent map = await TiledComponent.load(
       'park.tmx',
       Vector2.all(tileSize),
@@ -166,6 +165,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         }
       }
     }
+    _checkBgm();
   }
 
   Future<void> _loadPlayer(Vector2 position) async {
@@ -207,6 +207,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       'overlays',
       'barriers',
       'trees',
+      'buildings',
       'lights',
     ]);
     add(ground);
@@ -524,16 +525,12 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadSigns(ObjectGroup signs) async {
     for (final TiledObject sign in signs.objects) {
-      switch (sign.name) {
-        case 'how_to_play':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'how_to_play',
-            ),
-          );
-          break;
-      }
+      await add(
+        Sign(
+          position: Vector2(sign.x, sign.y),
+          signName: sign.name,
+        ),
+      );
     }
   }
 

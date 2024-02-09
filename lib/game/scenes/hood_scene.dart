@@ -74,7 +74,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   @override
   Future<void> onLoad() async {
-    _checkBgm();
     final TiledComponent map = await TiledComponent.load(
       'hood.tmx',
       Vector2.all(32),
@@ -158,6 +157,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         ));
       }
     }
+    _checkBgm();
   }
 
   Future<void> _loadPlayer(Vector2 position) async {

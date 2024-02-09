@@ -16,7 +16,7 @@ class StoneLight extends PositionComponent {
 
   @override
   Future<void> onLoad() async {
-    add(StoneLamp(position: Vector2.zero(), size: size));
+    // add(StoneLamp(position: Vector2.zero(), size: size));
     if (_shouldAddLight) {
       add(light);
     }

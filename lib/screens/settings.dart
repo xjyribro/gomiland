@@ -48,95 +48,97 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SpacerLarge(),
-              const Text(
-                'Settings',
-                style: TextStyles.mainHeaderTextStyle,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Player Name',
-                      style: TextStyles.menuWhiteTextStyle,
-                    ),
-                    TextInput(controller: _playerNameController),
-                  ],
+      body: Padding(
+        padding: const EdgeInsets.all(32),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text(
+                  'Settings',
+                  style: TextStyles.mainHeaderTextStyle,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Avatar gender',
-                      style: TextStyles.menuWhiteTextStyle,
-                    ),
-                    DropDownMenu(
-                      options: genderOptions,
-                      onSelect: _onGenderSelect,
-                      chosenValue:
-                          _isMale ? genderOptions[0] : genderOptions[1],
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Player Name',
+                        style: TextStyles.menuWhiteTextStyle,
+                      ),
+                      TextInput(controller: _playerNameController),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Country',
-                      style: TextStyles.menuWhiteTextStyle,
-                    ),
-                    Text(
-                      _country?.name ?? 'No country selected',
-                      style: _country == null
-                          ? TextStyles.menuRedTextStyle
-                          : TextStyles.menuGreenTextStyle,
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Avatar gender',
+                        style: TextStyles.menuWhiteTextStyle,
+                      ),
+                      DropDownMenu(
+                        options: genderOptions,
+                        onSelect: _onGenderSelect,
+                        chosenValue:
+                            _isMale ? genderOptions[0] : genderOptions[1],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              MainMenuButton(
-                onPressed: () {
-                  showCountryPicker(
-                    context: context,
-                    onSelect: _onCountrySelect,
-                  );
-                },
-                buttonWidth: 400,
-                text: 'Select your country',
-                style: TextStyles.menuPurpleTextStyle,
-              ),
-              const SpacerNormal(),
-              MainMenuButton(
-                text: 'Save Settings',
-                style: TextStyles.menuGreenTextStyle,
-                onPressed: () {
-                  _onSubmit();
-                },
-              ),
-              const SpacerNormal(),
-              MainMenuButton(
-                text: 'Back',
-                style: TextStyles.menuRedTextStyle,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              const SpacerNormal(),
-            ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Country',
+                        style: TextStyles.menuWhiteTextStyle,
+                      ),
+                      Text(
+                        _country?.name ?? 'No country selected',
+                        style: _country == null
+                            ? TextStyles.menuRedTextStyle
+                            : TextStyles.menuGreenTextStyle,
+                      ),
+                    ],
+                  ),
+                ),
+                MainMenuButton(
+                  onPressed: () {
+                    showCountryPicker(
+                      context: context,
+                      onSelect: _onCountrySelect,
+                    );
+                  },
+                  buttonWidth: 400,
+                  text: 'Select your country',
+                  style: TextStyles.menuPurpleTextStyle,
+                ),
+                const SpacerNormal(),
+                MainMenuButton(
+                  text: 'Save Settings',
+                  style: TextStyles.menuGreenTextStyle,
+                  onPressed: () {
+                    _onSubmit();
+                  },
+                ),
+                const SpacerNormal(),
+                MainMenuButton(
+                  text: 'Back',
+                  style: TextStyles.menuRedTextStyle,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                const SpacerNormal(),
+              ],
+            ),
           ),
         ),
       ),

@@ -21,10 +21,10 @@ class DropDownMenu extends StatelessWidget {
       value: chosenValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      dropdownColor: GameColors.blackTextColor,
+      dropdownColor: GameColors.black,
       underline: Container(
         height: 0,
-        color: GameColors.blackTextColor,
+        color: GameColors.black,
       ),
       onChanged: (String? newValue) {
         onSelect(newValue);

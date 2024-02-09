@@ -16,7 +16,7 @@ class TextInput extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(
-              color: GameColors.blackTextColor,
+              color: GameColors.black,
             ),
           ),
           filled: true,
