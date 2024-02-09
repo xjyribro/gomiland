@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';

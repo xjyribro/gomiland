@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/game/controllers/day_controller.dart';
-import 'package:gomiland/game/controllers/game_state.dart';
+import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/screens/main_menu.dart';

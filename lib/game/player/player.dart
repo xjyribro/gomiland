@@ -48,7 +48,7 @@ class Player extends SpriteAnimationComponent
   @override
   Future<void> onLoad() async {
     final spriteSheet = SpriteSheet(
-      image: await Flame.images.load(Assets.assets_images_player_player_png),
+      image: await Flame.images.load(Assets.assets_images_player_male_png),
       srcSize: Vector2.all(32),
     );
 
