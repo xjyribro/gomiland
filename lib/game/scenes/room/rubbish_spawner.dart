@@ -15,18 +15,22 @@ class RubbishSpawner extends PositionComponent
   RubbishSpawner({
     required Vector2 centerOfScene,
     required Function showScore,
+    required Function setHasUncleared,
   }) : super() {
     _centerOfScene = centerOfScene;
     _showScore = showScore;
+    _setHasUncleared = setHasUncleared;
   }
 
   late Vector2 _centerOfScene;
   late Function _showScore;
+  late Function _setHasUncleared;
   late final Map<RubbishType, int> _rewardMap = {};
 
   void _addRubbishUpdateBag() async {
     SpriteComponent rubbishComponent = await getRubbishComponent(_binCheck);
     await add(rubbishComponent);
+    _setHasUncleared(true);
     _removeOneFromBag();
   }
 
@@ -166,6 +170,7 @@ class RubbishSpawner extends PositionComponent
     RubbishType rubbishType,
     String rubbishName,
   ) async {
+    _setHasUncleared(false);
     bool isMute = game.gameStateBloc.state.isMute;
     if (rubbishType == binType) {
       if (!isMute) Sounds.correct();

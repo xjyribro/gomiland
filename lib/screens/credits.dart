@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/screens/widgets/credits_entry.dart';
-import 'package:gomiland/screens/widgets/main_menu_button.dart';
+import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
 class CreditsPage extends StatelessWidget {
@@ -96,7 +96,7 @@ class CreditsPage extends StatelessWidget {
                 ],
               ),
               const SpacerNormal(),
-              MainMenuButton(
+              MenuButton(
                 text: 'Back',
                 style: TextStyles.menuRedTextStyle,
                 onPressed: () {

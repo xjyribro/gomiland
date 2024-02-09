@@ -10,7 +10,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/settings.dart';
-import 'package:gomiland/screens/widgets/main_menu_button.dart';
+import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
 class MainMenu extends StatefulWidget {
@@ -55,7 +55,7 @@ class _MainMenuState extends State<MainMenu> {
                 height: 164,
               ),
               const SpacerNormal(),
-              MainMenuButton(
+              MenuButton(
                 text: 'New game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
@@ -71,7 +71,7 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
-              MainMenuButton(
+              MenuButton(
                 text: 'Load game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
@@ -83,7 +83,7 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
-              MainMenuButton(
+              MenuButton(
                 text: 'Settings',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
@@ -96,7 +96,7 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
-              MainMenuButton(
+              MenuButton(
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {

@@ -150,7 +150,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           size: Vector2(lights.width, lights.height),
           shouldAddLight: shouldAddLight,
         );
-        await add(streetLight);
+        add(streetLight);
         add(Obstacle(
           position: Vector2(lights.x + 4, lights.y + 48),
           size: Vector2(24, 16),
@@ -221,64 +221,12 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadSigns(ObjectGroup signs) async {
     for (final TiledObject sign in signs.objects) {
-      switch (sign.name) {
-        case 'how_to_play':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'how_to_play',
-            ),
-          );
-          break;
-        case 'construction_site':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'construction_site',
-            ),
-          );
-          break;
-        case 'soup_kitchen':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'soup_kitchen',
-            ),
-          );
-          break;
-        case 'charging_kiosk':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'charging_kiosk',
-            ),
-          );
-          break;
-        case 'garden':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'garden',
-            ),
-          );
-          break;
-        case 'friendship_square':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'friendship_square',
-            ),
-          );
-          break;
-        case 'park_sign':
-          await add(
-            Sign(
-              position: Vector2(sign.x, sign.y),
-              signName: 'park_sign',
-            ),
-          );
-          break;
-      }
+      await add(
+        Sign(
+          position: Vector2(sign.x, sign.y),
+          signName: sign.name,
+        ),
+      );
     }
   }
 
@@ -341,6 +289,10 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
+      add(Obstacle(
+        position: Vector2(npc.x, npc.y),
+        size: Vector2(32, 32),
+      ));
       switch (npc.name) {
         case 'man':
           await add(
@@ -351,7 +303,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               npcName: NpcName.man,
             ),
           );
-          break;
         case 'women':
           await add(
             GeneralNpc(
@@ -483,16 +434,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
-        case 'pilar':
-          await add(
-            SpriteComponent(
-              sprite:
-                  await Sprite.load(Assets.assets_images_buildings_school_png),
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
-          break;
         case 'combini':
           await add(
             BuildingWithFade(
@@ -510,6 +451,16 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(building.width, building.height),
               hitboxSize: Vector2(320, 192),
               spritePath: Assets.assets_images_buildings_kiosk_roof_png,
+            ),
+          );
+          break;
+        case 'pilar':
+          await add(
+            SpriteComponent(
+              sprite:
+              await Sprite.load(Assets.assets_images_buildings_pilar_png),
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
             ),
           );
           break;

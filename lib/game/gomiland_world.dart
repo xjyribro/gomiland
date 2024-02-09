@@ -17,7 +17,7 @@ class GomilandWorld extends World
   late ParkMap parkMap;
   late RoomMap roomMap;
 
-  void _setNewSceneName(SceneName newSceneName) {
+  void setNewSceneName(SceneName newSceneName) {
     _newSceneName = newSceneName;
   }
 
@@ -46,7 +46,7 @@ class GomilandWorld extends World
         ? Vector2(hoodStartFromParkX, hoodStartFromParkY)
         : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
     hoodMap = HoodMap(
-      setNewSceneName: _setNewSceneName,
+      setNewSceneName: setNewSceneName,
       playerStartPosit: playerStartPosit,
     );
     await add(hoodMap);
@@ -57,7 +57,7 @@ class GomilandWorld extends World
     game.overlays.add('Loading');
     Vector2 playerStartPosit = Vector2(parkStartX, parkStartY);
     parkMap = ParkMap(
-      setNewSceneName: _setNewSceneName,
+      setNewSceneName: setNewSceneName,
       playerStartPosit: playerStartPosit,
     );
     await add(parkMap);
@@ -65,7 +65,7 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadRoomMap() async {
-    roomMap = RoomMap(setNewSceneName: _setNewSceneName);
+    roomMap = RoomMap(setNewSceneName: setNewSceneName);
     await add(roomMap);
   }
 

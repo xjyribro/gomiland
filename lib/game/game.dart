@@ -6,6 +6,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/day_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
@@ -15,6 +16,8 @@ import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/ui/confirm_exit_game.dart';
+import 'package:gomiland/game/ui/confirm_exit_room.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/game/ui/game_menu.dart';
 import 'package:gomiland/game/ui/hud/a_button.dart';
@@ -47,18 +50,17 @@ class GameWidgetWrapper extends StatelessWidget {
               'Loading': (BuildContext context, GomilandGame game) {
                 return const LoadingOverlay();
               },
+              'ConfirmExitRoom': (BuildContext context, GomilandGame game) {
+                return ConfirmExitRoom(game: game);
+              },
               'GameMenu': (BuildContext context, GomilandGame game) {
-                return GameMenu(
-                  game: game,
-                );
+                return GameMenu(game: game);
+              },
+              'ConfirmExitGame': (BuildContext context, GomilandGame game) {
+                return ConfirmExitGame(game: game);
               },
               'MuteButton': (BuildContext context, GomilandGame game) {
                 return const MuteButton();
-              },
-              'MobileKeypad': (BuildContext context, GomilandGame game) {
-                return GameMenu(
-                  game: game,
-                );
               },
             },
           ),
@@ -97,6 +99,11 @@ class GomilandGame extends FlameGame
 
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
+
+  void goToHoodScene() {
+    GomilandWorld gWorld = world as GomilandWorld;
+    gWorld.setNewSceneName(SceneName.hood);
+  }
 
   void castRay() {
     final Vector2 playerPosition = playerStateBloc.state.playerPosition;

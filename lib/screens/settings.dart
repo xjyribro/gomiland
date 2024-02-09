@@ -2,7 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
-import 'package:gomiland/screens/widgets/main_menu_button.dart';
+import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 
@@ -109,7 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                 ),
-                MainMenuButton(
+                MenuButton(
                   onPressed: () {
                     showCountryPicker(
                       context: context,
@@ -121,7 +121,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: TextStyles.menuPurpleTextStyle,
                 ),
                 const SpacerNormal(),
-                MainMenuButton(
+                MenuButton(
                   text: 'Save Settings',
                   style: TextStyles.menuGreenTextStyle,
                   onPressed: () {
@@ -129,7 +129,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
                 const SpacerNormal(),
-                MainMenuButton(
+                MenuButton(
                   text: 'Back',
                   style: TextStyles.menuRedTextStyle,
                   onPressed: () {

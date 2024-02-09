@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class InfoText{
   static const String how_to_play = 'How to move:\n'
       'For mobile devices, the Directional Joystick and A button is automatically enabled.\n'

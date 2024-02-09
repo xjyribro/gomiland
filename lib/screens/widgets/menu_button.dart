@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MainMenuButton extends StatelessWidget {
+class MenuButton extends StatelessWidget {
   final Function onPressed;
   final String text;
   final double buttonWidth;
   final TextStyle? style;
 
-  const MainMenuButton({
+  const MenuButton({
     super.key,
     required this.onPressed,
     required this.text,
@@ -29,7 +29,11 @@ class MainMenuButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: Text(text, style: style,),
+          child: Text(
+            text,
+            style: style,
+            textAlign: TextAlign.center,
+          ),
         ),
         onPressed: () {
           onPressed();

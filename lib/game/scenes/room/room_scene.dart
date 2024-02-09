@@ -14,8 +14,13 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     _setNewSceneName = setNewSceneName;
   }
 
+  bool _hasUncleared = false;
   late Function _setNewSceneName;
   late final Map<RubbishType, Bin> _bins = {};
+
+  void _setHasUncleared(bool hasUncleared) {
+    _hasUncleared = hasUncleared;
+  }
 
   void _removeHudComponentsForRoom() {
     game.removeHudComponentsForRoom();
@@ -51,6 +56,14 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
+  void _leaveRoomCheck() {
+    if (_hasUncleared) {
+      game.overlays.add('ConfirmExitRoom');
+    } else {
+      _setNewSceneName(SceneName.hood);
+    }
+  }
+
   @override
   Future<void> onLoad() async {
     final TiledComponent map = await TiledComponent.load(
@@ -64,7 +77,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     _loadMap(map);
     _centreCamera(centerOfScene);
 
-    add(ExitRoomButton(switchScene: () => _setNewSceneName(SceneName.hood)));
+    add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
 
     final binsLayer = map.tileMap.getLayer<ObjectGroup>('bins');
     if (binsLayer != null) {
@@ -83,6 +96,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     RubbishSpawner rubbishSpawner = RubbishSpawner(
       centerOfScene: centerOfScene,
       showScore: _showScore,
+      setHasUncleared: _setHasUncleared,
     );
     await add(rubbishSpawner);
   }
