@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/main_menu_button.dart';
+import 'package:gomiland/screens/widgets/spacer.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -51,11 +53,10 @@ class _MainMenuState extends State<MainMenu> {
                 Assets.assets_images_logo_gomiland_simple_png,
                 height: 164,
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SpacerNormal(),
               MainMenuButton(
                 text: 'New game',
+                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -68,11 +69,10 @@ class _MainMenuState extends State<MainMenu> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SpacerNormal(),
               MainMenuButton(
                 text: 'Load game',
+                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -81,11 +81,10 @@ class _MainMenuState extends State<MainMenu> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SpacerNormal(),
               MainMenuButton(
                 text: 'Settings',
+                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -94,14 +93,14 @@ class _MainMenuState extends State<MainMenu> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
+              const SpacerNormal(),
               MainMenuButton(
                 text: 'Credits',
+                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {},
               ),
               const MuteButton(),
+              const SpacerNormal(),
             ],
           ),
         ),

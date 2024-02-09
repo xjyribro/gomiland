@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 class MainMenuButton extends StatelessWidget {
   final Function onPressed;
   final String text;
-  final double _buttonWidth = 300;
+  final double buttonWidth;
+  final TextStyle? style;
 
   const MainMenuButton({
     super.key,
     required this.onPressed,
     required this.text,
+    this.buttonWidth = 300,
+    this.style,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _buttonWidth,
+      width: buttonWidth,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           splashFactory: InkRipple.splashFactory,
@@ -26,7 +29,7 @@ class MainMenuButton extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: Text(text),
+          child: Text(text, style: style,),
         ),
         onPressed: () {
           onPressed();

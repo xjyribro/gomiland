@@ -50,7 +50,7 @@ class GameMenu extends StatelessWidget {
                     ),
                     child: const Text(
                       'Resume',
-                      style: TextStyles.mainMenuTextStyle,
+                      style: TextStyles.menuBlackTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -68,7 +68,7 @@ class GameMenu extends StatelessWidget {
                     ),
                     child: const Text(
                       'Save game',
-                      style: TextStyles.mainMenuTextStyle,
+                      style: TextStyles.menuBlackTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -87,7 +87,7 @@ class GameMenu extends StatelessWidget {
                     ),
                     child: const Text(
                       'Back to main menu',
-                      style: TextStyles.mainMenuTextStyle,
+                      style: TextStyles.menuBlackTextStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
