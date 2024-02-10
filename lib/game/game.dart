@@ -5,6 +5,7 @@ import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
@@ -96,6 +97,7 @@ class GomilandGame extends FlameGame
 
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
   late final AButton _aButton;
+  late final JoystickComponent joystick;
 
   DialogueControllerComponent dialogueControllerComponent =
       DialogueControllerComponent();
@@ -147,13 +149,25 @@ class GomilandGame extends FlameGame
     if (brightnessOverlays.isEmpty) {
       cameraComponent.viewport.add(brightnessOverlay);
     }
+    print(playerStateBloc.state.showControls);
+    if (playerStateBloc.state.showControls) {
+      _addPlayerControls();
+    }
+  }
+
+  void _addPlayerControls() {
     List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
     if (aButtons.isEmpty) {
       cameraComponent.viewport.add(_aButton);
     }
+    List<JoystickComponent> joysticks =
+        cameraComponent.viewport.children.query<JoystickComponent>();
+    if (joysticks.isEmpty) {
+      cameraComponent.viewport.add(joystick);
+    }
   }
 
-  void removeHudComponentsForRoom() {
+  void removeHudComponentsForWorld() {
     List<BrightnessOverlay> brightnessOverlays =
         cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isNotEmpty) {
@@ -162,6 +176,11 @@ class GomilandGame extends FlameGame
     List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
     if (aButtons.isNotEmpty) {
       cameraComponent.viewport.remove(_aButton);
+    }
+    List<JoystickComponent> joysticks =
+        cameraComponent.viewport.children.query<JoystickComponent>();
+    if (joysticks.isNotEmpty) {
+      cameraComponent.viewport.removeAll(joysticks);
     }
   }
 
@@ -191,6 +210,17 @@ class GomilandGame extends FlameGame
     final ClockComponent clockComponent = ClockComponent(game: this);
     final GameMenuButton gameMenuButton = GameMenuButton();
     _aButton = AButton(game: this);
+    joystick = JoystickComponent(
+      knob: SpriteComponent(
+        sprite: await Sprite.load(Assets.assets_images_ui_directional_knob_png),
+        size: Vector2.all(128),
+      ),
+      background: SpriteComponent(
+        sprite: await Sprite.load(Assets.assets_images_ui_directional_pad_png),
+        size: Vector2.all(128),
+      ),
+      margin: const EdgeInsets.only(left: 40, top: 240),
+    );
 
     cameraComponent.viewport.addAll([
       coinsComponent,
@@ -198,8 +228,6 @@ class GomilandGame extends FlameGame
       clockComponent,
       gameMenuButton,
       hudTranslucent,
-      brightnessOverlay,
-      _aButton,
       FpsTextComponent(), //TODO remove this
     ]);
 

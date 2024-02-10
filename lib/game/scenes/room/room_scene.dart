@@ -23,7 +23,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
   }
 
   void _removeHudComponentsForRoom() {
-    game.removeHudComponentsForRoom();
+    game.removeHudComponentsForWorld();
     List<JoystickComponent> joysticks =
         game.cameraComponent.viewport.children.query<JoystickComponent>();
     if (joysticks.isNotEmpty) {

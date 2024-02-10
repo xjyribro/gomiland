@@ -16,17 +16,11 @@ class Player extends SpriteAnimationComponent
         HasGameReference<GomilandGame>,
         CollisionCallbacks,
         ObstacleChecker {
-  Player({
-    required Vector2 position,
-    JoystickComponent? joystickComponent,
-  }) : super(
+  Player({required Vector2 position})
+      : super(
           position: position,
           size: Vector2.all(32),
-        ) {
-    _joystick = joystickComponent;
-  }
-
-  late JoystickComponent? _joystick;
+        );
 
   late SpriteAnimation moveUp;
   late SpriteAnimation moveDown;
@@ -47,8 +41,13 @@ class Player extends SpriteAnimationComponent
 
   @override
   Future<void> onLoad() async {
+    bool isMale = game.gameStateBloc.state.isMale;
     final spriteSheet = SpriteSheet(
-      image: await Flame.images.load(Assets.assets_images_player_male_png),
+      image: await Flame.images.load(
+        isMale
+            ? Assets.assets_images_player_male_png
+            : Assets.assets_images_player_female_png,
+      ),
       srcSize: Vector2.all(32),
     );
 
@@ -82,11 +81,11 @@ class Player extends SpriteAnimationComponent
     super.update(dt);
     if (game.playerIsFrozen()) return;
 
-    if (_joystick != null) {
-      if (_joystick!.direction == JoystickDirection.idle) {
+    if (game.playerStateBloc.state.showControls) {
+      if (game.joystick.direction == JoystickDirection.idle) {
         _onJoystickStop();
       } else {
-        _moveWithJoystick(_joystick!.direction);
+        _moveWithJoystick(game.joystick.direction);
       }
     }
     final originalPosition = position.clone();
@@ -197,6 +196,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (game.playerStateBloc.state.showControls) return false;
     if (event is RawKeyDownEvent) {
       if (game.playerIsFrozen()) return false;
       bool isMoving =

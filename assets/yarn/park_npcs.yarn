@@ -28,7 +28,7 @@ title: girl
 <<elseif  $rand == 3>>
     Girl : Sorting recyclables is a small effort with big impact.
 <<elseif  $rand == 4>>
-    Girl : I'm finding a shady spot to enjoy a picnic.
+    Girl : I'm looking for  a shady spot to enjoy a picnic.
 <<elseif  $rand == 5>>
     Girl : Have you tried Manuka's honey?
 <<endif>>

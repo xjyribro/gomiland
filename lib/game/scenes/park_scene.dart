@@ -1,8 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
@@ -169,29 +167,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadPlayer(Vector2 position) async {
-    JoystickComponent? joystick = kIsWeb
-        ? null
-        : JoystickComponent(
-            knob: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_knob_png),
-              size: Vector2.all(128),
-            ),
-            background: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_pad_png),
-              size: Vector2.all(128),
-            ),
-            margin: const EdgeInsets.only(left: 40, bottom: 40),
-          );
-
-    Player player = Player(
-      position: position,
-      joystickComponent: joystick,
-    );
-    if (joystick != null) {
-      game.cameraComponent.viewport.add(joystick);
-    }
+    Player player = Player(position: position);
     await add(player);
     game.cameraComponent.follow(player);
   }

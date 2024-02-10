@@ -50,6 +50,7 @@ class GomilandWorld extends World
       playerStartPosit: playerStartPosit,
     );
     await add(hoodMap);
+    game.addHudComponentsForWorld();
     game.overlays.remove('Loading');
   }
 
@@ -61,6 +62,7 @@ class GomilandWorld extends World
       playerStartPosit: playerStartPosit,
     );
     await add(parkMap);
+    game.addHudComponentsForWorld();
     game.overlays.remove('Loading');
   }
 

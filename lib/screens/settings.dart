@@ -1,6 +1,9 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -15,6 +18,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   final List<String> genderOptions = ['Male', 'Female'];
+  final List<String> showControlOptions = ['Yes', 'No'];
   final _playerNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Country? _country;
@@ -32,6 +36,14 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
+  void _onShowControlsSelect(BuildContext context, String showControls) {
+    if (showControls == showControlOptions[0]) {
+      context.read<PlayerStateBloc>().add(const ShowControls(true));
+    } else {
+      context.read<PlayerStateBloc>().add(const ShowControls(false));
+    }
+  }
+
   void _onCountrySelect(Country country) {
     setState(() {
       _country = country;
@@ -42,6 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    context.read<GameStateBloc>().add(SetIsMale(_isMale));
   }
 
   @override
@@ -88,6 +101,28 @@ class _SettingsPageState extends State<SettingsPage> {
                         chosenValue:
                             _isMale ? genderOptions[0] : genderOptions[1],
                       ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Show joystick',
+                        style: TextStyles.menuWhiteTextStyle,
+                      ),
+                      BlocBuilder<PlayerStateBloc, PlayerState>(
+                          builder: (context, state) {
+                        return DropDownMenu(
+                          options: showControlOptions,
+                          onSelect: (String showControls) {
+                            _onShowControlsSelect(context, showControls);
+                          },
+                          chosenValue: state.showControls ? showControlOptions[0] : showControlOptions[1],
+                        );
+                      }),
                     ],
                   ),
                 ),
