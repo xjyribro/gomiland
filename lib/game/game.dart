@@ -149,7 +149,6 @@ class GomilandGame extends FlameGame
     if (brightnessOverlays.isEmpty) {
       cameraComponent.viewport.add(brightnessOverlay);
     }
-    print(playerStateBloc.state.showControls);
     if (playerStateBloc.state.showControls) {
       _addPlayerControls();
     }

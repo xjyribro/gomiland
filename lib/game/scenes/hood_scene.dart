@@ -274,7 +274,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_man_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.man,
             ),
@@ -283,7 +283,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_woman_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.woman,
             ),
@@ -303,7 +303,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_girl_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.girl,
             ),
