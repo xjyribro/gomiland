@@ -1,14 +1,19 @@
 import 'package:flame/components.dart';
-import 'package:gomiland/constants/constants.dart';
+import 'package:flame_bloc/flame_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
 import 'package:gomiland/game/scenes/park_scene.dart';
 import 'package:gomiland/game/scenes/room/room_scene.dart';
 
+// scene manager
 class GomilandWorld extends World
-    with KeyboardHandler, HasGameRef<GomilandGame> {
+    with
+        KeyboardHandler,
+        HasGameRef<GomilandGame>,
+        FlameBlocReader<GameStateBloc, GameState> {
   GomilandWorld({super.children});
 
   SceneName? _newSceneName;
@@ -17,12 +22,12 @@ class GomilandWorld extends World
   late ParkMap parkMap;
   late RoomMap roomMap;
 
-  void setNewSceneName(SceneName newSceneName) {
+  void _setNewSceneName(SceneName newSceneName) {
     _newSceneName = newSceneName;
   }
 
   void _removeComponents() {
-    SceneName sceneName = game.gameStateBloc.state.sceneName;
+    SceneName sceneName = bloc.state.sceneName;
     switch (sceneName) {
       case SceneName.hood:
         remove(hoodMap);
@@ -39,35 +44,28 @@ class GomilandWorld extends World
   }
 
   Future<void> _loadHoodMap() async {
-    game.overlays.add('Loading');
     SceneName sceneName = game.gameStateBloc.state.sceneName;
     final bool comingFromPark = sceneName == SceneName.park;
-    Vector2 playerStartPosit = comingFromPark
-        ? Vector2(hoodStartFromParkX, hoodStartFromParkY)
-        : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
+    Vector2 playerStartPosit =
+        comingFromPark ? Vector2(1800, 650) : Vector2(1800, 650);
     hoodMap = HoodMap(
-      setNewSceneName: setNewSceneName,
+      setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,
     );
     await add(hoodMap);
-    game.addHudComponentsForWorld();
-    game.overlays.remove('Loading');
   }
 
   Future<void> _loadParkMap() async {
-    game.overlays.add('Loading');
-    Vector2 playerStartPosit = Vector2(parkStartX, parkStartY);
+    Vector2 playerStartPosit = Vector2(1500, 4225);
     parkMap = ParkMap(
-      setNewSceneName: setNewSceneName,
+      setNewSceneName: _setNewSceneName,
       playerStartPosit: playerStartPosit,
     );
     await add(parkMap);
-    game.addHudComponentsForWorld();
-    game.overlays.remove('Loading');
   }
 
   Future<void> _loadRoomMap() async {
-    roomMap = RoomMap(setNewSceneName: setNewSceneName);
+    roomMap = RoomMap(setNewSceneName: _setNewSceneName);
     await add(roomMap);
   }
 
@@ -102,5 +100,22 @@ class GomilandWorld extends World
       _switchScene(_newSceneName!);
       _newSceneName = null;
     }
+  }
+
+  @override
+  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (event is RawKeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.keyR) {
+        add(game.dialogueControllerComponent);
+        game.overlays.add('DialogueBox');
+        game.dialogueRunner.startDialogue('example');
+      }
+      if (event.logicalKey == LogicalKeyboardKey.keyT) {
+        remove(game.dialogueControllerComponent);
+        game.overlays.remove('DialogueBox');
+      }
+      return false;
+    }
+    return true;
   }
 }
