@@ -20,15 +20,17 @@ dependencies:
   flame_bloc: ^1.10.9
   flutter_bloc: ^8.1.3
   equatable: ^2.0.5
-  animated_text_kit: ^4.2.2
   jenny: ^1.2.1
+  collection: ^1.18.0
+  flame_tiled_utils: ^1.1.1
+  country_picker: ^2.0.24
 
 dev_dependencies:
   assets_gen: ^1.5.0
   build_runner: ^2.4.6
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true
@@ -48,6 +50,7 @@ flutter:
     - assets/images/player/
     - assets/images/objects/
     - assets/images/rubbish/
+    - assets/images/tile_maps/
     - assets/yarn/
 
   fonts:
