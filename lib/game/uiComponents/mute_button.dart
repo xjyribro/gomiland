@@ -28,19 +28,21 @@ class MuteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GameStateBloc, GameState>(
-      builder: (context, state) => IconButton(
-        onPressed: () {
-          if (state.isMute) {
-            _playBgm(context, state.sceneName);
-          } else {
-            Sounds.stopBackgroundSound();
-          }
-          context.read<GameStateBloc>().add(const MuteChanged());
-        },
-        icon: Icon(
-          state.isMute ? Icons.volume_off : Icons.volume_down,
-          size: 60,
+    return Material(
+      child: BlocBuilder<GameStateBloc, GameState>(
+        builder: (context, state) => IconButton(
+          onPressed: () {
+            if (state.isMute) {
+              _playBgm(context, state.sceneName);
+            } else {
+              Sounds.stopBackgroundSound();
+            }
+            context.read<GameStateBloc>().add(const MuteChanged());
+          },
+          icon: Icon(
+            state.isMute ? Icons.volume_off : Icons.volume_down,
+            size: 60,
+          ),
         ),
       ),
     );
