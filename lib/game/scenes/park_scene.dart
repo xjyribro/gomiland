@@ -113,21 +113,21 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
-    await _loadPlayer(_playerStartPosit);
-
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
     if (npcs != null) {
-      _loadNpcs(npcs);
+      await _loadNpcs(npcs);
     }
+
+    await _loadPlayer(_playerStartPosit);
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
-      _loadBuildings(buildings);
+      await _loadBuildings(buildings);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
     if (trees != null) {
-      _loadTrees(trees);
+      await _loadTrees(trees);
     }
 
     final signs = map.tileMap.getLayer<ObjectGroup>('signs');
@@ -149,8 +149,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           );
           await add(parkLight);
           add(Obstacle(
-            position: Vector2(lights.x + 8, lights.y + 48),
-            size: Vector2(16, 16),
+            position: Vector2(lights.x + 6, lights.y + 48),
+            size: Vector2(20, 16),
           ));
         }
         if (light.name == 'stone_light') {
