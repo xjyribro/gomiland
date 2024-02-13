@@ -4,13 +4,13 @@ class RubbishTypeStrings {
   static const String paper = 'paper';
   static const String plastic = 'plastic';
   static const String metal = 'metal';
-  static const String electronics = 'electronics';
+  static const String electronic = 'electronic';
   static const String food = 'food';
   static const String glass = 'glass';
   static const String unknown = 'unknown';
 }
 
-enum RubbishType { paper, plastic, metal, electronics, food, glass, unknown }
+enum RubbishType { paper, plastic, metal, electronic, food, glass, unknown }
 
 extension RubbishTypeExtension on RubbishType {
   String get string {
@@ -21,8 +21,8 @@ extension RubbishTypeExtension on RubbishType {
         return RubbishTypeStrings.plastic;
       case RubbishType.metal:
         return RubbishTypeStrings.metal;
-      case RubbishType.electronics:
-        return RubbishTypeStrings.electronics;
+      case RubbishType.electronic:
+        return RubbishTypeStrings.electronic;
       case RubbishType.food:
         return RubbishTypeStrings.food;
       case RubbishType.glass:
@@ -42,8 +42,8 @@ extension GetRubbishType on String {
         return RubbishType.plastic;
       case RubbishTypeStrings.metal:
         return RubbishType.metal;
-      case RubbishTypeStrings.electronics:
-        return RubbishType.electronics;
+      case RubbishTypeStrings.electronic:
+        return RubbishType.electronic;
       case RubbishTypeStrings.food:
         return RubbishType.food;
       case RubbishTypeStrings.glass:
