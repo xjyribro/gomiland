@@ -150,8 +150,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         );
         add(streetLight);
         add(Obstacle(
-          position: Vector2(lights.x + 4, lights.y + 48),
-          size: Vector2(24, 16),
+          position: Vector2(lights.x + 6, lights.y + 48),
+          size: Vector2(20, 16),
         ));
       }
     }
@@ -266,8 +266,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
       add(Obstacle(
-        position: Vector2(npc.x, npc.y),
-        size: Vector2(32, 32),
+        position: Vector2(npc.x + 6, npc.y),
+        size: Vector2(20, 32),
       ));
       switch (npc.name) {
         case 'man':
@@ -279,7 +279,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               npcName: NpcName.man,
             ),
           );
-        case 'women':
+        case 'woman':
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
