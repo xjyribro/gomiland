@@ -1,12 +1,13 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/player_state.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/monk.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/player/obstacle_checker.dart';
 
 class Player extends SpriteAnimationComponent
@@ -15,17 +16,11 @@ class Player extends SpriteAnimationComponent
         HasGameReference<GomilandGame>,
         CollisionCallbacks,
         ObstacleChecker {
-  Player({
-    required Vector2 position,
-    JoystickComponent? joystickComponent,
-  }) : super(
+  Player({required Vector2 position})
+      : super(
           position: position,
           size: Vector2.all(32),
-        ) {
-    _joystick = joystickComponent;
-  }
-
-  late JoystickComponent? _joystick;
+        );
 
   late SpriteAnimation moveUp;
   late SpriteAnimation moveDown;
@@ -43,32 +38,32 @@ class Player extends SpriteAnimationComponent
   bool _isMovingRight = false;
   int _moveDirection = 0;
   final double _speed = tileSize * playerSpeed;
-  final double _stepTime = 0.2;
 
   @override
-  void onLoad() {
+  Future<void> onLoad() async {
+    bool isMale = game.gameStateBloc.state.isMale;
     final spriteSheet = SpriteSheet(
-      image: game.images.fromCache(
-        Assets.assets_images_player_player_png,
+      image: await Flame.images.load(
+        isMale
+            ? Assets.assets_images_player_male_png
+            : Assets.assets_images_player_female_png,
       ),
       srcSize: Vector2.all(32),
     );
 
-    moveUp = spriteSheet.createAnimation(row: 1, stepTime: _stepTime, from: 1);
-    moveDown =
-        spriteSheet.createAnimation(row: 0, stepTime: _stepTime, from: 1);
-    moveLeft =
-        spriteSheet.createAnimation(row: 3, stepTime: _stepTime, from: 1);
+    moveUp = spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 1);
+    moveDown = spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 1);
+    moveLeft = spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 1);
     moveRight =
-        spriteSheet.createAnimation(row: 2, stepTime: _stepTime, from: 1);
-    idleUp = spriteSheet.createAnimation(
-        row: 1, stepTime: _stepTime, from: 0, to: 1);
-    idleDown = spriteSheet.createAnimation(
-        row: 0, stepTime: _stepTime, from: 0, to: 1);
-    idleLeft = spriteSheet.createAnimation(
-        row: 3, stepTime: _stepTime, from: 0, to: 1);
-    idleRight = spriteSheet.createAnimation(
-        row: 2, stepTime: _stepTime, from: 0, to: 1);
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 1);
+    idleUp =
+        spriteSheet.createAnimation(row: 1, stepTime: stepTime, from: 0, to: 1);
+    idleDown =
+        spriteSheet.createAnimation(row: 0, stepTime: stepTime, from: 0, to: 1);
+    idleLeft =
+        spriteSheet.createAnimation(row: 3, stepTime: stepTime, from: 0, to: 1);
+    idleRight =
+        spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
     playerHitbox = RectangleHitbox(
@@ -84,21 +79,19 @@ class Player extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
+    if (game.playerIsFrozen()) return;
 
-    if (_joystick != null) {
-      if (_joystick!.direction == JoystickDirection.idle) {
+    if (game.playerStateBloc.state.showControls) {
+      if (game.joystick.direction == JoystickDirection.idle) {
         _onJoystickStop();
       } else {
-        _moveWithJoystick(_joystick!.direction);
+        _moveWithJoystick(game.joystick.direction);
       }
     }
-    // Save this to use after we zero out movement for unwalkable terrain.
     final originalPosition = position.clone();
 
     Vector2 movement = _getMovement(_moveDirection);
     final movementThisFrame = movement * _speed * dt;
-    // Fake update the position so our anchor calculations take into account
-    // what movement we want to do this turn.
     position.add(movementThisFrame);
     checkMovement(
       movementThisFrame: movementThisFrame,
@@ -150,6 +143,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = false;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, -1)));
         break;
       case JoystickDirection.down:
         animation = moveDown;
@@ -158,6 +152,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = true;
         _isMovingLeft = false;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(0, 1)));
         break;
       case JoystickDirection.left:
         animation = moveLeft;
@@ -166,6 +161,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = true;
         _isMovingRight = false;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(-1, 0)));
         break;
       case JoystickDirection.right:
         animation = moveRight;
@@ -174,6 +170,7 @@ class Player extends SpriteAnimationComponent
         _isMovingDown = false;
         _isMovingLeft = false;
         _isMovingRight = true;
+        game.playerStateBloc.add(PlayerDirectionChange(Vector2(1, 0)));
         break;
       default:
         return;
@@ -183,7 +180,7 @@ class Player extends SpriteAnimationComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is Monk) {
+    if (other is QianBi) {
       if (intersectionPoints.length == 2) {
         final mid = (intersectionPoints.elementAt(0) +
                 intersectionPoints.elementAt(1)) /
@@ -199,7 +196,9 @@ class Player extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (game.playerStateBloc.state.showControls) return false;
     if (event is RawKeyDownEvent) {
+      if (game.playerIsFrozen()) return false;
       bool isMoving =
           _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
       if (isMoving) return false;
@@ -228,14 +227,8 @@ class Player extends SpriteAnimationComponent
         game.playerStateBloc.add(PlayerDirectionChange(Vector2(1, 0)));
       }
 
-      if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        add(game.dialogueControllerComponent);
-        game.overlays.add('DialogueBox');
-        game.dialogueRunner.startDialogue('example');
-      }
-      if (event.logicalKey == LogicalKeyboardKey.keyT) {
-        remove(game.dialogueControllerComponent);
-        game.overlays.remove('DialogueBox');
+      if (event.logicalKey == LogicalKeyboardKey.keyE) {
+        game.castRay();
       }
 
       return false;
