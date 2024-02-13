@@ -2,46 +2,39 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
 
 class RubbishComponent extends SpriteComponent
-    with DragCallbacks, CollisionCallbacks, HasGameReference<GomilandGame> {
+    with DragCallbacks, CollisionCallbacks {
   RubbishComponent({
     required Sprite sprite,
+    required Vector2 position,
     required String name,
     required RubbishType rubbishType,
-    required Function binCheck,
+    required Function removeRubbish,
   }) : super(
           sprite: sprite,
+          position: position,
         ) {
+    _originalPosition = position;
     _name = name;
     _rubbishType = rubbishType;
-    _binCheck = binCheck;
+    _removeRubbish = removeRubbish;
   }
 
+  // game world vars
+  late Vector2 _originalPosition;
+
+  // custom object data
   late String _name;
   late RubbishType _rubbishType;
-  late Function _binCheck;
+
+  late Function _removeRubbish;
+
   RubbishType? _binType;
-
-  void _returnToStart() {
-    position = Vector2.zero();
-  }
-
-  void _handleRubbishDrop(
-    RubbishType binType,
-    RubbishType rubbishType,
-    String rubbishName,
-  ) {
-    _binCheck(binType, rubbishType, rubbishName);
-    // TODO animate out
-    removeFromParent();
-  }
 
   @override
   Future<void> onLoad() async {
-    // TODO animate in
     add(RectangleHitbox(position: Vector2.zero(), size: size));
   }
 
@@ -53,9 +46,13 @@ class RubbishComponent extends SpriteComponent
   @override
   void onDragEnd(DragEndEvent event) {
     if (_binType != null) {
-      _handleRubbishDrop(_binType!, _rubbishType, _name);
+      if (_rubbishType == _binType) {
+        print('score');
+      } else {
+        print('$_name is not made of $_binType');
+      }
     } else {
-      _returnToStart();
+      position = _originalPosition;
     }
     super.onDragEnd(event);
   }

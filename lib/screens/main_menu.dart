@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/game/controllers/game_state.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/ui/mute_button.dart';
+import 'package:gomiland/game/uiComponents/info_popup.dart';
+import 'package:gomiland/game/uiComponents/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
+import 'package:gomiland/screens/instructions.dart';
 import 'package:gomiland/screens/settings.dart';
-import 'package:gomiland/screens/widgets/menu_button.dart';
-import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/screens/widgets/mainMenuButton.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -26,7 +26,6 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void initState() {
     Sounds.playMainMenuBgm();
-
     super.initState();
   }
 
@@ -54,26 +53,27 @@ class _MainMenuState extends State<MainMenu> {
                 Assets.assets_images_logo_gomiland_simple_png,
                 height: 164,
               ),
-              const SpacerNormal(),
-              MenuButton(
+              const SizedBox(
+                height: 20.0,
+              ),
+              MainMenuButton(
                 text: 'New game',
-                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) {
-                      context
-                          .read<GameStateBloc>()
-                          .add(const SceneChanged(SceneName.hood));
-                      return const GameWidgetWrapper();
-                    }),
+                    MaterialPageRoute(
+                        builder: (context) {
+                          context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
+                          return const GameWidgetWrapper();
+                        }),
                   );
                 },
               ),
-              const SpacerNormal(),
-              MenuButton(
+              const SizedBox(
+                height: 20.0,
+              ),
+              MainMenuButton(
                 text: 'Load game',
-                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -82,34 +82,47 @@ class _MainMenuState extends State<MainMenu> {
                   );
                 },
               ),
-              const SpacerNormal(),
-              MenuButton(
+              const SizedBox(
+                height: 20.0,
+              ),
+              MainMenuButton(
                 text: 'Settings',
-                style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
-                    ),
+                        builder: (context) => const SettingsPage()),
                   );
                 },
               ),
-              const SpacerNormal(),
-              MenuButton(
-                text: 'Credits',
-                style: TextStyles.menuPurpleTextStyle,
+              const SizedBox(
+                height: 20.0,
+              ),
+              MainMenuButton(
+                text: 'How to play',
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CreditsPage(),
-                    ),
+                        builder: (context) => const Instructions()),
                   );
+                },
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              MainMenuButton(
+                text: 'Credits',
+                onPressed: () {
+                  InfoPopups.showCongratulations(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const CreditsPage()),
+                  // );
                 },
               ),
               const MuteButton(),
-              const SpacerNormal(),
             ],
           ),
         ),
