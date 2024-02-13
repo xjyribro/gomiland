@@ -24,7 +24,7 @@ class Stark extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_qianbi_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_stark_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),

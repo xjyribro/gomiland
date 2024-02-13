@@ -1,20 +1,39 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/monk.dart';
-import 'package:gomiland/game/objects/buildings/apt1.dart';
-import 'package:gomiland/game/objects/buildings/apt2.dart';
-import 'package:gomiland/game/objects/buildings/apt3.dart';
-import 'package:gomiland/game/objects/buildings/combini.dart';
+import 'package:gomiland/game/npcs/asimov.dart';
+import 'package:gomiland/game/npcs/general_npc.dart';
+import 'package:gomiland/game/npcs/himiko.dart';
+import 'package:gomiland/game/npcs/manuka.dart';
+import 'package:gomiland/game/npcs/mr_moon.dart';
+import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/risa.dart';
+import 'package:gomiland/game/npcs/stark.dart';
+import 'package:gomiland/game/npcs/utils.dart';
+import 'package:gomiland/game/objects/buildings/apt_side.dart';
+import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
+import 'package:gomiland/game/objects/buildings/fish_shop.dart';
+import 'package:gomiland/game/objects/buildings/fountain.dart';
+import 'package:gomiland/game/objects/buildings/house_eng.dart';
+import 'package:gomiland/game/objects/buildings/inn.dart';
+import 'package:gomiland/game/objects/buildings/piler.dart';
+import 'package:gomiland/game/objects/buildings/shop_back_eng.dart';
+import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
+import 'package:gomiland/game/objects/buildings/shop_eng.dart';
+import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
+import 'package:gomiland/game/objects/buildings/shop_side_jap.dart';
+import 'package:gomiland/game/objects/buildings/shoukudou.dart';
+import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/trees/bamboo.dart';
+import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 
@@ -30,52 +49,37 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     _playerStartPosit = playerStartPosit;
   }
 
-  Future<void> _loadPlayer(Vector2 position) async {
-    JoystickComponent? joystick = kIsWeb
-        ? null
-        : JoystickComponent(
-            knob: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_knob_png),
-              size: Vector2.all(64),
-            ),
-            background: SpriteComponent(
-              sprite: await Sprite.load(
-                  Assets.assets_images_ui_directional_pad_png),
-              size: Vector2.all(96),
-            ),
-            margin: const EdgeInsets.only(left: 40, bottom: 40),
-          );
-
-    Player player = Player(
-      position: position,
-      joystickComponent: joystick,
-    );
-    if (joystick != null) {
-      game.cameraComponent.viewport.add(joystick);
+  void turnOnLights() {
+    List<StreetLight> streetLights = children.query<StreetLight>();
+    for (StreetLight light in streetLights) {
+      light.addLight();
     }
-    await add(player);
-    game.cameraComponent.follow(player);
   }
 
-  @override
-  Future<void> onLoad() async {
-    
+  void turnOffLights() {
+    List<StreetLight> streetLights = children.query<StreetLight>();
+    for (StreetLight light in streetLights) {
+      light.removeLight();
+    }
+  }
+
+  void _checkBgm() {
     final bool isMute = game.gameStateBloc.state.isMute;
     if (!isMute) {
       Sounds.playHoodBgm();
     }
+  }
 
+  @override
+  Future<void> onLoad() async {
     final TiledComponent map = await TiledComponent.load(
       'hood.tmx',
       Vector2.all(32),
     );
-    await add(map);
 
-    await _loadPlayer(_playerStartPosit);
+    await _loadMap(map);
 
     final obstacles = map.tileMap.getLayer<ObjectGroup>('obstacles');
-
     if (obstacles != null) {
       for (final TiledObject obstacle in obstacles.objects) {
         add(Obstacle(
@@ -86,9 +90,10 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     }
 
     final gates = map.tileMap.getLayer<ObjectGroup>('gates');
-
     if (gates != null) {
       for (final TiledObject object in gates.objects) {
+        SceneName sceneName =
+            object.name == 'park' ? SceneName.park : SceneName.room;
         await add(
           Gate(
             position: Vector2(object.x, object.y),
@@ -108,6 +113,13 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           ),
         );
       }
+    }
+
+    await _loadPlayer(_playerStartPosit);
+
+    final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
+    if (buildings != null) {
+      await _loadBuildings(buildings);
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
@@ -262,7 +274,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_man_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.man,
             ),
@@ -271,7 +283,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_woman_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.woman,
             ),
@@ -291,7 +303,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(
             GeneralNpc(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_boy_png,
+              imgPath: Assets.assets_images_npcs_girl_png,
               dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
               npcName: NpcName.girl,
             ),

@@ -1,0 +1,51 @@
+<<character Himiko>>
+title: intro
+---
+Himiko: Hello neighbour!
+Himiko: How was your holiday?
+Himiko: While you were away, the recycling initiative started.
+Himiko: All rubbish has to be sorted before being thrown.
+Himiko: I think people are unsure about how to do this!
+Himiko: Here, I will teach you.
+Himiko: We have 6 different kinds of rubbish.
+Himiko: Plastics, paper, glass, metal, food and electronics.
+Himiko: There are 6 bins in your home for each kind.
+Himiko: The images on the bin tell you what they are.
+Himiko: Throw the rubbish into the correct bin and get coins!
+Himiko: First, you have pick up the trash from the street.
+Himiko: There is one right over there!
+Himiko: Pick it up and head home to throw it.
+Himiko: Once you sort your first rubbish come talk to me.
+<<changeState "post_intro">>
+===
+title: post_intro
+---
+Himiko: If you need help, read the sign over there.
+Himiko: Once you sort your first rubbish come talk to me.
+===
+title: level_1_correct
+---
+Himiko: Looks like you correctly sorted your first piece!
+Himiko: Congratulations! You got some coins from the city.
+Himiko: Here is a bigger bag for you to hold more rubbish.
+Himiko: Let's go clean up Gomiland!
+Himiko: Oh and don't forget to stop and talk to others.
+<<increaseBagSize 10>>
+<<changeState "level_2">>
+===
+title: level_1_incorrect
+---
+Himiko: Looks like you didn't get the first one right.
+Himiko: You get a fine for each incorrect disposal.
+Himiko: Don't worry getting the first one wrong is common.
+Himiko: Keep trying and you'll get the hang of it.
+Himiko: Here is a bigger bag for you to hold more rubbish.
+Himiko: Let's go clean up Gomiland!
+Himiko: Oh and don't forget to stop and talk to others.
+<<changeState "level_2">>
+===
+title: level_2
+---
+Himiko: Hi! How's the collection going?
+Himiko: Some people give extra incentives for helping them.
+===
