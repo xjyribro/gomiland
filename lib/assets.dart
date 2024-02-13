@@ -158,30 +158,13 @@ class Assets {
 
   static const String assets_images_npcs_asimov_png = 'assets/images/npcs/asimov.png';
   static const String gomiland$assets_images_npcs_asimov_png = 'packages/gomiland/assets/images/npcs/asimov.png';
-<<<<<<< HEAD
-=======
 
   static const String assets_images_npcs_boss_png = 'assets/images/npcs/boss.png';
   static const String gomiland$assets_images_npcs_boss_png = 'packages/gomiland/assets/images/npcs/boss.png';
->>>>>>> 6c7947b9d3d9209b4ed6781643eb95456390cbcc
 
   static const String assets_images_npcs_boy_png = 'assets/images/npcs/boy.png';
   static const String gomiland$assets_images_npcs_boy_png = 'packages/gomiland/assets/images/npcs/boy.png';
 
-<<<<<<< HEAD
-  static const String assets_images_npcs_himiko_png = 'assets/images/npcs/himiko.png';
-  static const String gomiland$assets_images_npcs_himiko_png = 'packages/gomiland/assets/images/npcs/himiko.png';
-
-  static const String assets_images_npcs_manuka_png = 'assets/images/npcs/manuka.png';
-  static const String gomiland$assets_images_npcs_manuka_png = 'packages/gomiland/assets/images/npcs/manuka.png';
-
-  static const String assets_images_npcs_moon_png = 'assets/images/npcs/moon.png';
-  static const String gomiland$assets_images_npcs_moon_png = 'packages/gomiland/assets/images/npcs/moon.png';
-
-  static const String assets_images_npcs_qianbi_png = 'assets/images/npcs/qianbi.png';
-  static const String gomiland$assets_images_npcs_qianbi_png = 'packages/gomiland/assets/images/npcs/qianbi.png';
-
-=======
   static const String assets_images_npcs_female_png = 'assets/images/npcs/female.png';
   static const String gomiland$assets_images_npcs_female_png = 'packages/gomiland/assets/images/npcs/female.png';
 
@@ -212,7 +195,6 @@ class Assets {
   static const String assets_images_npcs_woman_png = 'assets/images/npcs/woman.png';
   static const String gomiland$assets_images_npcs_woman_png = 'packages/gomiland/assets/images/npcs/woman.png';
 
->>>>>>> 6c7947b9d3d9209b4ed6781643eb95456390cbcc
   static const String assets_images_objects_general_sign_png = 'assets/images/objects/general_sign.png';
   static const String gomiland$assets_images_objects_general_sign_png = 'packages/gomiland/assets/images/objects/general_sign.png';
 

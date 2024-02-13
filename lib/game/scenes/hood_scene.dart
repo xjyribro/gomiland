@@ -115,16 +115,16 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
+    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
+    if (npcs != null) {
+      _loadNpcs(npcs);
+    }
+
     await _loadPlayer(_playerStartPosit);
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
       await _loadBuildings(buildings);
-    }
-
-    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
-    if (npcs != null) {
-      _loadNpcs(npcs);
     }
 
     final trees = map.tileMap.getLayer<ObjectGroup>('trees');
