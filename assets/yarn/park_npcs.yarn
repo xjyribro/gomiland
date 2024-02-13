@@ -1,0 +1,68 @@
+<<character Boy>>
+<<character Girl>>
+<<character Man>>
+<<character Woman>>
+title: boy
+---
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Boy : The castle in the middle of the park has a long history.
+<<elseif  $rand == 2>>
+    Boy : There is a decline in honey bees.
+    Boy : It would be sad if we had no more bees to make honey.
+<<elseif  $rand == 3>>
+    Boy : I wonder why there is so much trash in the park.
+<<elseif  $rand == 4>>
+    Boy : Let's make our planet cleaner, by using reusable bags and containers.
+<<elseif  $rand == 5>>
+    Boy : Every piece of plastic we recycle is one less in the ocean.
+<<endif>>
+===
+title: girl
+---
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Girl : Reusing old jars for storage is both practical and eco-friendly.
+<<elseif  $rand == 2>>
+    Girl : I love coming to Gomiland National Park!
+<<elseif  $rand == 3>>
+    Girl : Sorting recyclables is a small effort with big impact.
+<<elseif  $rand == 4>>
+    Girl : I'm looking for  a shady spot to enjoy a picnic.
+<<elseif  $rand == 5>>
+    Girl : Have you tried Manuka's honey?
+<<endif>>
+===
+title: man
+---
+<<set $rand = dice(5)>>
+<<if $rand == 1>>
+    Man : The planners did a great job planting so many trees.
+    Man : The trees are from all over the world!
+<<elseif  $rand == 2>>
+    Man : The Global Citizen app has many environmental sustainability programs.
+<<elseif  $rand == 3>>
+    Man : Conserving water and energy is essential for a sustainable future.
+<<elseif  $rand == 4>>
+    Man : Image a city with zero waste. Let's make it happen!
+<<elseif  $rand == 5>>
+    Man : Recycled materials are made into new products.
+    Man : We burn less waste and don't need to harvest more materials. Win-win!
+<<endif>>
+===
+title: woman
+---
+<<set $rand = dice(5)>>
+<<if $rand == 1>
+    Woman : Electronic waste can harm the environment if not disposed correctly.
+<<elseif  $rand == 2>>
+    Woman : The park has such a nice atmosphere.
+<<elseif  $rand == 3>>
+    Woman : I've never been through the bamboo forest.
+    Woman : I heard there is a shrine on the other side.
+<<elseif  $rand == 4>>
+    Woman : I've started recycling at home.
+<<elseif  $rand == 5>>
+    Woman : Have you made friends from other cities?
+<<endif>>
+===
