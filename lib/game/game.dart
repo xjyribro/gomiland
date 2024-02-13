@@ -118,21 +118,70 @@ class GomilandGame extends FlameGame
           if (parent is RubbishSpawner) {
             parent.pickupRubbish();
           }
-          // TODO
-          // if (parent is Npc) {
-          //   parent.pickupRubbish();
-          // }
-          // if (parent is Sign) {
-          //   parent.pickupRubbish();
-          // }
+          if (parent is Npc) {
+            if (!isMute) Sounds.next();
+            parent.startConversation(playerPosition);
+          }
+          if (parent is Sign) {
+            if (!isMute) Sounds.next();
+            parent.readSign();
+          }
         }
       }
     }
   }
 
-  void showDialogue() {
-    cameraComponent.viewport.add(dialogueControllerComponent);
-    dialogueRunner.startDialogue('example');
+  void addHudComponentsForWorld() {
+    List<BrightnessOverlay> brightnessOverlays =
+        cameraComponent.viewport.children.query<BrightnessOverlay>();
+    if (brightnessOverlays.isEmpty) {
+      cameraComponent.viewport.add(brightnessOverlay);
+    }
+    print(playerStateBloc.state.showControls);
+    if (playerStateBloc.state.showControls) {
+      _addPlayerControls();
+    }
+  }
+
+  void _addPlayerControls() {
+    List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
+    if (aButtons.isEmpty) {
+      cameraComponent.viewport.add(_aButton);
+    }
+    List<JoystickComponent> joysticks =
+        cameraComponent.viewport.children.query<JoystickComponent>();
+    if (joysticks.isEmpty) {
+      cameraComponent.viewport.add(joystick);
+    }
+  }
+
+  void removeHudComponentsForWorld() {
+    List<BrightnessOverlay> brightnessOverlays =
+        cameraComponent.viewport.children.query<BrightnessOverlay>();
+    if (brightnessOverlays.isNotEmpty) {
+      cameraComponent.viewport.remove(brightnessOverlay);
+    }
+    List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
+    if (aButtons.isNotEmpty) {
+      cameraComponent.viewport.remove(_aButton);
+    }
+    List<JoystickComponent> joysticks =
+        cameraComponent.viewport.children.query<JoystickComponent>();
+    if (joysticks.isNotEmpty) {
+      cameraComponent.viewport.removeAll(joysticks);
+    }
+  }
+
+  void freezePlayer() {
+    gameStateBloc.add(const PlayerFrozen(true));
+  }
+
+  void unfreezePlayer() {
+    gameStateBloc.add(const PlayerFrozen(false));
+  }
+
+  bool playerIsFrozen() {
+    return gameStateBloc.state.playerFrozen;
   }
 
   @override
