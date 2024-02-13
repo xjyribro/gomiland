@@ -24,6 +24,7 @@ dependencies:
   collection: ^1.18.0
   flame_tiled_utils: ^1.1.1
   country_picker: ^2.0.24
+  firebase_core: ^2.25.4
 
 dev_dependencies:
   assets_gen: ^1.5.0
