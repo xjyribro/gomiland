@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/navigation.dart';
 import 'package:gomiland/screens/auth/validations.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
@@ -24,13 +25,6 @@ class _SettingsPageState extends State<SettingsPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Country? _country;
   bool _isMale = true;
-  bool _canPop = false;
-
-  void _setCanPop(bool canPop) {
-    setState(() {
-      _canPop = canPop;
-    });
-  }
 
   void _onGenderSelect(String gender) {
     if (gender == genderOptions[0]) {
@@ -62,7 +56,20 @@ class _SettingsPageState extends State<SettingsPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    if (_country == null) {
+      Popups.showMessage(
+        context: context,
+        title: 'Please select a country',
+        subTitle: '',
+      );
+      return;
+    }
+    context
+        .read<PlayerStateBloc>()
+        .add(SetPlayerName(_playerNameController.text));
     context.read<PlayerStateBloc>().add(SetIsMale(_isMale));
+    context.read<PlayerStateBloc>().add(SetCountry(_country!.name));
+    pushReplacementToMainMenu(context);
   }
 
   void _onBackHandler(BuildContext context) {
@@ -73,24 +80,40 @@ class _SettingsPageState extends State<SettingsPage> {
         subTitle: 'Please enter a player name',
       );
       return;
+    } else if (_country == null) {
+      Popups.showMessage(
+        context: context,
+        title: 'Please select a country',
+        subTitle: '',
+      );
+      return;
     } else {
-      _setCanPop(true);
-      Navigator.pop(context);
+      if (context.read<PlayerStateBloc>().state.playerName == '') {
+        context
+            .read<PlayerStateBloc>()
+            .add(SetPlayerName(_playerNameController.text));
+      }
+      pushReplacementToMainMenu(context);
     }
+  }
+
+  void _initForm() {
+    _isMale = context.read<PlayerStateBloc>().state.isMale;
+    _playerNameController.text =
+        context.read<PlayerStateBloc>().state.playerName;
+    _country = Country.tryParse(context.read<PlayerStateBloc>().state.country);
   }
 
   @override
   void initState() {
     super.initState();
-    _isMale = context.read<PlayerStateBloc>().state.isMale;
-    _playerNameController.text = context.read<PlayerStateBloc>().state.playerName;
-    _country = Country.parse(context.read<PlayerStateBloc>().state.country);
+    _initForm();
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: _canPop,
+      canPop: false,
       onPopInvoked: (pop) {
         _onBackHandler(context);
       },
@@ -198,18 +221,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const SpacerNormal(),
                   MenuButton(
-                    text: 'Save Settings',
+                    text: 'Save and return to main menu',
                     style: TextStyles.menuGreenTextStyle,
                     onPressed: () {
                       _onSubmit();
-                    },
-                  ),
-                  const SpacerNormal(),
-                  MenuButton(
-                    text: 'Back',
-                    style: TextStyles.menuRedTextStyle,
-                    onPressed: () {
-                      _onBackHandler(context);
                     },
                   ),
                   const SpacerNormal(),

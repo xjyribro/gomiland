@@ -12,10 +12,11 @@ class Popups {
       context: context,
       builder: (context) {
         return ConfirmActionModal(
-            onAccept: onAccept,
-            title:
-                'You are not logged in.\nYou will not be able to save your progress.',
-            subTitle: 'Continue?');
+          onAccept: onAccept,
+          title:
+              'You are not logged in.\nYou will not be able to save your progress.',
+          subTitle: 'Continue?',
+        );
       },
     );
   }

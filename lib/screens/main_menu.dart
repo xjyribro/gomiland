@@ -5,10 +5,8 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/screens/auth/sign_in.dart';
-import 'package:gomiland/screens/credits.dart';
+import 'package:gomiland/navigation.dart';
 import 'package:gomiland/screens/popups/popups.dart';
-import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
@@ -97,12 +95,7 @@ class _MainMenuState extends State<MainMenu> {
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   if (!_isSignedIn) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignInPage(),
-                      ),
-                    );
+                    goToSignIn(context);
                     return;
                   }
                   // load saved from firestore
@@ -115,12 +108,7 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'Settings',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
-                    ),
-                  );
+                  goToSettings(context);
                 },
               ),
               const SpacerNormal(),
@@ -128,12 +116,7 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CreditsPage(),
-                    ),
-                  );
+                  goToCredits(context);
                 },
               ),
               const MuteButton(),

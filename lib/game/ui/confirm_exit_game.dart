@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/navigation.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
@@ -44,7 +45,7 @@ class ConfirmExitGame extends StatelessWidget {
                     MenuButton(
                       onPressed: () {
                         game.overlays.remove('ConfirmExitGame');
-                        Navigator.pop(context);
+                        pushReplacementToMainMenu(context);
                       },
                       text: 'Yes',
                       style: TextStyles.menuGreenTextStyle,
