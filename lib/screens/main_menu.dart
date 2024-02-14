@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/screens/credits.dart';
+import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -21,12 +23,32 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  bool showSplash = true;
+  bool _showSplash = true;
+  bool _isSignedIn = false;
+
+  void _initAuthStateListener() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (!mounted) return;
+      if (user == null) {
+        setState(() {
+          _isSignedIn = false;
+        });
+      } else {
+        if (!user.emailVerified) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        } else {
+          setState(() {
+            _isSignedIn = true;
+          });
+        }
+      }
+    });
+  }
 
   @override
   void initState() {
     Sounds.playMainMenuBgm();
-
+    _initAuthStateListener();
     super.initState();
   }
 
@@ -39,7 +61,17 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return buildMenu();
-    return showSplash ? buildSplash() : buildMenu(); // REPLACE
+    return _showSplash ? buildSplash() : buildMenu(); // TODO REPLACE
+  }
+
+  void _goToGame() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
+        return const GameWidgetWrapper();
+      }),
+    );
   }
 
   Widget buildMenu() {
@@ -59,27 +91,26 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'New game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      context
-                          .read<GameStateBloc>()
-                          .add(const SceneChanged(SceneName.hood));
-                      return const GameWidgetWrapper();
-                    }),
+                  Popups.showUnsavableWarning(
+                    context: context,
+                    onAccept: _goToGame,
                   );
                 },
               ),
               const SpacerNormal(),
               MenuButton(
-                text: 'Load game',
+                text: _isSignedIn ? 'Load game' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GameWidgetWrapper()),
-                  );
+                  if (!_isSignedIn) {
+                    return;
+                  }
+                  // load saved from firestore
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const GameWidgetWrapper()),
+                  // );
                 },
               ),
               const SpacerNormal(),
@@ -122,7 +153,7 @@ class _MainMenuState extends State<MainMenu> {
       theme: FlameSplashTheme.dark,
       onFinish: (BuildContext context) {
         setState(() {
-          showSplash = false;
+          _showSplash = false;
         });
       },
     );

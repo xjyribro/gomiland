@@ -27,6 +27,10 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
   cloud_firestore: ^4.15.4
+  google_fonts: ^6.1.0
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^5.0.0
+  crypto: ^3.0.3
 
 dev_dependencies:
   assets_gen: ^1.5.0

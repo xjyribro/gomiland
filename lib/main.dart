@@ -11,10 +11,9 @@ import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/screens/main_menu.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: 'Gomiland',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   if (!kIsWeb) {

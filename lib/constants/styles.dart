@@ -43,6 +43,11 @@ class TextStyles {
     fontSize: smallTextSize,
     color: GameColors.white,
   );
+  static const modalHeaderTextStyle = TextStyle(
+    fontSize: headerTextSize,
+    color: GameColors.black,
+    fontWeight: FontWeight.bold
+  );
 }
 
 class GameColors{
