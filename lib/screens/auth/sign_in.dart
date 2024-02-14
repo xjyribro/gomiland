@@ -1,15 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/screens/auth/authentication.dart';
+import 'package:gomiland/screens/auth/utils.dart';
 import 'package:gomiland/screens/auth/validations.dart';
 import 'package:gomiland/screens/auth/widgets/apple_button.dart';
 import 'package:gomiland/screens/auth/widgets/google_button.dart';
 import 'package:gomiland/screens/auth/widgets/visibility_icon.dart';
 import 'package:gomiland/screens/popups/popups.dart';
-import 'package:gomiland/screens/settings.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
+import 'package:gomiland/utils/firestore.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -42,25 +45,18 @@ class _SignInPageState extends State<SignInPage> {
 
   void _onSubmit() {
     if (!_formKey.currentState!.validate()) return;
+    if (_isLoading) return;
+    _setIsLoading(true);
     if (_isSignUp) {
       signUp(
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
-      ).then((hasValidSignIn) {
-        if (hasValidSignIn) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SettingsPage(),
-            ),
-          );
+      ).then((errorMessage) {
+        if (errorMessage != null) {
+          showSignUpErrorPopup(context, errorMessage);
         } else {
-          Popups.showMessage(
-            context: context,
-            title: 'Unable to sign up',
-            subTitle: 'Please check web connection and try again',
-          );
+          pushReplacementToSettings(context);
         }
       });
     } else {
@@ -68,18 +64,19 @@ class _SignInPageState extends State<SignInPage> {
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
-      ).then((hasValidSignIn) {
-        if (hasValidSignIn) {
-          Navigator.pop(context);
+      ).then((errorMessage) async {
+        if (errorMessage != null) {
+          showSignInErrorPopup(context, errorMessage);
         } else {
-          Popups.showMessage(
-            context: context,
-            title: 'Unable to sign in',
-            subTitle: 'Please check web connection and try again',
-          );
+          String? playerId = FirebaseAuth.instance.currentUser?.uid;
+          if (playerId != null) {
+            await loadPlayerInfo(playerId: playerId, context: context);
+          }
+          if (context.mounted) Navigator.pop(context);
         }
       });
     }
+    _setIsLoading(false);
   }
 
   Future<void> _loginWithGoogle() async {
@@ -175,7 +172,7 @@ class _SignInPageState extends State<SignInPage> {
                       validator: (String? value) {
                         return passwordCheckValidator(
                           value,
-                          _passwordCheckController.text,
+                          _passwordController.text,
                         );
                       },
                       obscureText: !_isPasswordCheckVisible,

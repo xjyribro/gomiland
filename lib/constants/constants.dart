@@ -57,4 +57,8 @@ const completedCharInt = 200;
 
 class Strings {
   static const String minecraft = 'minecraft';
+  static const playersCollection = 'players';
+  static const playerName = 'playerName';
+  static const country = 'country';
+  static const isMale = 'isMale';
 }

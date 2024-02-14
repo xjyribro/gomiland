@@ -1,15 +1,17 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/navigation.dart';
 import 'package:gomiland/screens/auth/validations.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
+import 'package:gomiland/utils/firestore.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -64,11 +66,23 @@ class _SettingsPageState extends State<SettingsPage> {
       );
       return;
     }
-    context
-        .read<PlayerStateBloc>()
-        .add(SetPlayerName(_playerNameController.text));
-    context.read<PlayerStateBloc>().add(SetIsMale(_isMale));
-    context.read<PlayerStateBloc>().add(SetCountry(_country!.name));
+    String playerName = _playerNameController.text;
+    String country = _country!.name;
+    context.read<PlayerStateBloc>().state.setPlayerBloc(
+          context: context,
+          playerName: playerName,
+          country: country,
+          isMale: _isMale,
+        );
+    String? playerId = FirebaseAuth.instance.currentUser?.uid;
+    if (playerId != null) {
+      savePlayerInfo(
+        playerId: playerId,
+        playerName: playerName,
+        country: country,
+        isMale: _isMale,
+      );
+    }
     pushReplacementToMainMenu(context);
   }
 

@@ -52,6 +52,17 @@ class PlayerState extends Equatable {
     );
   }
 
+  void setPlayerBloc({
+    required BuildContext context,
+    required String playerName,
+    required String country,
+    required bool isMale,
+  }) {
+    context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
+    context.read<PlayerStateBloc>().add(SetIsMale(isMale));
+    context.read<PlayerStateBloc>().add(SetCountry(country));
+  }
+
   @override
   List<Object?> get props => [
         showControls,

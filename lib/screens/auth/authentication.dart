@@ -5,42 +5,25 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/screens/popups/popups.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-Future<bool> signIn({
+Future<String?> signIn({
   required BuildContext context,
   required String email,
   required String password,
 }) async {
   try {
     await signInWithUsernameAndPassword(email: email, password: password);
-    return true;
+    return null;
   } on FirebaseAuthException catch (e) {
-    print(e);
-    if (e.code == 'user-not-found') {
-      Popups.showMessage(
-        context: context,
-        title: 'Email not found',
-        subTitle:
-            'If you have not created an account, press the "Sign Up" button',
-      );
-    } else if (e.code == 'user-disabled') {
-      Popups.showMessage(
-        context: context,
-        title: 'This email has been suspended',
-        subTitle: '',
-      );
-    } else if (e.code == 'wrong-password') {
-      Popups.showMessage(
-        context: context,
-        title: 'Incorrect password',
-        subTitle:
-            'If you forgot your password, reset it with the "Reset Password" button',
-      );
+    final String message = e.message ?? '';
+    if (message.contains('There is no user record')) {
+      return 'There is no user record';
+    } else if (message.contains('The password is invalid')) {
+      return 'The password is invalid';
     }
-    return false;
+    return 'Error has occurred';
   }
 }
 
@@ -54,7 +37,7 @@ Future<UserCredential> signInWithUsernameAndPassword({
   );
 }
 
-Future<bool> signUp({
+Future<String?> signUp({
   required BuildContext context,
   required String email,
   required String password,
@@ -64,22 +47,13 @@ Future<bool> signUp({
         .then((value) {
       signInWithUsernameAndPassword(email: email, password: password);
     });
-    return true;
+    return null;
   } on FirebaseAuthException catch (e) {
-    if (e.code == 'email-already-in-use') {
-      Popups.showMessage(
-        context: context,
-        title: 'Email already in use',
-        subTitle:
-            'If you forgot your password, reset it with the "Reset Password" button',
-      );
+    final String message = e.message ?? '';
+    if (message.contains('The email address is already in use')) {
+      return 'The email address is already in use';
     }
-    return false;
-  } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
-    return false;
+    return 'Error has occurred';
   }
 }
 
@@ -100,10 +74,12 @@ const List<String> scopes = <String>[
 
 Future<UserCredential?> signInUpWithGoogle() async {
   GoogleSignIn googleSignIn = GoogleSignIn(scopes: scopes);
-  GoogleSignInAccount? googleSignInAccount =
-  kIsWeb ? await (googleSignIn.signInSilently()) : await (googleSignIn.signIn());
+  GoogleSignInAccount? googleSignInAccount = kIsWeb
+      ? await (googleSignIn.signInSilently())
+      : await (googleSignIn.signIn());
 
-  if (kIsWeb && googleSignInAccount == null) googleSignInAccount = await (googleSignIn.signIn());
+  if (kIsWeb && googleSignInAccount == null)
+    googleSignInAccount = await (googleSignIn.signIn());
 
   try {
     final GoogleSignInAccount? googleUser =

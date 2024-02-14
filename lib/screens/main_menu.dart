@@ -5,10 +5,11 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/navigation.dart';
+import 'package:gomiland/screens/auth/authentication.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -29,7 +30,6 @@ class _MainMenuState extends State<MainMenu> {
           _isSignedIn = false;
         });
       } else {
-        print(user);
         setState(() {
           _isSignedIn = true;
         });
@@ -56,16 +56,6 @@ class _MainMenuState extends State<MainMenu> {
     return _showSplash ? buildSplash() : buildMenu(); // TODO REPLACE
   }
 
-  void _goToGame() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) {
-    //     context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
-    //     return const GameWidgetWrapper();
-    //   }),
-    // );
-  }
-
   Widget buildMenu() {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -83,24 +73,27 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'New game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Popups.showUnsavableWarning(
-                    context: context,
-                    onAccept: _goToGame,
-                  );
+                  if (!_isSignedIn) {
+                    Popups.showUnsavableWarning(
+                      context: context,
+                      onAccept: () => goToGame(context),
+                    );
+                  } else {
+                    goToGame(context);
+                  }
                 },
               ),
               const SpacerNormal(),
               MenuButton(
-                text: _isSignedIn ? 'Load game' : 'Sign in',
+                text: _isSignedIn ? 'Sign out' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   if (!_isSignedIn) {
                     goToSignIn(context);
                     return;
+                  } else {
+                    signOut();
                   }
-                  // load saved from firestore
-                  // if no saved game, go new game
-                  _goToGame();
                 },
               ),
               const SpacerNormal(),
