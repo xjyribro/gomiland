@@ -2,8 +2,9 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/controllers/player_state.dart';
+import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/screens/auth/validations.dart';
+import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -23,6 +24,13 @@ class _SettingsPageState extends State<SettingsPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Country? _country;
   bool _isMale = true;
+  bool _canPop = false;
+
+  void _setCanPop(bool canPop) {
+    setState(() {
+      _canPop = canPop;
+    });
+  }
 
   void _onGenderSelect(String gender) {
     if (gender == genderOptions[0]) {
@@ -54,125 +62,159 @@ class _SettingsPageState extends State<SettingsPage> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    context.read<GameStateBloc>().add(SetIsMale(_isMale));
+    context.read<PlayerStateBloc>().add(SetIsMale(_isMale));
+  }
+
+  void _onBackHandler(BuildContext context) {
+    if (!_formKey.currentState!.validate()) {
+      Popups.showMessage(
+        context: context,
+        title: 'Name required',
+        subTitle: 'Please enter a player name',
+      );
+      return;
+    } else {
+      _setCanPop(true);
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _isMale = context.read<PlayerStateBloc>().state.isMale;
+    _playerNameController.text = context.read<PlayerStateBloc>().state.playerName;
+    _country = Country.parse(context.read<PlayerStateBloc>().state.country);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.all(32),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Text(
-                  'Settings',
-                  style: TextStyles.mainHeaderTextStyle,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Player Name',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      TextInput(controller: _playerNameController),
-                    ],
+    return PopScope(
+      canPop: _canPop,
+      onPopInvoked: (pop) {
+        _onBackHandler(context);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.all(32),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text(
+                    'Settings',
+                    style: TextStyles.mainHeaderTextStyle,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Avatar gender',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      DropDownMenu(
-                        options: genderOptions,
-                        onSelect: _onGenderSelect,
-                        chosenValue:
-                            _isMale ? genderOptions[0] : genderOptions[1],
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Player Name',
+                          style: TextStyles.menuWhiteTextStyle,
+                        ),
+                        TextInput(
+                          controller: _playerNameController,
+                          validator: playerNameValidator,
+                          obscureText: false,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Show joystick',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      BlocBuilder<PlayerStateBloc, PlayerState>(
-                          builder: (context, state) {
-                        return DropDownMenu(
-                          options: showControlOptions,
-                          onSelect: (String showControls) {
-                            _onShowControlsSelect(context, showControls);
-                          },
-                          chosenValue: state.showControls ? showControlOptions[0] : showControlOptions[1],
-                        );
-                      }),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Avatar gender',
+                          style: TextStyles.menuWhiteTextStyle,
+                        ),
+                        DropDownMenu(
+                          options: genderOptions,
+                          onSelect: _onGenderSelect,
+                          chosenValue:
+                              _isMale ? genderOptions[0] : genderOptions[1],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Country',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      Text(
-                        _country?.name ?? 'No country selected',
-                        style: _country == null
-                            ? TextStyles.menuRedTextStyle
-                            : TextStyles.menuGreenTextStyle,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Show joystick',
+                          style: TextStyles.menuWhiteTextStyle,
+                        ),
+                        BlocBuilder<PlayerStateBloc, PlayerState>(
+                            builder: (context, state) {
+                          return DropDownMenu(
+                            options: showControlOptions,
+                            onSelect: (String showControls) {
+                              _onShowControlsSelect(context, showControls);
+                            },
+                            chosenValue: state.showControls
+                                ? showControlOptions[0]
+                                : showControlOptions[1],
+                          );
+                        }),
+                      ],
+                    ),
                   ),
-                ),
-                MenuButton(
-                  onPressed: () {
-                    showCountryPicker(
-                      context: context,
-                      onSelect: _onCountrySelect,
-                    );
-                  },
-                  buttonWidth: 400,
-                  text: 'Select your country',
-                  style: TextStyles.menuPurpleTextStyle,
-                ),
-                const SpacerNormal(),
-                MenuButton(
-                  text: 'Save Settings',
-                  style: TextStyles.menuGreenTextStyle,
-                  onPressed: () {
-                    _onSubmit();
-                  },
-                ),
-                const SpacerNormal(),
-                MenuButton(
-                  text: 'Back',
-                  style: TextStyles.menuRedTextStyle,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                const SpacerNormal(),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Country',
+                          style: TextStyles.menuWhiteTextStyle,
+                        ),
+                        Text(
+                          _country?.name ?? 'No country selected',
+                          style: _country == null
+                              ? TextStyles.menuRedTextStyle
+                              : TextStyles.menuGreenTextStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                  MenuButton(
+                    onPressed: () {
+                      showCountryPicker(
+                        context: context,
+                        onSelect: _onCountrySelect,
+                      );
+                    },
+                    buttonWidth: 400,
+                    text: 'Select your country',
+                    style: TextStyles.menuPurpleTextStyle,
+                  ),
+                  const SpacerNormal(),
+                  MenuButton(
+                    text: 'Save Settings',
+                    style: TextStyles.menuGreenTextStyle,
+                    onPressed: () {
+                      _onSubmit();
+                    },
+                  ),
+                  const SpacerNormal(),
+                  MenuButton(
+                    text: 'Back',
+                    style: TextStyles.menuRedTextStyle,
+                    onPressed: () {
+                      _onBackHandler(context);
+                    },
+                  ),
+                  const SpacerNormal(),
+                ],
+              ),
             ),
           ),
         ),

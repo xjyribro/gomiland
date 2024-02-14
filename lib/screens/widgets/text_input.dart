@@ -3,8 +3,19 @@ import 'package:gomiland/constants/styles.dart';
 
 class TextInput extends StatelessWidget {
   final TextEditingController controller;
+  final FormFieldValidator<String> validator;
+  final bool noMaxLen;
+  final Widget? suffixIcon;
+  final bool obscureText;
 
-  const TextInput({super.key, required this.controller});
+  const TextInput({
+    super.key,
+    required this.controller,
+    required this.validator,
+    required this.obscureText,
+    this.noMaxLen = false,
+    this.suffixIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +32,12 @@ class TextInput extends StatelessWidget {
           ),
           filled: true,
           fillColor: Colors.white,
+          suffixIcon: suffixIcon,
         ),
+        obscureText: obscureText,
         controller: controller,
-        validator: (String? value) {
-          final trimmed = (value == null) ? '' : value.trim();
-          return (trimmed.isEmpty) ? 'Name required' : null;
-        },
-        maxLength: 30,
+        validator: validator,
+        maxLength: noMaxLen ? null : 30,
         style: TextStyles.menuBlackTextStyle,
       ),
     );

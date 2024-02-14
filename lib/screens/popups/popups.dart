@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomiland/screens/popups/info_modal.dart';
 
 import 'confirm_action_modal.dart';
 
@@ -15,6 +16,22 @@ class Popups {
             title:
                 'You are not logged in.\nYou will not be able to save your progress.',
             subTitle: 'Continue?');
+      },
+    );
+  }
+
+  static showMessage({
+    required BuildContext context,
+    required title,
+    required subTitle,
+  }) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return InfoModal(
+          title: title,
+          subTitle: subTitle,
+        );
       },
     );
   }

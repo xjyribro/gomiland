@@ -8,7 +8,6 @@ class GameState extends Equatable {
   final int bagSize;
   final int minutes;
   final bool playerFrozen;
-  final bool isMale;
 
   const GameState({
     required this.coinAmount,
@@ -18,7 +17,6 @@ class GameState extends Equatable {
     required this.bagSize,
     required this.minutes,
     required this.playerFrozen,
-    required this.isMale,
   });
 
   const GameState.empty()
@@ -30,7 +28,6 @@ class GameState extends Equatable {
     bagSize: 1,
     minutes: gameStartTime,
     playerFrozen: false,
-    isMale: true,
   );
 
   GameState copyWith({
@@ -41,7 +38,6 @@ class GameState extends Equatable {
     int? bagSize,
     int? minutes,
     bool? playerFrozen,
-    bool? isMale,
   }) {
     return GameState(
       coinAmount: coinAmount ?? this.coinAmount,
@@ -51,7 +47,6 @@ class GameState extends Equatable {
       bagSize: bagSize ?? this.bagSize,
       minutes: minutes ?? this.minutes,
       playerFrozen: playerFrozen ?? this.playerFrozen,
-      isMale: isMale ?? this.isMale,
     );
   }
 

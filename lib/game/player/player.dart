@@ -5,7 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/player_state.dart';
+import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/player/obstacle_checker.dart';
@@ -41,7 +41,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   Future<void> onLoad() async {
-    bool isMale = game.gameStateBloc.state.isMale;
+    bool isMale = game.playerStateBloc.state.isMale;
     final spriteSheet = SpriteSheet(
       image: await Flame.images.load(
         isMale

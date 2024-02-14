@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
+import 'package:gomiland/screens/auth/sign_in.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/settings.dart';
@@ -34,13 +31,10 @@ class _MainMenuState extends State<MainMenu> {
           _isSignedIn = false;
         });
       } else {
-        if (!user.emailVerified) {
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        } else {
-          setState(() {
-            _isSignedIn = true;
-          });
-        }
+        print(user);
+        setState(() {
+          _isSignedIn = true;
+        });
       }
     });
   }
@@ -65,13 +59,13 @@ class _MainMenuState extends State<MainMenu> {
   }
 
   void _goToGame() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
-        return const GameWidgetWrapper();
-      }),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) {
+    //     context.read<GameStateBloc>().add(const SceneChanged(SceneName.hood));
+    //     return const GameWidgetWrapper();
+    //   }),
+    // );
   }
 
   Widget buildMenu() {
@@ -103,14 +97,17 @@ class _MainMenuState extends State<MainMenu> {
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   if (!_isSignedIn) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignInPage(),
+                      ),
+                    );
                     return;
                   }
                   // load saved from firestore
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => const GameWidgetWrapper()),
-                  // );
+                  // if no saved game, go new game
+                  _goToGame();
                 },
               ),
               const SpacerNormal(),

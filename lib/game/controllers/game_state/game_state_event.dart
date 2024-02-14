@@ -62,12 +62,3 @@ class PlayerFrozen extends GameStateEvent {
   @override
   List<Object?> get props => [playerFrozen];
 }
-
-class SetIsMale extends GameStateEvent {
-  const SetIsMale(this.isMale);
-
-  final bool isMale;
-
-  @override
-  List<Object?> get props => [isMale];
-}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gomiland/constants/styles.dart';
 
 class AppleButton extends StatelessWidget {
   final String text;
@@ -26,7 +26,7 @@ class AppleButton extends StatelessWidget {
         onPress();
       },
       child: SizedBox(
-        width: screen.width * 0.6,
+        width: screen.width * 0.4,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -46,12 +46,7 @@ class AppleButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: GoogleFonts.roboto(
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-              ),
+              style: TextStyles().socialAuthButtonStyle,
             ),
             const SizedBox(
               width: 16,

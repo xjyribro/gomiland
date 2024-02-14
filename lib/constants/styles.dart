@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextStyles {
   static const double smallTextSize = 20;
@@ -47,6 +48,12 @@ class TextStyles {
     fontSize: headerTextSize,
     color: GameColors.black,
     fontWeight: FontWeight.bold
+  );
+  final socialAuthButtonStyle = GoogleFonts.roboto(
+    textStyle: const TextStyle(
+      fontSize: 24,
+      color: Colors.black,
+    ),
   );
 }
 

@@ -54,12 +54,6 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
         state.copyWith(playerFrozen: event.playerFrozen),
       ),
     );
-
-    on<SetIsMale>(
-          (event, emit) => emit(
-        state.copyWith(isMale: event.isMale),
-      ),
-    );
   }
 }
 

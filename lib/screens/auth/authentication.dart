@@ -5,34 +5,46 @@ import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gomiland/screens/popups/popups.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-Future<void> login({
+Future<bool> signIn({
   required BuildContext context,
   required String email,
   required String password,
 }) async {
   try {
-    await loginWithUsernameAndPassword(email: email, password: password);
+    await signInWithUsernameAndPassword(email: email, password: password);
+    return true;
   } on FirebaseAuthException catch (e) {
+    print(e);
     if (e.code == 'user-not-found') {
-      if (kDebugMode) {
-        print('user-not-found');
-      }
+      Popups.showMessage(
+        context: context,
+        title: 'Email not found',
+        subTitle:
+            'If you have not created an account, press the "Sign Up" button',
+      );
     } else if (e.code == 'user-disabled') {
-      if (kDebugMode) {
-        print('user-disabled');
-      }
+      Popups.showMessage(
+        context: context,
+        title: 'This email has been suspended',
+        subTitle: '',
+      );
     } else if (e.code == 'wrong-password') {
-      if (kDebugMode) {
-        print('wrong-password');
-      }
+      Popups.showMessage(
+        context: context,
+        title: 'Incorrect password',
+        subTitle:
+            'If you forgot your password, reset it with the "Reset Password" button',
+      );
     }
+    return false;
   }
 }
 
-Future<UserCredential> loginWithUsernameAndPassword({
+Future<UserCredential> signInWithUsernameAndPassword({
   required String email,
   required String password,
 }) async {
@@ -42,7 +54,7 @@ Future<UserCredential> loginWithUsernameAndPassword({
   );
 }
 
-Future<void> signUp({
+Future<bool> signUp({
   required BuildContext context,
   required String email,
   required String password,
@@ -50,22 +62,24 @@ Future<void> signUp({
   try {
     await createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      loginWithUsernameAndPassword(email: email, password: password)
-          .then((userCredentials) async {
-        await userCredentials.user!.sendEmailVerification();
-        await signOut();
-      });
+      signInWithUsernameAndPassword(email: email, password: password);
     });
+    return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'email-already-in-use') {
-      if (kDebugMode) {
-        print('Account exists');
-      }
+      Popups.showMessage(
+        context: context,
+        title: 'Email already in use',
+        subTitle:
+            'If you forgot your password, reset it with the "Reset Password" button',
+      );
     }
+    return false;
   } catch (e) {
     if (kDebugMode) {
       print(e);
     }
+    return false;
   }
 }
 
@@ -79,9 +93,21 @@ Future<UserCredential> createUserWithEmailAndPassword({
   );
 }
 
+const List<String> scopes = <String>[
+  'email',
+  'https://www.googleapis.com/auth/contacts.readonly',
+];
+
 Future<UserCredential?> signInUpWithGoogle() async {
+  GoogleSignIn googleSignIn = GoogleSignIn(scopes: scopes);
+  GoogleSignInAccount? googleSignInAccount =
+  kIsWeb ? await (googleSignIn.signInSilently()) : await (googleSignIn.signIn());
+
+  if (kIsWeb && googleSignInAccount == null) googleSignInAccount = await (googleSignIn.signIn());
+
   try {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser =
+        await GoogleSignIn(scopes: scopes).signIn();
     if (googleUser == null) throw Exception("Not logged in");
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
@@ -136,7 +162,8 @@ Future<void> signInWithApple() async {
   });
 }
 
-Future<AuthorizationCredentialAppleID?> getAppleCredentials(String nonce) async {
+Future<AuthorizationCredentialAppleID?> getAppleCredentials(
+    String nonce) async {
   try {
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [

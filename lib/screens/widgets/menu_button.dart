@@ -25,7 +25,7 @@ class MenuButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),
-          minimumSize: const Size(100, 40), //////// HERE
+          minimumSize: const Size(100, 40),
         ),
         child: Padding(
           padding: const EdgeInsets.only(top: 4.0),
