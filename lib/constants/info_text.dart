@@ -30,4 +30,5 @@ class InfoText{
   static const String sakuras = 'sakuras';
   static const String bee_colony = 'bee_colony';
   static const String world_forest = 'world_forest';
+  static const String how_to_sort = 'Sorting instructions:\n1.';
 }

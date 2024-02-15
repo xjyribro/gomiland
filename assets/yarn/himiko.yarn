@@ -42,6 +42,7 @@ Himiko: Keep trying and you'll get the hang of it.
 Himiko: Here is a bigger bag for you to hold more rubbish.
 Himiko: Let's go clean up Gomiland!
 Himiko: Oh and don't forget to stop and talk to others.
+<<increaseBagSize 10>>
 <<changeState "level_2">>
 ===
 title: level_2
