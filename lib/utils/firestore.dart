@@ -41,9 +41,8 @@ Future<bool> saveGameState({
       Strings.playerYPosit: playerState.playerPosition.y,
       Strings.playerXDir: playerState.playerDirection.x,
       Strings.playerYDir: playerState.playerDirection.y,
-      Strings.savedLocation: playerState.savedLocation.string,
+      Strings.savedLocation: gameState.sceneName.string,
       Strings.coinAmount: gameState.coinAmount,
-      Strings.sceneName: gameState.sceneName.name,
       Strings.bagCount: gameState.bagCount,
       Strings.bagSize: gameState.bagSize,
       Strings.minutes: gameState.minutes,
@@ -72,7 +71,7 @@ Future<bool> saveGameState({
   }
 }
 
-Future<bool> loadPlayerInfo({
+Future<bool> loadSaved({
   required String playerId,
   required BuildContext context,
 }) async {

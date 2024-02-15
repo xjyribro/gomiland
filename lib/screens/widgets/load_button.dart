@@ -25,10 +25,10 @@ class LoadButton extends StatelessWidget {
               onPressed: () async {
                 String? playerId = FirebaseAuth.instance.currentUser?.uid;
                 if (playerId != null) {
-                  await loadPlayerInfo(playerId: playerId, context: context)
+                  await loadSaved(playerId: playerId, context: context)
                       .then((hasData) {
                     if (hasData) {
-                      goToGame(context);
+                      goToGame(context: context, loadFromSave: true);
                     } else {
                       Popups.showMessage(
                         context: context,

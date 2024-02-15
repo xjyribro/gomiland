@@ -35,7 +35,7 @@ class _MainMenuState extends State<MainMenu> {
         setState(() {
           _isSignedIn = true;
         });
-        loadPlayerInfo(
+        loadSaved(
           playerId: user.uid,
           context: context,
         ).then((hasData) {
@@ -86,10 +86,10 @@ class _MainMenuState extends State<MainMenu> {
                   if (!_isSignedIn) {
                     Popups.showUnsavableWarning(
                       context: context,
-                      onAccept: () => goToGame(context),
+                      onAccept: () => goToGame(context: context, loadFromSave: false),
                     );
                   } else {
-                    goToGame(context);
+                    goToGame(context: context, loadFromSave: false);
                   }
                 },
               ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
@@ -50,11 +53,18 @@ void pushReplacementToSettings(BuildContext context) {
   );
 }
 
-void goToGame(BuildContext context) {
+void goToGame({
+  required BuildContext context,
+  required bool loadFromSave,
+}) {
+  if (!loadFromSave) {
+    context.read<ProgressStateBloc>().state.resetProgress(context);
+    context.read<GameStateBloc>().state.resetGameState(context);
+  }
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) {
-      return const GameWidgetWrapper();
+      return GameWidgetWrapper(loadFromSave: loadFromSave);
     }),
   );
 }

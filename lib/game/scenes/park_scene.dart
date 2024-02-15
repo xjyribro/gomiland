@@ -3,7 +3,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
@@ -26,6 +25,7 @@ import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 class ParkMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
@@ -116,7 +116,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
       }
     }
 
-    final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
+    final npcs = map.tileMap.getLayer<ObjectGroup>('npcs');
     if (npcs != null) {
       await _loadNpcs(npcs);
     }
@@ -416,7 +416,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
               hitboxSize: Vector2(192, 128),
-              spritePath: Assets.assets_images_buildings_combini_png,
+              spritePath: Assets.assets_images_buildings_castle_png,
             ),
           );
           break;
@@ -557,19 +557,13 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           );
           break;
         case 'qianbi':
-          await add(
-            QianBi(position: Vector2(npc.x, npc.y)),
-          );
+          await add(QianBi(position: Vector2(npc.x, npc.y)));
           break;
         case 'moon':
-          await add(
-            MrMoon(position: Vector2(npc.x, npc.y)),
-          );
+          await add(MrMoon(position: Vector2(npc.x, npc.y)));
           break;
         case 'manuka':
-          await add(
-            Manuka(position: Vector2(npc.x, npc.y)),
-          );
+          await add(Manuka(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

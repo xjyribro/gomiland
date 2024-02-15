@@ -13,22 +13,38 @@ import 'package:gomiland/game/scenes/scene_name.dart';
 class ClockComponent extends HudMarginComponent {
   ClockComponent({
     required GomilandGame game,
+    required bool loadFromSave,
     super.margin = const EdgeInsets.only(
       left: 518,
       top: 32,
     ),
   }) : super() {
     _game = game;
+    _loadFromSave = loadFromSave;
   }
 
   late TextComponent _timeTextComponent;
   late TextComponent _dayTextComponent;
   late GomilandGame _game;
+  late bool _loadFromSave;
+  late int _gameMins;
   double _seconds = 0;
-  int _gameMins = gameStartTime;
+
+  void onLoadBrightnessCheck() {
+    if (_gameMins >= eveningStartMins) {
+      _game.brightnessOverlay.makeEveningDim();
+    }
+    if (_gameMins >= nightStartMins && _gameMins < morningStartMins) {
+      _game.brightnessOverlay.makeNightDim();
+    }
+    if (_gameMins >= morningStartMins && _gameMins < eveningStartMins) {
+      _game.brightnessOverlay.removeNightDim();
+    }
+  }
 
   @override
   Future<void> onLoad() async {
+    _gameMins = _loadFromSave ? _game.gameStateBloc.state.minutes : gameStartTime;
     _timeTextComponent = TextComponent(
       text: '',
       textRenderer: TextPaint(
@@ -46,13 +62,13 @@ class ClockComponent extends HudMarginComponent {
       position: Vector2(32, 32),
       anchor: Anchor.centerLeft,
     );
-    addAll([_timeTextComponent, _dayTextComponent]);
 
     final SpriteComponent clock = SpriteComponent(
       sprite: await Sprite.load(Assets.assets_images_ui_clock_png),
       anchor: Anchor.center,
     );
-    add(clock);
+    addAll([_timeTextComponent, _dayTextComponent, clock]);
+    onLoadBrightnessCheck();
   }
 
   @override
@@ -63,8 +79,10 @@ class ClockComponent extends HudMarginComponent {
       _gameMins += 1;
       if (_gameMins > minsInADay) {
         _gameMins = 0;
+        _game.gameStateBloc.add(const SetMinsInGame(0));
+      } else {
+        _game.gameStateBloc.add(const AddOneMin());
       }
-      _game.gameStateBloc.add(const AddOneMin());
     }
     if (_gameMins == eveningStartMins) {
       _game.brightnessOverlay.makeEveningDim();

@@ -76,7 +76,8 @@ class PlayerState extends Equatable {
     }
     if (isMale != null) context.read<PlayerStateBloc>().add(SetIsMale(isMale));
     if (playerXPosit != null && playerYPosit != null) {
-      Vector2 position = Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
+      Vector2 position =
+          Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
       context.read<PlayerStateBloc>().add(SetPlayerPosition(position));
     }
     if (playerXDir != null && playerYDir != null) {
@@ -97,5 +98,6 @@ class PlayerState extends Equatable {
         isMale,
         playerName,
         country,
+        savedLocation,
       ];
 }

@@ -92,6 +92,11 @@ class ProgressState extends Equatable {
     );
   }
 
+  void resetProgress(BuildContext context) {
+    context.read<ProgressStateBloc>().add(SetProgressState(
+        hasSave, 'intro', 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1));
+  }
+
   void setProgress({
     required BuildContext context,
     required bool hasSave,

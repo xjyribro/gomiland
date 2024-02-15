@@ -9,10 +9,13 @@ import 'package:gomiland/game/scenes/scene_name.dart';
 
 class GomilandWorld extends World
     with KeyboardHandler, HasGameRef<GomilandGame> {
-  GomilandWorld({super.children});
+  GomilandWorld({super.children, required bool loadFromSave}) : super() {
+    _loadFromSave = loadFromSave;
+  }
 
   SceneName? _newSceneName;
 
+  late bool _loadFromSave;
   late HoodMap hoodMap;
   late ParkMap parkMap;
   late RoomMap roomMap;
@@ -119,8 +122,8 @@ class GomilandWorld extends World
     }
   }
 
-  Future<void> _loadMap() async {
-    if (game.progressStateBloc.state.hasSave) {
+  Future<void> _loadMap(bool loadFromSave) async {
+    if (loadFromSave) {
       SceneName sceneName = game.playerStateBloc.state.savedLocation;
       // saving is prevented when player is in he room
       if (sceneName == SceneName.park) {
@@ -136,7 +139,7 @@ class GomilandWorld extends World
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    await _loadMap();
+    await _loadMap(_loadFromSave);
     gameRef.overlays.add('MuteButton');
   }
 

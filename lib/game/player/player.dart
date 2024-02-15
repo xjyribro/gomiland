@@ -96,7 +96,7 @@ class Player extends SpriteAnimationComponent
     if (game.playerIsFrozen()) return;
 
     if (game.playerStateBloc.state.showControls) {
-      if (game.joystick.direction == JoystickDirection.idle) {
+      if (game.joystick.direction == JoystickDirection.idle || game.joystick.intensity < 0.2) {
         _onJoystickStop();
       } else {
         _moveWithJoystick(game.joystick.direction);

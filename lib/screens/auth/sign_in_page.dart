@@ -70,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
         } else {
           String? playerId = FirebaseAuth.instance.currentUser?.uid;
           if (playerId != null) {
-            await loadPlayerInfo(playerId: playerId, context: context)
+            await loadSaved(playerId: playerId, context: context)
                 .then((hasData) {
               if (hasData) {
                 Navigator.pop(context);
