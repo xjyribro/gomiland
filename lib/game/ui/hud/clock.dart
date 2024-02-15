@@ -3,11 +3,12 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/game/data/days_of_week.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/gomiland_world.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 class ClockComponent extends HudMarginComponent {
   ClockComponent({
@@ -36,8 +37,9 @@ class ClockComponent extends HudMarginComponent {
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
     );
+    int daysInGame = _game.gameStateBloc.state.daysInGame;
     _dayTextComponent = TextComponent(
-      text: '',
+      text: getDayFromInt(daysInGame),
       textRenderer: TextPaint(
         style: TextStyles.hudTextStyle,
       ),
@@ -77,6 +79,8 @@ class ClockComponent extends HudMarginComponent {
       }
     }
     if (_gameMins == nightStartMins) {
+      int daysInGame = _game.gameStateBloc.state.daysInGame;
+      _dayTextComponent.text = getDayFromInt(daysInGame + 1);
       _game.brightnessOverlay.makeNightDim();
       _game.gameStateBloc.add(const IncreaseDays());
     }

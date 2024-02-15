@@ -20,7 +20,8 @@ const double playerSpeed = 6;
 const double maxRaycastDist = 40;
 
 // day cycle
-const gameMinToRealSecond = 0.5;
+// const gameMinToRealSecond = 0.5;
+const gameMinToRealSecond = 0.001;
 const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;

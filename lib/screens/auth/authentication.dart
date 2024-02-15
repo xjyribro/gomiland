@@ -78,8 +78,9 @@ Future<UserCredential?> signInUpWithGoogle() async {
       ? await (googleSignIn.signInSilently())
       : await (googleSignIn.signIn());
 
-  if (kIsWeb && googleSignInAccount == null)
+  if (kIsWeb && googleSignInAccount == null) {
     googleSignInAccount = await (googleSignIn.signIn());
+  }
 
   try {
     final GoogleSignInAccount? googleUser =

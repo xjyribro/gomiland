@@ -36,8 +36,8 @@ class ConfirmActionModal extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            onAccept();
             Navigator.of(context).pop();
+            onAccept();
           },
           child: const Text('Yes'),
         ),

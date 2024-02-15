@@ -55,3 +55,25 @@ extension GetDayOfWeek on String {
     }
   }
 }
+
+String getDayFromInt(int days) {
+  int dayOfWeekInt = days % 7;
+  switch (dayOfWeekInt) {
+    case 0:
+      return DayOfWeekStrings.sunday;
+    case 1:
+      return DayOfWeekStrings.monday;
+    case 2:
+      return DayOfWeekStrings.tuesday;
+    case 3:
+      return DayOfWeekStrings.wednesday;
+    case 4:
+      return DayOfWeekStrings.thursday;
+    case 5:
+      return DayOfWeekStrings.friday;
+    case 6:
+      return DayOfWeekStrings.saturday;
+    default:
+      return DayOfWeekStrings.sunday;
+  }
+}
