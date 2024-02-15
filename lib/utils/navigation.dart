@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/screens/auth/sign_in.dart';
+import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/main_menu.dart';
 import 'package:gomiland/screens/settings.dart';

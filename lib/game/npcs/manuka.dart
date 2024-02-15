@@ -88,6 +88,6 @@ class Manuka extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(ManukaProgressChange(newLevel));
+    game.progressStateBloc.add(SetManukaProgress(newLevel));
   }
 }

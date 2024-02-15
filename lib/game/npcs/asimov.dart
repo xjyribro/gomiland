@@ -89,6 +89,6 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(AsimovProgressChange(newLevel));
+    game.progressStateBloc.add(SetAsimovProgress(newLevel));
   }
 }

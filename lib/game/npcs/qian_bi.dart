@@ -88,6 +88,6 @@ class QianBi extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(QianBiProgressChange(newLevel));
+    game.progressStateBloc.add(SetQianBiProgress(newLevel));
   }
 }

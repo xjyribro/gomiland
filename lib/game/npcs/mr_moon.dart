@@ -88,6 +88,6 @@ class MrMoon extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(MoonProgressChange(newLevel));
+    game.progressStateBloc.add(SetMoonProgress(newLevel));
   }
 }

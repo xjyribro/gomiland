@@ -43,12 +43,12 @@ class _SignInPageState extends State<SignInPage> {
     });
   }
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
     if (!_formKey.currentState!.validate()) return;
     if (_isLoading) return;
     _setIsLoading(true);
     if (_isSignUp) {
-      signUp(
+      await signUp(
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
@@ -60,7 +60,7 @@ class _SignInPageState extends State<SignInPage> {
         }
       });
     } else {
-      signIn(
+      await signIn(
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
@@ -70,9 +70,14 @@ class _SignInPageState extends State<SignInPage> {
         } else {
           String? playerId = FirebaseAuth.instance.currentUser?.uid;
           if (playerId != null) {
-            await loadPlayerInfo(playerId: playerId, context: context);
+            await loadPlayerInfo(playerId: playerId, context: context).then((hasData) {
+              if (hasData) {
+                Navigator.pop(context);
+              } else {
+                goToSettings(context);
+              }
+            });
           }
-          if (context.mounted) Navigator.pop(context);
         }
       });
     }
@@ -129,6 +134,7 @@ class _SignInPageState extends State<SignInPage> {
                   MenuButton(
                     onPressed: _toggleIsSignUp,
                     text: 'Change to ${_isSignUp ? 'Sign In' : 'Sign Up'}',
+                    isLoading: _isLoading,
                   ),
                   const SpacerNormal(),
                   const Text(
@@ -191,6 +197,7 @@ class _SignInPageState extends State<SignInPage> {
                   MenuButton(
                     onPressed: _onSubmit,
                     text: _isSignUp ? 'Sign up' : 'Sign in',
+                    isLoading: _isLoading,
                   ),
                   const SpacerNormal(),
                   const Text('Or sign in with'),
@@ -207,6 +214,7 @@ class _SignInPageState extends State<SignInPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
+                    isLoading: _isLoading,
                   ),
                   const SpacerNormal(),
                 ],

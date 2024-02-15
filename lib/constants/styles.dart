@@ -57,6 +57,15 @@ class TextStyles {
   );
 }
 
+class ContainerStyles {
+  static const gameMenuStyle = BoxDecoration(
+    color: GameColors.black,
+    borderRadius: BorderRadius.all(
+      Radius.circular(64),
+    ),
+  );
+}
+
 class GameColors{
   static const black = Color.fromRGBO(0, 0, 0, 1.0);
   static const white = Color.fromRGBO(255, 255, 255, 1.0);

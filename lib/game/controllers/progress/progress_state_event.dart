@@ -4,8 +4,17 @@ abstract class ProgressStateEvent extends Equatable {
   const ProgressStateEvent();
 }
 
-class PlasticProgressChange extends ProgressStateEvent {
-  const PlasticProgressChange(this.plastic);
+class SetHasSave extends ProgressStateEvent {
+  const SetHasSave(this.hasSave);
+
+  final bool hasSave;
+
+  @override
+  List<Object?> get props => [hasSave];
+}
+
+class SetPlasticProgress extends ProgressStateEvent {
+  const SetPlasticProgress(this.plastic);
 
   final int plastic;
 
@@ -13,8 +22,8 @@ class PlasticProgressChange extends ProgressStateEvent {
   List<Object?> get props => [plastic];
 }
 
-class PaperProgressChange extends ProgressStateEvent {
-  const PaperProgressChange(this.paper);
+class SetPaperProgress extends ProgressStateEvent {
+  const SetPaperProgress(this.paper);
 
   final int paper;
 
@@ -22,8 +31,8 @@ class PaperProgressChange extends ProgressStateEvent {
   List<Object?> get props => [paper];
 }
 
-class MetalProgressChange extends ProgressStateEvent {
-  const MetalProgressChange(this.metal);
+class SetMetalProgress extends ProgressStateEvent {
+  const SetMetalProgress(this.metal);
 
   final int metal;
 
@@ -31,8 +40,8 @@ class MetalProgressChange extends ProgressStateEvent {
   List<Object?> get props => [metal];
 }
 
-class ElectronicsProgressChange extends ProgressStateEvent {
-  const ElectronicsProgressChange(this.electronics);
+class SetElectronicsProgress extends ProgressStateEvent {
+  const SetElectronicsProgress(this.electronics);
 
   final int electronics;
 
@@ -40,8 +49,8 @@ class ElectronicsProgressChange extends ProgressStateEvent {
   List<Object?> get props => [electronics];
 }
 
-class GlassProgressChange extends ProgressStateEvent {
-  const GlassProgressChange(this.glass);
+class SetGlassProgress extends ProgressStateEvent {
+  const SetGlassProgress(this.glass);
 
   final int glass;
 
@@ -49,8 +58,8 @@ class GlassProgressChange extends ProgressStateEvent {
   List<Object?> get props => [glass];
 }
 
-class FoodProgressChange extends ProgressStateEvent {
-  const FoodProgressChange(this.food);
+class SetFoodProgress extends ProgressStateEvent {
+  const SetFoodProgress(this.food);
 
   final int food;
 
@@ -58,8 +67,8 @@ class FoodProgressChange extends ProgressStateEvent {
   List<Object?> get props => [food];
 }
 
-class QianBiProgressChange extends ProgressStateEvent {
-  const QianBiProgressChange(this.qianBi);
+class SetQianBiProgress extends ProgressStateEvent {
+  const SetQianBiProgress(this.qianBi);
 
   final int qianBi;
 
@@ -67,8 +76,8 @@ class QianBiProgressChange extends ProgressStateEvent {
   List<Object?> get props => [qianBi];
 }
 
-class ManukaProgressChange extends ProgressStateEvent {
-  const ManukaProgressChange(this.manuka);
+class SetManukaProgress extends ProgressStateEvent {
+  const SetManukaProgress(this.manuka);
 
   final int manuka;
 
@@ -76,8 +85,8 @@ class ManukaProgressChange extends ProgressStateEvent {
   List<Object?> get props => [manuka];
 }
 
-class StarkProgressChange extends ProgressStateEvent {
-  const StarkProgressChange(this.stark);
+class SetStarkProgress extends ProgressStateEvent {
+  const SetStarkProgress(this.stark);
 
   final int stark;
 
@@ -85,8 +94,8 @@ class StarkProgressChange extends ProgressStateEvent {
   List<Object?> get props => [stark];
 }
 
-class AsimovProgressChange extends ProgressStateEvent {
-  const AsimovProgressChange(this.asimov);
+class SetAsimovProgress extends ProgressStateEvent {
+  const SetAsimovProgress(this.asimov);
 
   final int asimov;
 
@@ -94,8 +103,8 @@ class AsimovProgressChange extends ProgressStateEvent {
   List<Object?> get props => [asimov];
 }
 
-class RisaProgressChange extends ProgressStateEvent {
-  const RisaProgressChange(this.risa);
+class SetRisaProgress extends ProgressStateEvent {
+  const SetRisaProgress(this.risa);
 
   final int risa;
 
@@ -103,8 +112,8 @@ class RisaProgressChange extends ProgressStateEvent {
   List<Object?> get props => [risa];
 }
 
-class MoonProgressChange extends ProgressStateEvent {
-  const MoonProgressChange(this.moon);
+class SetMoonProgress extends ProgressStateEvent {
+  const SetMoonProgress(this.moon);
 
   final int moon;
 
@@ -112,8 +121,8 @@ class MoonProgressChange extends ProgressStateEvent {
   List<Object?> get props => [moon];
 }
 
-class WrongProgressChange extends ProgressStateEvent {
-  const WrongProgressChange(this.wrong);
+class SetWrongProgress extends ProgressStateEvent {
+  const SetWrongProgress(this.wrong);
 
   final int wrong;
 
@@ -121,11 +130,66 @@ class WrongProgressChange extends ProgressStateEvent {
   List<Object?> get props => [wrong];
 }
 
-class NeighbourStateChange extends ProgressStateEvent {
-  const NeighbourStateChange(this.neighbour);
+class SetNeighbourState extends ProgressStateEvent {
+  const SetNeighbourState(this.neighbour);
 
   final String neighbour;
 
   @override
   List<Object?> get props => [neighbour];
+}
+
+class SetProgressState extends ProgressStateEvent {
+  const SetProgressState(
+    this.hasSave,
+    this.neighbour,
+    this.plastic,
+    this.paper,
+    this.metal,
+    this.electronics,
+    this.glass,
+    this.food,
+    this.wrong,
+    this.manuka,
+    this.qianBi,
+    this.risa,
+    this.stark,
+    this.asimov,
+    this.moon,
+  );
+
+  final bool hasSave;
+  final String neighbour;
+  final int plastic;
+  final int paper;
+  final int metal;
+  final int electronics;
+  final int glass;
+  final int food;
+  final int wrong;
+  final int manuka;
+  final int qianBi;
+  final int risa;
+  final int stark;
+  final int asimov;
+  final int moon;
+
+  @override
+  List<Object?> get props => [
+        hasSave,
+        neighbour,
+        plastic,
+        paper,
+        metal,
+        electronics,
+        glass,
+        food,
+        wrong,
+        manuka,
+        qianBi,
+        risa,
+        stark,
+        asimov,
+        moon,
+      ];
 }

@@ -90,6 +90,6 @@ class Risa extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(RisaProgressChange(newLevel));
+    game.progressStateBloc.add(SetRisaProgress(newLevel));
   }
 }

@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
     String playerName = _playerNameController.text;
     String country = _country!.name;
-    context.read<PlayerStateBloc>().state.setPlayerBloc(
+    context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
           playerName: playerName,
           country: country,

@@ -11,6 +11,7 @@ import 'package:gomiland/screens/auth/authentication.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
 
 class MainMenu extends StatefulWidget {
@@ -34,6 +35,11 @@ class _MainMenuState extends State<MainMenu> {
       } else {
         setState(() {
           _isSignedIn = true;
+        });
+        loadPlayerInfo(playerId: user.uid, context: context).then((hasData) {
+          if (!hasData) {
+            goToSettings(context);
+          }
         });
       }
     });
@@ -86,19 +92,26 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
-              BlocBuilder<ProgressStateBloc, ProgressState>(
-                builder: (context, state) => Column(
-                  children: [
-                    MenuButton(
-                      text: 'Load game',
-                      onPressed: () {
-                        goToGame(context);
-                      },
-                    ),
-                    const SpacerNormal(),
-                  ],
-                ),
-              ),
+              _isSignedIn
+                  ? BlocBuilder<ProgressStateBloc, ProgressState>(
+                      builder: (context, state) {
+                      if (state.hasSave) {
+                        return Column(
+                          children: [
+                            MenuButton(
+                              text: 'Load game',
+                              style: TextStyles.menuPurpleTextStyle,
+                              onPressed: () {
+                                goToGame(context);
+                              },
+                            ),
+                            const SpacerNormal(),
+                          ],
+                        );
+                      }
+                      return Container();
+                    })
+                  : Container(),
               MenuButton(
                 text: _isSignedIn ? 'Sign out' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,

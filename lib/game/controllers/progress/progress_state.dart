@@ -3,6 +3,7 @@
 part of 'progress_state_bloc.dart';
 
 class ProgressState extends Equatable {
+  final bool hasSave;
   final int plastic;
   final int paper;
   final int metal;
@@ -19,6 +20,7 @@ class ProgressState extends Equatable {
   final String neighbour;
 
   const ProgressState({
+    required this.hasSave,
     required this.plastic,
     required this.paper,
     required this.metal,
@@ -37,6 +39,7 @@ class ProgressState extends Equatable {
 
   const ProgressState.empty()
       : this(
+          hasSave: false,
           plastic: 0,
           paper: 0,
           metal: 0,
@@ -54,6 +57,7 @@ class ProgressState extends Equatable {
         );
 
   ProgressState copyWith({
+    bool? hasSave,
     int? plastic,
     int? paper,
     int? metal,
@@ -70,6 +74,7 @@ class ProgressState extends Equatable {
     String? neighbour,
   }) {
     return ProgressState(
+      hasSave: hasSave ?? this.hasSave,
       plastic: plastic ?? this.plastic,
       paper: paper ?? this.paper,
       metal: metal ?? this.metal,
@@ -87,8 +92,48 @@ class ProgressState extends Equatable {
     );
   }
 
+  void setProgress({
+    required BuildContext context,
+    required bool hasSave,
+    required String neighbour,
+    required int plastic,
+    required int paper,
+    required int metal,
+    required int electronics,
+    required int glass,
+    required int food,
+    required int wrong,
+    required int manuka,
+    required int qianBi,
+    required int risa,
+    required int stark,
+    required int asimov,
+    required int moon,
+  }) {
+    context.read<ProgressStateBloc>().add(
+          SetProgressState(
+            hasSave,
+            neighbour,
+            plastic,
+            paper,
+            metal,
+            electronics,
+            glass,
+            food,
+            wrong,
+            manuka,
+            qianBi,
+            risa,
+            stark,
+            asimov,
+            moon,
+          ),
+        );
+  }
+
   @override
   List<Object?> get props => [
+        hasSave,
         plastic,
         paper,
         metal,

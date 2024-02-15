@@ -88,6 +88,6 @@ class Stark extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(StarkProgressChange(newLevel));
+    game.progressStateBloc.add(SetStarkProgress(newLevel));
   }
 }

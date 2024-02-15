@@ -52,15 +52,31 @@ class PlayerState extends Equatable {
     );
   }
 
-  void setPlayerBloc({
+  void setPlayerState({
     required BuildContext context,
-    required String playerName,
-    required String country,
-    required bool isMale,
+    String? playerName,
+    String? country,
+    bool? isMale,
+    num? playerXPosit,
+    num? playerYPosit,
+    num? playerXDir,
+    num? playerYDir,
   }) {
-    context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
-    context.read<PlayerStateBloc>().add(SetIsMale(isMale));
-    context.read<PlayerStateBloc>().add(SetCountry(country));
+    if (playerName != null) {
+      context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
+    }
+    if (country != null) {
+      context.read<PlayerStateBloc>().add(SetCountry(country));
+    }
+    if (isMale != null) context.read<PlayerStateBloc>().add(SetIsMale(isMale));
+    if (playerXPosit != null && playerYPosit != null) {
+      Vector2 position = Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
+      context.read<PlayerStateBloc>().add(PlayerPositionChange(position));
+    }
+    if (playerXDir != null && playerYDir != null) {
+      Vector2 direction = Vector2(playerXDir.toDouble(), playerYDir.toDouble());
+      context.read<PlayerStateBloc>().add(PlayerDirectionChange(direction));
+    }
   }
 
   @override

@@ -1,12 +1,14 @@
 // ignore_for_file: file_names
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
-part 'game_state_event.dart';
 part 'game_state.dart';
+
+part 'game_state_event.dart';
 
 class GameStateBloc extends Bloc<GameStateEvent, GameState> {
   GameStateBloc() : super(const GameState.empty()) {
@@ -16,7 +18,7 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
-    on<CoinAmountChange>(
+    on<SetCoinAmount>(
       (event, emit) {
         int coinAmount = state.coinAmount + event.coinAmount;
         return emit(
@@ -31,13 +33,13 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
-    on<BagCountChange>(
+    on<SetBagCount>(
       (event, emit) => emit(
         state.copyWith(bagCount: event.bagCount),
       ),
     );
 
-    on<BagSizeChange>(
+    on<SetBagSize>(
       (event, emit) => emit(
         state.copyWith(bagSize: event.bagSize),
       ),
@@ -49,6 +51,12 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
+    on<SetMinsInGame>(
+      (event, emit) => emit(
+        state.copyWith(minutes: event.minutes),
+      ),
+    );
+
     on<PlayerFrozen>(
       (event, emit) => emit(
         state.copyWith(playerFrozen: event.playerFrozen),
@@ -56,10 +64,28 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     );
 
     on<IncreaseDays>(
-          (event, emit) => emit(
+      (event, emit) => emit(
         state.copyWith(daysInGame: state.daysInGame + 1),
+      ),
+    );
+
+    on<SetDaysInGame>(
+      (event, emit) => emit(
+        state.copyWith(daysInGame: event.days),
+      ),
+    );
+
+    on<SetGameState>(
+      (event, emit) => emit(
+        state.copyWith(
+          sceneName: event.sceneName,
+          coinAmount: event.coinAmount,
+          bagCount: event.bagCount,
+          bagSize: event.bagSize,
+          minutes: event.minutes,
+          daysInGame: event.daysInGame,
+        ),
       ),
     );
   }
 }
-

@@ -57,9 +57,34 @@ const levelTwoBaseInt = 100;
 const completedCharInt = 200;
 
 class Strings {
-  static const String minecraft = 'minecraft';
+  static const minecraft = 'minecraft';
   static const playersCollection = 'players';
+  static const hasSave = 'hasSave';
   static const playerName = 'playerName';
   static const country = 'country';
   static const isMale = 'isMale';
+  static const playerXPosit = 'playerXPosit';
+  static const playerYPosit = 'playerYPosit';
+  static const playerXDir = 'playerXDir';
+  static const playerYDir = 'playerYDir';
+  static const coinAmount = 'coinAmount';
+  static const sceneName = 'sceneName';
+  static const bagCount = 'bagCount';
+  static const bagSize = 'bagSize';
+  static const minutes = 'minutes';
+  static const daysInGame = 'daysInGame';
+  static const plastic = 'plastic';
+  static const paper = 'paper';
+  static const metal = 'metal';
+  static const electronics = 'electronics';
+  static const glass = 'glass';
+  static const food = 'food';
+  static const wrong = 'wrong';
+  static const manuka = 'manuka';
+  static const qianBi = 'qianBi';
+  static const risa = 'risa';
+  static const stark = 'stark';
+  static const asimov = 'asimov';
+  static const moon = 'moon';
+  static const neighbour = 'neighbour';
 }
