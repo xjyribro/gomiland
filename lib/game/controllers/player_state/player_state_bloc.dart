@@ -4,21 +4,28 @@ import 'package:flame/components.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 part 'player_state_event.dart';
 part 'player_state.dart';
 
 class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
   PlayerStateBloc() : super(PlayerState.empty()) {
-    on<PlayerPositionChange>(
+    on<SetPlayerPosition>(
       (event, emit) => emit(
         state.copyWith(playerPosition: event.playerPosition),
       ),
     );
 
-    on<PlayerDirectionChange>(
+    on<SetPlayerDirection>(
       (event, emit) => emit(
         state.copyWith(playerDirection: event.playerDirection),
+      ),
+    );
+
+    on<SetSavedLocation>(
+          (event, emit) => emit(
+        state.copyWith(savedLocation: event.playerLocation),
       ),
     );
 

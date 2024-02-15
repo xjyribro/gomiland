@@ -81,8 +81,8 @@ class GomilandGame extends FlameGame
   }) : world = GomilandWorld() {
     cameraComponent = CameraComponent.withFixedResolution(
       world: world,
-      width: 800,
-      height: 400,
+      width: viewportWidth,
+      height: viewportHeight,
     );
     images.prefix = '';
   }

@@ -1,14 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/screens/auth/authentication.dart';
 import 'package:gomiland/screens/popups/popups.dart';
+import 'package:gomiland/screens/widgets/load_button.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/utils/firestore.dart';
@@ -36,7 +35,10 @@ class _MainMenuState extends State<MainMenu> {
         setState(() {
           _isSignedIn = true;
         });
-        loadPlayerInfo(playerId: user.uid, context: context).then((hasData) {
+        loadPlayerInfo(
+          playerId: user.uid,
+          context: context,
+        ).then((hasData) {
           if (!hasData) {
             goToSettings(context);
           }
@@ -92,26 +94,7 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
-              _isSignedIn
-                  ? BlocBuilder<ProgressStateBloc, ProgressState>(
-                      builder: (context, state) {
-                      if (state.hasSave) {
-                        return Column(
-                          children: [
-                            MenuButton(
-                              text: 'Load game',
-                              style: TextStyles.menuPurpleTextStyle,
-                              onPressed: () {
-                                goToGame(context);
-                              },
-                            ),
-                            const SpacerNormal(),
-                          ],
-                        );
-                      }
-                      return Container();
-                    })
-                  : Container(),
+              _isSignedIn ? const LoadButton() : Container(),
               MenuButton(
                 text: _isSignedIn ? 'Sign out' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,

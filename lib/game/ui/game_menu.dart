@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -34,14 +35,23 @@ class _GameMenuState extends State<GameMenu> {
 
   Future<void> _saveGame(User user) async {
     _setIsLoading(true);
-    await saveGameState(playerId: user.uid, context: context).then((success) {
+    SceneName sceneName = widget.game.gameStateBloc.state.sceneName;
+    if (sceneName == SceneName.room) {
       Popups.showMessage(
         context: context,
-        title: success ? 'Saving game successful' : 'Saving game failed',
-        subTitle:
-            success ? '' : 'Please check internet connection and try again',
+        title: 'Exit room to save game',
+        subTitle: '',
       );
-    });
+    } else {
+      await saveGameState(playerId: user.uid, context: context).then((success) {
+        Popups.showMessage(
+          context: context,
+          title: success ? 'Saving game successful' : 'Saving game failed',
+          subTitle:
+          success ? '' : 'Please check internet connection and try again',
+        );
+      });
+    }
     _setIsLoading(false);
   }
 

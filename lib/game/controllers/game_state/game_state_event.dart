@@ -90,7 +90,6 @@ class SetDaysInGame extends GameStateEvent {
 
 class SetGameState extends GameStateEvent {
   const SetGameState(
-    this.sceneName,
     this.coinAmount,
     this.bagCount,
     this.bagSize,
@@ -98,7 +97,6 @@ class SetGameState extends GameStateEvent {
     this.daysInGame,
   );
 
-  final SceneName sceneName;
   final int coinAmount;
   final int bagCount;
   final int bagSize;
@@ -107,7 +105,6 @@ class SetGameState extends GameStateEvent {
 
   @override
   List<Object?> get props => [
-        sceneName,
         coinAmount,
         bagCount,
         bagSize,

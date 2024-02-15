@@ -78,7 +78,6 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     on<SetGameState>(
       (event, emit) => emit(
         state.copyWith(
-          sceneName: event.sceneName,
           coinAmount: event.coinAmount,
           bagCount: event.bagCount,
           bagSize: event.bagSize,

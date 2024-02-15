@@ -6,6 +6,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 Future<void> savePlayerInfo({
   required String playerId,
@@ -40,6 +41,7 @@ Future<bool> saveGameState({
       Strings.playerYPosit: playerState.playerPosition.y,
       Strings.playerXDir: playerState.playerDirection.x,
       Strings.playerYDir: playerState.playerDirection.y,
+      Strings.savedLocation: playerState.savedLocation.string,
       Strings.coinAmount: gameState.coinAmount,
       Strings.sceneName: gameState.sceneName.name,
       Strings.bagCount: gameState.bagCount,
@@ -83,6 +85,7 @@ Future<bool> loadPlayerInfo({
       return false;
     } else {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      String savedLocation = data[Strings.savedLocation] ?? SceneName.hood.string;
       context.read<PlayerStateBloc>().state.setPlayerState(
             context: context,
             playerName: data[Strings.playerName] ?? '',
@@ -92,14 +95,14 @@ Future<bool> loadPlayerInfo({
             playerYPosit: data[Strings.playerYPosit],
             playerXDir: data[Strings.playerXDir],
             playerYDir: data[Strings.playerYDir],
+            savedLocation: savedLocation.sceneName,
           );
       context.read<GameStateBloc>().state.setGameState(
             context: context,
-            sceneName: data[Strings.sceneName] ?? '',
             coinAmount: data[Strings.coinAmount] ?? 0,
             bagCount: data[Strings.bagCount] ?? 0,
-            bagSize: data[Strings.bagSize] ?? 0,
-            minutes: data[Strings.minutes] ?? 0,
+            bagSize: data[Strings.bagSize] ?? 1,
+            minutes: data[Strings.minutes] ?? gameStartTime,
             daysInGame: data[Strings.daysInGame] ?? 0,
           );
       context.read<ProgressStateBloc>().state.setProgress(
@@ -113,12 +116,12 @@ Future<bool> loadPlayerInfo({
             glass: data[Strings.glass] ?? 0,
             food: data[Strings.food] ?? 0,
             wrong: data[Strings.wrong] ?? 0,
-            manuka: data[Strings.manuka] ?? 0,
-            qianBi: data[Strings.qianBi] ?? 0,
-            risa: data[Strings.risa] ?? 0,
-            stark: data[Strings.stark] ?? 0,
-            asimov: data[Strings.asimov] ?? 0,
-            moon: data[Strings.moon] ?? 0,
+            manuka: data[Strings.manuka] ?? -1,
+            qianBi: data[Strings.qianBi] ?? -1,
+            risa: data[Strings.risa] ?? -1,
+            stark: data[Strings.stark] ?? -1,
+            asimov: data[Strings.asimov] ?? -1,
+            moon: data[Strings.moon] ?? -1,
           );
       return true;
     }

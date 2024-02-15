@@ -40,13 +40,16 @@ import 'package:gomiland/game/scenes/gate.dart';
 class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
   late Vector2 _playerStartPosit;
+  late Vector2 _playerStartLookDir;
 
   HoodMap({
     required Function setNewSceneName,
     required Vector2 playerStartPosit,
+    required Vector2 playerStartLookDir,
   }) : super() {
     _setNewSceneName = setNewSceneName;
     _playerStartPosit = playerStartPosit;
+    _playerStartLookDir = playerStartLookDir;
   }
 
   void turnOnLights() {
@@ -120,7 +123,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       _loadNpcs(npcs);
     }
 
-    await _loadPlayer(_playerStartPosit);
+    await _loadPlayer(_playerStartPosit, _playerStartLookDir);
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
@@ -158,8 +161,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
   }
 
-  Future<void> _loadPlayer(Vector2 position) async {
-    Player player = Player(position: position);
+  Future<void> _loadPlayer(Vector2 position, Vector2 lookDir) async {
+    Player player = Player(position: position, lookDir: lookDir);
     await add(player);
     game.cameraComponent.follow(player);
   }

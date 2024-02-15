@@ -57,7 +57,6 @@ class GameState extends Equatable {
 
   void setGameState({
     required BuildContext context,
-    required String sceneName,
     required int coinAmount,
     required int bagCount,
     required int bagSize,
@@ -66,7 +65,6 @@ class GameState extends Equatable {
   }) {
     context.read<GameStateBloc>().add(
           SetGameState(
-            sceneName.sceneName,
             coinAmount,
             bagCount,
             bagSize,

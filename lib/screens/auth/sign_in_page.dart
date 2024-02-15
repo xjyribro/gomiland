@@ -70,7 +70,8 @@ class _SignInPageState extends State<SignInPage> {
         } else {
           String? playerId = FirebaseAuth.instance.currentUser?.uid;
           if (playerId != null) {
-            await loadPlayerInfo(playerId: playerId, context: context).then((hasData) {
+            await loadPlayerInfo(playerId: playerId, context: context)
+                .then((hasData) {
               if (hasData) {
                 Navigator.pop(context);
               } else {
@@ -87,13 +88,14 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _loginWithGoogle() async {
     if (_isLoading) return;
     _setIsLoading(true);
-    await signInUpWithGoogle().onError((e, s) {
+    await signInUpWithGoogle()
+        .then((value) => Navigator.pop(context))
+        .onError((e, s) {
       Popups.showMessage(
         context: context,
         title: 'Unable to sign in with Google',
         subTitle: 'Please check web connection and try again',
       );
-      return null;
     });
     _setIsLoading(false);
   }
@@ -101,13 +103,14 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _loginWithApple() async {
     if (_isLoading) return;
     _setIsLoading(true);
-    await signInWithApple().onError((e, s) {
+    await signInWithApple()
+        .then((value) => Navigator.pop(context))
+        .onError((e, s) {
       Popups.showMessage(
         context: context,
         title: 'Unable to sign in with Apple',
         subTitle: 'Please check web connection and try again',
       );
-      return null;
     });
     _setIsLoading(false);
   }

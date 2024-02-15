@@ -3,6 +3,7 @@ part of 'player_state_bloc.dart';
 class PlayerState extends Equatable {
   final Vector2 playerPosition;
   final Vector2 playerDirection;
+  final SceneName savedLocation;
   final bool showControls;
   final bool isMale;
   final String playerName;
@@ -19,6 +20,7 @@ class PlayerState extends Equatable {
     required this.isMale,
     required this.playerName,
     required this.country,
+    required this.savedLocation,
   });
 
   PlayerState.empty()
@@ -30,6 +32,7 @@ class PlayerState extends Equatable {
           isMale: true,
           playerName: '',
           country: '',
+          savedLocation: SceneName.hood,
         );
 
   PlayerState copyWith({
@@ -40,6 +43,7 @@ class PlayerState extends Equatable {
     bool? isMale,
     String? playerName,
     String? country,
+    SceneName? savedLocation,
   }) {
     return PlayerState(
       playerPosition: playerPosition ?? this.playerPosition,
@@ -49,6 +53,7 @@ class PlayerState extends Equatable {
       isMale: isMale ?? this.isMale,
       playerName: playerName ?? this.playerName,
       country: country ?? this.country,
+      savedLocation: savedLocation ?? this.savedLocation,
     );
   }
 
@@ -57,6 +62,7 @@ class PlayerState extends Equatable {
     String? playerName,
     String? country,
     bool? isMale,
+    SceneName? savedLocation,
     num? playerXPosit,
     num? playerYPosit,
     num? playerXDir,
@@ -71,11 +77,14 @@ class PlayerState extends Equatable {
     if (isMale != null) context.read<PlayerStateBloc>().add(SetIsMale(isMale));
     if (playerXPosit != null && playerYPosit != null) {
       Vector2 position = Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
-      context.read<PlayerStateBloc>().add(PlayerPositionChange(position));
+      context.read<PlayerStateBloc>().add(SetPlayerPosition(position));
     }
     if (playerXDir != null && playerYDir != null) {
       Vector2 direction = Vector2(playerXDir.toDouble(), playerYDir.toDouble());
-      context.read<PlayerStateBloc>().add(PlayerDirectionChange(direction));
+      context.read<PlayerStateBloc>().add(SetPlayerDirection(direction));
+    }
+    if (savedLocation != null) {
+      context.read<PlayerStateBloc>().add(SetSavedLocation(savedLocation));
     }
   }
 

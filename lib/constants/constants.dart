@@ -2,6 +2,8 @@
 const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
+const double viewportWidth = 800;
+const double viewportHeight = 400;
 
 // ui
 const double boxMarginFromLeft = 28;
@@ -10,18 +12,18 @@ const double boxMarginFromLeft = 28;
 const double tileSize = 32;
 const double parkStartX = 96;
 const double parkStartY = 3660;
-const double hoodStartFromRoomX = 1585;
-const double hoodStartFromRoomY = 578;
+const double hoodStartFromRoomX = 1780;
+const double hoodStartFromRoomY = 580;
 const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 6;
+const double playerSpeed = 3;
 const double maxRaycastDist = 40;
 
 // day cycle
-// const gameMinToRealSecond = 0.5;
-const gameMinToRealSecond = 0.001;
+const gameMinToRealSecond = 0.5;
+// const gameMinToRealSecond = 0.001;
 const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;
@@ -67,6 +69,7 @@ class Strings {
   static const playerYPosit = 'playerYPosit';
   static const playerXDir = 'playerXDir';
   static const playerYDir = 'playerYDir';
+  static const savedLocation = 'savedLocation';
   static const coinAmount = 'coinAmount';
   static const sceneName = 'sceneName';
   static const bagCount = 'bagCount';

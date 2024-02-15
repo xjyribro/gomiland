@@ -4,8 +4,8 @@ abstract class PlayerStatesEvent extends Equatable {
   const PlayerStatesEvent();
 }
 
-class PlayerPositionChange extends PlayerStatesEvent {
-  const PlayerPositionChange(this.playerPosition);
+class SetPlayerPosition extends PlayerStatesEvent {
+  const SetPlayerPosition(this.playerPosition);
 
   final Vector2 playerPosition;
 
@@ -13,13 +13,22 @@ class PlayerPositionChange extends PlayerStatesEvent {
   List<Object?> get props => [playerPosition];
 }
 
-class PlayerDirectionChange extends PlayerStatesEvent {
-  const PlayerDirectionChange(this.playerDirection);
+class SetPlayerDirection extends PlayerStatesEvent {
+  const SetPlayerDirection(this.playerDirection);
 
   final Vector2 playerDirection;
 
   @override
   List<Object?> get props => [playerDirection];
+}
+
+class SetSavedLocation extends PlayerStatesEvent {
+  const SetSavedLocation(this.playerLocation);
+
+  final SceneName playerLocation;
+
+  @override
+  List<Object?> get props => [playerLocation];
 }
 
 class PlayerHitboxChange extends PlayerStatesEvent {
