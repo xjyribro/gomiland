@@ -20,28 +20,26 @@ import 'package:gomiland/game/objects/buildings/temizuya.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/scenes/utils.dart';
 
 class ParkMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
-  late Vector2 _playerStartPosit;
-  late Vector2 _playerStartLookDir;
+  late bool _loadFromSave;
 
   ParkMap({
     required Function setNewSceneName,
-    required Vector2 playerStartPosit,
-    required Vector2 playerStartLookDir,
+    required bool loadFromSave,
   }) : super() {
     _setNewSceneName = setNewSceneName;
-    _playerStartPosit = playerStartPosit;
-    _playerStartLookDir = playerStartLookDir;
+    _loadFromSave = loadFromSave;
   }
 
   void turnOnLights() {
@@ -109,30 +107,14 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
     if (spawners != null) {
-      final spawnerCount = spawners.objects.length;
-      List<int> parkSpawnList = generateRandomSpawnerList(
-          spawnerCount, (spawnerCount * spawnRatio).floor());
-      for (int i = 0; i < spawnerCount; i++) {
-        if (parkSpawnList.contains(i+1)) {
-          final spawner = spawners.objects[i];
-          await add(
-            RubbishSpawner(
-              position: Vector2(spawner.x, spawner.y),
-              sceneName: SceneName.park,
-              index: i,
-            ),
-          );
-        }
-      }
-      game.gameStateBloc.add(SetParkSpawnersList(parkSpawnList));
+      await _loadSpawners(spawners);
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npcs');
     if (npcs != null) {
       await _loadNpcs(npcs);
     }
-
-    await _loadPlayer(_playerStartPosit, _playerStartLookDir);
+    await _loadPlayer();
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
@@ -180,8 +162,15 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
   }
 
-  Future<void> _loadPlayer(Vector2 position, Vector2 lookDir) async {
-    Player player = Player(position: position, lookDir: lookDir);
+  Future<void> _loadPlayer() async {
+    Vector2 playerStartPosit = _loadFromSave
+        ? game.playerStateBloc.state.playerPosition
+        : getPlayerParkStartPosit();
+    Vector2 playerStartLookDir = _loadFromSave
+        ? game.playerStateBloc.state.playerDirection
+        : getPlayerParkStartLookDir();
+    Player player =
+        Player(position: playerStartPosit, lookDir: playerStartLookDir);
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -215,6 +204,30 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final animatedWater = await animationCompiler.compile();
     animatedWater.priority = -1;
     add(animatedWater);
+  }
+
+  Future<void> _loadSpawners(ObjectGroup spawners) async {
+    final spawnerCount = spawners.objects.length;
+    List<int> parkSpawnList = [];
+    if (_loadFromSave) {
+      parkSpawnList = game.gameStateBloc.state.parkSpawners;
+    } else {
+      parkSpawnList = generateRandomSpawnerList(
+          spawnerCount, (spawnerCount * spawnRatio).floor());
+    }
+    for (int i = 0; i < spawnerCount; i++) {
+      if (parkSpawnList.contains(i + 1)) {
+        final spawner = spawners.objects[i];
+        await add(
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+            sceneName: SceneName.park,
+            index: i,
+          ),
+        );
+      }
+    }
+    game.gameStateBloc.add(SetParkSpawnersList(parkSpawnList));
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {

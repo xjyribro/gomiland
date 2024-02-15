@@ -38,20 +38,18 @@ import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/scenes/utils.dart';
 
 class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
-  late Vector2 _playerStartPosit;
-  late Vector2 _playerStartLookDir;
+  late bool _loadFromSave;
 
   HoodMap({
     required Function setNewSceneName,
-    required Vector2 playerStartPosit,
-    required Vector2 playerStartLookDir,
+    required bool loadFromSave,
   }) : super() {
     _setNewSceneName = setNewSceneName;
-    _playerStartPosit = playerStartPosit;
-    _playerStartLookDir = playerStartLookDir;
+    _loadFromSave = loadFromSave;
   }
 
   void turnOnLights() {
@@ -111,26 +109,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
     if (spawners != null) {
-      final spawnerCount = spawners.objects.length;
-      List<int> hoodSpawnList = generateRandomSpawnerList(
-          spawnerCount, (spawnerCount * spawnRatio).floor());
-      if (!hoodSpawnList.contains(0)) {
-        // rubbish always appears outside the house
-        hoodSpawnList.add(0);
-      }
-      for (int i = 0; i < spawnerCount; i++) {
-        if (hoodSpawnList.contains(i)) {
-          final spawner = spawners.objects[i];
-          await add(
-            RubbishSpawner(
-              position: Vector2(spawner.x, spawner.y),
-              sceneName: SceneName.hood,
-              index: i,
-            ),
-          );
-        }
-      }
-      game.gameStateBloc.add(SetHoodSpawnersList(hoodSpawnList));
+      await _loadSpawners(spawners);
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
@@ -138,7 +117,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       await _loadNpcs(npcs);
     }
 
-    await _loadPlayer(_playerStartPosit, _playerStartLookDir);
+    await _loadPlayer();
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
@@ -176,8 +155,14 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
   }
 
-  Future<void> _loadPlayer(Vector2 position, Vector2 lookDir) async {
-    Player player = Player(position: position, lookDir: lookDir);
+  Future<void> _loadPlayer() async {
+    Vector2 playerStartPosit = _loadFromSave
+        ? game.playerStateBloc.state.playerPosition
+        : getPlayerHoodStartPosit(game);
+    Vector2 playerStartLookDir = _loadFromSave
+        ? game.playerStateBloc.state.playerDirection
+        : getPlayerHoodStartLookDir();
+    Player player = Player(position: playerStartPosit, lookDir: playerStartLookDir);
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -211,6 +196,34 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     final animatedWater = await animationCompiler.compile();
     animatedWater.priority = -1;
     add(animatedWater);
+  }
+
+  Future<void> _loadSpawners(ObjectGroup spawners) async {
+    final spawnerCount = spawners.objects.length;
+    List<int> hoodSpawnList = [];
+    if (_loadFromSave) {
+      hoodSpawnList = game.gameStateBloc.state.hoodSpawners;
+    } else {
+      hoodSpawnList = generateRandomSpawnerList(
+          spawnerCount, (spawnerCount * spawnRatio).floor());
+      if (!hoodSpawnList.contains(0)) {
+        // rubbish always appears outside the house
+        hoodSpawnList.add(0);
+      }
+    }
+    for (int i = 0; i < spawnerCount; i++) {
+      if (hoodSpawnList.contains(i)) {
+        final spawner = spawners.objects[i];
+        await add(
+            RubbishSpawner(
+              position: Vector2(spawner.x, spawner.y),
+              sceneName: SceneName.hood,
+              index: i,
+            ),
+        );
+      }
+    }
+    game.gameStateBloc.add(SetHoodSpawnersList(hoodSpawnList));
   }
 
   Future<void> _loadSigns(ObjectGroup signs) async {

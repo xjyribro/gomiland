@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/hood_scene.dart';
@@ -24,39 +23,11 @@ class GomilandWorld extends World
     _newSceneName = newSceneName;
   }
 
-  Vector2 getPlayerHoodStartPosit() {
-    SceneName sceneName = game.gameStateBloc.state.sceneName;
-    final bool comingFromPark = sceneName == SceneName.park;
-    Vector2 playerStartPosit = comingFromPark
-        ? Vector2(hoodStartFromParkX, hoodStartFromParkY)
-        : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
-    return playerStartPosit;
-  }
-
-  Vector2 getPlayerParkStartPosit() {
-    return Vector2(parkStartX, parkStartY);
-  }
-
-  Vector2 getPlayerParkStartLookDir() {
-    return Vector2(1, 0);
-  }
-
-  Vector2 getPlayerHoodStartLookDir() {
-    return Vector2(0, 1);
-  }
-
   Future<void> _loadHoodMap(bool fromSave) async {
     game.overlays.add('Loading');
-    Vector2 playerStartPosit = fromSave
-        ? game.playerStateBloc.state.playerPosition
-        : getPlayerHoodStartPosit();
-    Vector2 playerStartLookDir = fromSave
-        ? game.playerStateBloc.state.playerDirection
-        : getPlayerHoodStartLookDir();
     hoodMap = HoodMap(
       setNewSceneName: setNewSceneName,
-      playerStartPosit: playerStartPosit,
-      playerStartLookDir: playerStartLookDir,
+      loadFromSave: _loadFromSave,
     );
     await add(hoodMap);
     game.addHudComponentsForWorld();
@@ -66,16 +37,9 @@ class GomilandWorld extends World
 
   Future<void> _loadParkMap(bool fromSave) async {
     game.overlays.add('Loading');
-    Vector2 playerStartPosit = fromSave
-        ? game.playerStateBloc.state.playerPosition
-        : getPlayerParkStartPosit();
-    Vector2 playerStartLookDir = fromSave
-        ? game.playerStateBloc.state.playerDirection
-        : getPlayerParkStartLookDir();
     parkMap = ParkMap(
       setNewSceneName: setNewSceneName,
-      playerStartPosit: playerStartPosit,
-      playerStartLookDir: playerStartLookDir,
+      loadFromSave: _loadFromSave,
     );
     await add(parkMap);
     game.addHudComponentsForWorld();
