@@ -6,13 +6,13 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/main_menu.dart';
-import 'package:gomiland/screens/settings.dart';
+import 'package:gomiland/screens/profile.dart';
 
 void goToSettings(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => const SettingsPage(),
+      builder: (context) => const ProfilePage(),
     ),
   );
 }
@@ -48,7 +48,7 @@ void pushReplacementToSettings(BuildContext context) {
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (context) => const SettingsPage(),
+      builder: (context) => const ProfilePage(),
     ),
   );
 }

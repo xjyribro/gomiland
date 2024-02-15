@@ -42,6 +42,7 @@ class _GameMenuState extends State<GameMenu> {
         title: 'Exit room to save game',
         subTitle: '',
       );
+      _setIsLoading(false);
     } else {
       await Popups.showSaveOverrideWarning(
           context: context,
@@ -56,10 +57,10 @@ class _GameMenuState extends State<GameMenu> {
                     ? ''
                     : 'Please check internet connection and try again',
               );
+              _setIsLoading(false);
             });
           });
     }
-    _setIsLoading(false);
   }
 
   void _returnToMainMenu() {

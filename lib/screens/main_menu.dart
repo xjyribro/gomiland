@@ -109,7 +109,7 @@ class _MainMenuState extends State<MainMenu> {
               ),
               const SpacerNormal(),
               MenuButton(
-                text: 'Settings',
+                text: 'Profile',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   goToSettings(context);
