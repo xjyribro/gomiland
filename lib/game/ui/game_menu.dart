@@ -43,14 +43,21 @@ class _GameMenuState extends State<GameMenu> {
         subTitle: '',
       );
     } else {
-      await saveGameState(playerId: user.uid, context: context).then((success) {
-        Popups.showMessage(
+      await Popups.showSaveOverrideWarning(
           context: context,
-          title: success ? 'Saving game successful' : 'Saving game failed',
-          subTitle:
-          success ? '' : 'Please check internet connection and try again',
-        );
-      });
+          onAccept: () async {
+            await saveGameState(playerId: user.uid, context: context)
+                .then((success) {
+              Popups.showMessage(
+                context: context,
+                title:
+                    success ? 'Saving game successful' : 'Saving game failed',
+                subTitle: success
+                    ? ''
+                    : 'Please check internet connection and try again',
+              );
+            });
+          });
     }
     _setIsLoading(false);
   }

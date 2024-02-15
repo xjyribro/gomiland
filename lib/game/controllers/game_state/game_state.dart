@@ -56,7 +56,9 @@ class GameState extends Equatable {
   }
 
   void resetGameState(BuildContext context) {
-    context.read<GameStateBloc>().add(const SetGameState(0, 0, 1, 0, 0));
+    context
+        .read<GameStateBloc>()
+        .add(const SetGameState(0, 0, 1, gameStartTime, 0));
   }
 
   void setGameState({

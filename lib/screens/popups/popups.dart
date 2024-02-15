@@ -21,6 +21,23 @@ class Popups {
     );
   }
 
+  static showSaveOverrideWarning({
+    required BuildContext context,
+    required Function onAccept,
+  }) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return ConfirmActionModal(
+          onAccept: onAccept,
+          title:
+          'You are saving over a previous save',
+          subTitle: 'Continue?',
+        );
+      },
+    );
+  }
+
   static showMessage({
     required BuildContext context,
     required title,

@@ -17,7 +17,7 @@ Future<void> savePlayerInfo({
   await FirebaseFirestore.instance
       .collection(Strings.playersCollection)
       .doc(playerId)
-      .set({
+      .update({
     Strings.playerName: playerName,
     Strings.country: country,
     Strings.isMale: isMale,
