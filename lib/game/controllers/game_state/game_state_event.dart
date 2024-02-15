@@ -63,6 +63,24 @@ class SetMinsInGame extends GameStateEvent {
   List<Object?> get props => [minutes];
 }
 
+class SetHoodSpawnersList extends GameStateEvent {
+  const SetHoodSpawnersList(this.spawners);
+
+  final List<int> spawners;
+
+  @override
+  List<Object?> get props => [spawners];
+}
+
+class SetParkSpawnersList extends GameStateEvent {
+  const SetParkSpawnersList(this.spawners);
+
+  final List<int> spawners;
+
+  @override
+  List<Object?> get props => [spawners];
+}
+
 class PlayerFrozen extends GameStateEvent {
   const PlayerFrozen(this.playerFrozen);
 
@@ -95,6 +113,8 @@ class SetGameState extends GameStateEvent {
     this.bagSize,
     this.minutes,
     this.daysInGame,
+    this.hoodSpawners,
+    this.parkSpawners,
   );
 
   final int coinAmount;
@@ -102,6 +122,8 @@ class SetGameState extends GameStateEvent {
   final int bagSize;
   final int minutes;
   final int daysInGame;
+  final List<int> hoodSpawners;
+  final List<int> parkSpawners;
 
   @override
   List<Object?> get props => [
@@ -110,5 +132,7 @@ class SetGameState extends GameStateEvent {
         bagSize,
         minutes,
         daysInGame,
+        hoodSpawners,
+        parkSpawners,
       ];
 }

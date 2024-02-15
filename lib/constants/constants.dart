@@ -29,6 +29,7 @@ const morningStartMins = 360;
 const afternoonStartMins = 720;
 const eveningStartMins = 1080;
 const nightStartMins = 0;
+const spawnRatio = .5;
 
 // dialogue
 const double dialogueBoxFontSize = 24;
@@ -88,4 +89,6 @@ class Strings {
   static const asimov = 'asimov';
   static const moon = 'moon';
   static const neighbour = 'neighbour';
+  static const hoodSpawners = 'hoodSpawners';
+  static const parkSpawners = 'parkSpawners';
 }

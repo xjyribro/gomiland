@@ -11,7 +11,7 @@ part 'game_state.dart';
 part 'game_state_event.dart';
 
 class GameStateBloc extends Bloc<GameStateEvent, GameState> {
-  GameStateBloc() : super(const GameState.empty()) {
+  GameStateBloc() : super(GameState.empty()) {
     on<SceneChanged>(
       (event, emit) => emit(
         state.copyWith(sceneName: event.sceneName),
@@ -57,6 +57,18 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
+    on<SetHoodSpawnersList>(
+          (event, emit) => emit(
+        state.copyWith(hoodSpawners: event.spawners),
+      ),
+    );
+
+    on<SetParkSpawnersList>(
+          (event, emit) => emit(
+        state.copyWith(parkSpawners: event.spawners),
+      ),
+    );
+
     on<PlayerFrozen>(
       (event, emit) => emit(
         state.copyWith(playerFrozen: event.playerFrozen),
@@ -83,6 +95,8 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
           bagSize: event.bagSize,
           minutes: event.minutes,
           daysInGame: event.daysInGame,
+          hoodSpawners: event.hoodSpawners,
+          parkSpawners: event.parkSpawners,
         ),
       ),
     );

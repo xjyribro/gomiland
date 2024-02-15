@@ -2,18 +2,27 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:jenny/jenny.dart';
 
-import '../controllers/audio_controller.dart';
-
 class RubbishSpawner extends SpriteComponent
     with HasGameReference<GomilandGame> {
-  RubbishSpawner({required Vector2 position}) : super(position: position);
+  RubbishSpawner({
+    required Vector2 position,
+    required SceneName sceneName,
+    required int index,
+  }) : super(position: position) {
+    _sceneName = sceneName;
+    _index = index;
+  }
 
   late RectangleHitbox _hitbox;
+  late SceneName _sceneName;
+  late int _index;
 
   @override
   Future<void> onLoad() async {
@@ -42,15 +51,27 @@ class RubbishSpawner extends SpriteComponent
     game.unfreezePlayer();
   }
 
+  void _onPickup(int bagCount) {
+    bool isHood = _sceneName == SceneName.hood;
+    List<int> spawners = isHood
+        ? game.gameStateBloc.state.hoodSpawners
+        : game.gameStateBloc.state.parkSpawners;
+    spawners.remove(_index);
+    game.gameStateBloc.add(
+      isHood ? SetHoodSpawnersList(spawners) : SetParkSpawnersList(spawners),
+    );
+    game.gameStateBloc.add(SetBagCount(bagCount + 1));
+    bool isMute = game.gameStateBloc.state.isMute;
+    if (!isMute) Sounds.pickup();
+    sprite = null;
+    remove(_hitbox);
+  }
+
   void pickupRubbish() {
     final int bagCount = game.gameStateBloc.state.bagCount;
     final int bagSize = game.gameStateBloc.state.bagSize;
     if (bagCount < bagSize) {
-      game.gameStateBloc.add(SetBagCount(bagCount + 1));
-      bool isMute = game.gameStateBloc.state.isMute;
-      if (!isMute) Sounds.pickup();
-      sprite = null;
-      remove(_hitbox);
+      _onPickup(bagCount);
     } else {
       _showBagFullMessage();
     }

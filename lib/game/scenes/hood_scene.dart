@@ -3,8 +3,8 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
@@ -31,11 +31,13 @@ import 'package:gomiland/game/objects/buildings/shoukudou.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
+import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
@@ -109,13 +111,26 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
     if (spawners != null) {
-      for (final TiledObject spawner in spawners.objects) {
-        await add(
-          RubbishSpawner(
-            position: Vector2(spawner.x, spawner.y),
-          ),
-        );
+      final spawnerCount = spawners.objects.length;
+      List<int> hoodSpawnList = generateRandomSpawnerList(
+          spawnerCount, (spawnerCount * spawnRatio).floor());
+      if (!hoodSpawnList.contains(0)) {
+        // rubbish always appears outside the house
+        hoodSpawnList.add(0);
       }
+      for (int i = 0; i < spawnerCount; i++) {
+        if (hoodSpawnList.contains(i)) {
+          final spawner = spawners.objects[i];
+          await add(
+            RubbishSpawner(
+              position: Vector2(spawner.x, spawner.y),
+              sceneName: SceneName.hood,
+              index: i,
+            ),
+          );
+        }
+      }
+      game.gameStateBloc.add(SetHoodSpawnersList(hoodSpawnList));
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
