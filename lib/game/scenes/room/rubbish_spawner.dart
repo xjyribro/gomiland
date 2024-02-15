@@ -47,6 +47,9 @@ class RubbishSpawner extends PositionComponent
     game.gameStateBloc.add(SetCoinAmount(reward));
     _showScore(binType, reward);
     _updateProgress(rubbishType);
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _onFirstThrow(true);
+    }
   }
 
   Future<void> _handleWrongBin(
@@ -61,6 +64,9 @@ class RubbishSpawner extends PositionComponent
     game.gameStateBloc.add(SetCoinAmount(-totalFine));
     _updateFailureProgress();
     await _showErrorDialogue(binType, rubbishType, rubbishName);
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _onFirstThrow(false);
+    }
   }
 
   void _updateProgress(RubbishType rubbishType) {
@@ -165,6 +171,12 @@ class RubbishSpawner extends PositionComponent
         .add(SetWrongProgress(game.progressStateBloc.state.wrong + 1));
   }
 
+  void _onFirstThrow(bool isCorrect) {
+    game.progressStateBloc.add(
+      SetNeighbourState('level_1_${isCorrect ? 'correct' : 'incorrect'}'),
+    );
+  }
+
   Future<void> _binCheck(
     RubbishType binType,
     RubbishType rubbishType,
@@ -200,7 +212,8 @@ class RubbishSpawner extends PositionComponent
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject,
         dialogueViews: [game.dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getDialogueName(binType));
+    ProgressState progressState = game.progressStateBloc.state;
+    await dialogueRunner.startDialogue(getDialogueName(binType, progressState));
   }
 
   void _initRewardMap() {

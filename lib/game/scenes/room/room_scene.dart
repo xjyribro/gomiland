@@ -3,7 +3,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
@@ -68,12 +67,6 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
-  void _onFirstThrow(bool isCorrect) {
-    game.progressStateBloc.add(
-      SetNeighbourState('level_1_${isCorrect ? 'correct' : 'incorrect'}'),
-    );
-  }
-
   void _showTutorial() {
     InfoPopupObject infoPopupObject = getInfoPopupObject('how_to_sort');
     InfoPopup popup = InfoPopup(infoPopupObject: infoPopupObject);
@@ -92,8 +85,6 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
     _loadMap(map);
     _centreCamera(centerOfScene);
-
-    add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
 
     final binsLayer = map.tileMap.getLayer<ObjectGroup>('bins');
     if (binsLayer != null) {
@@ -115,5 +106,9 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       setHasUncleared: _setHasUncleared,
     );
     await add(rubbishSpawner);
+    add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _showTutorial();
+    }
   }
 }

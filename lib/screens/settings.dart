@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -76,14 +76,14 @@ class _SettingsPageState extends State<SettingsPage> {
         );
     String? playerId = FirebaseAuth.instance.currentUser?.uid;
     if (playerId != null) {
-      savePlayerInfo(
+      await savePlayerInfo(
         playerId: playerId,
         playerName: playerName,
         country: country,
         isMale: _isMale,
       );
     }
-    pushReplacementToMainMenu(context);
+   if (context.mounted) pushReplacementToMainMenu(context);
   }
 
   void _onBackHandler(BuildContext context) {

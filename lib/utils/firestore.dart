@@ -14,14 +14,29 @@ Future<void> savePlayerInfo({
   required String country,
   required bool isMale,
 }) async {
-  await FirebaseFirestore.instance
+  DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance
       .collection(Strings.playersCollection)
       .doc(playerId)
-      .update({
-    Strings.playerName: playerName,
-    Strings.country: country,
-    Strings.isMale: isMale,
-  });
+      .get();
+  if (doc.exists) {
+    await FirebaseFirestore.instance
+        .collection(Strings.playersCollection)
+        .doc(playerId)
+        .update({
+      Strings.playerName: playerName,
+      Strings.country: country,
+      Strings.isMale: isMale,
+    });
+  } else {
+    await FirebaseFirestore.instance
+        .collection(Strings.playersCollection)
+        .doc(playerId)
+        .set({
+      Strings.playerName: playerName,
+      Strings.country: country,
+      Strings.isMale: isMale,
+    });
+  }
 }
 
 Future<bool> saveGameState({
@@ -35,7 +50,7 @@ Future<bool> saveGameState({
     await FirebaseFirestore.instance
         .collection(Strings.playersCollection)
         .doc(playerId)
-        .set({
+        .update({
       Strings.hasSave: true,
       Strings.playerXPosit: playerState.playerPosition.x,
       Strings.playerYPosit: playerState.playerPosition.y,
@@ -84,7 +99,8 @@ Future<bool> loadSaved({
       return false;
     } else {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      String savedLocation = data[Strings.savedLocation] ?? SceneName.hood.string;
+      String savedLocation =
+          data[Strings.savedLocation] ?? SceneName.hood.string;
       context.read<PlayerStateBloc>().state.setPlayerState(
             context: context,
             playerName: data[Strings.playerName] ?? '',

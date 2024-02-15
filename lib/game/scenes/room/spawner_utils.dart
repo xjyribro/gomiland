@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/rubbish/rubbish.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_object.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
@@ -102,20 +103,20 @@ String getIndefiniteArticle(String word) {
   return '$article $word';
 }
 
-String getDialogueName(RubbishType binType) {
+String getDialogueName(RubbishType binType, ProgressState progressState) {
   switch (binType) {
     case RubbishType.plastic:
-      return 'plastic_error';
+      return progressState.risa < 0 ? 'rubbish_error' : 'plastic_error';
     case RubbishType.electronics:
-      return 'electronics_error';
+      return progressState.asimov < 0 ? 'rubbish_error' : 'electronics_error';
     case RubbishType.glass:
-      return 'glass_error';
+      return progressState.manuka < 0 ? 'rubbish_error' : 'glass_error';
     case RubbishType.food:
-      return 'food_error';
+      return progressState.moon < 0 ? 'rubbish_error' : 'food_error';
     case RubbishType.metal:
-      return 'metal_error';
+      return progressState.stark < 0 ? 'rubbish_error' : 'metal_error';
     case RubbishType.paper:
-      return 'paper_error';
+      return progressState.qianBi < 0 ? 'rubbish_error' : 'paper_error';
     default:
       return 'rubbish_error';
   }
