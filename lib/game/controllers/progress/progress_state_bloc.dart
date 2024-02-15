@@ -86,7 +86,7 @@ class ProgressStateBloc extends Bloc<ProgressStateEvent, ProgressState> {
 
     on<NeighbourStateChange>(
           (event, emit) => emit(
-        state.copyWith(neighbourState: event.neighbourState),
+        state.copyWith(neighbour: event.neighbour),
       ),
     );
   }

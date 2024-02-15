@@ -3,7 +3,7 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';

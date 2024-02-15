@@ -3,7 +3,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
@@ -21,6 +21,7 @@ class ClockComponent extends HudMarginComponent {
   }
 
   late TextComponent _timeTextComponent;
+  late TextComponent _dayTextComponent;
   late GomilandGame _game;
   double _seconds = 0;
   int _gameMins = gameStartTime;
@@ -35,7 +36,15 @@ class ClockComponent extends HudMarginComponent {
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
     );
-    add(_timeTextComponent);
+    _dayTextComponent = TextComponent(
+      text: '',
+      textRenderer: TextPaint(
+        style: TextStyles.hudTextStyle,
+      ),
+      position: Vector2(32, 32),
+      anchor: Anchor.centerLeft,
+    );
+    addAll([_timeTextComponent, _dayTextComponent]);
 
     final SpriteComponent clock = SpriteComponent(
       sprite: await Sprite.load(Assets.assets_images_ui_clock_png),
@@ -69,6 +78,7 @@ class ClockComponent extends HudMarginComponent {
     }
     if (_gameMins == nightStartMins) {
       _game.brightnessOverlay.makeNightDim();
+      _game.gameStateBloc.add(const IncreaseDays());
     }
     if (_gameMins == morningStartMins) {
       _game.brightnessOverlay.removeNightDim();

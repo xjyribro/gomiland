@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/scenes/room/score_text_component.dart';
 
 class Bin extends PositionComponent {
@@ -27,10 +27,9 @@ class Bin extends PositionComponent {
   void showScore(int score) {
     String sign = score > 0 ? '+' : '';
     ScoreTextComponent scoreText = ScoreTextComponent(
-      text: '$sign $score',
-      position: _openingPosition + Vector2.all(24),
-      color: score > 0 ? Colors.lightGreen : Colors.redAccent
-    );
+        text: '$sign $score',
+        position: _openingPosition + Vector2.all(24),
+        color: score > 0 ? Colors.lightGreen : Colors.redAccent);
     add(scoreText);
   }
 

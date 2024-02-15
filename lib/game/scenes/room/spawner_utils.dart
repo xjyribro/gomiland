@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
-import 'package:gomiland/game/data/rubbish.dart';
+import 'package:gomiland/game/data/rubbish/rubbish.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_object.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/scenes/room/rubbish_component.dart';
 
 Future<RubbishComponent> getRubbishComponent(Function binCheck) async {

@@ -122,10 +122,10 @@ class WrongProgressChange extends ProgressStateEvent {
 }
 
 class NeighbourStateChange extends ProgressStateEvent {
-  const NeighbourStateChange(this.neighbourState);
+  const NeighbourStateChange(this.neighbour);
 
-  final String neighbourState;
+  final String neighbour;
 
   @override
-  List<Object?> get props => [neighbourState];
+  List<Object?> get props => [neighbour];
 }

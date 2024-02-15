@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/screens/auth/sign_in.dart';

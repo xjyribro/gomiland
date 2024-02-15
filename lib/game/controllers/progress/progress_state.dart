@@ -16,7 +16,7 @@ class ProgressState extends Equatable {
   final int stark;
   final int asimov;
   final int moon;
-  final String neighbourState;
+  final String neighbour;
 
   const ProgressState({
     required this.plastic,
@@ -32,7 +32,7 @@ class ProgressState extends Equatable {
     required this.stark,
     required this.asimov,
     required this.moon,
-    required this.neighbourState,
+    required this.neighbour,
   });
 
   const ProgressState.empty()
@@ -44,13 +44,13 @@ class ProgressState extends Equatable {
           glass: 0,
           food: 0,
           wrong: 0,
-          manuka: 40,
-          qianBi: 120,
-          risa: 200,
-          stark: 199,
-          asimov: 0,
+          manuka: -1,
+          qianBi: -1,
+          risa: -1,
+          stark: -1,
+          asimov: -1,
           moon: -1,
-          neighbourState: 'intro',
+          neighbour: 'intro',
         );
 
   ProgressState copyWith({
@@ -67,7 +67,7 @@ class ProgressState extends Equatable {
     int? stark,
     int? asimov,
     int? moon,
-    String? neighbourState,
+    String? neighbour,
   }) {
     return ProgressState(
       plastic: plastic ?? this.plastic,
@@ -83,7 +83,7 @@ class ProgressState extends Equatable {
       stark: stark ?? this.stark,
       asimov: asimov ?? this.asimov,
       moon: moon ?? this.moon,
-      neighbourState: neighbourState ?? this.neighbourState,
+      neighbour: neighbour ?? this.neighbour,
     );
   }
 
@@ -102,5 +102,6 @@ class ProgressState extends Equatable {
         stark,
         asimov,
         moon,
+        neighbour,
       ];
 }

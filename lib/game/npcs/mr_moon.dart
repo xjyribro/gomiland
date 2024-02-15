@@ -5,8 +5,8 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/npcs/utils.dart';
@@ -71,7 +71,7 @@ class MrMoon extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
     int progress =
-    getCharProgress(RubbishType.food, game.progressStateBloc.state);
+        getCharProgress(RubbishType.food, game.progressStateBloc.state);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;

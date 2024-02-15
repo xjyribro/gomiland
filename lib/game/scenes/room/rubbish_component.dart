@@ -1,7 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
 

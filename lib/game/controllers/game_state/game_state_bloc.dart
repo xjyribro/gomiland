@@ -3,7 +3,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 
 part 'game_state_event.dart';
 part 'game_state.dart';
@@ -52,6 +52,12 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     on<PlayerFrozen>(
       (event, emit) => emit(
         state.copyWith(playerFrozen: event.playerFrozen),
+      ),
+    );
+
+    on<IncreaseDays>(
+          (event, emit) => emit(
+        state.copyWith(daysInGame: state.daysInGame + 1),
       ),
     );
   }

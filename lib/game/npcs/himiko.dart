@@ -94,6 +94,6 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
   }
 
   String getDialogueName() {
-    return game.progressStateBloc.state.neighbourState;
+    return game.progressStateBloc.state.neighbour;
   }
 }

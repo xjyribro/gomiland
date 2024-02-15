@@ -62,3 +62,10 @@ class PlayerFrozen extends GameStateEvent {
   @override
   List<Object?> get props => [playerFrozen];
 }
+
+class IncreaseDays extends GameStateEvent {
+  const IncreaseDays();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -8,6 +8,7 @@ class GameState extends Equatable {
   final int bagSize;
   final int minutes;
   final bool playerFrozen;
+  final int daysInGame;
 
   const GameState({
     required this.coinAmount,
@@ -17,6 +18,7 @@ class GameState extends Equatable {
     required this.bagSize,
     required this.minutes,
     required this.playerFrozen,
+    required this.daysInGame,
   });
 
   const GameState.empty()
@@ -24,10 +26,11 @@ class GameState extends Equatable {
     coinAmount: 0,
     isMute: false,
     sceneName: SceneName.menu,
-    bagCount: 1,
+    bagCount: 0,
     bagSize: 1,
     minutes: gameStartTime,
     playerFrozen: false,
+    daysInGame: 0,
   );
 
   GameState copyWith({
@@ -37,6 +40,7 @@ class GameState extends Equatable {
     int? bagCount,
     int? bagSize,
     int? minutes,
+    int? daysInGame,
     bool? playerFrozen,
   }) {
     return GameState(
@@ -47,6 +51,7 @@ class GameState extends Equatable {
       bagSize: bagSize ?? this.bagSize,
       minutes: minutes ?? this.minutes,
       playerFrozen: playerFrozen ?? this.playerFrozen,
+      daysInGame: daysInGame ?? this.daysInGame,
     );
   }
 
@@ -59,5 +64,6 @@ class GameState extends Equatable {
     bagSize,
     minutes,
     playerFrozen,
+    daysInGame,
   ];
 }
