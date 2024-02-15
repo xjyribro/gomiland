@@ -2,10 +2,10 @@ import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/spawner_utils.dart';
 import 'package:jenny/jenny.dart';
@@ -36,7 +36,7 @@ class RubbishSpawner extends PositionComponent
 
   void _removeOneFromBag() {
     int bagCount = game.gameStateBloc.state.bagCount;
-    game.gameStateBloc.add(BagCountChange(bagCount - 1));
+    game.gameStateBloc.add(SetBagCount(bagCount - 1));
   }
 
   void _handleCorrectBin(
@@ -44,9 +44,12 @@ class RubbishSpawner extends PositionComponent
     RubbishType rubbishType,
   ) {
     int reward = _rewardMap[rubbishType] ?? 1;
-    game.gameStateBloc.add(CoinAmountChange(reward));
+    game.gameStateBloc.add(SetCoinAmount(reward));
     _showScore(binType, reward);
     _updateProgress(rubbishType);
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _onFirstThrow(true);
+    }
   }
 
   Future<void> _handleWrongBin(
@@ -58,101 +61,104 @@ class RubbishSpawner extends PositionComponent
     int binFine = _rewardMap[binType] ?? 1;
     int totalFine = rubbishFine + binFine;
     _showScore(binType, -totalFine);
-    game.gameStateBloc.add(CoinAmountChange(-totalFine));
+    game.gameStateBloc.add(SetCoinAmount(-totalFine));
     _updateFailureProgress();
     await _showErrorDialogue(binType, rubbishType, rubbishName);
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _onFirstThrow(false);
+    }
   }
 
   void _updateProgress(RubbishType rubbishType) {
     switch (rubbishType) {
       case RubbishType.plastic:
         int plastic = game.progressStateBloc.state.plastic;
-        game.progressStateBloc.add(PlasticProgressChange(plastic + 1));
+        game.progressStateBloc.add(SetPlasticProgress(plastic + 1));
         int risa = game.progressStateBloc.state.risa;
         if (risa >= levelOneBaseInt && risa < levelTwoBaseInt) {
           risa += 1;
-          game.progressStateBloc.add(RisaProgressChange(
+          game.progressStateBloc.add(SetRisaProgress(
               risa.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
         }
         if (risa >= levelTwoBaseInt && risa < completedCharInt) {
           risa += 1;
-          game.progressStateBloc.add(RisaProgressChange(
+          game.progressStateBloc.add(SetRisaProgress(
               risa.clamp(levelTwoBaseInt, completedCharInt - 1)));
         }
         break;
       case RubbishType.glass:
         int glass = game.progressStateBloc.state.glass;
-        game.progressStateBloc.add(GlassProgressChange(glass + 1));
+        game.progressStateBloc.add(SetGlassProgress(glass + 1));
         int manuka = game.progressStateBloc.state.manuka;
         if (manuka >= levelOneBaseInt && manuka < levelTwoBaseInt) {
           manuka += 1;
           game.progressStateBloc
-              .add(ManukaProgressChange(manuka.clamp(levelOneBaseInt, 199)));
+              .add(SetManukaProgress(manuka.clamp(levelOneBaseInt, 199)));
         }
         if (manuka >= levelTwoBaseInt && manuka < completedCharInt) {
           manuka += 1;
           game.progressStateBloc
-              .add(ManukaProgressChange(manuka.clamp(levelTwoBaseInt, 299)));
+              .add(SetManukaProgress(manuka.clamp(levelTwoBaseInt, 299)));
         }
         break;
       case RubbishType.paper:
         int paper = game.progressStateBloc.state.paper;
-        game.progressStateBloc.add(PaperProgressChange(paper + 1));
+        game.progressStateBloc.add(SetPaperProgress(paper + 1));
         int qianbi = game.progressStateBloc.state.qianBi;
         if (qianbi >= levelOneBaseInt && qianbi < levelTwoBaseInt) {
           qianbi += 1;
           game.progressStateBloc
-              .add(QianBiProgressChange(qianbi.clamp(levelOneBaseInt, 199)));
+              .add(SetQianBiProgress(qianbi.clamp(levelOneBaseInt, 199)));
         }
         if (qianbi >= levelTwoBaseInt && qianbi < completedCharInt) {
           qianbi += 1;
           game.progressStateBloc
-              .add(QianBiProgressChange(qianbi.clamp(levelTwoBaseInt, 299)));
+              .add(SetQianBiProgress(qianbi.clamp(levelTwoBaseInt, 299)));
         }
         break;
       case RubbishType.metal:
         int metal = game.progressStateBloc.state.metal;
-        game.progressStateBloc.add(MetalProgressChange(metal + 1));
+        game.progressStateBloc.add(SetMetalProgress(metal + 1));
         int stark = game.progressStateBloc.state.stark;
         if (stark >= levelOneBaseInt && stark < levelTwoBaseInt) {
           stark += 1;
           game.progressStateBloc
-              .add(StarkProgressChange(stark.clamp(levelOneBaseInt, 199)));
+              .add(SetStarkProgress(stark.clamp(levelOneBaseInt, 199)));
         }
         if (stark >= levelTwoBaseInt && stark < completedCharInt) {
           stark += 1;
           game.progressStateBloc
-              .add(StarkProgressChange(stark.clamp(levelTwoBaseInt, 299)));
+              .add(SetStarkProgress(stark.clamp(levelTwoBaseInt, 299)));
         }
         break;
       case RubbishType.electronics:
         int electronics = game.progressStateBloc.state.electronics;
-        game.progressStateBloc.add(ElectronicsProgressChange(electronics + 1));
+        game.progressStateBloc.add(SetElectronicsProgress(electronics + 1));
         int asimov = game.progressStateBloc.state.asimov;
         if (asimov >= levelOneBaseInt && asimov < levelTwoBaseInt) {
           asimov += 1;
           game.progressStateBloc
-              .add(AsimovProgressChange(asimov.clamp(levelOneBaseInt, 199)));
+              .add(SetAsimovProgress(asimov.clamp(levelOneBaseInt, 199)));
         }
         if (asimov >= levelTwoBaseInt && asimov < completedCharInt) {
           asimov += 1;
           game.progressStateBloc
-              .add(AsimovProgressChange(asimov.clamp(levelTwoBaseInt, 299)));
+              .add(SetAsimovProgress(asimov.clamp(levelTwoBaseInt, 299)));
         }
         break;
       case RubbishType.food:
         int food = game.progressStateBloc.state.food;
-        game.progressStateBloc.add(FoodProgressChange(food + 1));
+        game.progressStateBloc.add(SetFoodProgress(food + 1));
         int moon = game.progressStateBloc.state.moon;
         if (moon >= levelOneBaseInt && moon < levelTwoBaseInt) {
           moon += 1;
           game.progressStateBloc
-              .add(MoonProgressChange(moon.clamp(levelOneBaseInt, 199)));
+              .add(SetMoonProgress(moon.clamp(levelOneBaseInt, 199)));
         }
         if (moon >= levelTwoBaseInt && moon < completedCharInt) {
           moon += 1;
           game.progressStateBloc
-              .add(MoonProgressChange(moon.clamp(levelTwoBaseInt, 299)));
+              .add(SetMoonProgress(moon.clamp(levelTwoBaseInt, 299)));
         }
         break;
       default:
@@ -162,7 +168,13 @@ class RubbishSpawner extends PositionComponent
 
   void _updateFailureProgress() {
     game.progressStateBloc
-        .add(WrongProgressChange(game.progressStateBloc.state.wrong + 1));
+        .add(SetWrongProgress(game.progressStateBloc.state.wrong + 1));
+  }
+
+  void _onFirstThrow(bool isCorrect) {
+    game.progressStateBloc.add(
+      SetNeighbourState('level_1_${isCorrect ? 'correct' : 'incorrect'}'),
+    );
   }
 
   Future<void> _binCheck(
@@ -200,7 +212,8 @@ class RubbishSpawner extends PositionComponent
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject,
         dialogueViews: [game.dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getDialogueName(binType));
+    ProgressState progressState = game.progressStateBloc.state;
+    await dialogueRunner.startDialogue(getDialogueName(binType, progressState));
   }
 
   void _initRewardMap() {

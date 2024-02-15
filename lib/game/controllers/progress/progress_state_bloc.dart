@@ -1,93 +1,125 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'progress_state_event.dart';
 part 'progress_state.dart';
+
+part 'progress_state_event.dart';
 
 class ProgressStateBloc extends Bloc<ProgressStateEvent, ProgressState> {
   ProgressStateBloc() : super(const ProgressState.empty()) {
-    on<PlasticProgressChange>(
-          (event, emit) => emit(
+
+    on<SetHasSave>(
+      (event, emit) => emit(
+        state.copyWith(hasSave: event.hasSave),
+      ),
+    );
+
+    on<SetPlasticProgress>(
+      (event, emit) => emit(
         state.copyWith(plastic: event.plastic),
       ),
     );
 
-    on<PaperProgressChange>(
-          (event, emit) => emit(
+    on<SetPaperProgress>(
+      (event, emit) => emit(
         state.copyWith(paper: event.paper),
       ),
     );
 
-    on<MetalProgressChange>(
-          (event, emit) => emit(
+    on<SetMetalProgress>(
+      (event, emit) => emit(
         state.copyWith(metal: event.metal),
       ),
     );
 
-    on<ElectronicsProgressChange>(
-          (event, emit) => emit(
+    on<SetElectronicsProgress>(
+      (event, emit) => emit(
         state.copyWith(electronics: event.electronics),
       ),
     );
 
-    on<GlassProgressChange>(
-          (event, emit) => emit(
+    on<SetGlassProgress>(
+      (event, emit) => emit(
         state.copyWith(glass: event.glass),
       ),
     );
 
-    on<FoodProgressChange>(
-          (event, emit) => emit(
+    on<SetFoodProgress>(
+      (event, emit) => emit(
         state.copyWith(food: event.food),
       ),
     );
 
-    on<QianBiProgressChange>(
-          (event, emit) => emit(
+    on<SetQianBiProgress>(
+      (event, emit) => emit(
         state.copyWith(qianBi: event.qianBi),
       ),
     );
 
-    on<ManukaProgressChange>(
-          (event, emit) => emit(
+    on<SetManukaProgress>(
+      (event, emit) => emit(
         state.copyWith(manuka: event.manuka),
       ),
     );
 
-    on<StarkProgressChange>(
-          (event, emit) => emit(
+    on<SetStarkProgress>(
+      (event, emit) => emit(
         state.copyWith(stark: event.stark),
       ),
     );
 
-    on<AsimovProgressChange>(
-          (event, emit) => emit(
+    on<SetAsimovProgress>(
+      (event, emit) => emit(
         state.copyWith(asimov: event.asimov),
       ),
     );
 
-    on<RisaProgressChange>(
-          (event, emit) => emit(
+    on<SetRisaProgress>(
+      (event, emit) => emit(
         state.copyWith(risa: event.risa),
       ),
     );
 
-    on<MoonProgressChange>(
-          (event, emit) => emit(
+    on<SetMoonProgress>(
+      (event, emit) => emit(
         state.copyWith(moon: event.moon),
       ),
     );
 
-    on<WrongProgressChange>(
-          (event, emit) => emit(
+    on<SetWrongProgress>(
+      (event, emit) => emit(
         state.copyWith(wrong: event.wrong),
       ),
     );
 
-    on<NeighbourStateChange>(
-          (event, emit) => emit(
-        state.copyWith(neighbourState: event.neighbourState),
+    on<SetNeighbourState>(
+      (event, emit) => emit(
+        state.copyWith(neighbour: event.neighbour),
       ),
     );
+
+    on<SetProgressState>(
+          (event, emit) => emit(
+        state.copyWith(
+          hasSave: event.hasSave,
+          neighbour: event.neighbour,
+          plastic: event.plastic,
+          paper: event.paper,
+          metal: event.metal,
+          electronics: event.electronics,
+          glass: event.glass,
+          food: event.food,
+          wrong: event.wrong,
+          manuka: event.manuka,
+          qianBi: event.qianBi,
+          risa: event.risa,
+          stark: event.stark,
+          asimov: event.asimov,
+          moon: event.moon,
+        ),
+      ),
+    );
+
   }
 }

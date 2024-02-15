@@ -1,28 +1,38 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/controllers/player_state.dart';
+import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/screens/auth/validations.dart';
+import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
+import 'package:gomiland/utils/firestore.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _ProfilePageState extends State<ProfilePage> {
   final List<String> genderOptions = ['Male', 'Female'];
   final List<String> showControlOptions = ['Yes', 'No'];
   final _playerNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Country? _country;
   bool _isMale = true;
+  bool _isLoading = false;
+
+  void _setIsLoading(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
 
   void _onGenderSelect(String gender) {
     if (gender == genderOptions[0]) {
@@ -50,11 +60,51 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
-    context.read<GameStateBloc>().add(SetIsMale(_isMale));
+    if (_country == null) {
+      Popups.showMessage(
+        context: context,
+        title: 'Please select a country',
+        subTitle: '',
+      );
+      return;
+    }
+    _setIsLoading(true);
+    String playerName = _playerNameController.text;
+    String country = _country!.name;
+    context.read<PlayerStateBloc>().state.setPlayerState(
+          context: context,
+          playerName: playerName,
+          country: country,
+          isMale: _isMale,
+        );
+    String? playerId = FirebaseAuth.instance.currentUser?.uid;
+    if (playerId != null) {
+      await savePlayerInfo(
+        playerId: playerId,
+        playerName: playerName,
+        country: country,
+        isMale: _isMale,
+      );
+    }
+    _setIsLoading(false);
+    if (context.mounted) Navigator.pop(context);
+  }
+
+  void _initForm() {
+    _isMale = context.read<PlayerStateBloc>().state.isMale;
+    _playerNameController.text =
+        context.read<PlayerStateBloc>().state.playerName;
+    _country = Country.tryParse(context.read<PlayerStateBloc>().state.country);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initForm();
   }
 
   @override
@@ -70,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 const Text(
-                  'Settings',
+                  'Profile',
                   style: TextStyles.mainHeaderTextStyle,
                 ),
                 Padding(
@@ -82,7 +132,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         'Player Name',
                         style: TextStyles.menuWhiteTextStyle,
                       ),
-                      TextInput(controller: _playerNameController),
+                      TextInput(
+                        controller: _playerNameController,
+                        validator: playerNameValidator,
+                        obscureText: false,
+                      ),
                     ],
                   ),
                 ),
@@ -120,7 +174,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onSelect: (String showControls) {
                             _onShowControlsSelect(context, showControls);
                           },
-                          chosenValue: state.showControls ? showControlOptions[0] : showControlOptions[1],
+                          chosenValue: state.showControls
+                              ? showControlOptions[0]
+                              : showControlOptions[1],
                         );
                       }),
                     ],
@@ -157,19 +213,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SpacerNormal(),
                 MenuButton(
-                  text: 'Save Settings',
+                  text: 'Save and return to main menu',
                   style: TextStyles.menuGreenTextStyle,
                   onPressed: () {
                     _onSubmit();
                   },
-                ),
-                const SpacerNormal(),
-                MenuButton(
-                  text: 'Back',
-                  style: TextStyles.menuRedTextStyle,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+                  isLoading: _isLoading,
                 ),
                 const SpacerNormal(),
               ],

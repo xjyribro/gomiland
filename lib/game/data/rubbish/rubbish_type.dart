@@ -1,4 +1,4 @@
-enum SceneName { menu, hood, park, room }
+enum RubbishType { paper, plastic, metal, electronics, food, glass, unknown }
 
 class RubbishTypeStrings {
   static const String paper = 'paper';
@@ -9,8 +9,6 @@ class RubbishTypeStrings {
   static const String glass = 'glass';
   static const String unknown = 'unknown';
 }
-
-enum RubbishType { paper, plastic, metal, electronics, food, glass, unknown }
 
 extension RubbishTypeExtension on RubbishType {
   String get string {

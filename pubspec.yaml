@@ -24,6 +24,14 @@ dependencies:
   collection: ^1.18.0
   flame_tiled_utils: ^1.1.1
   country_picker: ^2.0.24
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.4
+  google_fonts: ^6.1.0
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^5.0.0
+  crypto: ^3.0.3
+  google_sign_in_web: ^0.12.3+2
 
 dev_dependencies:
   assets_gen: ^1.5.0

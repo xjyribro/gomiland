@@ -35,6 +35,8 @@ class InfoPopData {
     _data['sakuras'] = InfoPopupObject(text: InfoText.sakuras);
     _data['bee_colony'] = InfoPopupObject(text: InfoText.bee_colony);
     _data['world_forest'] = InfoPopupObject(text: InfoText.world_forest);
+    // Room
+    _data['how_to_sort'] = InfoPopupObject(text: InfoText.how_to_sort);
   }
 
   final Map<String, InfoPopupObject> _data = {};

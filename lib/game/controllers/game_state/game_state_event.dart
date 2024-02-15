@@ -13,8 +13,8 @@ class SceneChanged extends GameStateEvent {
   List<Object?> get props => [sceneName];
 }
 
-class CoinAmountChange extends GameStateEvent {
-  const CoinAmountChange(this.coinAmount);
+class SetCoinAmount extends GameStateEvent {
+  const SetCoinAmount(this.coinAmount);
 
   final int coinAmount;
 
@@ -29,8 +29,8 @@ class MuteChanged extends GameStateEvent {
   List<Object?> get props => [];
 }
 
-class BagCountChange extends GameStateEvent {
-  const BagCountChange(this.bagCount);
+class SetBagCount extends GameStateEvent {
+  const SetBagCount(this.bagCount);
 
   final int bagCount;
 
@@ -38,8 +38,8 @@ class BagCountChange extends GameStateEvent {
   List<Object?> get props => [bagCount];
 }
 
-class BagSizeChange extends GameStateEvent {
-  const BagSizeChange(this.bagSize);
+class SetBagSize extends GameStateEvent {
+  const SetBagSize(this.bagSize);
 
   final int bagSize;
 
@@ -54,6 +54,15 @@ class AddOneMin extends GameStateEvent {
   List<Object?> get props => [];
 }
 
+class SetMinsInGame extends GameStateEvent {
+  const SetMinsInGame(this.minutes);
+
+  final int minutes;
+
+  @override
+  List<Object?> get props => [minutes];
+}
+
 class PlayerFrozen extends GameStateEvent {
   const PlayerFrozen(this.playerFrozen);
 
@@ -63,11 +72,43 @@ class PlayerFrozen extends GameStateEvent {
   List<Object?> get props => [playerFrozen];
 }
 
-class SetIsMale extends GameStateEvent {
-  const SetIsMale(this.isMale);
-
-  final bool isMale;
+class IncreaseDays extends GameStateEvent {
+  const IncreaseDays();
 
   @override
-  List<Object?> get props => [isMale];
+  List<Object?> get props => [];
+}
+
+class SetDaysInGame extends GameStateEvent {
+  const SetDaysInGame(this.days);
+
+  final int days;
+
+  @override
+  List<Object?> get props => [days];
+}
+
+class SetGameState extends GameStateEvent {
+  const SetGameState(
+    this.coinAmount,
+    this.bagCount,
+    this.bagSize,
+    this.minutes,
+    this.daysInGame,
+  );
+
+  final int coinAmount;
+  final int bagCount;
+  final int bagSize;
+  final int minutes;
+  final int daysInGame;
+
+  @override
+  List<Object?> get props => [
+        coinAmount,
+        bagCount,
+        bagSize,
+        minutes,
+        daysInGame,
+      ];
 }

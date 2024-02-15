@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextStyles {
   static const double smallTextSize = 20;
@@ -42,6 +43,26 @@ class TextStyles {
   static const creditsTextStyle = TextStyle(
     fontSize: smallTextSize,
     color: GameColors.white,
+  );
+  static const modalHeaderTextStyle = TextStyle(
+    fontSize: headerTextSize,
+    color: GameColors.black,
+    fontWeight: FontWeight.bold
+  );
+  final socialAuthButtonStyle = GoogleFonts.roboto(
+    textStyle: const TextStyle(
+      fontSize: 24,
+      color: Colors.black,
+    ),
+  );
+}
+
+class ContainerStyles {
+  static const gameMenuStyle = BoxDecoration(
+    color: GameColors.black,
+    borderRadius: BorderRadius.all(
+      Radius.circular(64),
+    ),
   );
 }
 

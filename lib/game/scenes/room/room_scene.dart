@@ -2,12 +2,15 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
 import 'package:gomiland/game/scenes/room/rubbish_spawner.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/hud/exit_room_button.dart';
+import 'package:gomiland/game/ui/info_popup/info_popup.dart';
+import 'package:gomiland/game/ui/info_popup/info_popup_data.dart';
 
 class RoomMap extends Component with HasGameReference<GomilandGame> {
   RoomMap({required setNewSceneName}) : super() {
@@ -64,6 +67,12 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
+  void _showTutorial() {
+    InfoPopupObject infoPopupObject = getInfoPopupObject('how_to_sort');
+    InfoPopup popup = InfoPopup(infoPopupObject: infoPopupObject);
+    game.cameraComponent.viewport.add(popup);
+  }
+
   @override
   Future<void> onLoad() async {
     final TiledComponent map = await TiledComponent.load(
@@ -76,8 +85,6 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
     _loadMap(map);
     _centreCamera(centerOfScene);
-
-    add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
 
     final binsLayer = map.tileMap.getLayer<ObjectGroup>('bins');
     if (binsLayer != null) {
@@ -99,5 +106,9 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       setHasUncleared: _setHasUncleared,
     );
     await add(rubbishSpawner);
+    add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
+    if (game.gameStateBloc.state.bagSize < 2) {
+      _showTutorial();
+    }
   }
 }

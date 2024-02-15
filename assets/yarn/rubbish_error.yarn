@@ -1,10 +1,10 @@
 <<character Someone>>
-<<character "Plastic Guy" PlasticGuy>>
+<<character Risa>>
 <<character Manuka>>
 <<character Stark>>
 <<character Asimov>>
 <<character "Qian Bi" QianBi>>
-<<character "Mr Moon" MrMoon>>
+<<character "Mr Moon" Moon>>
 <<declare $rubbishName as String>>
 title: rubbish_error
 ---
@@ -12,7 +12,7 @@ Someone: Wrong!
 ===
 title: plastic_error
 ---
-PlasticGuy: Wrong! {$rubbishName} is not made of plastic.
+Risa: Wrong! {$rubbishName} is not made of plastic.
 ===
 title: glass_error
 ---
@@ -24,12 +24,7 @@ Stark: Wrong! {$rubbishName} is not made of metal.
 ===
 title: electronics_error
 ---
-Asimov: Good morning!
-Asimov: Good afternoon!
--> Yes
-    Asimov: ok!
--> No
-    Asimov: no ok!
+Asimov: Wrong! {$rubbishName} is not electronic waste.
 ===
 title: paper_error
 ---
@@ -37,5 +32,5 @@ QianBi: Wrong! {$rubbishName} is not made of paper.
 ===
 title: food_error
 ---
-MrMoon: Wrong! {$rubbishName} is not food waste.
+Moon: Wrong! {$rubbishName} is not food waste.
 ===

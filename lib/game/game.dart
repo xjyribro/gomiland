@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/day_controller.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/controllers/player_state.dart';
+import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/confirm_exit_game.dart';
 import 'package:gomiland/game/ui/confirm_exit_room.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
@@ -31,7 +31,9 @@ import 'package:gomiland/game/ui/loading_overlay.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
-  const GameWidgetWrapper({super.key});
+  final bool loadFromSave;
+
+  const GameWidgetWrapper({super.key, required this.loadFromSave});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class GameWidgetWrapper extends StatelessWidget {
               playerStateBloc: context.read<PlayerStateBloc>(),
               progressStateBloc: context.read<ProgressStateBloc>(),
               dayStateBloc: context.read<DayStateBloc>(),
+              loadFromSave: loadFromSave,
             ),
             overlayBuilderMap: {
               'Loading': (BuildContext context, GomilandGame game) {
@@ -78,11 +81,12 @@ class GomilandGame extends FlameGame
     required this.playerStateBloc,
     required this.progressStateBloc,
     required this.dayStateBloc,
-  }) : world = GomilandWorld() {
+    required this.loadFromSave,
+  }) : world = GomilandWorld(loadFromSave: loadFromSave) {
     cameraComponent = CameraComponent.withFixedResolution(
       world: world,
-      width: 800,
-      height: 400,
+      width: viewportWidth,
+      height: viewportHeight,
     );
     images.prefix = '';
   }
@@ -93,6 +97,7 @@ class GomilandGame extends FlameGame
   PlayerStateBloc playerStateBloc;
   ProgressStateBloc progressStateBloc;
   DayStateBloc dayStateBloc;
+  bool loadFromSave;
   late final CameraComponent cameraComponent;
 
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
@@ -206,7 +211,10 @@ class GomilandGame extends FlameGame
     );
     final BagComponent bagComponent = BagComponent(game: this);
     final CoinsComponent coinsComponent = CoinsComponent(game: this);
-    final ClockComponent clockComponent = ClockComponent(game: this);
+    final ClockComponent clockComponent = ClockComponent(
+      game: this,
+      loadFromSave: loadFromSave,
+    );
     final GameMenuButton gameMenuButton = GameMenuButton();
     _aButton = AButton(game: this);
     joystick = JoystickComponent(

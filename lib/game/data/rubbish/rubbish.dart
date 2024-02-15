@@ -1,22 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/enums.dart';
-
-class RubbishObject {
-  String name;
-  String assetPath;
-  RubbishType rubbishType;
-  int spriteCount;
-  Vector2 size;
-
-  RubbishObject({
-    required this.name,
-    required this.assetPath,
-    required this.rubbishType,
-    required this.spriteCount,
-    required this.size,
-  });
-}
+import 'package:gomiland/game/data/rubbish/rubbish_object.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 
 class RubbishData {
   RubbishData() {
@@ -28,11 +13,7 @@ class RubbishData {
       cardboardBox,
       flier,
     ];
-    glassObjects = [
-      jar,
-      glassBottle,
-      mug
-    ];
+    glassObjects = [jar, glassBottle, mug];
     electronicObjects = [
       drone,
     ];

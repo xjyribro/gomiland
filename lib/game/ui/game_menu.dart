@@ -1,19 +1,76 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/firestore.dart';
 
-class GameMenu extends StatelessWidget {
+class GameMenu extends StatefulWidget {
   final GomilandGame game;
 
   const GameMenu({super.key, required this.game});
 
   @override
+  State<GameMenu> createState() => _GameMenuState();
+}
+
+class _GameMenuState extends State<GameMenu> {
+  bool _isLoading = false;
+
+  void _setIsLoading(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
+
+  void _resume() {
+    Sounds.resumeBackgroundSound();
+    widget.game.resumeEngine();
+    widget.game.overlays.remove('GameMenu');
+  }
+
+  Future<void> _saveGame(User user) async {
+    _setIsLoading(true);
+    SceneName sceneName = widget.game.gameStateBloc.state.sceneName;
+    if (sceneName == SceneName.room) {
+      Popups.showMessage(
+        context: context,
+        title: 'Exit room to save game',
+        subTitle: '',
+      );
+      _setIsLoading(false);
+    } else {
+      await Popups.showSaveOverrideWarning(
+          context: context,
+          onAccept: () async {
+            await saveGameState(playerId: user.uid, context: context)
+                .then((success) {
+              Popups.showMessage(
+                context: context,
+                title:
+                    success ? 'Saving game successful' : 'Saving game failed',
+                subTitle: success
+                    ? ''
+                    : 'Please check internet connection and try again',
+              );
+              _setIsLoading(false);
+            });
+          });
+    }
+  }
+
+  void _returnToMainMenu() {
+    widget.game.overlays.add('ConfirmExitGame');
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
+    User? user = FirebaseAuth.instance.currentUser;
     return Material(
       color: Colors.transparent,
       child: Container(
@@ -23,14 +80,9 @@ class GameMenu extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
-              height: 600,
+              height: 400,
               width: 400,
-              decoration: const BoxDecoration(
-                color: GameColors.black,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(64),
-                ),
-              ),
+              decoration: ContainerStyles.gameMenuStyle,
               child: Column(
                 children: [
                   const SpacerNormal(),
@@ -40,27 +92,22 @@ class GameMenu extends StatelessWidget {
                   ),
                   const SpacerNormal(),
                   MenuButton(
-                    onPressed: () {
-                      Sounds.resumeBackgroundSound();
-                      game.resumeEngine();
-                      game.overlays.remove('GameMenu');
-                    },
+                    onPressed: _resume,
                     text: 'Resume',
                   ),
                   const SpacerNormal(),
+                  if (user != null) ...[
+                    MenuButton(
+                      onPressed: () {
+                        _saveGame(user);
+                      },
+                      text: 'Save game',
+                      isLoading: _isLoading,
+                    ),
+                    const SpacerNormal(),
+                  ],
                   MenuButton(
-                    onPressed: () {
-                      Sounds.resumeBackgroundSound();
-                      game.resumeEngine();
-                      game.overlays.remove('GameMenu');
-                    },
-                    text: 'Save game',
-                  ),
-                  const SpacerNormal(),
-                  MenuButton(
-                    onPressed: () {
-                      game.overlays.add('ConfirmExitGame');
-                    },
+                    onPressed: _returnToMainMenu,
                     text: 'Back to main menu',
                   ),
                 ],

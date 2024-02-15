@@ -2,6 +2,8 @@
 const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
+const double viewportWidth = 800;
+const double viewportHeight = 400;
 
 // ui
 const double boxMarginFromLeft = 28;
@@ -10,13 +12,13 @@ const double boxMarginFromLeft = 28;
 const double tileSize = 32;
 const double parkStartX = 96;
 const double parkStartY = 3660;
-const double hoodStartFromRoomX = 1585;
-const double hoodStartFromRoomY = 578;
+const double hoodStartFromRoomX = 1780;
+const double hoodStartFromRoomY = 580;
 const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 6;
+const double playerSpeed = 2;
 const double maxRaycastDist = 40;
 
 // day cycle
@@ -29,11 +31,10 @@ const eveningStartMins = 1080;
 const nightStartMins = 0;
 
 // dialogue
-const textSpeed = 100;
 const double dialogueBoxFontSize = 24;
 const double infoPopupFontSize = 16;
 const double dialogueButtonFontSize = 16;
-const double timePerChar = 0.1;
+const double timePerChar = 0.05;
 const int npcDialogueCount = 5;
 
 //animation
@@ -56,5 +57,35 @@ const levelTwoBaseInt = 100;
 const completedCharInt = 200;
 
 class Strings {
-  static const String minecraft = 'minecraft';
+  static const minecraft = 'minecraft';
+  static const playersCollection = 'players';
+  static const hasSave = 'hasSave';
+  static const playerName = 'playerName';
+  static const country = 'country';
+  static const isMale = 'isMale';
+  static const playerXPosit = 'playerXPosit';
+  static const playerYPosit = 'playerYPosit';
+  static const playerXDir = 'playerXDir';
+  static const playerYDir = 'playerYDir';
+  static const savedLocation = 'savedLocation';
+  static const coinAmount = 'coinAmount';
+  static const sceneName = 'sceneName';
+  static const bagCount = 'bagCount';
+  static const bagSize = 'bagSize';
+  static const minutes = 'minutes';
+  static const daysInGame = 'daysInGame';
+  static const plastic = 'plastic';
+  static const paper = 'paper';
+  static const metal = 'metal';
+  static const electronics = 'electronics';
+  static const glass = 'glass';
+  static const food = 'food';
+  static const wrong = 'wrong';
+  static const manuka = 'manuka';
+  static const qianBi = 'qianBi';
+  static const risa = 'risa';
+  static const stark = 'stark';
+  static const asimov = 'asimov';
+  static const moon = 'moon';
+  static const neighbour = 'neighbour';
 }

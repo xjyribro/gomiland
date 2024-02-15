@@ -46,7 +46,7 @@ class RubbishSpawner extends SpriteComponent
     final int bagCount = game.gameStateBloc.state.bagCount;
     final int bagSize = game.gameStateBloc.state.bagSize;
     if (bagCount < bagSize) {
-      game.gameStateBloc.add(BagCountChange(bagCount + 1));
+      game.gameStateBloc.add(SetBagCount(bagCount + 1));
       bool isMute = game.gameStateBloc.state.isMute;
       if (!isMute) Sounds.pickup();
       sprite = null;

@@ -1,68 +1,94 @@
 part of 'game_state_bloc.dart';
 
 class GameState extends Equatable {
-  final int coinAmount;
   final bool isMute;
+  final int coinAmount;
   final SceneName sceneName;
   final int bagCount;
   final int bagSize;
   final int minutes;
+  final int daysInGame;
   final bool playerFrozen;
-  final bool isMale;
 
   const GameState({
-    required this.coinAmount,
     required this.isMute,
+    required this.coinAmount,
     required this.sceneName,
     required this.bagCount,
     required this.bagSize,
     required this.minutes,
+    required this.daysInGame,
     required this.playerFrozen,
-    required this.isMale,
   });
 
   const GameState.empty()
       : this(
-    coinAmount: 0,
-    isMute: false,
-    sceneName: SceneName.menu,
-    bagCount: 1,
-    bagSize: 1,
-    minutes: gameStartTime,
-    playerFrozen: false,
-    isMale: true,
-  );
+          isMute: false,
+          coinAmount: 0,
+          sceneName: SceneName.menu,
+          bagCount: 0,
+          bagSize: 1,
+          minutes: gameStartTime,
+          daysInGame: 0,
+          playerFrozen: false,
+        );
 
   GameState copyWith({
-    int? coinAmount,
     bool? isMute,
+    int? coinAmount,
     SceneName? sceneName,
     int? bagCount,
     int? bagSize,
     int? minutes,
+    int? daysInGame,
     bool? playerFrozen,
-    bool? isMale,
   }) {
     return GameState(
-      coinAmount: coinAmount ?? this.coinAmount,
       isMute: isMute ?? this.isMute,
+      coinAmount: coinAmount ?? this.coinAmount,
       sceneName: sceneName ?? this.sceneName,
       bagCount: bagCount ?? this.bagCount,
       bagSize: bagSize ?? this.bagSize,
       minutes: minutes ?? this.minutes,
+      daysInGame: daysInGame ?? this.daysInGame,
       playerFrozen: playerFrozen ?? this.playerFrozen,
-      isMale: isMale ?? this.isMale,
     );
+  }
+
+  void resetGameState(BuildContext context) {
+    context
+        .read<GameStateBloc>()
+        .add(const SetGameState(0, 0, 1, gameStartTime, 0));
+  }
+
+  void setGameState({
+    required BuildContext context,
+    required int coinAmount,
+    required int bagCount,
+    required int bagSize,
+    required int minutes,
+    required int daysInGame,
+  }) {
+    context.read<GameStateBloc>().add(
+          SetGameState(
+            coinAmount,
+            bagCount,
+            bagSize,
+            minutes,
+            daysInGame,
+          ),
+        );
   }
 
   @override
   List<Object?> get props => [
-    coinAmount,
-    isMute,
-    sceneName,
-    bagCount,
-    bagSize,
-    minutes,
-    playerFrozen,
-  ];
+        coinAmount,
+        isMute,
+        sceneName,
+        bagCount,
+        bagSize,
+        minutes,
+        daysInGame,
+        playerFrozen,
+      ];
 }

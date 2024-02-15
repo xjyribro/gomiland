@@ -1,17 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/constants/enums.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/screens/credits.dart';
-import 'package:gomiland/screens/settings.dart';
+import 'package:gomiland/screens/auth/authentication.dart';
+import 'package:gomiland/screens/popups/popups.dart';
+import 'package:gomiland/screens/widgets/load_button.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/firestore.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key});
@@ -21,12 +21,36 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  bool showSplash = true;
+  bool _showSplash = true;
+  bool _isSignedIn = false;
+
+  void _initAuthStateListener() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (!mounted) return;
+      if (user == null) {
+        setState(() {
+          _isSignedIn = false;
+        });
+      } else {
+        setState(() {
+          _isSignedIn = true;
+        });
+        loadSaved(
+          playerId: user.uid,
+          context: context,
+        ).then((hasData) {
+          if (!hasData) {
+            goToSettings(context);
+          }
+        });
+      }
+    });
+  }
 
   @override
   void initState() {
     Sounds.playMainMenuBgm();
-
+    _initAuthStateListener();
     super.initState();
   }
 
@@ -39,7 +63,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return buildMenu();
-    return showSplash ? buildSplash() : buildMenu(); // REPLACE
+    return _showSplash ? buildSplash() : buildMenu(); // TODO REPLACE
   }
 
   Widget buildMenu() {
@@ -59,40 +83,36 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'New game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      context
-                          .read<GameStateBloc>()
-                          .add(const SceneChanged(SceneName.hood));
-                      return const GameWidgetWrapper();
-                    }),
-                  );
+                  if (!_isSignedIn) {
+                    Popups.showUnsavableWarning(
+                      context: context,
+                      onAccept: () => goToGame(context: context, loadFromSave: false),
+                    );
+                  } else {
+                    goToGame(context: context, loadFromSave: false);
+                  }
+                },
+              ),
+              const SpacerNormal(),
+              _isSignedIn ? const LoadButton() : Container(),
+              MenuButton(
+                text: _isSignedIn ? 'Sign out' : 'Sign in',
+                style: TextStyles.menuPurpleTextStyle,
+                onPressed: () {
+                  if (!_isSignedIn) {
+                    goToSignIn(context);
+                    return;
+                  } else {
+                    signOut();
+                  }
                 },
               ),
               const SpacerNormal(),
               MenuButton(
-                text: 'Load game',
+                text: 'Profile',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GameWidgetWrapper()),
-                  );
-                },
-              ),
-              const SpacerNormal(),
-              MenuButton(
-                text: 'Settings',
-                style: TextStyles.menuPurpleTextStyle,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
-                    ),
-                  );
+                  goToSettings(context);
                 },
               ),
               const SpacerNormal(),
@@ -100,12 +120,7 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CreditsPage(),
-                    ),
-                  );
+                  goToCredits(context);
                 },
               ),
               const MuteButton(),
@@ -122,7 +137,7 @@ class _MainMenuState extends State<MainMenu> {
       theme: FlameSplashTheme.dark,
       onFinish: (BuildContext context) {
         setState(() {
-          showSplash = false;
+          _showSplash = false;
         });
       },
     );
