@@ -31,7 +31,7 @@ class GameState extends Equatable {
           coinAmount: 0,
           sceneName: SceneName.menu,
           bagCount: 0,
-          bagSize: 1,
+          bagSize: 0,
           minutes: gameStartTime,
           daysInGame: 0,
           playerFrozen: false,
@@ -71,7 +71,7 @@ class GameState extends Equatable {
     context.read<GameStateBloc>().add(SetGameState(
           coinAmount: 0,
           bagCount: 0,
-          bagSize: 1,
+          bagSize: 0,
           minutes: gameStartTime,
           daysInGame: 0,
           hoodSpawners: hoodSpawnList,

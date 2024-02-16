@@ -34,6 +34,7 @@ import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
+import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/scenes/utils.dart';
@@ -92,17 +93,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     final gates = map.tileMap.getLayer<ObjectGroup>('gates');
     if (gates != null) {
-      for (final TiledObject object in gates.objects) {
-        SceneName sceneName =
-            object.name == 'park' ? SceneName.park : SceneName.room;
-        await add(
-          Gate(
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(sceneName),
-          ),
-        );
-      }
+      await _loadGates(gates);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
@@ -157,9 +148,16 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     Vector2 playerStartPosit = _loadFromSave
         ? game.playerStateBloc.state.playerPosition
         : getPlayerHoodStartPosit(game);
-    Vector2 playerStartLookDir = _loadFromSave
-        ? game.playerStateBloc.state.playerDirection
-        : getPlayerHoodStartLookDir();
+
+    bool isTutorial = game.gameStateBloc.state.bagSize == 0;
+    if (isTutorial) {
+      game.freezePlayer();
+    }
+    Vector2 playerStartLookDir = isTutorial
+        ? getPlayerTutorialStartLookDir()
+        : _loadFromSave
+            ? game.playerStateBloc.state.playerDirection
+            : getPlayerHoodStartLookDir();
     Player player =
         Player(position: playerStartPosit, lookDir: playerStartLookDir);
     await add(player);
@@ -225,6 +223,35 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     }
   }
 
+  Future<void> _loadGates(ObjectGroup gates) async {
+    for (final TiledObject object in gates.objects) {
+      switch (object.name) {
+        case 'park':
+          await add(
+            Gate(
+                position: Vector2(object.x, object.y),
+                size: Vector2(object.width, object.height),
+                switchScene: () => _setNewSceneName(SceneName.park)),
+          );
+        case 'room':
+          await add(
+            Gate(
+              position: Vector2(object.x, object.y),
+              size: Vector2(object.width, object.height),
+              switchScene: () {
+                int bagCount = game.gameStateBloc.state.bagCount;
+                if (bagCount == 0) {
+                  showBagIsEmptyDialogue(game);
+                } else {
+                  _setNewSceneName(SceneName.room);
+                }
+              },
+            ),
+          );
+      }
+    }
+  }
+
   Future<void> _loadTrees(ObjectGroup trees) async {
     for (final TiledObject tree in trees.objects) {
       switch (tree.name) {
@@ -284,10 +311,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
-      add(Obstacle(
-        position: Vector2(npc.x + 6, npc.y),
-        size: Vector2(20, 32),
-      ));
       switch (npc.name) {
         case 'man':
           await add(
@@ -374,7 +397,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'home':
           await add(
             BuildingWithFade(
-              spritePath:Assets.assets_images_buildings_home_png,
+              spritePath: Assets.assets_images_buildings_home_png,
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
               hitboxSize: Vector2(256, 160),

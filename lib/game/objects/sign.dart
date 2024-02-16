@@ -25,6 +25,7 @@ class Sign extends SpriteComponent with HasGameReference<GomilandGame> {
   }
 
   void readSign() {
+    game.freezePlayer();
     InfoPopupObject infoPopupObject = getInfoPopupObject(_signName);
     InfoPopup popup = InfoPopup(infoPopupObject: infoPopupObject);
     game.cameraComponent.viewport.add(popup);

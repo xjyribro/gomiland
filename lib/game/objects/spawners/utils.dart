@@ -1,8 +1,12 @@
+import 'package:flutter/services.dart';
+import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
+import 'package:jenny/jenny.dart';
 
 List<int> generateRandomSpawnerList(int spawnerCount, int numToPick) {
   List<int> list = List<int>.generate(spawnerCount, (i) => i + 1);
@@ -56,4 +60,22 @@ void playPickUpSound(GomilandGame game) {
 
 void increaseBagCount(GomilandGame game) {
   game.gameStateBloc.add(const AddOneToBag());
+}
+
+Future<void> showBagFullMessage(GomilandGame game) async {
+  game.freezePlayer();
+  DialogueControllerComponent dialogueControllerComponent =
+      game.dialogueControllerComponent;
+  YarnProject yarnProject = YarnProject();
+
+  // DIALOGUE
+  yarnProject.parse(
+    await rootBundle.loadString(Assets.assets_yarn_general_yarn),
+  );
+  DialogueRunner dialogueRunner = DialogueRunner(
+    yarnProject: yarnProject,
+    dialogueViews: [dialogueControllerComponent],
+  );
+  await dialogueRunner.startDialogue('bag_is_full');
+  game.unfreezePlayer();
 }

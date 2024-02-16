@@ -23,3 +23,7 @@ Vector2 getPlayerParkStartLookDir() {
 Vector2 getPlayerHoodStartLookDir() {
   return Vector2(0, 1);
 }
+
+Vector2 getPlayerTutorialStartLookDir() {
+  return Vector2(1, 0);
+}

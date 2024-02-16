@@ -16,6 +16,7 @@ Himiko: First, you have pick up the trash from the street.
 Himiko: There is one right over there!
 Himiko: Pick it up and head home to throw it.
 Himiko: Once you sort your first rubbish come talk to me.
+<<increaseBagSize 1>>
 <<changeState "post_intro">>
 ===
 title: post_intro
@@ -48,6 +49,20 @@ Himiko: Oh and don't forget to stop and talk to others.
 ===
 title: level_2
 ---
-Himiko: Hi! How's the collection going?
-Himiko: Some people give extra incentives for helping them.
+<<if $dayOfWeek == "Monday">>
+    Himiko: Hi! How's the collection going?
+    Himiko: Some people give extra incentives for helping them.
+<<elseif $dayOfWeek == "Tuesday">>
+    Himiko : Happy Tuesday!
+<<elseif $dayOfWeek == "Wednesday">>
+    Himiko : Happy Wednesday!
+<<elseif $dayOfWeek == "Thursday">>
+    Himiko : Happy Thursday!
+<<elseif $dayOfWeek == "Friday">>
+    Himiko : Happy Friday!
+<<elseif $dayOfWeek == "Saturday">>
+    Himiko : Happy Saturday!
+<<elseif $dayOfWeek == "Sunday">>
+    Himiko : Happy Sunday!
+<<endif>>
 ===

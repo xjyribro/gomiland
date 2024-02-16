@@ -3,6 +3,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
 import 'package:gomiland/game/ui/info_popup/info_popup_data.dart';
@@ -60,11 +61,7 @@ class InfoPopupSpriteComponent extends SpriteComponent
         size: Vector2(704, 320),
         position: Vector2(16, 16),
         textRenderer: TextPaint(
-          style: const TextStyle(
-            fontSize: infoPopupFontSize,
-            color: Colors.black,
-            fontFamily: Strings.minecraft,
-          ),
+          style: TextStyles.popupTextStyle,
         ),
       ),
     );

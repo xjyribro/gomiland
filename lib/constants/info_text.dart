@@ -1,7 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 class InfoText{
-  static const String how_to_play = 'How to move:\n'
+  static const String how_to_play =
+      'How to move:\n'
       'For mobile devices, the Directional Joystick and A button is automatically enabled.\n'
       'For Web and desktop, use WASD keys for movement. Use keyboard E for interactions.\n'
       'You can enable the Directional Joystick and A button in settings.\n\n'
@@ -10,8 +11,7 @@ class InfoText{
       '2. Pick up trash on the ground. Press E on the keyboard or use the A button.\n'
       '3. Start conversations people. Press E on the keyboard or use the A button.\n'
       '4. Head home when your bag is full. The current trash amount is on the top of the screen.\n'
-      '5. Sort the items from your bag into the bins. Earn G-coins for getting it right!\n'
-      '6. ';
+      '5. Sort the items from your bag into the bins. Earn G-coins for getting it right!\n';
 
   static const String construction_site = 'construction_site';
   static const String soup_kitchen = 'soup_kitchen';

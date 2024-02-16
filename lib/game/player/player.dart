@@ -36,7 +36,7 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  late RectangleHitbox playerHitbox;
+  late RectangleHitbox _playerHitbox;
 
   bool _isMovingUp = false;
   bool _isMovingDown = false;
@@ -80,14 +80,13 @@ class Player extends SpriteAnimationComponent
         spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = getLookDirAnimation(_initLookDir);
-    playerHitbox = RectangleHitbox(
+    _playerHitbox = RectangleHitbox(
       position: Vector2(16, 16),
       size: Vector2(size.x - 8, size.y - 16),
       anchor: Anchor.topCenter,
     );
-    add(playerHitbox);
-
-    game.playerStateBloc.add(PlayerHitboxChange(playerHitbox));
+    add(_playerHitbox);
+    game.playerStateBloc.add(PlayerHitboxChange(_playerHitbox));
   }
 
   @override

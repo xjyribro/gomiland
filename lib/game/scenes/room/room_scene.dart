@@ -107,7 +107,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     );
     await add(rubbishSpawner);
     add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
-    if (game.gameStateBloc.state.bagSize < 2) {
+    if (game.gameStateBloc.state.bagSize == 1) {
       _showTutorial();
     }
   }

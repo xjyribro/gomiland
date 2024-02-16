@@ -14,7 +14,7 @@ class LoadingOverlay extends StatelessWidget {
         width: size.width,
         child: const Center(
           child: Text(
-            'Loading...\nThis could take up to a minute.\nPlease be patient.',
+            'Loading...\nThis could take up to a minute.',
             style: TextStyles.menuWhiteTextStyle,
           ),
         ),

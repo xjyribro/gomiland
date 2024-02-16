@@ -1,12 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
-import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
-import 'package:jenny/jenny.dart';
 
 class RubbishSpawner extends SpriteComponent
     with HasGameReference<GomilandGame> {
@@ -35,24 +32,6 @@ class RubbishSpawner extends SpriteComponent
     add(_hitbox);
   }
 
-  Future<void> _showBagFullMessage() async {
-    game.freezePlayer();
-    DialogueControllerComponent dialogueControllerComponent =
-        game.dialogueControllerComponent;
-    YarnProject yarnProject = YarnProject();
-
-    // DIALOGUE
-    yarnProject.parse(
-      await rootBundle.loadString(Assets.assets_yarn_general_yarn),
-    );
-    DialogueRunner dialogueRunner = DialogueRunner(
-      yarnProject: yarnProject,
-      dialogueViews: [dialogueControllerComponent],
-    );
-    await dialogueRunner.startDialogue('bag_is_full');
-    game.unfreezePlayer();
-  }
-
   void _onPickup(int bagCount) {
     removeIndexFromSpawnerList(
       game: game,
@@ -71,7 +50,7 @@ class RubbishSpawner extends SpriteComponent
     if (bagCount < bagSize) {
       _onPickup(bagCount);
     } else {
-      _showBagFullMessage();
+      showBagFullMessage(game);
     }
   }
 }

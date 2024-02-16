@@ -32,7 +32,9 @@ class StreetLight extends PositionComponent {
   void removeLight() {
     List<LightSprite> lightChildren = children.query<LightSprite>();
     if (lightChildren.isNotEmpty) {
-      remove(light);
+      for (var light in lightChildren) {
+        light.removeFromParent();
+      }
     }
   }
 }

@@ -57,6 +57,14 @@ class PlayerState extends Equatable {
     );
   }
 
+  void resetPlayerState(BuildContext context) {
+    setPlayerState(
+      context: context,
+      playerXPosit: hoodStartFromRoomX,
+      playerYPosit: hoodStartFromRoomY,
+    );
+  }
+
   void setPlayerState({
     required BuildContext context,
     String? playerName,

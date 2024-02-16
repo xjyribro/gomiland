@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:gomiland/game/player/player.dart';
 
 class Gate extends PositionComponent with CollisionCallbacks {
   Gate({
@@ -24,6 +25,8 @@ class Gate extends PositionComponent with CollisionCallbacks {
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    _switchScene();
+    if (other is Player) {
+      _switchScene();
+    }
   }
 }
