@@ -10,6 +10,7 @@ const double boxMarginFromLeft = 28;
 
 // map
 const double tileSize = 32;
+const int spawnerCount = 100;
 const double parkStartX = 96;
 const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1780;
@@ -29,6 +30,7 @@ const morningStartMins = 360;
 const afternoonStartMins = 720;
 const eveningStartMins = 1080;
 const nightStartMins = 0;
+const newDayMins = 0;
 const spawnRatio = .5;
 
 // dialogue

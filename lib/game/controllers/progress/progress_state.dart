@@ -94,7 +94,22 @@ class ProgressState extends Equatable {
 
   void resetProgress(BuildContext context) {
     context.read<ProgressStateBloc>().add(SetProgressState(
-        hasSave, 'intro', 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1));
+          hasSave: hasSave,
+          neighbour: 'intro',
+          plastic: 0,
+          paper: 0,
+          metal: 0,
+          electronics: 0,
+          glass: 0,
+          food: 0,
+          wrong: 0,
+          manuka: -1,
+          qianBi: -1,
+          risa: -1,
+          stark: -1,
+          asimov: -1,
+          moon: -1,
+        ));
   }
 
   void setProgress({
@@ -117,21 +132,21 @@ class ProgressState extends Equatable {
   }) {
     context.read<ProgressStateBloc>().add(
           SetProgressState(
-            hasSave,
-            neighbour,
-            plastic,
-            paper,
-            metal,
-            electronics,
-            glass,
-            food,
-            wrong,
-            manuka,
-            qianBi,
-            risa,
-            stark,
-            asimov,
-            moon,
+            hasSave: hasSave,
+            neighbour: neighbour,
+            plastic: plastic,
+            paper: paper,
+            metal: metal,
+            electronics: electronics,
+            glass: glass,
+            food: food,
+            wrong: wrong,
+            manuka: manuka,
+            qianBi: qianBi,
+            risa: risa,
+            stark: stark,
+            asimov: asimov,
+            moon: moon,
           ),
         );
   }

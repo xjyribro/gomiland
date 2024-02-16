@@ -4,7 +4,6 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
@@ -33,7 +32,6 @@ import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/gate.dart';
@@ -162,7 +160,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     Vector2 playerStartLookDir = _loadFromSave
         ? game.playerStateBloc.state.playerDirection
         : getPlayerHoodStartLookDir();
-    Player player = Player(position: playerStartPosit, lookDir: playerStartLookDir);
+    Player player =
+        Player(position: playerStartPosit, lookDir: playerStartLookDir);
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -200,30 +199,19 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadSpawners(ObjectGroup spawners) async {
     final spawnerCount = spawners.objects.length;
-    List<int> hoodSpawnList = [];
-    if (_loadFromSave) {
-      hoodSpawnList = game.gameStateBloc.state.hoodSpawners;
-    } else {
-      hoodSpawnList = generateRandomSpawnerList(
-          spawnerCount, (spawnerCount * spawnRatio).floor());
-      if (!hoodSpawnList.contains(0)) {
-        // rubbish always appears outside the house
-        hoodSpawnList.add(0);
-      }
-    }
+    List<int> hoodSpawnList = game.gameStateBloc.state.hoodSpawners;
     for (int i = 0; i < spawnerCount; i++) {
       if (hoodSpawnList.contains(i)) {
         final spawner = spawners.objects[i];
         await add(
-            RubbishSpawner(
-              position: Vector2(spawner.x, spawner.y),
-              sceneName: SceneName.hood,
-              index: i,
-            ),
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+            sceneName: SceneName.hood,
+            index: i,
+          ),
         );
       }
     }
-    game.gameStateBloc.add(SetHoodSpawnersList(hoodSpawnList));
   }
 
   Future<void> _loadSigns(ObjectGroup signs) async {

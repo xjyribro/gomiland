@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
 part 'game_state.dart';
@@ -36,6 +37,12 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     on<SetBagCount>(
       (event, emit) => emit(
         state.copyWith(bagCount: event.bagCount),
+      ),
+    );
+
+    on<AddOneToBag>(
+      (event, emit) => emit(
+        state.copyWith(bagCount: state.bagCount + 1),
       ),
     );
 

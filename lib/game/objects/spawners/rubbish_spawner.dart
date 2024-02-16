@@ -2,9 +2,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:jenny/jenny.dart';
@@ -43,26 +42,21 @@ class RubbishSpawner extends SpriteComponent
     YarnProject yarnProject = YarnProject();
 
     // DIALOGUE
-    yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_general_yarn));
+    yarnProject.parse(
+      await rootBundle.loadString(Assets.assets_yarn_general_yarn),
+    );
     DialogueRunner dialogueRunner = DialogueRunner(
-        yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
+      yarnProject: yarnProject,
+      dialogueViews: [dialogueControllerComponent],
+    );
     await dialogueRunner.startDialogue('bag_is_full');
     game.unfreezePlayer();
   }
 
   void _onPickup(int bagCount) {
-    bool isHood = _sceneName == SceneName.hood;
-    List<int> spawners = isHood
-        ? game.gameStateBloc.state.hoodSpawners
-        : game.gameStateBloc.state.parkSpawners;
-    spawners.remove(_index);
-    game.gameStateBloc.add(
-      isHood ? SetHoodSpawnersList(spawners) : SetParkSpawnersList(spawners),
-    );
-    game.gameStateBloc.add(SetBagCount(bagCount + 1));
-    bool isMute = game.gameStateBloc.state.isMute;
-    if (!isMute) Sounds.pickup();
+    removeIndexFromSpawnerList(game, _sceneName, _index);
+    increaseBagCount(game);
+    playPickUpSound(game);
     sprite = null;
     remove(_hitbox);
   }

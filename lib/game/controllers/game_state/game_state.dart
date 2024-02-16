@@ -66,9 +66,17 @@ class GameState extends Equatable {
   }
 
   void resetGameState(BuildContext context) {
-    context
-        .read<GameStateBloc>()
-        .add(const SetGameState(0, 0, 1, gameStartTime, 0, [], []));
+    List<int> hoodSpawnList = generateNewHoodRubbishList();
+    List<int> parkSpawnList = generateNewParkRubbishList();
+    context.read<GameStateBloc>().add(SetGameState(
+          coinAmount: 0,
+          bagCount: 0,
+          bagSize: 1,
+          minutes: gameStartTime,
+          daysInGame: 0,
+          hoodSpawners: hoodSpawnList,
+          parkSpawners: parkSpawnList,
+        ));
   }
 
   void setGameState({
@@ -83,13 +91,13 @@ class GameState extends Equatable {
   }) {
     context.read<GameStateBloc>().add(
           SetGameState(
-            coinAmount,
-            bagCount,
-            bagSize,
-            minutes,
-            daysInGame,
-            hoodSpawners,
-            parkSpawners,
+            coinAmount: coinAmount,
+            bagCount: bagCount,
+            bagSize: bagSize,
+            minutes: minutes,
+            daysInGame: daysInGame,
+            hoodSpawners: hoodSpawners,
+            parkSpawners: parkSpawners,
           ),
         );
   }

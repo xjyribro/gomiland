@@ -4,7 +4,6 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/manuka.dart';
@@ -22,7 +21,6 @@ import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
@@ -208,13 +206,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadSpawners(ObjectGroup spawners) async {
     final spawnerCount = spawners.objects.length;
-    List<int> parkSpawnList = [];
-    if (_loadFromSave) {
-      parkSpawnList = game.gameStateBloc.state.parkSpawners;
-    } else {
-      parkSpawnList = generateRandomSpawnerList(
-          spawnerCount, (spawnerCount * spawnRatio).floor());
-    }
+    List<int> parkSpawnList = game.gameStateBloc.state.parkSpawners;
     for (int i = 0; i < spawnerCount; i++) {
       if (parkSpawnList.contains(i + 1)) {
         final spawner = spawners.objects[i];
@@ -227,7 +219,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         );
       }
     }
-    game.gameStateBloc.add(SetParkSpawnersList(parkSpawnList));
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {
