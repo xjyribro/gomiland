@@ -19,7 +19,7 @@ Future<RubbishComponent> getRubbishComponent(Function binCheck) async {
 }
 
 RubbishType getRandomRubbishType() {
-  int rand = Random().nextInt(5);
+  int rand = Random().nextInt(6);
   List<RubbishType> types = [
     RubbishType.plastic,
     RubbishType.paper,
@@ -65,9 +65,7 @@ List<RubbishObject> getRubbishListFromDB(RubbishType rubbishType) {
 }
 
 RubbishObject getRandomRubbishObject(List<RubbishObject> rubbishObjects) {
-  int index = rubbishObjects.length > 1
-      ? Random().nextInt(rubbishObjects.length - 1)
-      : 0;
+  int index = Random().nextInt(rubbishObjects.length);
   return rubbishObjects[index];
 }
 
@@ -81,6 +79,7 @@ Future<RubbishComponent> getRubbishComponentFromObject({
     name: rubbishObject.name,
     rubbishType: rubbishObject.rubbishType,
     binCheck: binCheck,
+    hitboxSize: rubbishObject.hitboxSize,
   );
 }
 

@@ -35,7 +35,7 @@ import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/player/utils.dart';
-import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/scenes/utils.dart';
 

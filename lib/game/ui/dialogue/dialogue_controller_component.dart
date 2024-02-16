@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:flame/components.dart' hide Timer;
-import 'package:gomiland/game/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_box.dart';
 import 'package:jenny/jenny.dart';
 
 class DialogueControllerComponent extends Component
     with DialogueView, HasGameReference<GomilandGame> {
-
   Completer<void> _forwardCompleter = Completer();
   Completer<int> _choiceCompleter = Completer<int>();
   Completer<void> _closeCompleter = Completer();
@@ -23,8 +21,6 @@ class DialogueControllerComponent extends Component
   void _goNextLine() {
     if (!_forwardCompleter.isCompleted) {
       _forwardCompleter.complete();
-      bool isMute = game.gameStateBloc.state.isMute;
-      if (!isMute) Sounds.next();
     }
   }
 

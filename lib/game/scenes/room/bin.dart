@@ -6,20 +6,12 @@ import 'package:gomiland/game/scenes/room/score_text_component.dart';
 
 class Bin extends PositionComponent {
   Bin({
-    required Vector2 openingPosition,
-    required Vector2 openingSize,
+    required Vector2 position,
     required RubbishType binType,
-  }) : super() {
-    _openingPosition = openingPosition;
-    _openingSize = openingSize;
+  }) : super(position: position) {
     _binType = binType;
   }
 
-  // game world vars
-  late Vector2 _openingPosition;
-  late Vector2 _openingSize;
-
-  // custom object data
   late RubbishType _binType;
 
   RubbishType get binType => _binType;
@@ -28,7 +20,7 @@ class Bin extends PositionComponent {
     String sign = score > 0 ? '+' : '';
     ScoreTextComponent scoreText = ScoreTextComponent(
         text: '$sign $score',
-        position: _openingPosition + Vector2.all(24),
+        position: Vector2.all(24),
         color: score > 0 ? Colors.lightGreen : Colors.redAccent);
     add(scoreText);
   }
@@ -36,8 +28,8 @@ class Bin extends PositionComponent {
   @override
   Future<void> onLoad() async {
     RectangleHitbox binOpening = RectangleHitbox(
-      position: _openingPosition,
-      size: _openingSize,
+      position: Vector2(16, 16),
+      size: Vector2(32, 32),
     );
     add(binOpening);
   }

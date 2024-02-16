@@ -13,7 +13,11 @@ class RubbishData {
       cardboardBox,
       flier,
     ];
-    glassObjects = [jar, glassBottle, mug];
+    glassObjects = [
+      jar,
+      glassBottle,
+      mug,
+    ];
     electronicObjects = [
       drone,
     ];
@@ -33,6 +37,7 @@ class RubbishData {
     rubbishType: RubbishType.plastic,
     spriteCount: 1,
     size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
   );
   RubbishObject plasticBottle = RubbishObject(
     name: 'plastic bottle',
@@ -40,6 +45,7 @@ class RubbishData {
     rubbishType: RubbishType.plastic,
     spriteCount: 1,
     size: Vector2(32, 96),
+    hitboxSize: Vector2(16, 32),
   );
 
   List<RubbishObject> paperObjects = [];
@@ -49,6 +55,7 @@ class RubbishData {
     rubbishType: RubbishType.paper,
     spriteCount: 1,
     size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
   );
   RubbishObject flier = RubbishObject(
     name: 'flier',
@@ -56,6 +63,7 @@ class RubbishData {
     rubbishType: RubbishType.paper,
     spriteCount: 3,
     size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
   );
 
   List<RubbishObject> glassObjects = [];
@@ -65,6 +73,7 @@ class RubbishData {
     rubbishType: RubbishType.glass,
     spriteCount: 1,
     size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
   );
   RubbishObject glassBottle = RubbishObject(
     name: 'glass bottle',
@@ -72,6 +81,7 @@ class RubbishData {
     rubbishType: RubbishType.glass,
     spriteCount: 2,
     size: Vector2(32, 96),
+    hitboxSize: Vector2(16, 32),
   );
   RubbishObject mug = RubbishObject(
     name: 'mug',
@@ -79,6 +89,7 @@ class RubbishData {
     rubbishType: RubbishType.glass,
     spriteCount: 1,
     size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
   );
 
   List<RubbishObject> electronicObjects = [];
@@ -88,6 +99,7 @@ class RubbishData {
     rubbishType: RubbishType.electronics,
     spriteCount: 1,
     size: Vector2(96, 64),
+    hitboxSize: Vector2(32, 32),
   );
 
   List<RubbishObject> metalObjects = [];
@@ -97,6 +109,7 @@ class RubbishData {
     rubbishType: RubbishType.metal,
     spriteCount: 3,
     size: Vector2(32, 64),
+    hitboxSize: Vector2(32, 32),
   );
   RubbishObject tinCan = RubbishObject(
     name: 'tin can',
@@ -104,6 +117,7 @@ class RubbishData {
     rubbishType: RubbishType.metal,
     spriteCount: 2,
     size: Vector2(32, 64),
+    hitboxSize: Vector2(32, 32),
   );
 
   List<RubbishObject> foodObjects = [];
@@ -113,5 +127,6 @@ class RubbishData {
     rubbishType: RubbishType.food,
     spriteCount: 1,
     size: Vector2(64, 32),
+    hitboxSize: Vector2(32, 32),
   );
 }

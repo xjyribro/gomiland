@@ -189,7 +189,7 @@ class RubbishSpawner extends PositionComponent
       _handleCorrectBin(binType, rubbishType);
     } else {
       if (!isMute) Sounds.incorrect();
-      _handleWrongBin(binType, rubbishType, rubbishName);
+      await _handleWrongBin(binType, rubbishType, rubbishName);
     }
 
     int bagCount = game.gameStateBloc.state.bagCount;

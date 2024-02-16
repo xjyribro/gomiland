@@ -2,8 +2,11 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/game/game.dart';
 
-class DialogueButton extends SpriteButtonComponent {
+class DialogueButton extends SpriteButtonComponent
+    with HasGameReference<GomilandGame> {
   DialogueButton({
     required Vector2 posit,
     required String assetPath,
@@ -28,6 +31,8 @@ class DialogueButton extends SpriteButtonComponent {
     ButtonText buttonText = ButtonText(text: _text);
     add(buttonText);
     onPressed = () {
+      bool isMute = game.gameStateBloc.state.isMute;
+      if (!isMute) Sounds.next();
       _onTap();
     };
   }
