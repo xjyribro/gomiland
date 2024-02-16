@@ -114,6 +114,8 @@ Future<bool> loadSaved({
             playerYDir: data[Strings.playerYDir],
             savedLocation: savedLocation.sceneName,
           );
+      List<int> hoodSpawners = data[Strings.hoodSpawners]?.cast<int>() ?? [];
+      List<int> parkSpawners = data[Strings.parkSpawners]?.cast<int>() ?? [];
       context.read<GameStateBloc>().state.setGameState(
             context: context,
             coinAmount: data[Strings.coinAmount] ?? 0,
@@ -121,8 +123,8 @@ Future<bool> loadSaved({
             bagSize: data[Strings.bagSize] ?? 1,
             minutes: data[Strings.minutes] ?? gameStartTime,
             daysInGame: data[Strings.daysInGame] ?? 0,
-            hoodSpawners: data[Strings.hoodSpawners] ?? [],
-            parkSpawners: data[Strings.parkSpawners] ?? [],
+            hoodSpawners: hoodSpawners,
+            parkSpawners: parkSpawners,
           );
       context.read<ProgressStateBloc>().state.setProgress(
             context: context,
