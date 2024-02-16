@@ -54,7 +54,11 @@ class RubbishSpawner extends SpriteComponent
   }
 
   void _onPickup(int bagCount) {
-    removeIndexFromSpawnerList(game, _sceneName, _index);
+    removeIndexFromSpawnerList(
+      game: game,
+      sceneName: _sceneName,
+      index: _index,
+    );
     increaseBagCount(game);
     playPickUpSound(game);
     sprite = null;

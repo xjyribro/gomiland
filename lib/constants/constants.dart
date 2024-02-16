@@ -19,11 +19,11 @@ const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 2;
+const double playerSpeed = 16;
 const double maxRaycastDist = 40;
 
 // day cycle
-const gameMinToRealSecond = 0.5;
+const gameMinToRealSecond = 0.01;
 const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;

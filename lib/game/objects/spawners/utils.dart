@@ -32,8 +32,11 @@ void respawnRubbishAndSetState(GomilandGame game) {
   game.gameStateBloc.add(SetParkSpawnersList(parkSpawnList));
 }
 
-void removeIndexFromSpawnerList(
-    GomilandGame game, SceneName sceneName, int index) {
+void removeIndexFromSpawnerList({
+  required GomilandGame game,
+  required SceneName sceneName,
+  required int index,
+}) {
   bool isHood = sceneName == SceneName.hood;
   List<int> spawners = isHood
       ? game.gameStateBloc.state.hoodSpawners

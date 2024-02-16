@@ -373,11 +373,11 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       switch (building.name) {
         case 'home':
           await add(
-            SpriteComponent(
-              sprite:
-                  await Sprite.load(Assets.assets_images_buildings_home_png),
+            BuildingWithFade(
+              spritePath:Assets.assets_images_buildings_home_png,
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(256, 160),
             ),
           );
           break;
