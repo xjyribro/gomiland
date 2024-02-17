@@ -41,11 +41,11 @@ class Sounds {
   }
 
   static void playHoodBgm() {
-    FlameAudio.bgm.play('bgm/wumwob_squarewave.mp3');
+    FlameAudio.bgm.play('bgm/hood_bgm.mp3');
   }
 
   static void playParkBgm() {
-    FlameAudio.bgm.play('bgm/roomboi.mp3');
+    FlameAudio.bgm.play('bgm/park_bgm.mp3');
   }
 
   static void playRoomBgm() {

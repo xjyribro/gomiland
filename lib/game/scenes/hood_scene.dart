@@ -42,6 +42,7 @@ import 'package:gomiland/game/scenes/utils.dart';
 class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
   late bool _loadFromSave;
+  late Player _player;
 
   HoodMap({
     required Function setNewSceneName,
@@ -160,6 +161,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             : getPlayerHoodStartLookDir();
     Player player =
         Player(position: playerStartPosit, lookDir: playerStartLookDir);
+    _player = player;
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -238,10 +240,10 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             Gate(
               position: Vector2(object.x, object.y),
               size: Vector2(object.width, object.height),
-              switchScene: () {
+              switchScene: () async {
                 int bagCount = game.gameStateBloc.state.bagCount;
                 if (bagCount == 0) {
-                  showBagIsEmptyDialogue(game);
+                  await rejectFromRoom(game, _player);
                 } else {
                   _setNewSceneName(SceneName.room);
                 }

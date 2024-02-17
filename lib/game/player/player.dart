@@ -21,9 +21,9 @@ class Player extends SpriteAnimationComponent
     required Vector2 position,
     required Vector2 lookDir,
   }) : super(
-          position: position,
-          size: Vector2.all(32),
-        ) {
+    position: position,
+    size: Vector2.all(32),
+  ) {
     _initLookDir = lookDir;
   }
 
@@ -42,8 +42,13 @@ class Player extends SpriteAnimationComponent
   bool _isMovingDown = false;
   bool _isMovingLeft = false;
   bool _isMovingRight = false;
+  bool _rejectFromRoom = false;
   int _moveDirection = 0;
   final double _speed = tileSize * playerSpeed;
+
+  void setRejectFromRoom(bool rejectFromRoom) {
+    _rejectFromRoom = rejectFromRoom;
+  }
 
   SpriteAnimation getLookDirAnimation(Vector2 lookDir) {
     if (lookDir == Vector2(0, -1)) return idleUp;
@@ -92,10 +97,14 @@ class Player extends SpriteAnimationComponent
   @override
   void update(double dt) {
     super.update(dt);
+    if (_rejectFromRoom) {
+      moveAwayFromHome();
+    }
     if (game.playerIsFrozen()) return;
 
     if (game.playerStateBloc.state.showControls) {
-      if (game.joystick.direction == JoystickDirection.idle || game.joystick.intensity < 0.2) {
+      if (game.joystick.direction == JoystickDirection.idle ||
+          game.joystick.intensity < 0.2) {
         _onJoystickStop();
       } else {
         _moveWithJoystick(game.joystick.direction);
@@ -111,6 +120,18 @@ class Player extends SpriteAnimationComponent
       originalPosition: originalPosition,
     );
     game.playerStateBloc.add(SetPlayerPosition(position));
+  }
+
+  void moveAwayFromHome() {
+    if (position.y < hoodStartFromRoomY) {
+      _moveDirection = 2;
+      animation = moveDown;
+    } else {
+      _moveDirection = 0;
+      animation = idleDown;
+      setRejectFromRoom(false);
+    }
+    game.unfreezePlayer();
   }
 
   void _onJoystickStop() {
@@ -179,7 +200,7 @@ class Player extends SpriteAnimationComponent
     if (other is QianBi) {
       if (intersectionPoints.length == 2) {
         final mid = (intersectionPoints.elementAt(0) +
-                intersectionPoints.elementAt(1)) /
+            intersectionPoints.elementAt(1)) /
             2;
         final collisionNormal = absoluteCenter - mid;
         final separationDistance = (size.x / 2) - collisionNormal.length;
