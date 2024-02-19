@@ -146,6 +146,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadPlayer() async {
+    print(_loadFromSave);
     Vector2 playerStartPosit = _loadFromSave
         ? game.playerStateBloc.state.playerPosition
         : getPlayerHoodStartPosit(game);
@@ -159,6 +160,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         : _loadFromSave
             ? game.playerStateBloc.state.playerDirection
             : getPlayerHoodStartLookDir();
+
+    print(playerStartPosit);
     Player player =
         Player(position: playerStartPosit, lookDir: playerStartLookDir);
     _player = player;

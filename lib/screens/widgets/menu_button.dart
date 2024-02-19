@@ -30,22 +30,19 @@ class MenuButton extends StatelessWidget {
           ),
           minimumSize: const Size(100, 40),
         ),
-        onPressed: onPressed == null ? null : () {
-          onPressed!();
-        },
-        child: showIsLoading
-            ? const Padding(
-                padding: EdgeInsets.all(4),
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Text(
-                  text,
-                  style: style,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+        onPressed: onPressed == null
+            ? null
+            : () {
+                onPressed!();
+              },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text(
+            showIsLoading ? 'Loading...' : text,
+            style: style,
+            textAlign: TextAlign.center,
+          ),
+        ),
         // choose input
       ),
     );

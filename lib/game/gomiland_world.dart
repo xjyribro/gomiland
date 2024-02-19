@@ -27,7 +27,7 @@ class GomilandWorld extends World
     game.overlays.add('Loading');
     hoodMap = HoodMap(
       setNewSceneName: setNewSceneName,
-      loadFromSave: _loadFromSave,
+      loadFromSave: fromSave,
     );
     await add(hoodMap);
     game.addHudComponentsForWorld();
@@ -39,7 +39,7 @@ class GomilandWorld extends World
     game.overlays.add('Loading');
     parkMap = ParkMap(
       setNewSceneName: setNewSceneName,
-      loadFromSave: _loadFromSave,
+      loadFromSave: fromSave,
     );
     await add(parkMap);
     game.addHudComponentsForWorld();
