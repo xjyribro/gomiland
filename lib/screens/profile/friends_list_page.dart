@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
@@ -7,6 +8,7 @@ import 'package:gomiland/screens/profile/widgets/friends_row.dart';
 import 'package:gomiland/screens/profile/widgets/players_list.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
 import 'package:gomiland/utils/other_player.dart';
 
@@ -34,9 +36,16 @@ class _FriendsListPageState extends State<FriendsListPage> {
     _setPlayersList(playersList);
   }
 
+  Future<void> _reloadInfo() async {
+    String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
+    await refreshFriends(playerId: playerId, context: context);
+    _getRequestInfo();
+  }
+
   @override
   void initState() {
     super.initState();
+    _reloadInfo();
     _getRequestInfo();
   }
 
@@ -74,6 +83,11 @@ class _FriendsListPageState extends State<FriendsListPage> {
                     ),
                   ),
                 ],
+              ),
+              MenuButton(
+                onPressed: () => _reloadInfo(),
+                text: 'Refresh',
+                style: TextStyles.smallMenuTextStyle,
               ),
               const SpacerNormal(),
               const FriendsRow(

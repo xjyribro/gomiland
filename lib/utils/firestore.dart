@@ -80,6 +80,35 @@ Future<bool> saveGameState({
   }
 }
 
+Future<bool> refreshFriends({
+  required String playerId,
+  required BuildContext context,
+}) async {
+  return await getPlayerById(playerId).then((doc) {
+    if (doc.data() == null) {
+      return false;
+    } else {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      List<String> friendsList = data[Strings.friendsList] != null
+          ? List.from(data[Strings.friendsList])
+          : [];
+      List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
+          ? List.from(data[Strings.friendRequestsSent])
+          : [];
+      List<String> friendRequestsReceived =
+          data[Strings.friendRequestsReceived] != null
+              ? List.from(data[Strings.friendRequestsReceived])
+              : [];
+      context.read<PlayerStateBloc>().state.setPlayerState(
+          context: context,
+          friendsList: friendsList,
+          friendRequestsSent: friendRequestsSent,
+          friendRequestsReceived: friendRequestsReceived);
+      return true;
+    }
+  });
+}
+
 Future<bool> loadSaved({
   required String playerId,
   required BuildContext context,
@@ -267,7 +296,7 @@ Future<bool> acceptFriendRequest({
           receiverDoc.data()?[Strings.friendsList] != null
               ? List.from(receiverDoc.data()![Strings.friendsList])
               : [];
-      friendsList.add(senderId);
+      friendsList.add(receiverId);
       await senderDoc.reference.update({
         Strings.friendsList: friendsList,
         Strings.friendRequestsSent: friendRequestsSent,
