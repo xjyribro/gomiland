@@ -9,6 +9,7 @@ class GameState extends Equatable {
   final int minutes;
   final int daysInGame;
   final bool playerFrozen;
+  final bool showControls;
 
   const GameState({
     required this.isMute,
@@ -19,6 +20,7 @@ class GameState extends Equatable {
     required this.minutes,
     required this.daysInGame,
     required this.playerFrozen,
+    required this.showControls,
   });
 
   const GameState.empty()
@@ -31,6 +33,7 @@ class GameState extends Equatable {
           minutes: gameStartTime,
           daysInGame: 0,
           playerFrozen: false,
+          showControls: kIsWeb ? false : true,
         );
 
   GameState copyWith({
@@ -42,6 +45,7 @@ class GameState extends Equatable {
     int? minutes,
     int? daysInGame,
     bool? playerFrozen,
+    bool? showControls,
   }) {
     return GameState(
       isMute: isMute ?? this.isMute,
@@ -52,6 +56,7 @@ class GameState extends Equatable {
       minutes: minutes ?? this.minutes,
       daysInGame: daysInGame ?? this.daysInGame,
       playerFrozen: playerFrozen ?? this.playerFrozen,
+      showControls: showControls ?? this.showControls,
     );
   }
 
@@ -90,5 +95,6 @@ class GameState extends Equatable {
         minutes,
         daysInGame,
         playerFrozen,
+        showControls,
       ];
 }

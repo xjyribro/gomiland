@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/audio_controller.dart';
 
 class GameMenuButton extends HudButtonComponent {
   GameMenuButton({

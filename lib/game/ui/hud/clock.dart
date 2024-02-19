@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/data/days_of_week.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/gomiland_world.dart';

@@ -88,6 +88,15 @@ class SetDaysInGame extends GameStateEvent {
   List<Object?> get props => [days];
 }
 
+class ShowControls extends GameStateEvent {
+  const ShowControls(this.showControls);
+
+  final bool showControls;
+
+  @override
+  List<Object?> get props => [showControls];
+}
+
 class SetGameState extends GameStateEvent {
   const SetGameState(
     this.coinAmount,

@@ -2,8 +2,10 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/screens/auth/validations.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
@@ -11,6 +13,7 @@ import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 import 'package:gomiland/utils/firestore.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -20,10 +23,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final List<String> genderOptions = ['Male', 'Female'];
-  final List<String> showControlOptions = ['Yes', 'No'];
   final _playerNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final bool _hasCurrentUser = FirebaseAuth.instance.currentUser != null;
+
   Country? _country;
   bool _isMale = true;
   bool _isLoading = false;
@@ -48,9 +51,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _onShowControlsSelect(BuildContext context, String showControls) {
     if (showControls == showControlOptions[0]) {
-      context.read<PlayerStateBloc>().add(const ShowControls(true));
+      context.read<GameStateBloc>().add(const ShowControls(true));
     } else {
-      context.read<PlayerStateBloc>().add(const ShowControls(false));
+      context.read<GameStateBloc>().add(const ShowControls(false));
     }
   }
 
@@ -167,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         'Show joystick',
                         style: TextStyles.menuWhiteTextStyle,
                       ),
-                      BlocBuilder<PlayerStateBloc, PlayerState>(
+                      BlocBuilder<GameStateBloc, GameState>(
                           builder: (context, state) {
                         return DropDownMenu(
                           options: showControlOptions,
@@ -207,7 +210,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       onSelect: _onCountrySelect,
                     );
                   },
-                  buttonWidth: 400,
                   text: 'Select your country',
                   style: TextStyles.menuPurpleTextStyle,
                 ),
@@ -221,6 +223,26 @@ class _ProfilePageState extends State<ProfilePage> {
                   isLoading: _isLoading,
                 ),
                 const SpacerNormal(),
+                if (_hasCurrentUser) ...[
+                  MenuButton(
+                    text: 'Friends list',
+                    style: TextStyles.menuPurpleTextStyle,
+                    onPressed: () {
+                      goToFriendsList(context);
+                    },
+                    isLoading: _isLoading,
+                  ),
+                  const SpacerNormal(),
+                  MenuButton(
+                    text: 'High scores',
+                    style: TextStyles.menuPurpleTextStyle,
+                    onPressed: () {
+                      goToHighScores(context);
+                    },
+                    isLoading: _isLoading,
+                  ),
+                  const SpacerNormal(),
+                ]
               ],
             ),
           ),
