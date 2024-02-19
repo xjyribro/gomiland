@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/day_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/day_controller.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
@@ -154,7 +154,7 @@ class GomilandGame extends FlameGame
     if (brightnessOverlays.isEmpty) {
       cameraComponent.viewport.add(brightnessOverlay);
     }
-    if (playerStateBloc.state.showControls) {
+    if (gameStateBloc.state.showControls) {
       _addPlayerControls();
     }
   }

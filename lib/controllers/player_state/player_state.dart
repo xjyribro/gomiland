@@ -4,10 +4,12 @@ class PlayerState extends Equatable {
   final Vector2 playerPosition;
   final Vector2 playerDirection;
   final SceneName savedLocation;
-  final bool showControls;
   final bool isMale;
   final String playerName;
   final String country;
+  final List<String> friendsList;
+  final List<String> friendRequestsSent;
+  final List<String> friendRequestsReceived;
 
   // this is for ignore hitbox during raycast
   final RectangleHitbox? playerHitbox;
@@ -15,45 +17,54 @@ class PlayerState extends Equatable {
   const PlayerState({
     required this.playerPosition,
     required this.playerDirection,
-    required this.showControls,
     required this.playerHitbox,
     required this.isMale,
     required this.playerName,
     required this.country,
     required this.savedLocation,
+    required this.friendsList,
+    required this.friendRequestsSent,
+    required this.friendRequestsReceived,
   });
 
   PlayerState.empty()
       : this(
           playerPosition: Vector2.zero(),
           playerDirection: Vector2.zero(),
-          showControls: kIsWeb ? false : true,
           playerHitbox: null,
           isMale: true,
           playerName: '',
           country: '',
           savedLocation: SceneName.hood,
+          friendsList: [],
+          friendRequestsSent: [],
+          friendRequestsReceived: [],
         );
 
   PlayerState copyWith({
     Vector2? playerPosition,
     Vector2? playerDirection,
-    bool? showControls,
     RectangleHitbox? playerHitbox,
     bool? isMale,
     String? playerName,
     String? country,
     SceneName? savedLocation,
+    List<String>? friendsList,
+    List<String>? friendRequestsSent,
+    List<String>? friendRequestsReceived,
   }) {
     return PlayerState(
       playerPosition: playerPosition ?? this.playerPosition,
       playerDirection: playerDirection ?? this.playerDirection,
-      showControls: showControls ?? this.showControls,
       playerHitbox: playerHitbox ?? this.playerHitbox,
       isMale: isMale ?? this.isMale,
       playerName: playerName ?? this.playerName,
       country: country ?? this.country,
       savedLocation: savedLocation ?? this.savedLocation,
+      friendsList: friendsList ?? this.friendsList,
+      friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
+      friendRequestsReceived:
+          friendRequestsReceived ?? this.friendRequestsReceived,
     );
   }
 
@@ -75,6 +86,9 @@ class PlayerState extends Equatable {
     num? playerYPosit,
     num? playerXDir,
     num? playerYDir,
+    List<String>? friendsList,
+    List<String>? friendRequestsSent,
+    List<String>? friendRequestsReceived,
   }) {
     if (playerName != null) {
       context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
@@ -95,11 +109,23 @@ class PlayerState extends Equatable {
     if (savedLocation != null) {
       context.read<PlayerStateBloc>().add(SetSavedLocation(savedLocation));
     }
+    if (friendsList != null) {
+      context.read<PlayerStateBloc>().add(SetFriendsList(friendsList));
+    }
+    if (friendRequestsSent != null) {
+      context
+          .read<PlayerStateBloc>()
+          .add(SetFriendRequestSent(friendRequestsSent));
+    }
+    if (friendRequestsReceived != null) {
+      context
+          .read<PlayerStateBloc>()
+          .add(SetFriendRequestReceived(friendRequestsReceived));
+    }
   }
 
   @override
   List<Object?> get props => [
-        showControls,
         playerPosition,
         playerDirection,
         playerHitbox,
@@ -107,5 +133,8 @@ class PlayerState extends Equatable {
         playerName,
         country,
         savedLocation,
+        friendsList,
+        friendRequestsSent,
+        friendRequestsReceived,
       ];
 }

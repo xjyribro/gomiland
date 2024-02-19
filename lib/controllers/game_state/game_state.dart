@@ -11,6 +11,7 @@ class GameState extends Equatable {
   final bool playerFrozen;
   final List<int> hoodSpawners;
   final List<int> parkSpawners;
+  final bool showControls;
 
   const GameState({
     required this.isMute,
@@ -23,6 +24,7 @@ class GameState extends Equatable {
     required this.playerFrozen,
     required this.hoodSpawners,
     required this.parkSpawners,
+    required this.showControls,
   });
 
   GameState.empty()
@@ -37,6 +39,7 @@ class GameState extends Equatable {
           playerFrozen: false,
           hoodSpawners: [],
           parkSpawners: [],
+          showControls: kIsWeb ? false : true,
         );
 
   GameState copyWith({
@@ -50,6 +53,7 @@ class GameState extends Equatable {
     bool? playerFrozen,
     List<int>? hoodSpawners,
     List<int>? parkSpawners,
+    bool? showControls,
   }) {
     return GameState(
       isMute: isMute ?? this.isMute,
@@ -62,6 +66,7 @@ class GameState extends Equatable {
       playerFrozen: playerFrozen ?? this.playerFrozen,
       hoodSpawners: hoodSpawners ?? this.hoodSpawners,
       parkSpawners: parkSpawners ?? this.parkSpawners,
+      showControls: showControls ?? this.showControls,
     );
   }
 
@@ -114,5 +119,6 @@ class GameState extends Equatable {
         playerFrozen,
         hoodSpawners,
         parkSpawners,
+        showControls,
       ];
 }

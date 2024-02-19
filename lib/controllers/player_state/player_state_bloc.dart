@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
-part 'player_state_event.dart';
 part 'player_state.dart';
+
+part 'player_state_event.dart';
 
 class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
   PlayerStateBloc() : super(PlayerState.empty()) {
@@ -25,7 +25,7 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
     );
 
     on<SetSavedLocation>(
-          (event, emit) => emit(
+      (event, emit) => emit(
         state.copyWith(savedLocation: event.playerLocation),
       ),
     );
@@ -36,12 +36,6 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
       ),
     );
 
-    on<ShowControls>(
-      (event, emit) => emit(
-        state.copyWith(showControls: event.showControls),
-      ),
-    );
-
     on<SetIsMale>(
       (event, emit) => emit(
         state.copyWith(isMale: event.isMale),
@@ -49,14 +43,32 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
     );
 
     on<SetPlayerName>(
-          (event, emit) => emit(
+      (event, emit) => emit(
         state.copyWith(playerName: event.playerName),
       ),
     );
 
     on<SetCountry>(
-          (event, emit) => emit(
+      (event, emit) => emit(
         state.copyWith(country: event.country),
+      ),
+    );
+
+    on<SetFriendsList>(
+      (event, emit) => emit(
+        state.copyWith(friendsList: event.friendsList),
+      ),
+    );
+
+    on<SetFriendRequestSent>(
+      (event, emit) => emit(
+        state.copyWith(friendRequestsSent: event.friendRequestsSent),
+      ),
+    );
+
+    on<SetFriendRequestReceived>(
+      (event, emit) => emit(
+        state.copyWith(friendRequestsReceived: event.friendRequestsReceived),
       ),
     );
   }

@@ -3,11 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/main_menu.dart';
-import 'package:gomiland/screens/profile.dart';
+import 'package:gomiland/screens/profile/add_friends_page.dart';
+import 'package:gomiland/screens/profile/friend_requests_page.dart';
+import 'package:gomiland/screens/profile/friends_list_page.dart';
+import 'package:gomiland/screens/profile/high_scores.dart';
+import 'package:gomiland/screens/profile/profile.dart';
 
 void goToSettings(BuildContext context) {
   Navigator.push(
@@ -68,5 +74,41 @@ void goToGame({
     MaterialPageRoute(builder: (context) {
       return GameWidgetWrapper(loadFromSave: loadFromSave);
     }),
+  );
+}
+
+void goToFriendsList(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const FriendsListPage(),
+    ),
+  );
+}
+
+void goToAddFriends(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const AddFriendsPage(),
+    ),
+  );
+}
+
+void goToFriendRequestsPage(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const FriendRequestsPage(),
+    ),
+  );
+}
+
+void goToHighScores(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const HighScores(),
+    ),
   );
 }

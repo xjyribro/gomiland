@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MenuButton extends StatelessWidget {
-  final Function onPressed;
+  final Function? onPressed;
   final String text;
   final double buttonWidth;
   final bool? isLoading;
@@ -30,6 +30,9 @@ class MenuButton extends StatelessWidget {
           ),
           minimumSize: const Size(100, 40),
         ),
+        onPressed: onPressed == null ? null : () {
+          onPressed!();
+        },
         child: showIsLoading
             ? const Padding(
                 padding: EdgeInsets.all(4),
@@ -43,9 +46,6 @@ class MenuButton extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-        onPressed: () {
-          onPressed();
-        },
         // choose input
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/screens/popups/popups.dart';

@@ -5,7 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/player/obstacle_checker.dart';
@@ -102,7 +102,7 @@ class Player extends SpriteAnimationComponent
     }
     if (game.playerIsFrozen()) return;
 
-    if (game.playerStateBloc.state.showControls) {
+    if (game.gameStateBloc.state.showControls) {
       if (game.joystick.direction == JoystickDirection.idle ||
           game.joystick.intensity < 0.2) {
         _onJoystickStop();
@@ -213,7 +213,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (game.playerStateBloc.state.showControls) return false;
+    if (game.gameStateBloc.state.showControls) return false;
     if (event is RawKeyDownEvent) {
       if (game.playerIsFrozen()) return false;
       bool isMoving =

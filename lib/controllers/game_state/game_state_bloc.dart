@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
@@ -91,6 +92,12 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     on<SetDaysInGame>(
       (event, emit) => emit(
         state.copyWith(daysInGame: event.days),
+      ),
+    );
+
+    on<ShowControls>(
+          (event, emit) => emit(
+        state.copyWith(showControls: event.showControls),
       ),
     );
 
