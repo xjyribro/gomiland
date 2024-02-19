@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';

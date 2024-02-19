@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/rubbish/rubbish.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_object.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';

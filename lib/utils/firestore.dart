@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
-import 'package:gomiland/game/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/game/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
 Future<void> savePlayerInfo({
