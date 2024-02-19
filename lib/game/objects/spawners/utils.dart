@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/controllers/audio_controller.dart';
-import 'package:gomiland/game/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';

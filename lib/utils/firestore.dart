@@ -132,19 +132,9 @@ Future<bool> loadSaved({
           data[Strings.friendRequestsReceived] != null
               ? List.from(data[Strings.friendRequestsReceived])
               : [];
-      context.read<PlayerStateBloc>().state.setPlayerState(
-            context: context,
-            playerName: data[Strings.playerName] ?? '',
-            country: data[Strings.country] ?? '',
-            isMale: data[Strings.isMale] ?? true,
-            playerXPosit: data[Strings.playerXPosit],
-            playerYPosit: data[Strings.playerYPosit],
-            playerXDir: data[Strings.playerXDir],
-            playerYDir: data[Strings.playerYDir],
-            savedLocation: savedLocation.sceneName,
-          );
       List<int> hoodSpawners = data[Strings.hoodSpawners]?.cast<int>() ?? [];
       List<int> parkSpawners = data[Strings.parkSpawners]?.cast<int>() ?? [];
+      context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
           playerName: data[Strings.playerName] ?? '',
           country: data[Strings.country] ?? '',
