@@ -14,16 +14,16 @@ class RequestFriendRow extends StatefulWidget {
   final String country;
   final String daysInGame;
   final String? otherPlayerId;
-  final bool isSendRequest;
+  final bool? isSendRequest;
 
   const RequestFriendRow({
     super.key,
     this.index,
     this.otherPlayerId,
+    this.isSendRequest,
     required this.name,
     required this.country,
     required this.daysInGame,
-    required this.isSendRequest,
   });
 
   @override
@@ -32,10 +32,17 @@ class RequestFriendRow extends StatefulWidget {
 
 class _RequestFriendRowState extends State<RequestFriendRow> {
   bool _isLoading = false;
+  bool _isAccepted = false;
 
   void _setIsLoading(bool isLoading) {
     setState(() {
       _isLoading = isLoading;
+    });
+  }
+
+  void _setIsAccepted(bool isAccepted) {
+    setState(() {
+      _isAccepted = isAccepted;
     });
   }
 
@@ -50,7 +57,10 @@ class _RequestFriendRowState extends State<RequestFriendRow> {
         updateFriendRequestSentList(context, receiverId);
       } else {
         Popups.showMessage(
-            context: context, title: 'Sending request failed', subTitle: '');
+          context: context,
+          title: 'Sending request failed',
+          subTitle: '',
+        );
       }
     });
     _setIsLoading(false);
@@ -60,20 +70,26 @@ class _RequestFriendRowState extends State<RequestFriendRow> {
     if (_isLoading) return;
     _setIsLoading(true);
     String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    await sendFriendRequest(senderId: playerId, receiverId: widget.otherPlayerId!)
+    String senderId = widget.otherPlayerId!;
+    await acceptFriendRequest(senderId: senderId, receiverId: playerId)
         .then((success) {
-      if (!success) {
+      if (success) {
+        onAcceptFriendRequest(context, senderId);
+        _setIsAccepted(true);
+      } else {
         Popups.showMessage(
-            context: context, title: 'Sending request failed', subTitle: '');
+          context: context,
+          title: 'Accept request failed',
+          subTitle: '',
+        );
       }
     });
     _setIsLoading(false);
   }
 
-  Widget _getButton({
-    required BuildContext context,
-    required bool isSendRequest,
-  }) {
+  Widget _getButton(BuildContext context) {
+    if (widget.isSendRequest == null) return Container();
+    bool isSendRequest = widget.isSendRequest!;
     if (isSendRequest) {
       return BlocBuilder<PlayerStateBloc, PlayerState>(
           builder: (context, state) {
@@ -94,11 +110,14 @@ class _RequestFriendRowState extends State<RequestFriendRow> {
         );
       });
     }
+
     return MenuButton(
-      onPressed: () async {
-        await _acceptFriendRequest(context);
-      },
-      text: 'Accept friend request',
+      onPressed: _isAccepted
+          ? null
+          : () async {
+              await _acceptFriendRequest(context);
+            },
+      text: _isAccepted ? 'Accepted!' : 'Accept',
       style: TextStyles.sendFriendRequestTextStyle,
       isLoading: _isLoading,
     );
@@ -120,31 +139,40 @@ class _RequestFriendRowState extends State<RequestFriendRow> {
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              widget.name,
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                widget.name,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              widget.country,
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                widget.country,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              widget.daysInGame,
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Text(
+                widget.daysInGame,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
             flex: 3,
             child: widget.otherPlayerId != null
-                ? _getButton(
-                    context: context,
-                    isSendRequest: widget.isSendRequest,
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: _getButton(context),
                   )
                 : Container(),
           ),

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/profile/utils.dart';
 import 'package:gomiland/screens/profile/widgets/players_list.dart';
@@ -72,7 +74,11 @@ class _SearchPlayersState extends State<SearchPlayers> {
       country: _country?.name,
     );
     if (result != null) {
-      _setPlayersList(getPlayersFromSearchResult(result));
+      if (context.mounted) {
+        List<String> friendsList =
+            context.read<PlayerStateBloc>().state.friendsList;
+        _setPlayersList(getPlayersFromSearchResult(result, friendsList));
+      }
     } else {
       if (context.mounted) {
         Popups.showMessage(
@@ -179,8 +185,14 @@ class _SearchPlayersState extends State<SearchPlayers> {
         ),
         const SpacerNormal(),
         _playersList.isNotEmpty
-            ? PlayersList(playersList: _playersList)
-            : const Text('No results to show'),
+            ? PlayersList(
+                playersList: _playersList,
+                isSendRequest: true,
+              )
+            : const Text(
+                'No results to show',
+                style: TextStyles.mainHeaderTextStyle,
+              ),
         const SpacerNormal(),
       ],
     );

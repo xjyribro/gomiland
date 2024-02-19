@@ -24,30 +24,42 @@ class FriendsRow extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Text(
-              index != null ? index.toString() : '',
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                index != null ? index.toString() : '',
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
             flex: 6,
-            child: Text(
-              name,
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                name,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
             flex: 6,
-            child: Text(
-              country,
-              style: TextStyles.menuWhiteTextStyle,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                country,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Text(
-              daysInGame,
-              style: TextStyles.menuWhiteTextStyle,
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                daysInGame,
+                style: TextStyles.menuWhiteTextStyle,
+              ),
             ),
           ),
         ],

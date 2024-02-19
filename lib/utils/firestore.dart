@@ -84,11 +84,7 @@ Future<bool> loadSaved({
   required String playerId,
   required BuildContext context,
 }) async {
-  return await FirebaseFirestore.instance
-      .collection(Strings.playersCollection)
-      .doc(playerId)
-      .get()
-      .then((doc) {
+  return await getPlayerById(playerId).then((doc) {
     if (doc.data() == null) {
       return false;
     } else {
@@ -149,6 +145,14 @@ Future<bool> loadSaved({
   });
 }
 
+Future<DocumentSnapshot<Map<String, dynamic>>> getPlayerById(
+    String playerId) async {
+  return await FirebaseFirestore.instance
+      .collection(Strings.playersCollection)
+      .doc(playerId)
+      .get();
+}
+
 Future<QuerySnapshot<Object?>?> getPlayers({
   String? playerName,
   String? country,
@@ -183,12 +187,13 @@ Future<bool> sendFriendRequest({
         .doc(receiverId)
         .get();
     if (receiverDoc.exists) {
-
-      List<String> friendRequestsReceived = receiverDoc.data()?[Strings.friendRequestsReceived] != null
-          ? List.from(receiverDoc.data()![Strings.friendRequestsReceived])
-          : [];
-
-      friendRequestsReceived.add(senderId);
+      List<String> friendRequestsReceived =
+          receiverDoc.data()?[Strings.friendRequestsReceived] != null
+              ? List.from(receiverDoc.data()![Strings.friendRequestsReceived])
+              : [];
+      if (!friendRequestsReceived.contains(senderId)) {
+        friendRequestsReceived.add(senderId);
+      }
       await receiverDoc.reference.update({
         Strings.friendRequestsReceived: friendRequestsReceived,
       });
@@ -199,12 +204,72 @@ Future<bool> sendFriendRequest({
         .doc(senderId)
         .get();
     if (senderDoc.exists) {
-
-      List<String> friendRequestsSent = receiverDoc.data()?[Strings.friendRequestsSent] != null
-          ? List.from(receiverDoc.data()![Strings.friendRequestsSent])
-          : [];
-      friendRequestsSent.add(receiverId);
+      List<String> friendRequestsSent =
+          receiverDoc.data()?[Strings.friendRequestsSent] != null
+              ? List.from(receiverDoc.data()![Strings.friendRequestsSent])
+              : [];
+      if (!friendRequestsSent.contains(receiverId)) {
+        friendRequestsSent.add(receiverId);
+      }
       await senderDoc.reference.update({
+        Strings.friendRequestsSent: friendRequestsSent,
+      });
+    }
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
+}
+
+Future<bool> acceptFriendRequest({
+  required String senderId,
+  required String receiverId,
+}) async {
+  try {
+    DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
+        .instance
+        .collection(Strings.playersCollection)
+        .doc(receiverId)
+        .get();
+    if (receiverDoc.exists) {
+      List<String> friendRequestsReceived =
+          receiverDoc.data()?[Strings.friendRequestsReceived] != null
+              ? List.from(receiverDoc.data()![Strings.friendRequestsReceived])
+              : [];
+      friendRequestsReceived.remove(senderId);
+
+      List<String> friendsList =
+          receiverDoc.data()?[Strings.friendsList] != null
+              ? List.from(receiverDoc.data()![Strings.friendsList])
+              : [];
+      friendsList.add(senderId);
+      await receiverDoc.reference.update({
+        Strings.friendsList: friendsList,
+        Strings.friendRequestsReceived: friendRequestsReceived,
+      });
+    }
+
+    DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
+        .instance
+        .collection(Strings.playersCollection)
+        .doc(senderId)
+        .get();
+    if (senderDoc.exists) {
+      List<String> friendRequestsSent =
+          receiverDoc.data()?[Strings.friendRequestsSent] != null
+              ? List.from(receiverDoc.data()![Strings.friendRequestsSent])
+              : [];
+      friendRequestsSent.remove(receiverId);
+      List<String> friendsList =
+          receiverDoc.data()?[Strings.friendsList] != null
+              ? List.from(receiverDoc.data()![Strings.friendsList])
+              : [];
+      friendsList.add(senderId);
+      await senderDoc.reference.update({
+        Strings.friendsList: friendsList,
         Strings.friendRequestsSent: friendRequestsSent,
       });
     }

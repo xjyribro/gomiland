@@ -44,6 +44,10 @@ class TextStyles {
     fontSize: smallTextSize,
     color: GameColors.white,
   );
+  static const smallMenuTextStyle = TextStyle(
+    fontSize: smallTextSize,
+    color: GameColors.purple,
+  );
   static const sendFriendRequestTextStyle = TextStyle(
     fontSize: smallTextSize,
     color: GameColors.green,
