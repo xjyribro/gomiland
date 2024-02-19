@@ -11,6 +11,7 @@ import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 import 'package:gomiland/utils/firestore.dart';
+import 'package:gomiland/utils/navigation.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,6 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final List<String> showControlOptions = ['Yes', 'No'];
   final _playerNameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final bool _hasCurrentUser = FirebaseAuth.instance.currentUser != null;
+
   Country? _country;
   bool _isMale = true;
   bool _isLoading = false;
@@ -221,6 +224,26 @@ class _ProfilePageState extends State<ProfilePage> {
                   isLoading: _isLoading,
                 ),
                 const SpacerNormal(),
+                if (_hasCurrentUser) ...[
+                  MenuButton(
+                    text: 'Friends list',
+                    style: TextStyles.menuGreenTextStyle,
+                    onPressed: () {
+                      goToFriendsList(context);
+                    },
+                    isLoading: _isLoading,
+                  ),
+                  const SpacerNormal(),
+                  MenuButton(
+                    text: 'High scores',
+                    style: TextStyles.menuGreenTextStyle,
+                    onPressed: () {
+                      goToHighScores(context);
+                    },
+                    isLoading: _isLoading,
+                  ),
+                  const SpacerNormal(),
+                ]
               ],
             ),
           ),

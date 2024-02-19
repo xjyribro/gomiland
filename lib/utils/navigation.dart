@@ -6,7 +6,10 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/main_menu.dart';
-import 'package:gomiland/screens/profile.dart';
+import 'package:gomiland/screens/profile/add_friends.dart';
+import 'package:gomiland/screens/profile/friends_list.dart';
+import 'package:gomiland/screens/profile/high_scores.dart';
+import 'package:gomiland/screens/profile/profile.dart';
 
 void goToSettings(BuildContext context) {
   Navigator.push(
@@ -66,5 +69,32 @@ void goToGame({
     MaterialPageRoute(builder: (context) {
       return GameWidgetWrapper(loadFromSave: loadFromSave);
     }),
+  );
+}
+
+void goToFriendsList(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const FriendsList(),
+    ),
+  );
+}
+
+void goToAddFriends(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const AddFriends(),
+    ),
+  );
+}
+
+void goToHighScores(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const HighScores(),
+    ),
   );
 }
