@@ -19,19 +19,13 @@ Future<void> savePlayerInfo({
       .doc(playerId)
       .get();
   if (doc.exists) {
-    await FirebaseFirestore.instance
-        .collection(Strings.playersCollection)
-        .doc(playerId)
-        .update({
+    await doc.reference.update({
       Strings.playerName: playerName,
       Strings.country: country,
       Strings.isMale: isMale,
     });
   } else {
-    await FirebaseFirestore.instance
-        .collection(Strings.playersCollection)
-        .doc(playerId)
-        .set({
+    await doc.reference.set({
       Strings.playerName: playerName,
       Strings.country: country,
       Strings.isMale: isMale,
@@ -101,17 +95,29 @@ Future<bool> loadSaved({
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       String savedLocation =
           data[Strings.savedLocation] ?? SceneName.hood.string;
+      List<String> friendsList = data[Strings.friendsList] != null
+          ? List.from(data[Strings.friendsList])
+          : [];
+      List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
+          ? List.from(data[Strings.friendRequestsSent])
+          : [];
+      List<String> friendRequestsReceived =
+          data[Strings.friendRequestsReceived] != null
+              ? List.from(data[Strings.friendRequestsReceived])
+              : [];
       context.read<PlayerStateBloc>().state.setPlayerState(
-            context: context,
-            playerName: data[Strings.playerName] ?? '',
-            country: data[Strings.country] ?? '',
-            isMale: data[Strings.isMale] ?? true,
-            playerXPosit: data[Strings.playerXPosit],
-            playerYPosit: data[Strings.playerYPosit],
-            playerXDir: data[Strings.playerXDir],
-            playerYDir: data[Strings.playerYDir],
-            savedLocation: savedLocation.sceneName,
-          );
+          context: context,
+          playerName: data[Strings.playerName] ?? '',
+          country: data[Strings.country] ?? '',
+          isMale: data[Strings.isMale] ?? true,
+          playerXPosit: data[Strings.playerXPosit],
+          playerYPosit: data[Strings.playerYPosit],
+          playerXDir: data[Strings.playerXDir],
+          playerYDir: data[Strings.playerYDir],
+          savedLocation: savedLocation.sceneName,
+          friendsList: friendsList,
+          friendRequestsSent: friendRequestsSent,
+          friendRequestsReceived: friendRequestsReceived);
       context.read<GameStateBloc>().state.setGameState(
             context: context,
             coinAmount: data[Strings.coinAmount] ?? 0,
@@ -141,4 +147,72 @@ Future<bool> loadSaved({
       return true;
     }
   });
+}
+
+Future<QuerySnapshot<Object?>?> getPlayers({
+  String? playerName,
+  String? country,
+  bool? isMale,
+}) async {
+  try {
+    Query collection =
+        FirebaseFirestore.instance.collection(Strings.playersCollection);
+    if (playerName != null) {
+      collection = collection.where(Strings.playerName, isEqualTo: playerName);
+    }
+    if (country != null) {
+      collection = collection.where(Strings.country, isEqualTo: country);
+    }
+    if (isMale != null) {
+      collection = collection.where(Strings.isMale, isEqualTo: isMale);
+    }
+    return await collection.get();
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<bool> sendFriendRequest({
+  required String senderId,
+  required String receiverId,
+}) async {
+  try {
+    DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
+        .instance
+        .collection(Strings.playersCollection)
+        .doc(receiverId)
+        .get();
+    if (receiverDoc.exists) {
+
+      List<String> friendRequestsReceived = receiverDoc.data()?[Strings.friendRequestsReceived] != null
+          ? List.from(receiverDoc.data()![Strings.friendRequestsReceived])
+          : [];
+
+      friendRequestsReceived.add(senderId);
+      await receiverDoc.reference.update({
+        Strings.friendRequestsReceived: friendRequestsReceived,
+      });
+    }
+    DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
+        .instance
+        .collection(Strings.playersCollection)
+        .doc(senderId)
+        .get();
+    if (senderDoc.exists) {
+
+      List<String> friendRequestsSent = receiverDoc.data()?[Strings.friendRequestsSent] != null
+          ? List.from(receiverDoc.data()![Strings.friendRequestsSent])
+          : [];
+      friendRequestsSent.add(receiverId);
+      await senderDoc.reference.update({
+        Strings.friendRequestsSent: friendRequestsSent,
+      });
+    }
+    return true;
+  } catch (e) {
+    if (kDebugMode) {
+      print(e);
+    }
+    return false;
+  }
 }

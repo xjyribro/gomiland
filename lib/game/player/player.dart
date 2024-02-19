@@ -95,8 +95,9 @@ class Player extends SpriteAnimationComponent
     super.update(dt);
     if (game.playerIsFrozen()) return;
 
-    if (game.playerStateBloc.state.showControls) {
-      if (game.joystick.direction == JoystickDirection.idle || game.joystick.intensity < 0.2) {
+    if (game.gameStateBloc.state.showControls) {
+      if (game.joystick.direction == JoystickDirection.idle ||
+          game.joystick.intensity < 0.2) {
         _onJoystickStop();
       } else {
         _moveWithJoystick(game.joystick.direction);
@@ -193,7 +194,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (game.playerStateBloc.state.showControls) return false;
+    if (game.gameStateBloc.state.showControls) return false;
     if (event is RawKeyDownEvent) {
       if (game.playerIsFrozen()) return false;
       bool isMoving =

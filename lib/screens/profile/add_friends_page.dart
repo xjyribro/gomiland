@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/screens/profile/widgets/request_friend_row.dart';
+import 'package:gomiland/screens/profile/widgets/search_players.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
-class AddFriends extends StatelessWidget {
-  const AddFriends({super.key});
+class AddFriendsPage extends StatelessWidget {
+  const AddFriendsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,7 @@ class AddFriends extends StatelessWidget {
                 style: TextStyles.mainHeaderTextStyle,
               ),
               const SpacerNormal(),
-              const RequestFriendRow(
-                name: 'Name',
-                country: 'Country',
-                daysInGame: 'Days in game',
-                playerId: '',
-              ),
+              const SearchPlayers(),
               const SpacerNormal(),
               MenuButton(
                 text: 'Back',

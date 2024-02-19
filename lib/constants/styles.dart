@@ -48,6 +48,10 @@ class TextStyles {
     fontSize: smallTextSize,
     color: GameColors.green,
   );
+  static const sendFriendRequestRedTextStyle = TextStyle(
+    fontSize: smallTextSize,
+    color: GameColors.red,
+  );
   static const modalHeaderTextStyle = TextStyle(
     fontSize: headerTextSize,
     color: GameColors.black,

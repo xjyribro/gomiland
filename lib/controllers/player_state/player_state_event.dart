@@ -40,15 +40,6 @@ class PlayerHitboxChange extends PlayerStatesEvent {
   List<Object?> get props => [playerHitbox];
 }
 
-class ShowControls extends PlayerStatesEvent {
-  const ShowControls(this.showControls);
-
-  final bool showControls;
-
-  @override
-  List<Object?> get props => [showControls];
-}
-
 class SetIsMale extends PlayerStatesEvent {
   const SetIsMale(this.isMale);
 
@@ -74,4 +65,31 @@ class SetCountry extends PlayerStatesEvent {
 
   @override
   List<Object?> get props => [country];
+}
+
+class SetFriendsList extends PlayerStatesEvent {
+  const SetFriendsList(this.friendsList);
+
+  final List<String> friendsList;
+
+  @override
+  List<Object?> get props => [friendsList];
+}
+
+class SetFriendRequestSent extends PlayerStatesEvent {
+  const SetFriendRequestSent(this.friendRequestsSent);
+
+  final List<String> friendRequestsSent;
+
+  @override
+  List<Object?> get props => [friendRequestsSent];
+}
+
+class SetFriendRequestReceived extends PlayerStatesEvent {
+  const SetFriendRequestReceived(this.friendRequestsReceived);
+
+  final List<String> friendRequestsReceived;
+
+  @override
+  List<Object?> get props => [friendRequestsReceived];
 }

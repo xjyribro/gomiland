@@ -56,6 +56,9 @@ const levelOneBaseInt = 0;
 const levelTwoBaseInt = 100;
 const completedCharInt = 200;
 
+const List<String> genderOptions = ['Male', 'Female'];
+const List<String> showControlOptions = ['Yes', 'No'];
+
 class Strings {
   static const minecraft = 'minecraft';
   static const playersCollection = 'players';
@@ -88,4 +91,7 @@ class Strings {
   static const asimov = 'asimov';
   static const moon = 'moon';
   static const neighbour = 'neighbour';
+  static const friendsList = 'friendsList';
+  static const friendRequestsSent = 'friendRequestsSent';
+  static const friendRequestsReceived = 'friendRequestsReceived';
 }
