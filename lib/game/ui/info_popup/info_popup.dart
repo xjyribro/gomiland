@@ -59,10 +59,11 @@ class InfoPopupSpriteComponent extends SpriteComponent
       TextBoxComponent(
         text: _infoPopupObject.text,
         size: Vector2(704, 320),
-        position: Vector2(16, 16),
+        position: Vector2(16, 24),
         textRenderer: TextPaint(
           style: TextStyles.popupTextStyle,
         ),
+        align: Anchor.topCenter,
       ),
     );
     add(

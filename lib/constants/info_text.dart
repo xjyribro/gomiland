@@ -20,16 +20,21 @@ class InfoText{
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
       'Charge your electric vehicles here!\n'
       '(We accept robot vacuum charging too).\n\n'
-      'Electric vehicles typically have a smaller carbon footprint than gasoline cars, even when accounting for the electricity used for charging.\n'
-      'Over the course of their driving lifetimes, EVs will create fewer carbon emissions than gasoline-burning cars under nearly any conditions.\n\n'
+      'Electric vehicles have a smaller carbon footprint than gasoline cars.\n'
+      'EVs will create fewer carbon emissions than gasoline-burning cars.\n'
+      'Make the switch today!\n\n'
       'Sources: https://www.epa.gov/greenvehicles/electric-vehicle-myths,\n'
-      'https://climate.mit.edu/ask-mit/are-electric-vehicles-definitely-better-climate-gas-powered-cars';
+      'https://climate.mit.edu/ask-mit/are-electric -vehicles-definitely-better-climate-gas-powered-cars';
 
   static const String garden = 'Community garden\n\n'
       'Founded by Mr Moon and Mr Sun.\n'
       'Plants here are grown with sunlight, love and of course, natural fertilizers';
 
-  static const String cafe = 'cafe';
+  static const String cafe = 'Enjoyeux cafe\n\n'
+      'Best vegan food in town!\n\n'
+      'Choosing plant-based proteins like beans, lentils, and tofu shrinks your carbon footprint.\n\n'
+      'It conserves precious water and protects biodiversity.\n\n'
+      'Go green, go meatless, and savor the positive impact on our planet, one delicious bite at a time\n';
 
   static const String friendship_square = 'Friendship Square\n\n'
       'Meet your friends from around the world here.\n\n'
@@ -37,7 +42,7 @@ class InfoText{
       'Talk to everyone!';
 
   static const String park_sign = 'This way to Gomiland National Park.\n\n'
-      'Don\'t forget to visit the Castle, Shrine, World forest and Manuka\'s Bee Colony\n\n'
+      'Don\'t forget to visit the Castle, Bamboo Forest Shrine, World forest and the Honey Bee Colony\n\n'
       'Please do not throw rubbish in the park. Let\'s do our part to keep the park clean!\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
@@ -49,14 +54,16 @@ class InfoText{
 
   static const String zen_garden = 'zen_garden';
 
-  static const String shrine_complex = 'shrine_complex';
+  static const String shrine_complex = 'Bamboo forest shrine\n\n'
+      '';
 
   static const String bamboo_forest = 'bamboo_forest';
 
-  static const String hood_sign = 'hood_sign';
+  static const String hood_sign = 'Gomiland Neighbourhood\n'
+      'Bustling energy meets friendly charm\n\n';
 
-  static const String park_centre = 'Gomiland National Park\n\n'
-      'Home to many different species of plants and wildlife.\n'
+  static const String park_centre = 'Gomiland National Park\n'
+      'Home to many different species of plants and wildlife.\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n';
@@ -65,15 +72,30 @@ class InfoText{
 
   static const String sakuras = 'Cherry Blossoms\n\n'
       'Due to climate change, Cherry Blossom blooms are happening earlier each year.\n'
-      'This puts them at risk of cold snaps.\n'
-      'Also due to the warming climate, flowers may bloom before insects are ready, and vice versa.\n'
+      'This puts them at risk of cold snaps.\n\n'
+      'Because of warming climate, flowers may bloom before insects are ready and vice versa.\n'
       'This means there may not be enough food for the insects or plants.\n\n'
+      'Let\'s do our part to protect the environment today!\n\n'
       'Source: https://www.washingtonpost.com/weather/2023/03/18/cherry-blossoms-climate-change-washington,\n'
       'https://edition.cnn.com/travel/article/climate-crisis-cherry-blossom-kyoto-japan-intl-hnk-scn';
 
-  static const String bee_colony = 'bee_colony';
+  static const String bee_colony = 'Honey Bee colony\n\n'
+      'Best honey in Gomiland! Look for Manuka to find out how to get your honey!\n\n'
+      'Honey bees perform majority of pollination for our food crops\n'
+      'However their global population is in decline which is a threat to our food security\n'
+      'Image a world where you can\'t get tasty honey!\n'
+      'Found out how you can do your part to save the bees at https://thebeeconservancy.org/10-ways-to-save-the-bees/\n\n'
+      'Source: https://e360.yale.edu/features/declining_bee_populations_pose_a_threat_to_global_agriculture,\n'
+      'https://www.clemson.edu/extension/pollinators/apiculture/importance.html';
 
-  static const String world_forest = 'world_forest';
+  static const String world_forest = 'World forest\n\n'
+      'Check out trees from all over the world!\n\n'
+      'Important habitats like forests and jungles are being cleared at an unsustainable rate globally\n'
+      'We must do our part to conserve these essential wild spaces for future generations\n\n'
+      'Be a tree advocate:\n'
+      'Support organizations working to conserve forests and advocate for policies that protect these vital ecosystems.\n'
+      'Speak up for our trees!\n\n'
+      'Find out about deforestation at https://ourworldindata.org/deforestation';
 
   static const String how_to_sort = 'Sorting instructions:\n1.';
 }
