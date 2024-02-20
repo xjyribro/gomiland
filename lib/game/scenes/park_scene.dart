@@ -142,8 +142,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             shouldAddLight: shouldAddLight,
           );
           await add(parkLight);
-          add(Obstacle(
-            position: Vector2(lights.x + 6, lights.y + 48),
+          await add(Obstacle(
+            position: Vector2(light.x + 6, light.y + 48),
             size: Vector2(20, 16),
           ));
         }

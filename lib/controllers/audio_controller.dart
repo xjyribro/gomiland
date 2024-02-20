@@ -4,10 +4,10 @@ class Sounds {
   static Future initialize() async {
     FlameAudio.bgm.initialize();
     await FlameAudio.audioCache.loadAll([
-      'pickup.mp3',
-      'next.mp3',
-      'correct.mp3',
-      'incorrect.mp3',
+      'sfx/pickup.mp3',
+      'sfx/next.mp3',
+      'sfx/correct.mp3',
+      'sfx/incorrect.mp3',
     ]);
   }
 
@@ -32,11 +32,10 @@ class Sounds {
   }
 
   static stopBackgroundSound() {
-    return FlameAudio.bgm.stop();
+    return  FlameAudio.bgm.stop();
   }
 
   static void playMainMenuBgm() async {
-    await FlameAudio.bgm.stop();
     FlameAudio.bgm.play('bgm/olib_oil.mp3');
   }
 

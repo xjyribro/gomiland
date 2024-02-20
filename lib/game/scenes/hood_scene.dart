@@ -129,15 +129,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       bool shouldAddLight =
           game.gameStateBloc.state.minutes > eveningStartMins ||
               game.gameStateBloc.state.minutes < morningStartMins;
-      for (final TiledObject lights in lights.objects) {
+      for (final TiledObject light in lights.objects) {
         StreetLight streetLight = StreetLight(
-          position: Vector2(lights.x, lights.y),
-          size: Vector2(lights.width, lights.height),
+          position: Vector2(light.x, light.y),
+          size: Vector2(light.width, light.height),
           shouldAddLight: shouldAddLight,
         );
         add(streetLight);
         add(Obstacle(
-          position: Vector2(lights.x + 6, lights.y + 48),
+          position: Vector2(light.x + 6, light.y + 48),
           size: Vector2(20, 16),
         ));
       }
