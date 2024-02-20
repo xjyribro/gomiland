@@ -1,5 +1,5 @@
 // flame
-const isDebugMode = true;
+const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
 const double viewportWidth = 800;

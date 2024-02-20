@@ -430,7 +430,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(384, 320),
               spritePath: Assets.assets_images_buildings_castle_png,
             ),
           );
@@ -440,7 +440,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_shrine_office_png,
             ),
           );
@@ -449,7 +449,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(256, 96),
               spritePath: Assets.assets_images_buildings_waterhouse_png,
             ),
           );
@@ -458,7 +458,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_temple_png,
             ),
           );
@@ -468,7 +468,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(96, 64),
               spritePath: Assets.assets_images_buildings_shrine1_png,
             ),
           );
@@ -478,7 +478,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(128, 64),
               spritePath: Assets.assets_images_buildings_shrine2_png,
             ),
           );
@@ -488,7 +488,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(192, 64),
               spritePath: Assets.assets_images_buildings_shrine3_png,
             ),
           );
@@ -498,7 +498,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(160, 96),
               spritePath: Assets.assets_images_buildings_park_centre1_png,
             ),
           );
@@ -508,7 +508,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_park_centre2_png,
             ),
           );
