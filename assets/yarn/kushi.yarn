@@ -1,0 +1,31 @@
+<<character "Mr Kushi" Kushi>>
+title: talk
+---
+<<if $progress < 30>>
+    Kushi: Good {$timeOfDay}! Pleased to meet you.
+    Kushi: I am Mr Kushi, boss of Go convenient stores.
+    Kushi: We run the largest 24hr convenient store chain in Gomiland!
+<<elseif $progress >= 30 and $progress < 100>>
+    Kushi: What? You have picked up over 80 plastics from the ground?
+    <<changeProgress 100>>
+<<else>>
+    Kushi: What? You have picked up over 80 plastics from the ground?
+    Kushi: I guess many are products of Go 24hr convenient store...
+    Kushi: I am thinking of reducing the single use plastics that we use.
+    Kushi: Tell me, do you use reusable bags?
+    -> No
+        Kushi: Hmm... I guess our customers also would not use them.
+    -> Yes
+        Kushi: Ah. Maybe getting our customers to bring reusable bags is feasible.
+        Kushi: What about the plastic packaging and containers we currently use.
+        Kushi: Are customers going to pay more and be inconvenienced if we switch to alternatives?
+        -> Yes
+            Kushi: Oh no. I cannot let that happen.
+            Kushi: The customers are the most important.
+        -> No
+            Kushi: I see. In that case we could start encouraging buyers to bring their own bags
+            Kushi: We will also change some of our single use plastic products to use alternative materials!
+            Kushi: Thank you for your help. We hope that this change would benefit our brand and the residents.
+        <<changeProgress 200>>
+<<endif>>
+===

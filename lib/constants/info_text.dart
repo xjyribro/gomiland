@@ -1,8 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 class InfoText{
-  static const String how_to_play =
-      'How to move:\n'
+  static const String how_to_play = 'How to move:\n'
       'For mobile devices, the Directional Joystick and A button is automatically enabled.\n'
       'For Web and desktop, use WASD keys for movement. Use keyboard E for interactions.\n'
       'You can enable the Directional Joystick and A button in Settings.\n\n'
@@ -10,12 +9,14 @@ class InfoText{
       '1. Walk around and explore the city of Gomiland!\n'
       '2. Pick up trash on the ground. Press E on the keyboard or use the A button.\n'
       '3. Start conversations people. Press E on the keyboard or use the A button.\n'
-      '4. Head home when your bag is full. The current trash amount is on the top of the screen.\n'
-      '5. Sort the items from your bag into the bins. Earn G-coins for getting it right!\n';
+      '4. Head home when your bag is full. The current trash amount is on the top of the screen.\n';
 
-  static const String construction_site = 'construction_site';
+  static const String construction_site = 'Construction of new town centre in progress\n\n'
+      'For your own safety, keep clear of worksite\n\n'
+      '-Stark Construction Company';
 
-  static const String soup_kitchen = 'soup_kitchen';
+  static const String soup_kitchen = 'Soup Kitchen\n'
+      'Run by Florence';
 
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
       'Charge your electric vehicles here!\n'
@@ -26,9 +27,12 @@ class InfoText{
       'Sources: https://www.epa.gov/greenvehicles/electric-vehicle-myths,\n'
       'https://climate.mit.edu/ask-mit/are-electric -vehicles-definitely-better-climate-gas-powered-cars';
 
-  static const String garden = 'Community garden\n\n'
-      'Founded by Mr Moon and Mr Sun.\n'
-      'Plants here are grown with sunlight, love and of course, natural fertilizers';
+  static const String garden = 'Gomiland Community garden\n\n'
+      'Plants here are grown with sunlight, love and of course, organic fertilizers.\n'
+      'Our crops grown here are served at cafes around the town.\n'
+      'Community gardens reduce transport costs of ingredients and promotes sustainable living\n'
+      'Get involved today by collecting food scraps to make compost!\n\n'
+      'Founded by Mr Moon and Mr Sun.\n';
 
   static const String cafe = 'Enjoyeux cafe\n\n'
       'Best vegan food in town!\n\n'
@@ -43,7 +47,7 @@ class InfoText{
 
   static const String park_sign = 'This way to Gomiland National Park.\n\n'
       'Don\'t forget to visit the Castle, Bamboo Forest Shrine, World forest and the Honey Bee Colony\n\n'
-      'Please do not throw rubbish in the park. Let\'s do our part to keep the park clean!\n\n'
+      'Please pick up rubbish in the park. Let\'s do our part to keep the park clean!\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n'
@@ -52,15 +56,26 @@ class InfoText{
       'Source: https://blog.nationalparks.nsw.gov.au/whats-a-national-park-and-why-does-it-matter,\n'
       'https://www.nathab.com/blog/why-national-parks-matter,';
 
-  static const String zen_garden = 'zen_garden';
+  static const String zen_garden = 'Zen garden\n\n'
+      'Stay and enjoy the tranquility of the garden';
 
   static const String shrine_complex = 'Bamboo forest shrine\n\n'
-      '';
+      'Welcome traveller to the shrine.\n'
+      'Due to a paper shortage, we are unable to provide books, charms or talismans.\n'
+      'We seek your understanding for this matter.';
 
-  static const String bamboo_forest = 'bamboo_forest';
+  static const String bamboo_forest = 'Bamboo forest\n\n'
+      'Bamboo requires less water than most trees\n'
+      'They prevent soil erosion, maintain soil fertility, and promote healthy watersheds\n';
 
   static const String hood_sign = 'Gomiland Neighbourhood\n'
-      'Bustling energy meets friendly charm\n\n';
+      'Bustling energy meets friendly charm\n\n'
+      'Gomiland achieves sustainability through:\n'
+      '1. Green public spaces\n'
+      '2. Water and energy conservation\n'
+      '3. Walking and bike friendly roads\n'
+      '4. Eco-friendly buildings\n'
+      '5. Waste management system (new)';
 
   static const String park_centre = 'Gomiland National Park\n'
       'Home to many different species of plants and wildlife.\n\n'
@@ -68,7 +83,8 @@ class InfoText{
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n';
 
-  static const String castle = 'castle';
+  static const String castle = 'Gomiland castle\n\n'
+      'Please do not throw trash on the castle grounds.';
 
   static const String sakuras = 'Cherry Blossoms\n\n'
       'Due to climate change, Cherry Blossom blooms are happening earlier each year.\n'
@@ -97,5 +113,10 @@ class InfoText{
       'Speak up for our trees!\n\n'
       'Find out about deforestation at https://ourworldindata.org/deforestation';
 
-  static const String how_to_sort = 'Sorting instructions:\n1.';
+  static const String how_to_sort = 'Sorting instructions:\n'
+      '1. Drag and drop the rubbish on the table into the bins\n'
+      '2. The bins correspond to a recyclable material type:\n'
+      'Plastic, Paper, Glass, Metal, Food waste and Electronic waste'
+      '3. Get G-coins from the city council for getting it right.'
+      '4. Get fined if you get it wrong.';
 }
