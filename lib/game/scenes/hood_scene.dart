@@ -6,6 +6,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
+import 'package:gomiland/game/npcs/florence.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/kushi.dart';
@@ -171,8 +172,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadMap(TiledComponent map) async {
     final animationCompiler = AnimationBatchCompiler();
     final imageCompiler = ImageBatchCompiler();
-    final ground =
-        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+    final layerNames = [
       'sand',
       'road',
       'pavement',
@@ -182,7 +182,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'bases',
       'trees',
       'buildings',
-    ]);
+    ];
+    if (game.progressStateBloc.state.moon >= 100) {
+      layerNames.add('veggies');
+    }
+    if (game.progressStateBloc.state.moon >= 200) {
+      layerNames.add('med_crops');
+    }
+    final ground = imageCompiler.compileMapLayer(
+        tileMap: map.tileMap, layerNames: layerNames);
     add(ground);
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
@@ -363,6 +371,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'kushi':
           await add(MrKushi(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'florence':
+          await add(Florence(position: Vector2(npc.x, npc.y)));
           break;
         case 'stark':
           await add(Stark(position: Vector2(npc.x, npc.y)));
