@@ -397,6 +397,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadBuildings(ObjectGroup buildings) async {
     int starkProgress = game.progressStateBloc.state.stark;
+    int asimovProgress = game.progressStateBloc.state.asimov;
     for (final TiledObject building in buildings.objects) {
       switch (building.name) {
         case 'home':
@@ -431,20 +432,22 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
                 position: Vector2(building.x, building.y),
                 size: Vector2(building.width, building.height),
                 sprite:
-                await Sprite.load(Assets.assets_images_objects_piler_png),
+                    await Sprite.load(Assets.assets_images_objects_piler_png),
               ),
-            );}
+            );
+          }
           break;
         case 'digger':
           if (starkProgress >= 100) {
             await add(
               SpriteComponent(
                 sprite:
-                await Sprite.load(Assets.assets_images_objects_digger_png),
+                    await Sprite.load(Assets.assets_images_objects_digger_png),
                 position: Vector2(building.x, building.y),
                 size: Vector2(building.width, building.height),
               ),
-            );}
+            );
+          }
           break;
         case 'fountain':
           await add(
@@ -507,6 +510,18 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(building.width, building.height),
             ),
           );
+          break;
+        case 'vacbot':
+          if (asimovProgress >= 200) {
+            await add(
+              SpriteComponent(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                sprite:
+                    await Sprite.load(Assets.assets_images_objects_vacbot_png),
+              ),
+            );
+          }
           break;
         case 'school':
           await add(
