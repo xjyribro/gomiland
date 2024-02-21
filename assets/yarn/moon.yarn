@@ -25,7 +25,8 @@ title: talk
     <<set $remainder = 150 - $progress>>
     MrMoon: Collect another {$remainder} and maybe we can produce better crops.
 <<else>>
-    MrMoon: end
+    MrMoon: The community garden can now create a wider variety of plants!
+    MrMoon: Using our own compost beats having to buy expensive chemicals from the store.
     <<changeProgress 200>>
 <<endif>>
 ===

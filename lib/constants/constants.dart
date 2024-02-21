@@ -10,6 +10,7 @@ const double boxMarginFromLeft = 28;
 
 // map
 const double tileSize = 32;
+const int spawnerCount = 100;
 const double parkStartX = 96;
 const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1780;
@@ -18,7 +19,7 @@ const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 2;
+const double playerSpeed = 16;
 const double maxRaycastDist = 40;
 
 // day cycle
@@ -29,10 +30,12 @@ const morningStartMins = 360;
 const afternoonStartMins = 720;
 const eveningStartMins = 1080;
 const nightStartMins = 0;
+const newDayMins = 0;
+const spawnRatio = .5;
 
 // dialogue
 const double dialogueBoxFontSize = 24;
-const double infoPopupFontSize = 16;
+const double infoPopupFontSize = 17;
 const double dialogueButtonFontSize = 16;
 const double timePerChar = 0.05;
 const int npcDialogueCount = 5;
@@ -94,4 +97,6 @@ class Strings {
   static const friendsList = 'friendsList';
   static const friendRequestsSent = 'friendRequestsSent';
   static const friendRequestsReceived = 'friendRequestsReceived';
+  static const hoodSpawners = 'hoodSpawners';
+  static const parkSpawners = 'parkSpawners';
 }

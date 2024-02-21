@@ -49,6 +49,7 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   void initState() {
+    Sounds.initialize();
     Sounds.playMainMenuBgm();
     _initAuthStateListener();
     super.initState();
@@ -57,6 +58,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void dispose() {
     Sounds.stopBackgroundSound();
+    Sounds.dispose();
     super.dispose();
   }
 

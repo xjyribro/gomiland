@@ -14,7 +14,7 @@ import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
-import 'package:gomiland/game/objects/rubbish_spawner.dart';
+import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/confirm_exit_game.dart';

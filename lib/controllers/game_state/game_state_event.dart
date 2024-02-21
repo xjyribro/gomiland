@@ -38,6 +38,13 @@ class SetBagCount extends GameStateEvent {
   List<Object?> get props => [bagCount];
 }
 
+class AddOneToBag extends GameStateEvent {
+  const AddOneToBag();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class SetBagSize extends GameStateEvent {
   const SetBagSize(this.bagSize);
 
@@ -61,6 +68,24 @@ class SetMinsInGame extends GameStateEvent {
 
   @override
   List<Object?> get props => [minutes];
+}
+
+class SetHoodSpawnersList extends GameStateEvent {
+  const SetHoodSpawnersList(this.spawners);
+
+  final List<int> spawners;
+
+  @override
+  List<Object?> get props => [spawners];
+}
+
+class SetParkSpawnersList extends GameStateEvent {
+  const SetParkSpawnersList(this.spawners);
+
+  final List<int> spawners;
+
+  @override
+  List<Object?> get props => [spawners];
 }
 
 class PlayerFrozen extends GameStateEvent {
@@ -98,19 +123,23 @@ class ShowControls extends GameStateEvent {
 }
 
 class SetGameState extends GameStateEvent {
-  const SetGameState(
-    this.coinAmount,
-    this.bagCount,
-    this.bagSize,
-    this.minutes,
-    this.daysInGame,
-  );
+  const SetGameState({
+   required this.coinAmount,
+   required this.bagCount,
+   required this.bagSize,
+   required this.minutes,
+   required this.daysInGame,
+   required this.hoodSpawners,
+   required this.parkSpawners,
+  });
 
   final int coinAmount;
   final int bagCount;
   final int bagSize;
   final int minutes;
   final int daysInGame;
+  final List<int> hoodSpawners;
+  final List<int> parkSpawners;
 
   @override
   List<Object?> get props => [
@@ -119,5 +148,7 @@ class SetGameState extends GameStateEvent {
         bagSize,
         minutes,
         daysInGame,
+        hoodSpawners,
+        parkSpawners,
       ];
 }

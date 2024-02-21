@@ -3,6 +3,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
 part 'player_state.dart';

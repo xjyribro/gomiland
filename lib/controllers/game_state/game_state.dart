@@ -9,6 +9,8 @@ class GameState extends Equatable {
   final int minutes;
   final int daysInGame;
   final bool playerFrozen;
+  final List<int> hoodSpawners;
+  final List<int> parkSpawners;
   final bool showControls;
 
   const GameState({
@@ -20,19 +22,23 @@ class GameState extends Equatable {
     required this.minutes,
     required this.daysInGame,
     required this.playerFrozen,
+    required this.hoodSpawners,
+    required this.parkSpawners,
     required this.showControls,
   });
 
-  const GameState.empty()
+  GameState.empty()
       : this(
           isMute: false,
           coinAmount: 0,
           sceneName: SceneName.menu,
           bagCount: 0,
-          bagSize: 1,
+          bagSize: 0,
           minutes: gameStartTime,
           daysInGame: 0,
           playerFrozen: false,
+          hoodSpawners: [],
+          parkSpawners: [],
           showControls: kIsWeb ? false : true,
         );
 
@@ -45,6 +51,8 @@ class GameState extends Equatable {
     int? minutes,
     int? daysInGame,
     bool? playerFrozen,
+    List<int>? hoodSpawners,
+    List<int>? parkSpawners,
     bool? showControls,
   }) {
     return GameState(
@@ -56,14 +64,24 @@ class GameState extends Equatable {
       minutes: minutes ?? this.minutes,
       daysInGame: daysInGame ?? this.daysInGame,
       playerFrozen: playerFrozen ?? this.playerFrozen,
+      hoodSpawners: hoodSpawners ?? this.hoodSpawners,
+      parkSpawners: parkSpawners ?? this.parkSpawners,
       showControls: showControls ?? this.showControls,
     );
   }
 
   void resetGameState(BuildContext context) {
-    context
-        .read<GameStateBloc>()
-        .add(const SetGameState(0, 0, 1, gameStartTime, 0));
+    List<int> hoodSpawnList = generateNewHoodRubbishList();
+    List<int> parkSpawnList = generateNewParkRubbishList();
+    context.read<GameStateBloc>().add(SetGameState(
+          coinAmount: 0,
+          bagCount: 0,
+          bagSize: 0,
+          minutes: gameStartTime,
+          daysInGame: 0,
+          hoodSpawners: hoodSpawnList,
+          parkSpawners: parkSpawnList,
+        ));
   }
 
   void setGameState({
@@ -73,14 +91,18 @@ class GameState extends Equatable {
     required int bagSize,
     required int minutes,
     required int daysInGame,
+    required List<int> hoodSpawners,
+    required List<int> parkSpawners,
   }) {
     context.read<GameStateBloc>().add(
           SetGameState(
-            coinAmount,
-            bagCount,
-            bagSize,
-            minutes,
-            daysInGame,
+            coinAmount: coinAmount,
+            bagCount: bagCount,
+            bagSize: bagSize,
+            minutes: minutes,
+            daysInGame: daysInGame,
+            hoodSpawners: hoodSpawners,
+            parkSpawners: parkSpawners,
           ),
         );
   }
@@ -95,6 +117,8 @@ class GameState extends Equatable {
         minutes,
         daysInGame,
         playerFrozen,
+        hoodSpawners,
+        parkSpawners,
         showControls,
       ];
 }

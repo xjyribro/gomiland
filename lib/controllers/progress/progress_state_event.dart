@@ -140,23 +140,23 @@ class SetNeighbourState extends ProgressStateEvent {
 }
 
 class SetProgressState extends ProgressStateEvent {
-  const SetProgressState(
-    this.hasSave,
-    this.neighbour,
-    this.plastic,
-    this.paper,
-    this.metal,
-    this.electronics,
-    this.glass,
-    this.food,
-    this.wrong,
-    this.manuka,
-    this.qianBi,
-    this.risa,
-    this.stark,
-    this.asimov,
-    this.moon,
-  );
+  const SetProgressState({
+    required this.hasSave,
+    required this.neighbour,
+    required this.plastic,
+    required this.paper,
+    required this.metal,
+    required this.electronics,
+    required this.glass,
+    required this.food,
+    required this.wrong,
+    required this.manuka,
+    required this.qianBi,
+    required this.risa,
+    required this.stark,
+    required this.asimov,
+    required this.moon,
+  });
 
   final bool hasSave;
   final String neighbour;

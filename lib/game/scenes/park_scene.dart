@@ -19,27 +19,25 @@ import 'package:gomiland/game/objects/buildings/temizuya.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
-import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/scenes/utils.dart';
 
 class ParkMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
-  late Vector2 _playerStartPosit;
-  late Vector2 _playerStartLookDir;
+  late bool _loadFromSave;
 
   ParkMap({
     required Function setNewSceneName,
-    required Vector2 playerStartPosit,
-    required Vector2 playerStartLookDir,
+    required bool loadFromSave,
   }) : super() {
     _setNewSceneName = setNewSceneName;
-    _playerStartPosit = playerStartPosit;
-    _playerStartLookDir = playerStartLookDir;
+    _loadFromSave = loadFromSave;
   }
 
   void turnOnLights() {
@@ -107,21 +105,14 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
     if (spawners != null) {
-      for (final TiledObject spawner in spawners.objects) {
-        await add(
-          RubbishSpawner(
-            position: Vector2(spawner.x, spawner.y),
-          ),
-        );
-      }
+      await _loadSpawners(spawners);
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npcs');
     if (npcs != null) {
       await _loadNpcs(npcs);
     }
-
-    await _loadPlayer(_playerStartPosit, _playerStartLookDir);
+    await _loadPlayer();
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
@@ -151,8 +142,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             shouldAddLight: shouldAddLight,
           );
           await add(parkLight);
-          add(Obstacle(
-            position: Vector2(lights.x + 6, lights.y + 48),
+          await add(Obstacle(
+            position: Vector2(light.x + 6, light.y + 48),
             size: Vector2(20, 16),
           ));
         }
@@ -169,8 +160,15 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
   }
 
-  Future<void> _loadPlayer(Vector2 position, Vector2 lookDir) async {
-    Player player = Player(position: position, lookDir: lookDir);
+  Future<void> _loadPlayer() async {
+    Vector2 playerStartPosit = _loadFromSave
+        ? game.playerStateBloc.state.playerPosition
+        : getPlayerParkStartPosit();
+    Vector2 playerStartLookDir = _loadFromSave
+        ? game.playerStateBloc.state.playerDirection
+        : getPlayerParkStartLookDir();
+    Player player =
+        Player(position: playerStartPosit, lookDir: playerStartLookDir);
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -204,6 +202,23 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
     final animatedWater = await animationCompiler.compile();
     animatedWater.priority = -1;
     add(animatedWater);
+  }
+
+  Future<void> _loadSpawners(ObjectGroup spawners) async {
+    final spawnerCount = spawners.objects.length;
+    List<int> parkSpawnList = game.gameStateBloc.state.parkSpawners;
+    for (int i = 0; i < spawnerCount; i++) {
+      if (parkSpawnList.contains(i + 1)) {
+        final spawner = spawners.objects[i];
+        await add(
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+            sceneName: SceneName.park,
+            index: i,
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _loadTrees(ObjectGroup trees) async {
@@ -415,7 +430,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(384, 320),
               spritePath: Assets.assets_images_buildings_castle_png,
             ),
           );
@@ -425,7 +440,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_shrine_office_png,
             ),
           );
@@ -434,7 +449,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(256, 96),
               spritePath: Assets.assets_images_buildings_waterhouse_png,
             ),
           );
@@ -443,7 +458,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_temple_png,
             ),
           );
@@ -453,7 +468,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(96, 64),
               spritePath: Assets.assets_images_buildings_shrine1_png,
             ),
           );
@@ -463,7 +478,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(128, 64),
               spritePath: Assets.assets_images_buildings_shrine2_png,
             ),
           );
@@ -473,7 +488,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(192, 64),
               spritePath: Assets.assets_images_buildings_shrine3_png,
             ),
           );
@@ -483,7 +498,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(160, 96),
               spritePath: Assets.assets_images_buildings_park_centre1_png,
             ),
           );
@@ -493,7 +508,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             BuildingWithFade(
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
-              hitboxSize: Vector2(192, 128),
+              hitboxSize: Vector2(224, 96),
               spritePath: Assets.assets_images_buildings_park_centre2_png,
             ),
           );

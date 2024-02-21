@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
@@ -91,8 +92,7 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
       for (final TiledObject object in binsLayer.objects) {
         RubbishType binType = object.name.rubbishType;
         Bin bin = Bin(
-          openingPosition: Vector2(object.x, object.y),
-          openingSize: Vector2(object.width, object.height),
+          position: Vector2(object.x, object.y),
           binType: binType,
         );
         add(bin);
@@ -107,8 +107,10 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
     );
     await add(rubbishSpawner);
     add(ExitRoomButton(leaveRoomCheck: _leaveRoomCheck));
-    if (game.gameStateBloc.state.bagSize < 2) {
+    if (game.gameStateBloc.state.bagSize == 1) {
       _showTutorial();
     }
+
+    game.gameStateBloc.add(const SetBagCount(20));
   }
 }

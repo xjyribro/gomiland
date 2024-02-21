@@ -7,6 +7,7 @@ class RubbishObject {
   RubbishType rubbishType;
   int spriteCount;
   Vector2 size;
+  Vector2 hitboxSize;
 
   RubbishObject({
     required this.name,
@@ -14,5 +15,6 @@ class RubbishObject {
     required this.rubbishType,
     required this.spriteCount,
     required this.size,
+    required this.hitboxSize,
   });
 }

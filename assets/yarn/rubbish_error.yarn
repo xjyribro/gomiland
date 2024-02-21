@@ -8,29 +8,29 @@
 <<declare $rubbishName as String>>
 title: rubbish_error
 ---
-Someone: Wrong!
+Someone: Dear resident, please throw {$rubbishName} into the correct bin.
 ===
 title: plastic_error
 ---
-Risa: Wrong! {$rubbishName} is not made of plastic.
+Risa: {$rubbishName} is not made of plastic.
 ===
 title: glass_error
 ---
-Manuka: Wrong! {$rubbishName} is not made of glass.
+Manuka: Bzzzz! {$rubbishName} is not made of glass.
 ===
 title: metal_error
 ---
-Stark: Wrong! {$rubbishName} is not made of metal.
+Stark: Hey be careful kid! {$rubbishName} ain't made of metal.
 ===
 title: electronics_error
 ---
-Asimov: Wrong! {$rubbishName} is not electronic waste.
+Asimov: {$rubbishName} is not electronic waste. I can't use that!
 ===
 title: paper_error
 ---
-QianBi: Wrong! {$rubbishName} is not made of paper.
+QianBi: This is a great disaster! {$rubbishName} is not made of paper.
 ===
 title: food_error
 ---
-Moon: Wrong! {$rubbishName} is not food waste.
+Moon: {$rubbishName} is not food waste.
 ===

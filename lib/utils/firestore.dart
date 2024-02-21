@@ -56,6 +56,8 @@ Future<bool> saveGameState({
       Strings.bagSize: gameState.bagSize,
       Strings.minutes: gameState.minutes,
       Strings.daysInGame: gameState.daysInGame,
+      Strings.hoodSpawners: gameState.hoodSpawners,
+      Strings.parkSpawners: gameState.parkSpawners,
       Strings.plastic: progressState.plastic,
       Strings.paper: progressState.paper,
       Strings.metal: progressState.metal,
@@ -130,6 +132,8 @@ Future<bool> loadSaved({
           data[Strings.friendRequestsReceived] != null
               ? List.from(data[Strings.friendRequestsReceived])
               : [];
+      List<int> hoodSpawners = data[Strings.hoodSpawners]?.cast<int>() ?? [];
+      List<int> parkSpawners = data[Strings.parkSpawners]?.cast<int>() ?? [];
       context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
           playerName: data[Strings.playerName] ?? '',
@@ -150,6 +154,8 @@ Future<bool> loadSaved({
             bagSize: data[Strings.bagSize] ?? 1,
             minutes: data[Strings.minutes] ?? gameStartTime,
             daysInGame: data[Strings.daysInGame] ?? 0,
+            hoodSpawners: hoodSpawners,
+            parkSpawners: parkSpawners,
           );
       context.read<ProgressStateBloc>().state.setProgress(
             context: context,

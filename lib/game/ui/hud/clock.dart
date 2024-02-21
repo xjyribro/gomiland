@@ -8,6 +8,7 @@ import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/data/days_of_week.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/gomiland_world.dart';
+import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
 class ClockComponent extends HudMarginComponent {
@@ -103,6 +104,12 @@ class ClockComponent extends HudMarginComponent {
       }
     }}
 
+  void _respawnRubbishCheck() {
+    if (_gameMins == newDayMins) {
+      respawnRubbishAndSetState(_game);
+    }
+  }
+
   @override
   void update(double dt) {
     _seconds += dt;
@@ -117,6 +124,7 @@ class ClockComponent extends HudMarginComponent {
       }
     }
     _brightnessCheck();
+    _respawnRubbishCheck();
     final int hours = (_gameMins / 60).floor();
     final int mins = _gameMins % 60;
     final String hourString = hours.toString().padLeft(2, "0");

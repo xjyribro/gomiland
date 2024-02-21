@@ -3,3 +3,7 @@ title: bag_is_full
 ---
 Himiko: Your bag is full. Go home to sort what you picked up.
 ===
+title: bag_is_empty
+---
+Himiko: Your bag is empty. Look around for black balls of trash.
+===

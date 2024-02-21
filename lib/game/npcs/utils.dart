@@ -1,5 +1,7 @@
+import 'package:flame/components.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
+import 'package:gomiland/game/objects/obsticle.dart';
 
 class NpcNameStrings {
   static const String boy = 'boy';
@@ -63,3 +65,8 @@ int getCharProgress(RubbishType rubbishType, ProgressState state) {
       return 0;
   }
 }
+
+Obstacle npcObstacle(Vector2 position) => Obstacle(
+      position: Vector2(position.x + 6, position.y),
+      size: Vector2(20, 32),
+    );

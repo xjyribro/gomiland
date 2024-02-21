@@ -61,6 +61,11 @@ class TextStyles {
     color: GameColors.black,
     fontWeight: FontWeight.bold
   );
+  static const popupTextStyle = TextStyle(
+  fontSize: infoPopupFontSize,
+  color: Colors.black,
+  fontFamily: Strings.minecraft,
+  );
   final socialAuthButtonStyle = GoogleFonts.roboto(
     textStyle: const TextStyle(
       fontSize: 24,

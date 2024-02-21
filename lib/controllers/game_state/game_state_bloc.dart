@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/game/objects/spawners/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
 part 'game_state.dart';
@@ -12,7 +13,7 @@ part 'game_state.dart';
 part 'game_state_event.dart';
 
 class GameStateBloc extends Bloc<GameStateEvent, GameState> {
-  GameStateBloc() : super(const GameState.empty()) {
+  GameStateBloc() : super(GameState.empty()) {
     on<SceneChanged>(
       (event, emit) => emit(
         state.copyWith(sceneName: event.sceneName),
@@ -40,6 +41,12 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
+    on<AddOneToBag>(
+      (event, emit) => emit(
+        state.copyWith(bagCount: state.bagCount + 1),
+      ),
+    );
+
     on<SetBagSize>(
       (event, emit) => emit(
         state.copyWith(bagSize: event.bagSize),
@@ -55,6 +62,18 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
     on<SetMinsInGame>(
       (event, emit) => emit(
         state.copyWith(minutes: event.minutes),
+      ),
+    );
+
+    on<SetHoodSpawnersList>(
+          (event, emit) => emit(
+        state.copyWith(hoodSpawners: event.spawners),
+      ),
+    );
+
+    on<SetParkSpawnersList>(
+          (event, emit) => emit(
+        state.copyWith(parkSpawners: event.spawners),
       ),
     );
 
@@ -90,6 +109,8 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
           bagSize: event.bagSize,
           minutes: event.minutes,
           daysInGame: event.daysInGame,
+          hoodSpawners: event.hoodSpawners,
+          parkSpawners: event.parkSpawners,
         ),
       ),
     );

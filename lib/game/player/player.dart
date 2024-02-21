@@ -21,9 +21,9 @@ class Player extends SpriteAnimationComponent
     required Vector2 position,
     required Vector2 lookDir,
   }) : super(
-          position: position,
-          size: Vector2.all(32),
-        ) {
+    position: position,
+    size: Vector2.all(32),
+  ) {
     _initLookDir = lookDir;
   }
 
@@ -36,14 +36,19 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  late RectangleHitbox playerHitbox;
+  late RectangleHitbox _playerHitbox;
 
   bool _isMovingUp = false;
   bool _isMovingDown = false;
   bool _isMovingLeft = false;
   bool _isMovingRight = false;
+  bool _rejectFromRoom = false;
   int _moveDirection = 0;
   final double _speed = tileSize * playerSpeed;
+
+  void setRejectFromRoom(bool rejectFromRoom) {
+    _rejectFromRoom = rejectFromRoom;
+  }
 
   SpriteAnimation getLookDirAnimation(Vector2 lookDir) {
     if (lookDir == Vector2(0, -1)) return idleUp;
@@ -80,19 +85,21 @@ class Player extends SpriteAnimationComponent
         spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = getLookDirAnimation(_initLookDir);
-    playerHitbox = RectangleHitbox(
+    _playerHitbox = RectangleHitbox(
       position: Vector2(16, 16),
       size: Vector2(size.x - 8, size.y - 16),
       anchor: Anchor.topCenter,
     );
-    add(playerHitbox);
-
-    game.playerStateBloc.add(PlayerHitboxChange(playerHitbox));
+    add(_playerHitbox);
+    game.playerStateBloc.add(PlayerHitboxChange(_playerHitbox));
   }
 
   @override
   void update(double dt) {
     super.update(dt);
+    if (_rejectFromRoom) {
+      moveAwayFromHome();
+    }
     if (game.playerIsFrozen()) return;
 
     if (game.gameStateBloc.state.showControls) {
@@ -113,6 +120,18 @@ class Player extends SpriteAnimationComponent
       originalPosition: originalPosition,
     );
     game.playerStateBloc.add(SetPlayerPosition(position));
+  }
+
+  void moveAwayFromHome() {
+    if (position.y < hoodStartFromRoomY) {
+      _moveDirection = 2;
+      animation = moveDown;
+    } else {
+      _moveDirection = 0;
+      animation = idleDown;
+      setRejectFromRoom(false);
+    }
+    game.unfreezePlayer();
   }
 
   void _onJoystickStop() {
@@ -181,7 +200,7 @@ class Player extends SpriteAnimationComponent
     if (other is QianBi) {
       if (intersectionPoints.length == 2) {
         final mid = (intersectionPoints.elementAt(0) +
-                intersectionPoints.elementAt(1)) /
+            intersectionPoints.elementAt(1)) /
             2;
         final collisionNormal = absoluteCenter - mid;
         final separationDistance = (size.x / 2) - collisionNormal.length;

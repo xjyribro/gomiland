@@ -1,4 +1,10 @@
 import 'package:flame/components.dart';
+import 'package:flutter/services.dart';
+import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/player/player.dart';
+import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
+import 'package:jenny/jenny.dart';
 
 Vector2 getMovement(int moveDirection) {
   switch (moveDirection) {
@@ -15,4 +21,26 @@ Vector2 getMovement(int moveDirection) {
     default:
       return Vector2.zero();
   }
+}
+
+Future<void> rejectFromRoom(GomilandGame game, Player player) async {
+  game.freezePlayer();
+  await _showBagIsEmptyDialogue(game);
+  player.setRejectFromRoom(true);
+}
+
+Future<void> _showBagIsEmptyDialogue(GomilandGame game) async {
+  DialogueControllerComponent dialogueControllerComponent =
+      game.dialogueControllerComponent;
+  YarnProject yarnProject = YarnProject();
+
+  // DIALOGUE
+  yarnProject.parse(
+    await rootBundle.loadString(Assets.assets_yarn_general_yarn),
+  );
+  DialogueRunner dialogueRunner = DialogueRunner(
+    yarnProject: yarnProject,
+    dialogueViews: [dialogueControllerComponent],
+  );
+  await dialogueRunner.startDialogue('bag_is_empty');
 }

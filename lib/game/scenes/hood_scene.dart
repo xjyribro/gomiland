@@ -3,7 +3,6 @@ import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
@@ -29,27 +28,28 @@ import 'package:gomiland/game/objects/buildings/shop_side_eng.dart';
 import 'package:gomiland/game/objects/buildings/shop_side_jap.dart';
 import 'package:gomiland/game/objects/buildings/shoukudou.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
+import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
-import 'package:gomiland/game/scenes/gate.dart';
+import 'package:gomiland/game/player/utils.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/scenes/utils.dart';
 
 class HoodMap extends Component with HasGameReference<GomilandGame> {
   late Function _setNewSceneName;
-  late Vector2 _playerStartPosit;
-  late Vector2 _playerStartLookDir;
+  late bool _loadFromSave;
+  late Player _player;
 
   HoodMap({
     required Function setNewSceneName,
-    required Vector2 playerStartPosit,
-    required Vector2 playerStartLookDir,
+    required bool loadFromSave,
   }) : super() {
     _setNewSceneName = setNewSceneName;
-    _playerStartPosit = playerStartPosit;
-    _playerStartLookDir = playerStartLookDir;
+    _loadFromSave = loadFromSave;
   }
 
   void turnOnLights() {
@@ -94,28 +94,12 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
     final gates = map.tileMap.getLayer<ObjectGroup>('gates');
     if (gates != null) {
-      for (final TiledObject object in gates.objects) {
-        SceneName sceneName =
-            object.name == 'park' ? SceneName.park : SceneName.room;
-        await add(
-          Gate(
-            position: Vector2(object.x, object.y),
-            size: Vector2(object.width, object.height),
-            switchScene: () => _setNewSceneName(sceneName),
-          ),
-        );
-      }
+      await _loadGates(gates);
     }
 
     final spawners = map.tileMap.getLayer<ObjectGroup>('spawners');
     if (spawners != null) {
-      for (final TiledObject spawner in spawners.objects) {
-        await add(
-          RubbishSpawner(
-            position: Vector2(spawner.x, spawner.y),
-          ),
-        );
-      }
+      await _loadSpawners(spawners);
     }
 
     final npcs = map.tileMap.getLayer<ObjectGroup>('npc');
@@ -123,7 +107,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       await _loadNpcs(npcs);
     }
 
-    await _loadPlayer(_playerStartPosit, _playerStartLookDir);
+    await _loadPlayer();
 
     final buildings = map.tileMap.getLayer<ObjectGroup>('buildings');
     if (buildings != null) {
@@ -145,15 +129,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       bool shouldAddLight =
           game.gameStateBloc.state.minutes > eveningStartMins ||
               game.gameStateBloc.state.minutes < morningStartMins;
-      for (final TiledObject lights in lights.objects) {
+      for (final TiledObject light in lights.objects) {
         StreetLight streetLight = StreetLight(
-          position: Vector2(lights.x, lights.y),
-          size: Vector2(lights.width, lights.height),
+          position: Vector2(light.x, light.y),
+          size: Vector2(light.width, light.height),
           shouldAddLight: shouldAddLight,
         );
         add(streetLight);
         add(Obstacle(
-          position: Vector2(lights.x + 6, lights.y + 48),
+          position: Vector2(light.x + 6, light.y + 48),
           size: Vector2(20, 16),
         ));
       }
@@ -161,8 +145,23 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     _checkBgm();
   }
 
-  Future<void> _loadPlayer(Vector2 position, Vector2 lookDir) async {
-    Player player = Player(position: position, lookDir: lookDir);
+  Future<void> _loadPlayer() async {
+    Vector2 playerStartPosit = _loadFromSave
+        ? game.playerStateBloc.state.playerPosition
+        : getPlayerHoodStartPosit(game);
+
+    bool isTutorial = game.gameStateBloc.state.bagSize == 0;
+    if (isTutorial) {
+      game.freezePlayer();
+    }
+    Vector2 playerStartLookDir = isTutorial
+        ? getPlayerTutorialStartLookDir()
+        : _loadFromSave
+            ? game.playerStateBloc.state.playerDirection
+            : getPlayerHoodStartLookDir();
+    Player player =
+        Player(position: playerStartPosit, lookDir: playerStartLookDir);
+    _player = player;
     await add(player);
     game.cameraComponent.follow(player);
   }
@@ -198,6 +197,23 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
     add(animatedWater);
   }
 
+  Future<void> _loadSpawners(ObjectGroup spawners) async {
+    final spawnerCount = spawners.objects.length;
+    List<int> hoodSpawnList = game.gameStateBloc.state.hoodSpawners;
+    for (int i = 0; i < spawnerCount; i++) {
+      if (hoodSpawnList.contains(i)) {
+        final spawner = spawners.objects[i];
+        await add(
+          RubbishSpawner(
+            position: Vector2(spawner.x, spawner.y),
+            sceneName: SceneName.hood,
+            index: i,
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _loadSigns(ObjectGroup signs) async {
     for (final TiledObject sign in signs.objects) {
       await add(
@@ -206,6 +222,35 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           signName: sign.name,
         ),
       );
+    }
+  }
+
+  Future<void> _loadGates(ObjectGroup gates) async {
+    for (final TiledObject object in gates.objects) {
+      switch (object.name) {
+        case 'park':
+          await add(
+            Gate(
+                position: Vector2(object.x, object.y),
+                size: Vector2(object.width, object.height),
+                switchScene: () => _setNewSceneName(SceneName.park)),
+          );
+        case 'room':
+          await add(
+            Gate(
+              position: Vector2(object.x, object.y),
+              size: Vector2(object.width, object.height),
+              switchScene: () async {
+                int bagCount = game.gameStateBloc.state.bagCount;
+                if (bagCount == 0) {
+                  await rejectFromRoom(game, _player);
+                } else {
+                  _setNewSceneName(SceneName.room);
+                }
+              },
+            ),
+          );
+      }
     }
   }
 
@@ -268,10 +313,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
-      add(Obstacle(
-        position: Vector2(npc.x + 6, npc.y),
-        size: Vector2(20, 32),
-      ));
       switch (npc.name) {
         case 'man':
           await add(
@@ -357,11 +398,11 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       switch (building.name) {
         case 'home':
           await add(
-            SpriteComponent(
-              sprite:
-                  await Sprite.load(Assets.assets_images_buildings_home_png),
+            BuildingWithFade(
+              spritePath: Assets.assets_images_buildings_home_png,
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
+              hitboxSize: Vector2(256, 160),
             ),
           );
           break;
