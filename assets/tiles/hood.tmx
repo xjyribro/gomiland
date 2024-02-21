@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="23" nextobjectid="1525">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="23" nextobjectid="1527">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -2301,8 +2301,10 @@
  <objectgroup id="8" name="npc">
   <object id="280" name="risa" x="896" y="2304" width="32" height="32"/>
   <object id="285" name="stark" x="4480" y="4032" width="32" height="32"/>
-  <object id="287" name="mrs_sun" x="3968" y="800" width="32" height="32"/>
-  <object id="288" name="mr_sun" x="4544" y="928" width="32" height="32"/>
+  <object id="287" name="mrs_star" x="3968" y="800" width="32" height="32"/>
+  <object id="1525" name="mrs_star" x="672" y="672" width="32" height="32"/>
+  <object id="288" name="mr_star" x="4544" y="928" width="32" height="32"/>
+  <object id="1526" name="mr_star" x="704" y="736" width="32" height="32"/>
   <object id="292" name="boss" x="3840" y="1440" width="32" height="32"/>
   <object id="1523" name="boss" x="960" y="736" width="32" height="32"/>
   <object id="1524" name="florence" x="896" y="768" width="32" height="32"/>

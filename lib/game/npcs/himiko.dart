@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
@@ -58,7 +59,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
     if (game.gameStateBloc.state.bagSize == 0) {
       _isTutorial = true;
     }
-    add(npcObstacle(Vector2.zero()));
+    addAll([npcObstacle(Vector2.zero()), RectangleHitbox()]);
   }
 
   @override
