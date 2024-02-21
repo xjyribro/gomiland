@@ -396,6 +396,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadBuildings(ObjectGroup buildings) async {
+    int starkProgress = game.progressStateBloc.state.stark;
     for (final TiledObject building in buildings.objects) {
       switch (building.name) {
         case 'home':
@@ -417,12 +418,33 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           );
           break;
         case 'piler':
-          await add(
-            Piler(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
+          if (starkProgress >= 200) {
+            await add(
+              Piler(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+          } else if (starkProgress >= 100) {
+            await add(
+              SpriteComponent(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                sprite:
+                await Sprite.load(Assets.assets_images_objects_piler_png),
+              ),
+            );}
+          break;
+        case 'digger':
+          if (starkProgress >= 100) {
+            await add(
+              SpriteComponent(
+                sprite:
+                await Sprite.load(Assets.assets_images_objects_digger_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );}
           break;
         case 'fountain':
           await add(
