@@ -16,7 +16,7 @@ class TeaShop extends SpriteAnimationComponent with CollisionCallbacks {
   @override
   Future<void> onLoad() async {
     final image =
-    await Flame.images.load(Assets.assets_images_spritesheets_beehive_png);
+    await Flame.images.load(Assets.assets_images_buildings_tea_shop_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2(192, 192),

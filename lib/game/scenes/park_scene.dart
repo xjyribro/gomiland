@@ -10,12 +10,14 @@ import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/utils.dart';
+import 'package:gomiland/game/objects/buildings/beehive.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
 import 'package:gomiland/game/objects/buildings/fish_shop.dart';
 import 'package:gomiland/game/objects/buildings/shop_back_jap.dart';
 import 'package:gomiland/game/objects/buildings/shoukudou.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/buildings/temizuya.dart';
+import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
@@ -24,7 +26,6 @@ import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
-import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/scenes/utils.dart';
 
@@ -287,7 +288,9 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
-              spritePath: Assets.assets_images_trees_tree_sakura_png,
+              spritePath: game.gameStateBloc.state.daysInGame < 10
+                  ? Assets.assets_images_trees_tree_sakura_bare_png
+                  : Assets.assets_images_trees_tree_sakura_png,
               hitboxSize: Vector2(96, 64),
               hitboxPosition: Vector2.zero(),
             ),
@@ -300,7 +303,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(tree.width, tree.height),
               spritePath: Assets.assets_images_trees_tree_cone_png,
               hitboxSize: Vector2(96, 160),
-              hitboxPosition: Vector2.zero(),
+              hitboxPosition: Vector2(32, 32),
             ),
           );
           break;
@@ -311,7 +314,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(tree.width, tree.height),
               spritePath: Assets.assets_images_trees_tree_willow_png,
               hitboxSize: Vector2(96, 96),
-              hitboxPosition: Vector2.zero(),
+              hitboxPosition: Vector2(32, 0),
             ),
           );
           break;
@@ -321,8 +324,8 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
               spritePath: Assets.assets_images_trees_tree_orange_png,
-              hitboxSize: Vector2(160, 64),
-              hitboxPosition: Vector2.zero(),
+              hitboxSize: Vector2(160, 96),
+              hitboxPosition: Vector2(32, 32),
             ),
           );
           break;
@@ -410,6 +413,29 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             SpriteComponent(
               sprite: await Sprite.load(
                   Assets.assets_images_buildings_tori_big_png),
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'statue':
+          await add(
+            SpriteComponent(
+              sprite:
+                  await Sprite.load(Assets.assets_images_objects_samurai_png),
+              position: Vector2(building.x, building.y),
+              size: Vector2(building.width, building.height),
+            ),
+          );
+          break;
+        case 'charms':
+          await add(
+            SpriteComponent(
+              sprite: await Sprite.load(
+                game.progressStateBloc.state.qianBi >= 200
+                    ? Assets.assets_images_buildings_charms_png
+                    : Assets.assets_images_buildings_charms_bare_png,
+              ),
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
             ),
@@ -512,6 +538,25 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
               spritePath: Assets.assets_images_buildings_park_centre2_png,
             ),
           );
+          break;
+        case 'beehive':
+          if (game.progressStateBloc.state.manuka >= 200) {
+            await add(
+              Beehive(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+          } else {
+            await add(
+              BuildingWithFade(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                hitboxSize: Vector2(64, 32),
+                spritePath: Assets.assets_images_buildings_beehive_png,
+              ),
+            );
+          }
           break;
       }
     }

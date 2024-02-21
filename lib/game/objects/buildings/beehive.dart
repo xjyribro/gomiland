@@ -16,10 +16,10 @@ class Beehive extends SpriteAnimationComponent with CollisionCallbacks {
   @override
   Future<void> onLoad() async {
     final image =
-    await Flame.images.load(Assets.assets_images_buildings_tea_shop_png);
+    await Flame.images.load(Assets.assets_images_spritesheets_beehive_png);
     final spriteSheet = SpriteSheet(
       image: image,
-      srcSize: Vector2(192, 192),
+      srcSize: Vector2(64, 64),
     );
     animation = SpriteAnimation.fromFrameData(
         spriteSheet.image,
