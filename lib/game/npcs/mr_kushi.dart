@@ -13,8 +13,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Asimov extends Npc with HasGameReference<GomilandGame> {
-  Asimov({required super.position});
+class MrKushi extends Npc with HasGameReference<GomilandGame> {
+  MrKushi({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -23,7 +23,7 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_asimov_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_manuka_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -65,18 +65,17 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-
     int progress =
-        getCharProgress(RubbishType.electronics, game.progressStateBloc.state);
+        getCharProgress(RubbishType.glass, game.progressStateBloc.state);
+
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
 
-    // DIALOGUE
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
       ..variables.setVariable('\$progress', progress)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_asimov_yarn));
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_manuka_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
@@ -84,6 +83,6 @@ class Asimov extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(SetAsimovProgress(newLevel));
+    game.progressStateBloc.add(SetManukaProgress(newLevel));
   }
 }
