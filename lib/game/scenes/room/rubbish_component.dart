@@ -55,7 +55,7 @@ class RubbishComponent extends SpriteComponent
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    position += event.canvasDelta;
+    position += event.localDelta;
   }
 
   @override

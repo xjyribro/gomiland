@@ -113,7 +113,7 @@ class InfoText{
       'Speak up for our trees!\n\n'
       'Find out about deforestation at https://ourworldindata.org/deforestation';
 
-  static const String how_to_sort = 'Sorting instructions:\n'
+  static const String how_to_sort = 'Sorting instructions:\n\n'
       '1. Drag and drop the rubbish on the table into the bins\n'
       '2. The bins correspond to a recyclable material type:\n'
       'Plastic, Paper, Glass, Metal, Food waste and Electronic waste'

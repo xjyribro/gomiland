@@ -8,6 +8,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
+import 'package:gomiland/game/npcs/kushi.dart';
 import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/mr_mrs_star.dart';
@@ -360,8 +361,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'asimov':
           await add(Asimov(position: Vector2(npc.x, npc.y)));
           break;
-        case 'boss':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+        case 'kushi':
+          await add(MrKushi(position: Vector2(npc.x, npc.y)));
           break;
         case 'stark':
           await add(Stark(position: Vector2(npc.x, npc.y)));
@@ -373,7 +374,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           await add(MrStar(position: Vector2(npc.x, npc.y)));
           break;
         case 'mrs_star':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+          await add(MrsStar(position: Vector2(npc.x, npc.y)));
           break;
         case 'qianbi':
           await add(

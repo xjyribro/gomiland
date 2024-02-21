@@ -95,11 +95,20 @@ Future<Sprite> getRandomSprite(RubbishObject rubbishObject) async {
   return spriteSheet.getSprite(0, index);
 }
 
-String getIndefiniteArticle(String word) {
+String getIndefiniteArticle(String word, bool shouldCapitalise) {
   String lowercaseWord = word.toLowerCase();
   bool startsWithVowel = vowels.contains(lowercaseWord[0]);
-  String article = startsWithVowel ? 'an' : 'a';
+  String article = (startsWithVowel ? 'an' : 'a');
+  if (shouldCapitalise) {
+    article = article.capitalize();
+  }
   return '$article $word';
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
 }
 
 String getDialogueName(RubbishType binType, ProgressState progressState) {

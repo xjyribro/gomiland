@@ -44,7 +44,7 @@ class RubbishSpawner extends PositionComponent
     RubbishType rubbishType,
   ) {
     int reward = _rewardMap[rubbishType] ?? 1;
-    game.gameStateBloc.add(SetCoinAmount(reward));
+    game.gameStateBloc.add(ChangeCoinAmount(reward));
     _showScore(binType, reward);
     _updateProgress(rubbishType);
     if (game.gameStateBloc.state.bagSize < 2) {
@@ -61,7 +61,7 @@ class RubbishSpawner extends PositionComponent
     int binFine = _rewardMap[binType] ?? 1;
     int totalFine = rubbishFine + binFine;
     _showScore(binType, -totalFine);
-    game.gameStateBloc.add(SetCoinAmount(-totalFine));
+    game.gameStateBloc.add(ChangeCoinAmount(-totalFine));
     _updateFailureProgress();
     await _showErrorDialogue(binType, rubbishType, rubbishName);
     if (game.gameStateBloc.state.bagSize < 2) {
@@ -204,15 +204,17 @@ class RubbishSpawner extends PositionComponent
     String rubbishName,
   ) async {
     YarnProject yarnProject = YarnProject();
+    ProgressState progressState = game.progressStateBloc.state;
+    String dialogueName = getDialogueName(binType, progressState);
+    bool shouldCapitalise = !(dialogueName == 'rubbish_error');
     yarnProject
       ..parse(
           await rootBundle.loadString(Assets.assets_yarn_rubbish_error_yarn))
       ..variables
-          .setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
+          .setVariable('\$rubbishName', getIndefiniteArticle(rubbishName, shouldCapitalise));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject,
         dialogueViews: [game.dialogueControllerComponent]);
-    ProgressState progressState = game.progressStateBloc.state;
     await dialogueRunner.startDialogue(getDialogueName(binType, progressState));
   }
 

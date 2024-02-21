@@ -20,7 +20,7 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
-    on<SetCoinAmount>(
+    on<ChangeCoinAmount>(
       (event, emit) {
         int coinAmount = state.coinAmount + event.coinAmount;
         return emit(

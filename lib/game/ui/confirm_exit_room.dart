@@ -46,8 +46,7 @@ class ConfirmExitRoom extends StatelessWidget {
                     MenuButton(
                       onPressed: () {
                         game.overlays.remove('ConfirmExitRoom');
-                        int currentAmount = game.gameStateBloc.state.coinAmount;
-                        game.gameStateBloc.add(SetCoinAmount(currentAmount - leaveRoomPenalty));
+                        game.gameStateBloc.add(const ChangeCoinAmount(-leaveRoomPenalty));
                         game.goToHoodScene();
                       },
                       text: 'Leave',
