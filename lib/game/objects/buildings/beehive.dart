@@ -7,8 +7,8 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class TeaShop extends SpriteAnimationComponent with CollisionCallbacks {
-  TeaShop({
+class Beehive extends SpriteAnimationComponent with CollisionCallbacks {
+  Beehive({
     required Vector2 position,
     required Vector2 size,
   }) : super(position: position, size: size);
@@ -16,7 +16,7 @@ class TeaShop extends SpriteAnimationComponent with CollisionCallbacks {
   @override
   Future<void> onLoad() async {
     final image =
-    await Flame.images.load(Assets.assets_images_spritesheets_beehive_png);
+    await Flame.images.load(Assets.assets_images_buildings_tea_shop_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2(192, 192),
@@ -96,6 +96,14 @@ class TeaShop extends SpriteAnimationComponent with CollisionCallbacks {
           spriteSheet.createFrameData(8, 5, stepTime: stepTime),
           spriteSheet.createFrameData(8, 6, stepTime: stepTime),
           spriteSheet.createFrameData(8, 7, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 0, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 1, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 2, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 3, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 4, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 5, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 6, stepTime: stepTime),
+          spriteSheet.createFrameData(9, 7, stepTime: stepTime),
         ]));
 
     RectangleHitbox hitbox = RectangleHitbox(

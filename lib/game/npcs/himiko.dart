@@ -133,14 +133,15 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue(getDialogueName());
     game.unfreezePlayer();
-    showHowToPlay();
+    if (_isTutorial) {
+      showHowToPlay();
+    }
   }
 
   @override
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-
     _talkToHimiko();
   }
 

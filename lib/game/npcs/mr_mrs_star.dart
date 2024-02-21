@@ -23,7 +23,8 @@ class MrStar extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_mr_star_png);
+    final image =
+        await Flame.images.load(Assets.assets_images_npcs_mr_star_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -67,6 +68,7 @@ class MrStar extends Npc with HasGameReference<GomilandGame> {
     _facePlayer(playerPosition);
     int progress =
         getCharProgress(RubbishType.food, game.progressStateBloc.state);
+    String timeOfDay = getTimeOfDay(game.gameStateBloc.state.minutes);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -74,6 +76,7 @@ class MrStar extends Npc with HasGameReference<GomilandGame> {
 
     yarnProject
       ..variables.setVariable('\$progress', progress)
+      ..variables.setVariable('\$timeOfDay', timeOfDay)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_star_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
@@ -92,7 +95,8 @@ class MrsStar extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_mrs_star_png);
+    final image =
+        await Flame.images.load(Assets.assets_images_npcs_mrs_star_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -136,6 +140,7 @@ class MrsStar extends Npc with HasGameReference<GomilandGame> {
     _facePlayer(playerPosition);
     int progress =
         getCharProgress(RubbishType.food, game.progressStateBloc.state);
+    String timeOfDay = getTimeOfDay(game.gameStateBloc.state.minutes);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -143,6 +148,7 @@ class MrsStar extends Npc with HasGameReference<GomilandGame> {
 
     yarnProject
       ..variables.setVariable('\$progress', progress)
+      ..variables.setVariable('\$timeOfDay', timeOfDay)
       ..parse(await rootBundle.loadString(Assets.assets_yarn_star_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);

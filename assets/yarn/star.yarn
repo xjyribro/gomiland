@@ -3,7 +3,7 @@
 title: mr_Star
 ---
 <<if $progress == -1>>
-    MrStar: Good $timeOfDay!
+    MrStar: Good {$timeOfDay}!
     MrStar: This garden here is a community led effort.
     MrStar: We grow our own plants for cooking!
     MrStar: I think Mr Moon requires some help.
@@ -25,7 +25,7 @@ title: mr_Star
 title: mrs_Star
 ---
 <<if $progress == -1>>
-    MrsStar: Good $timeOfDay!
+    MrsStar: Good {$timeOfDay}!
     MrsStar: This garden here is a community led effort.
     MrsStar: We grow our own plants for medicine!
     MrsStar: I think Mr Moon is looking for some help.

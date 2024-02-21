@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
@@ -70,3 +71,13 @@ Obstacle npcObstacle(Vector2 position) => Obstacle(
       position: Vector2(position.x + 6, position.y),
       size: Vector2(20, 32),
     );
+
+String getTimeOfDay(int minutes) {
+  if (minutes >= morningStartMins && minutes < afternoonStartMins) {
+    return 'morning';
+  } else if (minutes >= afternoonStartMins && minutes < eveningStartMins) {
+    return 'afternoon';
+  } else {
+    return 'evening';
+  }
+}
