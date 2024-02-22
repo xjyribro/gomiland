@@ -77,6 +77,8 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
 
+    yarnProject.strictCharacterNames = false;
+
     yarnProject
       ..variables.setVariable('\$playerName', game.playerStateBloc.state.playerName)
       ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
@@ -93,9 +95,7 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
   }
 
   void deduct500Coins() {
-    int currAmount = game.gameStateBloc.state.coinAmount;
-    int newAmount = (currAmount - 500).clamp(0, maxCoinAmount);
-    game.gameStateBloc.add(SetCoinAmount(newAmount));
+    game.gameStateBloc.add(const ChangeCoinAmount(-500));
   }
 
   void upgradeShoe() {
@@ -105,8 +105,7 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
   }
 
   void upgradeBag() {
-    int currCount = game.gameStateBloc.state.bagCount;
-    game.gameStateBloc.add(SetBagSize(currCount + 10));
+    game.gameStateBloc.add(const SetBagSize(20));
     deduct500Coins();
   }
 }

@@ -107,6 +107,6 @@ String getFriendDialogue(OtherPlayer friendInfo, GomilandGame game) {
         return rand == 0 ? 'buy_bag' : 'buy_shoe';
       }
     }
-    return 'greeting';
+    return 'progress_player';
   }
 }

@@ -70,6 +70,9 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
     if (!isFirstLine) {
       removeTextBox();
     }
+    if (text.startsWith(':')) {
+      text = text.substring(2);
+    }
     _textBox = DialogueMainTextBox(text: text);
     add(_textBox);
   }
