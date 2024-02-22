@@ -248,10 +248,6 @@ class Player extends SpriteAnimationComponent
         game.castRay();
       }
 
-      if (event.logicalKey == LogicalKeyboardKey.keyR) {
-        print('${game.progressStateBloc.state}');
-      }
-
       return false;
     } else if (event is RawKeyUpEvent) {
       if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {

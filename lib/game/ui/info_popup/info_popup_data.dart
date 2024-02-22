@@ -25,6 +25,7 @@ class InfoPopData {
     _data['friendship_square'] =
         InfoPopupObject(text: InfoText.friendship_square);
     _data['park_sign'] = InfoPopupObject(text: InfoText.park_sign);
+    _data['school'] = InfoPopupObject(text: InfoText.school);
     // Park
     _data['zen_garden'] = InfoPopupObject(text: InfoText.zen_garden);
     _data['shrine_complex'] = InfoPopupObject(text: InfoText.shrine_complex);

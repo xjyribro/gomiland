@@ -18,6 +18,9 @@ class InfoText{
   static const String soup_kitchen = 'Soup Kitchen\n'
       'Run by Florence';
 
+  static const String school = 'Gomiland Elementary School\n'
+      'Where young minds flourish';
+
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
       'Charge your electric vehicles here!\n'
       '(We accept robot vacuum charging too).\n\n'
