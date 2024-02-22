@@ -9,6 +9,7 @@ class ScoreRow extends StatelessWidget {
   final String food;
   final String metal;
   final String electronics;
+  final TextStyle style;
 
   const ScoreRow({
     super.key,
@@ -18,7 +19,9 @@ class ScoreRow extends StatelessWidget {
     required this.glass,
     required this.food,
     required this.metal,
-    required this.electronics, required this.playerName,
+    required this.electronics,
+    required this.playerName,
+    required this.style,
   });
 
   @override
@@ -27,14 +30,62 @@ class ScoreRow extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Text(index != null ? index.toString() : ''),
-          Text(playerName),
-          Text(plastic),
-          Text(paper),
-          Text(glass),
-          Text(food),
-          Text(metal),
-          Text(electronics),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(index != null ? index.toString() : '', style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(playerName, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(plastic, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(paper, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(glass, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(food, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(metal, style: style),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(electronics, style: style),
+            ),
+          ),
         ],
       ),
     );

@@ -1,11 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/game/data/other_player.dart';
+import 'package:gomiland/screens/profile/widgets/high_score_table.dart';
 import 'package:gomiland/screens/profile/widgets/score_row.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 
-class HighScores extends StatelessWidget {
+class HighScores extends StatefulWidget {
   const HighScores({super.key});
+
+  @override
+  State<HighScores> createState() => _HighScoresState();
+}
+
+class _HighScoresState extends State<HighScores> {
+  bool _isGlobal = false;
+  List<OtherPlayer> _playersList = [];
+
+  void _switchList() {
+    setState(() {
+      _isGlobal = !_isGlobal;
+    });
+    _getSortedList();
+  }
+
+  void _getSortedList() {
+    List<OtherPlayer> playersList = [];
+
+    setState(() {
+      _playersList = playersList;
+    });
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _getSortedList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,32 +49,46 @@ class HighScores extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Row(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  SizedBox(
+                    width: 200,
+                    child: MenuButton(
+                      text: 'Back',
+                      style: TextStyles.menuRedTextStyle,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                   Text(
-                    'Friends list',
+                    '${_isGlobal ? 'Global' : 'Friends'} high scores',
                     style: TextStyles.mainHeaderTextStyle,
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: MenuButton(
+                      onPressed: _switchList,
+                      text: 'Switch to ${_isGlobal ? 'Friends' : 'Global'}',
+                      style: TextStyles.smallMenuTextStyle,
+                    ),
                   ),
                 ],
               ),
               const SpacerNormal(),
               const ScoreRow(
+                playerName: 'Player Name',
                 plastic: 'Plastic',
                 paper: 'Paper',
                 glass: 'Glass',
                 food: 'Food',
                 metal: 'Metal',
                 electronics: 'Electronics',
-                playerName: 'Player Name',
+                style: TextStyles.creditsTextStyle,
               ),
               const SpacerNormal(),
-              MenuButton(
-                text: 'Back',
-                style: TextStyles.menuRedTextStyle,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
+              HighScoreTable(playersList: _playersList),
               const SpacerNormal(),
             ],
           ),
