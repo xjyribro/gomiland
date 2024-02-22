@@ -22,6 +22,15 @@ class SetPlayerDirection extends PlayerStatesEvent {
   List<Object?> get props => [playerDirection];
 }
 
+class SetPlayerSpeed extends PlayerStatesEvent {
+  const SetPlayerSpeed(this.playerSpeed);
+
+  final int playerSpeed;
+
+  @override
+  List<Object?> get props => [playerSpeed];
+}
+
 class SetSavedLocation extends PlayerStatesEvent {
   const SetSavedLocation(this.playerLocation);
 
@@ -92,4 +101,13 @@ class SetFriendRequestReceived extends PlayerStatesEvent {
 
   @override
   List<Object?> get props => [friendRequestsReceived];
+}
+
+class SetFriends extends PlayerStatesEvent {
+  const SetFriends(this.friends);
+
+  final Map<String, OtherPlayer> friends;
+
+  @override
+  List<Object?> get props => [friends];
 }

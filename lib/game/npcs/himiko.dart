@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
@@ -29,7 +30,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  final double _speed = tileSize * playerSpeed;
+  final double _speed = tileSize * npcSpeed;
   bool _isTutorial = false;
 
   @override
@@ -58,7 +59,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
     if (game.gameStateBloc.state.bagSize == 0) {
       _isTutorial = true;
     }
-    add(npcObstacle(Vector2.zero()));
+    addAll([npcObstacle(Vector2.zero()), RectangleHitbox()]);
   }
 
   @override
@@ -132,14 +133,15 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue(getDialogueName());
     game.unfreezePlayer();
-    showHowToPlay();
+    if (_isTutorial) {
+      showHowToPlay();
+    }
   }
 
   @override
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
-
     _talkToHimiko();
   }
 

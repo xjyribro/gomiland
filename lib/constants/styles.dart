@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class TextStyles {
   static const double smallTextSize = 20;
@@ -9,7 +8,7 @@ class TextStyles {
   static const dialogueTextStyle =
       TextStyle(fontFamily: Strings.minecraft, fontSize: normalTextSize);
   static const dialogueButtonsTextStyle =
-  TextStyle(fontFamily: Strings.minecraft, fontSize: 24);
+      TextStyle(fontFamily: Strings.minecraft, fontSize: 24);
   static const hudTextStyle = TextStyle(
       color: Colors.white70, fontSize: 20, fontFamily: Strings.minecraft);
   static const menuBlackTextStyle = TextStyle(
@@ -57,20 +56,13 @@ class TextStyles {
     color: GameColors.red,
   );
   static const modalHeaderTextStyle = TextStyle(
-    fontSize: headerTextSize,
-    color: GameColors.black,
-    fontWeight: FontWeight.bold
-  );
+      fontSize: headerTextSize,
+      color: GameColors.black,
+      fontWeight: FontWeight.bold);
   static const popupTextStyle = TextStyle(
-  fontSize: infoPopupFontSize,
-  color: Colors.black,
-  fontFamily: Strings.minecraft,
-  );
-  final socialAuthButtonStyle = GoogleFonts.roboto(
-    textStyle: const TextStyle(
-      fontSize: 24,
-      color: Colors.black,
-    ),
+    fontSize: infoPopupFontSize,
+    color: Colors.black,
+    fontFamily: Strings.minecraft,
   );
 }
 
@@ -83,7 +75,7 @@ class ContainerStyles {
   );
 }
 
-class GameColors{
+class GameColors {
   static const black = Color.fromRGBO(0, 0, 0, 1.0);
   static const white = Color.fromRGBO(255, 255, 255, 1.0);
   static const purple = Color.fromRGBO(118, 48, 209, 1.0);

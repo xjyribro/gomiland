@@ -166,7 +166,7 @@ class RubbishData {
     rubbishType: RubbishType.paper,
     spriteCount: 1,
     size: Vector2(32, 32),
-    hitboxSize: Vector2(16, 16),
+    hitboxSize: Vector2(16, 32),
   );
   RubbishObject calendar = RubbishObject(
     name: 'calendar',
@@ -190,7 +190,7 @@ class RubbishData {
     rubbishType: RubbishType.paper,
     spriteCount: 1,
     size: Vector2(32, 32),
-    hitboxSize: Vector2(16, 16),
+    hitboxSize: Vector2(32, 16),
   );
 
   // GLASS
@@ -394,6 +394,6 @@ class RubbishData {
     rubbishType: RubbishType.food,
     spriteCount: 1,
     size: Vector2(32, 32),
-    hitboxSize: Vector2(16, 16),
+    hitboxSize: Vector2(32, 32),
   );
 }

@@ -1,4 +1,4 @@
-<<character Someone>>
+<<character "City council" CityCouncil>>
 <<character Risa>>
 <<character Manuka>>
 <<character Stark>>
@@ -8,7 +8,7 @@
 <<declare $rubbishName as String>>
 title: rubbish_error
 ---
-Someone: Dear resident, please throw {$rubbishName} into the correct bin.
+CityCouncil: Dear resident, please throw {$rubbishName} into the correct bin.
 ===
 title: plastic_error
 ---

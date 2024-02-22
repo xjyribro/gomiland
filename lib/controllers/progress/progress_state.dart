@@ -92,7 +92,7 @@ class ProgressState extends Equatable {
     );
   }
 
-  void resetProgress(BuildContext context) {
+  void setProgressForNewGame(BuildContext context) {
     context.read<ProgressStateBloc>().add(SetProgressState(
           hasSave: hasSave,
           neighbour: 'intro',

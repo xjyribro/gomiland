@@ -16,8 +16,7 @@ title: talk
     MrMoon: Toss another {$remainder} food waste then come see me.
 <<elseif $progress >= 30 and $progress < 100>>
     MrMoon: Our plants have grown splendidly well all thanks to you.
-    MrMoon: Making compost from food waste saves us from buying fertilizer...
-    MrMoon: and it is all natural as well!
+    MrMoon: Making compost from food waste saves us from buying fertilizer and it is all natural as well!
     MrMoon: I will ask the city to give you more coins for each food waste.
     MrMoon: Collect another 50 and maybe we can produce better crops.
     <<changeProgress 100>>

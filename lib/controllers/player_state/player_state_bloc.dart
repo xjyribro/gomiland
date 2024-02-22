@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/data/other_player.dart';
 
 part 'player_state.dart';
 
@@ -54,6 +55,12 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
       ),
     );
 
+    on<SetPlayerSpeed>(
+      (event, emit) => emit(
+        state.copyWith(playerSpeed: event.playerSpeed),
+      ),
+    );
+
     on<SetFriendsList>(
       (event, emit) => emit(
         state.copyWith(friendsList: event.friendsList),
@@ -69,6 +76,12 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
     on<SetFriendRequestReceived>(
       (event, emit) => emit(
         state.copyWith(friendRequestsReceived: event.friendRequestsReceived),
+      ),
+    );
+
+    on<SetFriends>(
+      (event, emit) => emit(
+        state.copyWith(friends: event.friends),
       ),
     );
   }

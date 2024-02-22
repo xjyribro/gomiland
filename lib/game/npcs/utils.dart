@@ -1,7 +1,13 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/scenes/utils.dart';
 
 class NpcNameStrings {
   static const String boy = 'boy';
@@ -70,3 +76,37 @@ Obstacle npcObstacle(Vector2 position) => Obstacle(
       position: Vector2(position.x + 6, position.y),
       size: Vector2(20, 32),
     );
+
+String getTimeOfDay(int minutes) {
+  if (minutes >= morningStartMins && minutes < afternoonStartMins) {
+    return 'morning';
+  } else if (minutes >= afternoonStartMins && minutes < eveningStartMins) {
+    return 'afternoon';
+  } else {
+    return 'evening';
+  }
+}
+
+String getFriendDialogue(OtherPlayer friendInfo, GomilandGame game) {
+  if (friendInfo.daysInGame < 10) {
+    return 'new_player';
+  } else {
+    bool playerCompletedMainQuests = checkFriendMainQuestsCompleted(friendInfo);
+    int playerSpeed = game.playerStateBloc.state.playerSpeed;
+    int bagSize = game.gameStateBloc.state.bagSize;
+    if (playerCompletedMainQuests) {
+      if (playerSpeed > playerBaseSpeed && bagSize > 10) {
+        return 'seasoned_player';
+      } else {
+        if (playerSpeed > playerBaseSpeed) {
+          return 'buy_bag';
+        } else if (bagSize > 10) {
+          return 'buy_shoe';
+        }
+        int rand = Random().nextInt(2);
+        return rand == 0 ? 'buy_bag' : 'buy_shoe';
+      }
+    }
+    return 'progress_player';
+  }
+}

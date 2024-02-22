@@ -7,9 +7,11 @@ class PlayerState extends Equatable {
   final bool isMale;
   final String playerName;
   final String country;
+  final int playerSpeed;
   final List<String> friendsList;
   final List<String> friendRequestsSent;
   final List<String> friendRequestsReceived;
+  final Map<String, OtherPlayer> friends;
 
   // this is for ignore hitbox during raycast
   final RectangleHitbox? playerHitbox;
@@ -21,10 +23,12 @@ class PlayerState extends Equatable {
     required this.isMale,
     required this.playerName,
     required this.country,
+    required this.playerSpeed,
     required this.savedLocation,
     required this.friendsList,
     required this.friendRequestsSent,
     required this.friendRequestsReceived,
+    required this.friends,
   });
 
   PlayerState.empty()
@@ -35,10 +39,12 @@ class PlayerState extends Equatable {
           isMale: true,
           playerName: '',
           country: '',
+          playerSpeed: playerBaseSpeed,
           savedLocation: SceneName.hood,
           friendsList: [],
           friendRequestsSent: [],
           friendRequestsReceived: [],
+          friends: {},
         );
 
   PlayerState copyWith({
@@ -48,10 +54,12 @@ class PlayerState extends Equatable {
     bool? isMale,
     String? playerName,
     String? country,
+    int? playerSpeed,
     SceneName? savedLocation,
     List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
+    Map<String, OtherPlayer>? friends,
   }) {
     return PlayerState(
       playerPosition: playerPosition ?? this.playerPosition,
@@ -60,19 +68,22 @@ class PlayerState extends Equatable {
       isMale: isMale ?? this.isMale,
       playerName: playerName ?? this.playerName,
       country: country ?? this.country,
+      playerSpeed: playerSpeed ?? this.playerSpeed,
       savedLocation: savedLocation ?? this.savedLocation,
       friendsList: friendsList ?? this.friendsList,
       friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
       friendRequestsReceived:
           friendRequestsReceived ?? this.friendRequestsReceived,
+      friends: friends ?? this.friends,
     );
   }
 
-  void resetPlayerState(BuildContext context) {
+  void setPlayerStateForNewGame(BuildContext context) {
     setPlayerState(
       context: context,
       playerXPosit: hoodStartFromRoomX,
       playerYPosit: hoodStartFromRoomY,
+      playerSpeed: playerBaseSpeed,
     );
   }
 
@@ -81,6 +92,7 @@ class PlayerState extends Equatable {
     String? playerName,
     String? country,
     bool? isMale,
+    int? playerSpeed,
     SceneName? savedLocation,
     num? playerXPosit,
     num? playerYPosit,
@@ -89,6 +101,7 @@ class PlayerState extends Equatable {
     List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
+    Map<String, OtherPlayer>? friends,
   }) {
     if (playerName != null) {
       context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
@@ -106,6 +119,9 @@ class PlayerState extends Equatable {
       Vector2 direction = Vector2(playerXDir.toDouble(), playerYDir.toDouble());
       context.read<PlayerStateBloc>().add(SetPlayerDirection(direction));
     }
+    if (playerSpeed != null) {
+      context.read<PlayerStateBloc>().add(SetPlayerSpeed(playerSpeed));
+    }
     if (savedLocation != null) {
       context.read<PlayerStateBloc>().add(SetSavedLocation(savedLocation));
     }
@@ -122,6 +138,9 @@ class PlayerState extends Equatable {
           .read<PlayerStateBloc>()
           .add(SetFriendRequestReceived(friendRequestsReceived));
     }
+    if (friends != null) {
+      context.read<PlayerStateBloc>().add(SetFriends(friends));
+    }
   }
 
   @override
@@ -132,9 +151,11 @@ class PlayerState extends Equatable {
         isMale,
         playerName,
         country,
+        playerSpeed,
         savedLocation,
         friendsList,
         friendRequestsSent,
         friendRequestsReceived,
+        friends,
       ];
 }

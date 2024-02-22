@@ -63,9 +63,9 @@ void goToGame({
   required bool loadFromSave,
 }) {
   if (!loadFromSave) {
-    context.read<ProgressStateBloc>().state.resetProgress(context);
-    context.read<GameStateBloc>().state.resetGameState(context);
-    context.read<PlayerStateBloc>().state.resetPlayerState(context);
+    context.read<ProgressStateBloc>().state.setProgressForNewGame(context);
+    context.read<GameStateBloc>().state.setGameStateForNewGame(context);
+    context.read<PlayerStateBloc>().state.setPlayerStateForNewGame(context);
   }
   Navigator.push(
     context,

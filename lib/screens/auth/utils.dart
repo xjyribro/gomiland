@@ -14,7 +14,7 @@ void showSignInErrorPopup(BuildContext context, String errorMessage) {
       context: context,
       title: 'Incorrect password',
       subTitle:
-      'If you forgot your password, reset it with the "Reset Password" button',
+      'Please try again',
     );
   } else {
     Popups.showMessage(

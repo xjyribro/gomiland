@@ -4,12 +4,17 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
+import 'package:gomiland/game/npcs/florence.dart';
+import 'package:gomiland/game/npcs/friend.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
+import 'package:gomiland/game/npcs/kushi.dart';
 import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
+import 'package:gomiland/game/npcs/mr_mrs_star.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/risa.dart';
 import 'package:gomiland/game/npcs/stark.dart';
@@ -31,7 +36,8 @@ import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/signs/combini_sign.dart';
+import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
@@ -40,6 +46,7 @@ import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/scenes/utils.dart';
 
 class HoodMap extends Component with HasGameReference<GomilandGame> {
+  Map<String, OtherPlayer> friends = {};
   late Function _setNewSceneName;
   late bool _loadFromSave;
   late Player _player;
@@ -169,8 +176,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadMap(TiledComponent map) async {
     final animationCompiler = AnimationBatchCompiler();
     final imageCompiler = ImageBatchCompiler();
-    final ground =
-        imageCompiler.compileMapLayer(tileMap: map.tileMap, layerNames: [
+    final layerNames = [
       'sand',
       'road',
       'pavement',
@@ -180,7 +186,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       'bases',
       'trees',
       'buildings',
-    ]);
+    ];
+    if (game.progressStateBloc.state.moon >= 100) {
+      layerNames.add('veggies');
+    }
+    if (game.progressStateBloc.state.moon >= 200) {
+      layerNames.add('med_crops');
+    }
+    final ground = imageCompiler.compileMapLayer(
+        tileMap: map.tileMap, layerNames: layerNames);
     add(ground);
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
@@ -216,12 +230,16 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadSigns(ObjectGroup signs) async {
     for (final TiledObject sign in signs.objects) {
-      await add(
-        Sign(
-          position: Vector2(sign.x, sign.y),
-          signName: sign.name,
-        ),
-      );
+      if (sign.name == 'combini') {
+        await add(CombiniSign(position: Vector2(sign.x, sign.y)));
+      } else {
+        await add(
+          GeneralSign(
+            position: Vector2(sign.x, sign.y),
+            signName: sign.name,
+          ),
+        );
+      }
     }
   }
 
@@ -312,8 +330,20 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
+    friends = game.playerStateBloc.state.friends;
     for (final TiledObject npc in npcs.objects) {
       switch (npc.name) {
+        case 'friend':
+          if (friends.isEmpty) break;
+          String friendId = pickRandKey(friends);
+          await add(
+            Friend(
+              position: Vector2(npc.x, npc.y),
+              friendInfo: friends[friendId]!,
+            ),
+          );
+          friends.remove(friendId);
+          break;
         case 'man':
           await add(
             GeneralNpc(
@@ -359,8 +389,11 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'asimov':
           await add(Asimov(position: Vector2(npc.x, npc.y)));
           break;
-        case 'boss':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+        case 'kushi':
+          await add(MrKushi(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'florence':
+          await add(Florence(position: Vector2(npc.x, npc.y)));
           break;
         case 'stark':
           await add(Stark(position: Vector2(npc.x, npc.y)));
@@ -368,11 +401,11 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'risa':
           await add(Risa(position: Vector2(npc.x, npc.y)));
           break;
-        case 'mr_sun':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+        case 'mr_star':
+          await add(MrStar(position: Vector2(npc.x, npc.y)));
           break;
-        case 'mrs_sun':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
+        case 'mrs_star':
+          await add(MrsStar(position: Vector2(npc.x, npc.y)));
           break;
         case 'qianbi':
           await add(
@@ -394,6 +427,8 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadBuildings(ObjectGroup buildings) async {
+    int starkProgress = game.progressStateBloc.state.stark;
+    int asimovProgress = game.progressStateBloc.state.asimov;
     for (final TiledObject building in buildings.objects) {
       switch (building.name) {
         case 'home':
@@ -415,12 +450,35 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           );
           break;
         case 'piler':
-          await add(
-            Piler(
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
+          if (starkProgress >= 200) {
+            await add(
+              Piler(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+          } else if (starkProgress >= 100) {
+            await add(
+              SpriteComponent(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                sprite:
+                    await Sprite.load(Assets.assets_images_objects_piler_png),
+              ),
+            );
+          }
+          break;
+        case 'digger':
+          if (starkProgress >= 100) {
+            await add(
+              SpriteComponent(
+                sprite:
+                    await Sprite.load(Assets.assets_images_objects_digger_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+          }
           break;
         case 'fountain':
           await add(
@@ -483,6 +541,18 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(building.width, building.height),
             ),
           );
+          break;
+        case 'vacbot':
+          if (asimovProgress >= 200) {
+            await add(
+              SpriteComponent(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                sprite:
+                    await Sprite.load(Assets.assets_images_objects_vacbot_png),
+              ),
+            );
+          }
           break;
         case 'school':
           await add(

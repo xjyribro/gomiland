@@ -3,29 +3,41 @@
 title: talk
 ---
 <<if $progress == -1>>
-    Risa: Nice to meet you. Hajimemashite!
-    Risa: My name is Risa. I run a company that creates things from old plastics.
-    Risa: We work with the city to collect plastics that people throw away.
-    Risa: Ah you are sorting out plastics from other trash?
-    Risa: Perfect! If you help us collect 30 plastic items, we will reward you.
-    <<changeProgress 0>>
+    Risa: Nice to meet you.
+    Risa: My name is Risa. I work for Go 24hr convenient stores.
+    Risa: I have been trying for months to convince the boss to reduce the single use plastics that our stores currently use.
+    Risa: Hmm... could you help me?
+    -> No
+        Risa: Oh you don't have time?
+        Risa: No worries
+    -> Yes
+        Risa: Great!
+        Risa: Help me collect 30 plastics from the streets and I will show my boss that not only is it expensive,
+        Risa: but it creates a lot of waste to use single ue plastics!
+        <<changeProgress 0>>
 <<elseif $progress < 30>>
     <<set $remainder = 30 - $progress>>
     Risa: Collect any plastic pieces you find and throw them at home.
     Risa: {$remainder} more to go!
 <<elseif $progress >= 30 and $progress < 100>>
-    Risa: Thank you for your hard work. Otsukaresamadeshita!
-    Risa: Every plastic item you throw in the bin is now worth more.
-    Risa: Our products are receiving plenty of attention!
-    Risa: Help us collect 50 more and we will give you an increase in coins.
+    Risa: Thank you for your effort.
+    Risa: I have shown my boss the rubbish that you collected.
+    Risa: He isn't convinced...
+    Risa: I bet he needs more evidence. Could you collect another 50 more plastics please?
+    Risa: I will also ask the city to increase the coins for plastics you throw as an incentive.
     <<changeProgress 100>>
 <<elseif $progress < 150>>
     <<set $remainder = 150 - $progress>>
-    Risa: Help us collect {$remainder} more and we will give you an increase in coins.
+    Risa: Help me collect {$remainder} more plastics to show my boss!
+<<elseif $progress < 200>>
+    Risa: Thank you for your hard work.
+    Risa: Unfortunately my boss didn't think the idea of reducing plastics was feasible...
+    Risa: maybe if a customer went to see him, he would be persuaded. He values the customer a great deal.
+    Risa: Look for him in front of the Gomiland office building between the hospital and the school.
+    Risa: His name is Mr Kushi.
 <<else>>
-    Risa: Thank you for your hard work. Otsukaresamadeshita!
-    Risa: The recycled plastics look great and we make a good profit.
-    Risa: Sustainability means coming up with solutions that benefit the planet without great costs!
-    <<changeProgress 200>>
+    Risa: Our plan worked! Mr Kushi is determined to phase out single use plastics in all our prouducts!
+    Risa: We also reward people who bring their own bags and containers to fill drinks.
+    Risa: Thanks so much for your help.
 <<endif>>
 ===

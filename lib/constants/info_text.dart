@@ -15,8 +15,14 @@ class InfoText{
       'For your own safety, keep clear of worksite\n\n'
       '-Stark Construction Company';
 
+  static const String combini = 'Go 24hr convenience store\n'
+      'Get the best deals in town';
+
   static const String soup_kitchen = 'Soup Kitchen\n'
       'Run by Florence';
+
+  static const String school = 'Gomiland Elementary School\n'
+      'Where young minds flourish';
 
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
       'Charge your electric vehicles here!\n'
@@ -113,10 +119,17 @@ class InfoText{
       'Speak up for our trees!\n\n'
       'Find out about deforestation at https://ourworldindata.org/deforestation';
 
-  static const String how_to_sort = 'Sorting instructions:\n'
+  static const String how_to_sort = 'Sorting instructions:\n\n'
       '1. Drag and drop the rubbish on the table into the bins\n'
       '2. The bins correspond to a recyclable material type:\n'
       'Plastic, Paper, Glass, Metal, Food waste and Electronic waste'
       '3. Get G-coins from the city council for getting it right.'
       '4. Get fined if you get it wrong.';
+
+  static const String statue = 'Statue under restoration\n\n\n'
+      'We apologise for the inconvenience';
+  static const String warrior = 'Statue of brave eco-warrior\n\n\n'
+      'Provider of aid to those in need,\n'
+      'protector of our ecosystems\n'
+      'guardian of our natural habitat.';
 }

@@ -10,7 +10,9 @@ import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
 
 class LoadButton extends StatelessWidget {
-  const LoadButton({super.key});
+  final bool isLoading;
+  final Function setIsLoading;
+  const LoadButton({super.key, required this.isLoading, required this.setIsLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,8 @@ class LoadButton extends StatelessWidget {
               text: 'Load game',
               style: TextStyles.menuPurpleTextStyle,
               onPressed: () async {
+                if (isLoading) return;
+                setIsLoading(true);
                 String? playerId = FirebaseAuth.instance.currentUser?.uid;
                 if (playerId != null) {
                   await loadSaved(playerId: playerId, context: context)
@@ -38,6 +42,7 @@ class LoadButton extends StatelessWidget {
                     }
                   });
                 }
+                if (context.mounted) setIsLoading(false);
               },
             ),
             const SpacerNormal(),

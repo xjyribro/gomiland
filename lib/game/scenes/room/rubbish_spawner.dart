@@ -44,9 +44,9 @@ class RubbishSpawner extends PositionComponent
     RubbishType rubbishType,
   ) {
     int reward = _rewardMap[rubbishType] ?? 1;
-    game.gameStateBloc.add(SetCoinAmount(reward));
+    changeCoinAmount(game, reward);
+    updateProgress(game, rubbishType);
     _showScore(binType, reward);
-    _updateProgress(rubbishType);
     if (game.gameStateBloc.state.bagSize < 2) {
       _onFirstThrow(true);
     }
@@ -60,109 +60,12 @@ class RubbishSpawner extends PositionComponent
     int rubbishFine = _rewardMap[rubbishType] ?? 1;
     int binFine = _rewardMap[binType] ?? 1;
     int totalFine = rubbishFine + binFine;
+    changeCoinAmount(game, -totalFine);
     _showScore(binType, -totalFine);
-    game.gameStateBloc.add(SetCoinAmount(-totalFine));
     _updateFailureProgress();
     await _showErrorDialogue(binType, rubbishType, rubbishName);
     if (game.gameStateBloc.state.bagSize < 2) {
       _onFirstThrow(false);
-    }
-  }
-
-  void _updateProgress(RubbishType rubbishType) {
-    switch (rubbishType) {
-      case RubbishType.plastic:
-        int plastic = game.progressStateBloc.state.plastic;
-        game.progressStateBloc.add(SetPlasticProgress(plastic + 1));
-        int risa = game.progressStateBloc.state.risa;
-        if (risa >= levelOneBaseInt && risa < levelTwoBaseInt) {
-          risa += 1;
-          game.progressStateBloc.add(SetRisaProgress(
-              risa.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
-        }
-        if (risa >= levelTwoBaseInt && risa < completedCharInt) {
-          risa += 1;
-          game.progressStateBloc.add(SetRisaProgress(
-              risa.clamp(levelTwoBaseInt, completedCharInt - 1)));
-        }
-        break;
-      case RubbishType.glass:
-        int glass = game.progressStateBloc.state.glass;
-        game.progressStateBloc.add(SetGlassProgress(glass + 1));
-        int manuka = game.progressStateBloc.state.manuka;
-        if (manuka >= levelOneBaseInt && manuka < levelTwoBaseInt) {
-          manuka += 1;
-          game.progressStateBloc
-              .add(SetManukaProgress(manuka.clamp(levelOneBaseInt, 199)));
-        }
-        if (manuka >= levelTwoBaseInt && manuka < completedCharInt) {
-          manuka += 1;
-          game.progressStateBloc
-              .add(SetManukaProgress(manuka.clamp(levelTwoBaseInt, 299)));
-        }
-        break;
-      case RubbishType.paper:
-        int paper = game.progressStateBloc.state.paper;
-        game.progressStateBloc.add(SetPaperProgress(paper + 1));
-        int qianbi = game.progressStateBloc.state.qianBi;
-        if (qianbi >= levelOneBaseInt && qianbi < levelTwoBaseInt) {
-          qianbi += 1;
-          game.progressStateBloc
-              .add(SetQianBiProgress(qianbi.clamp(levelOneBaseInt, 199)));
-        }
-        if (qianbi >= levelTwoBaseInt && qianbi < completedCharInt) {
-          qianbi += 1;
-          game.progressStateBloc
-              .add(SetQianBiProgress(qianbi.clamp(levelTwoBaseInt, 299)));
-        }
-        break;
-      case RubbishType.metal:
-        int metal = game.progressStateBloc.state.metal;
-        game.progressStateBloc.add(SetMetalProgress(metal + 1));
-        int stark = game.progressStateBloc.state.stark;
-        if (stark >= levelOneBaseInt && stark < levelTwoBaseInt) {
-          stark += 1;
-          game.progressStateBloc
-              .add(SetStarkProgress(stark.clamp(levelOneBaseInt, 199)));
-        }
-        if (stark >= levelTwoBaseInt && stark < completedCharInt) {
-          stark += 1;
-          game.progressStateBloc
-              .add(SetStarkProgress(stark.clamp(levelTwoBaseInt, 299)));
-        }
-        break;
-      case RubbishType.electronics:
-        int electronics = game.progressStateBloc.state.electronics;
-        game.progressStateBloc.add(SetElectronicsProgress(electronics + 1));
-        int asimov = game.progressStateBloc.state.asimov;
-        if (asimov >= levelOneBaseInt && asimov < levelTwoBaseInt) {
-          asimov += 1;
-          game.progressStateBloc
-              .add(SetAsimovProgress(asimov.clamp(levelOneBaseInt, 199)));
-        }
-        if (asimov >= levelTwoBaseInt && asimov < completedCharInt) {
-          asimov += 1;
-          game.progressStateBloc
-              .add(SetAsimovProgress(asimov.clamp(levelTwoBaseInt, 299)));
-        }
-        break;
-      case RubbishType.food:
-        int food = game.progressStateBloc.state.food;
-        game.progressStateBloc.add(SetFoodProgress(food + 1));
-        int moon = game.progressStateBloc.state.moon;
-        if (moon >= levelOneBaseInt && moon < levelTwoBaseInt) {
-          moon += 1;
-          game.progressStateBloc
-              .add(SetMoonProgress(moon.clamp(levelOneBaseInt, 199)));
-        }
-        if (moon >= levelTwoBaseInt && moon < completedCharInt) {
-          moon += 1;
-          game.progressStateBloc
-              .add(SetMoonProgress(moon.clamp(levelTwoBaseInt, 299)));
-        }
-        break;
-      default:
-        break;
     }
   }
 
@@ -204,28 +107,30 @@ class RubbishSpawner extends PositionComponent
     String rubbishName,
   ) async {
     YarnProject yarnProject = YarnProject();
+    ProgressState progressState = game.progressStateBloc.state;
+    String dialogueName = getDialogueName(binType, progressState);
+    bool shouldCapitalise = !(dialogueName == 'rubbish_error');
     yarnProject
       ..parse(
           await rootBundle.loadString(Assets.assets_yarn_rubbish_error_yarn))
-      ..variables
-          .setVariable('\$rubbishName', getIndefiniteArticle(rubbishName));
+      ..variables.setVariable(
+          '\$rubbishName', getIndefiniteArticle(rubbishName, shouldCapitalise));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject,
         dialogueViews: [game.dialogueControllerComponent]);
-    ProgressState progressState = game.progressStateBloc.state;
     await dialogueRunner.startDialogue(getDialogueName(binType, progressState));
   }
 
   void _initRewardMap() {
     int risaReward = getExtraReward(game.progressStateBloc.state.risa);
-    int qianbiReward = getExtraReward(game.progressStateBloc.state.qianBi);
+    int qianBiReward = getExtraReward(game.progressStateBloc.state.qianBi);
     int starkReward = getExtraReward(game.progressStateBloc.state.stark);
     int moonReward = getExtraReward(game.progressStateBloc.state.moon);
     int asimovReward = getExtraReward(game.progressStateBloc.state.asimov);
     int manukaReward = getExtraReward(game.progressStateBloc.state.manuka);
 
     int plasticReward = basePlasticReward + risaReward;
-    int paperReward = basePaperReward + qianbiReward;
+    int paperReward = basePaperReward + qianBiReward;
     int metalReward = baseMetalReward + starkReward;
     int foodReward = baseFoodReward + moonReward;
     int electronicsReward = baseElectronicsReward + asimovReward;

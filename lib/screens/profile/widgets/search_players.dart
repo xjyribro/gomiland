@@ -14,7 +14,7 @@ import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 import 'package:gomiland/utils/firestore.dart';
-import 'package:gomiland/utils/other_player.dart';
+import 'package:gomiland/game/data/other_player.dart';
 
 class SearchPlayers extends StatefulWidget {
   const SearchPlayers({super.key});

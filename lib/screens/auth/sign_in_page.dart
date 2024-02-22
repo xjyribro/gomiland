@@ -4,10 +4,7 @@ import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/screens/auth/authentication.dart';
 import 'package:gomiland/screens/auth/utils.dart';
 import 'package:gomiland/screens/auth/validations.dart';
-import 'package:gomiland/screens/auth/widgets/apple_button.dart';
-import 'package:gomiland/screens/auth/widgets/google_button.dart';
 import 'package:gomiland/screens/auth/widgets/visibility_icon.dart';
-import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
@@ -85,35 +82,35 @@ class _SignInPageState extends State<SignInPage> {
     _setIsLoading(false);
   }
 
-  Future<void> _loginWithGoogle() async {
-    if (_isLoading) return;
-    _setIsLoading(true);
-    await signInUpWithGoogle()
-        .then((value) => Navigator.pop(context))
-        .onError((e, s) {
-      Popups.showMessage(
-        context: context,
-        title: 'Unable to sign in with Google',
-        subTitle: 'Please check web connection and try again',
-      );
-    });
-    _setIsLoading(false);
-  }
-
-  Future<void> _loginWithApple() async {
-    if (_isLoading) return;
-    _setIsLoading(true);
-    await signInWithApple()
-        .then((value) => Navigator.pop(context))
-        .onError((e, s) {
-      Popups.showMessage(
-        context: context,
-        title: 'Unable to sign in with Apple',
-        subTitle: 'Please check web connection and try again',
-      );
-    });
-    _setIsLoading(false);
-  }
+  // Future<void> _loginWithGoogle() async {
+  //   if (_isLoading) return;
+  //   _setIsLoading(true);
+  //   await signInUpWithGoogle()
+  //       .then((value) => Navigator.pop(context))
+  //       .onError((e, s) {
+  //     Popups.showMessage(
+  //       context: context,
+  //       title: 'Unable to sign in with Google',
+  //       subTitle: 'Please check web connection and try again',
+  //     );
+  //   });
+  //   _setIsLoading(false);
+  // }
+  //
+  // Future<void> _loginWithApple() async {
+  //   if (_isLoading) return;
+  //   _setIsLoading(true);
+  //   await signInWithApple()
+  //       .then((value) => Navigator.pop(context))
+  //       .onError((e, s) {
+  //     Popups.showMessage(
+  //       context: context,
+  //       title: 'Unable to sign in with Apple',
+  //       subTitle: 'Please check web connection and try again',
+  //     );
+  //   });
+  //   _setIsLoading(false);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -203,14 +200,6 @@ class _SignInPageState extends State<SignInPage> {
                     isLoading: _isLoading,
                   ),
                   const SpacerNormal(),
-                  const Text('Or sign in with'),
-                  const SpacerNormal(),
-                  GoogleButton(
-                      text: 'Sign in with Google', onPress: _loginWithGoogle),
-                  const SpacerNormal(),
-                  AppleButton(
-                      text: 'Sign in with Apple', onPress: _loginWithApple),
-                  const SpacerLarge(),
                   MenuButton(
                     text: 'Back',
                     style: TextStyles.menuRedTextStyle,

@@ -1,0 +1,46 @@
+<<character "Mr Star" MrStar>>
+<<character "Mrs Star" MrsStar>>
+title: mr_Star
+---
+<<if $progress == -1>>
+    MrStar: Good {$timeOfDay}!
+    MrStar: This garden here is a community led effort.
+    MrStar: We grow our own plants for cooking!
+    MrStar: I think Mr Moon requires some help.
+    MrStar: You can find him in the park.
+<<elseif $progress < 130>>
+    MrStar: Mr Moon asked to collect food waste?
+    MrStar: Great idea. We can make natural compost with them.
+<<elseif $progress >= 130 and $progress < 200>>
+    MrStar: Thanks for collecting all that food waste.
+    MrStar: It's a shame how much food people throw out.
+<<elseif $progress < 250>>
+    MrStar: Mr Moon asked to collect more food waste?
+    MrStar: Yes of course. We can make more compost with them.
+<<else>>
+    MrStar: Thanks for collecting all that food waste.
+    MrStar: It's a shame how much food people throw out.
+<<endif>>
+===
+title: mrs_Star
+---
+<<if $progress == -1>>
+    MrsStar: Good {$timeOfDay}!
+    MrsStar: This garden here is a community led effort.
+    MrsStar: We grow our own plants for medicine!
+    MrsStar: I think Mr Moon is looking for some help.
+    MrsStar: You can find him in the park.
+<<elseif $progress < 30>>
+    MrStar: Mr Moon asked to collect food waste?
+    MrStar: Great idea. We can make natural compost with them.
+<<elseif $progress >= 30 and $progress < 100>>
+    MrsStar: Thanks for collecting all that food waste.
+    MrsStar: We never waste any food in our house.
+<<elseif $progress < 150>>
+    MrsStar: Mr Moon asked to collect more food waste?
+    MrsStar: Yes of course. We can make more compost with them.
+<<else>>
+    MrsStar: Thanks for collecting all that food waste.
+    MrsStar: We never waste any food in our house.
+<<endif>>
+===

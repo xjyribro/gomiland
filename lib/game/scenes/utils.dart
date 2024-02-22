@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/game/data/other_player.dart';
 
 Vector2 getPlayerHoodStartPosit(GomilandGame game) {
   SceneName sceneName = game.gameStateBloc.state.sceneName;
@@ -26,4 +30,26 @@ Vector2 getPlayerHoodStartLookDir() {
 
 Vector2 getPlayerTutorialStartLookDir() {
   return Vector2(1, 0);
+}
+
+bool checkMainQuestsCompleted(ProgressState state) {
+  return state.qianBi >= completedCharInt &&
+      state.risa >= completedCharInt &&
+      state.asimov >= completedCharInt &&
+      state.moon >= completedCharInt &&
+      state.manuka >= completedCharInt &&
+      state.stark >= completedCharInt;
+}
+
+bool checkFriendMainQuestsCompleted(OtherPlayer playerInfo) {
+  return playerInfo.qianBi >= completedCharInt &&
+      playerInfo.risa >= completedCharInt &&
+      playerInfo.asimov >= completedCharInt &&
+      playerInfo.moon >= completedCharInt &&
+      playerInfo.manuka >= completedCharInt &&
+      playerInfo.stark >= completedCharInt;
+}
+
+String pickRandKey(Map<String, OtherPlayer> friends) {
+  return friends.keys.elementAt(Random().nextInt(friends.length));
 }

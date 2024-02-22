@@ -14,11 +14,12 @@ import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
+import 'package:gomiland/game/objects/signs/statue.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
-import 'package:gomiland/game/ui/confirm_exit_game.dart';
-import 'package:gomiland/game/ui/confirm_exit_room.dart';
+import 'package:gomiland/game/ui/warning_popups/confirm_exit_game.dart';
+import 'package:gomiland/game/ui/warning_popups/confirm_exit_room.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/game/ui/game_menu.dart';
 import 'package:gomiland/game/ui/hud/a_button.dart';
@@ -139,7 +140,11 @@ class GomilandGame extends FlameGame
             if (!isMute) Sounds.next();
             parent.startConversation(playerPosition);
           }
-          if (parent is Sign) {
+          if (parent is GeneralSign) {
+            if (!isMute) Sounds.next();
+            parent.readSign();
+          }
+          if (parent is Statue) {
             if (!isMute) Sounds.next();
             parent.readSign();
           }

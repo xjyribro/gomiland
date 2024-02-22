@@ -5,8 +5,8 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/info_popup/info_popup_data.dart';
 import 'package:gomiland/game/ui/info_popup/info_popup.dart';
 
-class Sign extends SpriteComponent with HasGameReference<GomilandGame> {
-  Sign({required Vector2 position, required String signName})
+class GeneralSign extends SpriteComponent with HasGameReference<GomilandGame> {
+  GeneralSign({required Vector2 position, required String signName})
       : super(position: position) {
     _signName = signName;
   }

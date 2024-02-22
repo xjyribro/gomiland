@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
@@ -39,7 +40,7 @@ class MrMoon extends Npc with HasGameReference<GomilandGame> {
         spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
-    add(npcObstacle(Vector2.zero()));
+    addAll([npcObstacle(Vector2.zero()), RectangleHitbox()]);
   }
 
   void _facePlayer(Vector2 playerPosition) {

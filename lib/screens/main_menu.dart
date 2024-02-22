@@ -23,6 +23,13 @@ class MainMenu extends StatefulWidget {
 class _MainMenuState extends State<MainMenu> {
   bool _showSplash = true;
   bool _isSignedIn = false;
+  bool _isLoading = false;
+
+  void _setIsLoading(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
 
   void _initAuthStateListener() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
@@ -85,22 +92,32 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'New game',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
+                  if (_isLoading) return;
+                  _setIsLoading(true);
                   if (!_isSignedIn) {
                     Popups.showUnsavableWarning(
                       context: context,
-                      onAccept: () => goToGame(context: context, loadFromSave: false),
+                      onAccept: () =>
+                          goToGame(context: context, loadFromSave: false),
                     );
                   } else {
                     goToGame(context: context, loadFromSave: false);
                   }
+                  _setIsLoading(false);
                 },
               ),
               const SpacerNormal(),
-              _isSignedIn ? const LoadButton() : Container(),
+              _isSignedIn
+                  ? LoadButton(
+                      isLoading: _isLoading,
+                      setIsLoading: _setIsLoading,
+                    )
+                  : Container(),
               MenuButton(
                 text: _isSignedIn ? 'Sign out' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
+                  if (_isLoading) return;
                   if (!_isSignedIn) {
                     goToSignIn(context);
                     return;
@@ -114,6 +131,7 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'Profile',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
+                  if (_isLoading) return;
                   goToSettings(context);
                 },
               ),
@@ -122,6 +140,7 @@ class _MainMenuState extends State<MainMenu> {
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
+                  if (_isLoading) return;
                   goToCredits(context);
                 },
               ),
