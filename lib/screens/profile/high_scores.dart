@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/screens/profile/widgets/high_score_table.dart';
 import 'package:gomiland/screens/profile/widgets/score_row.dart';
@@ -26,7 +28,12 @@ class _HighScoresState extends State<HighScores> {
 
   void _getSortedList() {
     List<OtherPlayer> playersList = [];
+    if (_isGlobal) {
+      // call firebase
+    } else {
+      Map<String, OtherPlayer> friends = context.read<PlayerStateBloc>().state.friends;
 
+    }
     setState(() {
       _playersList = playersList;
     });

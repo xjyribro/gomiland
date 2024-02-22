@@ -8,7 +8,6 @@ class PlayerState extends Equatable {
   final String playerName;
   final String country;
   final int playerSpeed;
-  final List<String> friendsList;
   final List<String> friendRequestsSent;
   final List<String> friendRequestsReceived;
   final Map<String, OtherPlayer> friends;
@@ -25,7 +24,6 @@ class PlayerState extends Equatable {
     required this.country,
     required this.playerSpeed,
     required this.savedLocation,
-    required this.friendsList,
     required this.friendRequestsSent,
     required this.friendRequestsReceived,
     required this.friends,
@@ -41,7 +39,6 @@ class PlayerState extends Equatable {
           country: '',
           playerSpeed: playerBaseSpeed,
           savedLocation: SceneName.hood,
-          friendsList: [],
           friendRequestsSent: [],
           friendRequestsReceived: [],
           friends: {},
@@ -56,7 +53,6 @@ class PlayerState extends Equatable {
     String? country,
     int? playerSpeed,
     SceneName? savedLocation,
-    List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
     Map<String, OtherPlayer>? friends,
@@ -70,7 +66,6 @@ class PlayerState extends Equatable {
       country: country ?? this.country,
       playerSpeed: playerSpeed ?? this.playerSpeed,
       savedLocation: savedLocation ?? this.savedLocation,
-      friendsList: friendsList ?? this.friendsList,
       friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
       friendRequestsReceived:
           friendRequestsReceived ?? this.friendRequestsReceived,
@@ -98,7 +93,6 @@ class PlayerState extends Equatable {
     num? playerYPosit,
     num? playerXDir,
     num? playerYDir,
-    List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
     Map<String, OtherPlayer>? friends,
@@ -125,9 +119,6 @@ class PlayerState extends Equatable {
     if (savedLocation != null) {
       context.read<PlayerStateBloc>().add(SetSavedLocation(savedLocation));
     }
-    if (friendsList != null) {
-      context.read<PlayerStateBloc>().add(SetFriendsList(friendsList));
-    }
     if (friendRequestsSent != null) {
       context
           .read<PlayerStateBloc>()
@@ -153,7 +144,6 @@ class PlayerState extends Equatable {
         country,
         playerSpeed,
         savedLocation,
-        friendsList,
         friendRequestsSent,
         friendRequestsReceived,
         friends,

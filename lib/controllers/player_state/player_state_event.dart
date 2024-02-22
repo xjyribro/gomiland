@@ -76,15 +76,6 @@ class SetCountry extends PlayerStatesEvent {
   List<Object?> get props => [country];
 }
 
-class SetFriendsList extends PlayerStatesEvent {
-  const SetFriendsList(this.friendsList);
-
-  final List<String> friendsList;
-
-  @override
-  List<Object?> get props => [friendsList];
-}
-
 class SetFriendRequestSent extends PlayerStatesEvent {
   const SetFriendRequestSent(this.friendRequestsSent);
 

@@ -88,7 +88,7 @@ Future<bool> refreshFriends({
   required String playerId,
   required BuildContext context,
 }) async {
-  return await getPlayerById(playerId).then((doc) {
+  return await getPlayerById(playerId).then((doc) async {
     if (doc.data() == null) {
       return false;
     } else {
@@ -103,12 +103,14 @@ Future<bool> refreshFriends({
           data[Strings.friendRequestsReceived] != null
               ? List.from(data[Strings.friendRequestsReceived])
               : [];
-      context.read<PlayerStateBloc>().state.setPlayerState(
-            context: context,
-            friendsList: friendsList,
-            friendRequestsSent: friendRequestsSent,
-            friendRequestsReceived: friendRequestsReceived,
-          );
+      await getPlayersFromList(friendsList).then((friends) {
+        context.read<PlayerStateBloc>().state.setPlayerState(
+              context: context,
+              friends: friends,
+              friendRequestsSent: friendRequestsSent,
+              friendRequestsReceived: friendRequestsReceived,
+            );
+      });
       return true;
     }
   });
@@ -155,7 +157,6 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
           playerXDir: data[Strings.playerXDir],
           playerYDir: data[Strings.playerYDir],
           savedLocation: savedLocation.sceneName,
-          friendsList: friendsList,
           friendRequestsSent: friendRequestsSent,
           friendRequestsReceived: friendRequestsReceived,
           friends: friends,
