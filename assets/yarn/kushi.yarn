@@ -6,10 +6,10 @@ title: talk
     Kushi: I am Mr Kushi, boss of Go convenient stores.
     Kushi: We run the largest 24hr convenient store chain in Gomiland!
     Kushi: Our goal is to ensure our customers are happy each time they visit our stores.
-<<else>>
+<<elseif $progress < 200>>
     Kushi: Good {$timeOfDay}! Ah Risa sent you. She is a great employee!
     Kushi: Oh? You have picked up over 80 plastics from the ground?
-    Kushi: I see many are products of Go 24hr convenient store...
+    Kushi: I see many are products of Go 24hr convenient stores...
     Kushi: I am thinking of reducing the single use plastics that we use.
     Kushi: Tell me, do you use reusable bags?
     -> No
@@ -26,5 +26,10 @@ title: talk
             Kushi: We will also change some of our single use plastic products to use alternative materials!
             Kushi: Thank you for your help. We hope that this change would benefit our brand and the residents.
             <<changeProgress 200>>
+<<else>>
+    Kushi: Good {$timeOfDay}!
+    Kushi: It took a few tries to get it right, but now our customers love the new products!
+    Kushi: We also introduced a points program for buyers who use reusable bottles, containers and bags!
+    Kushi: The reception has been great!
 <<endif>>
 ===

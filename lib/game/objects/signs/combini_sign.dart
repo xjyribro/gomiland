@@ -4,7 +4,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 
 class CombiniSign extends SpriteComponent with HasGameReference<GomilandGame> {
-  CombiniSign({required Vector2 position});
+  CombiniSign({required Vector2 super.position});
 
   @override
   Future<void> onLoad() async {
