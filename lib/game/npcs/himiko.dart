@@ -30,7 +30,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
   late SpriteAnimation idleDown;
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
-  final double _speed = tileSize * playerSpeed;
+  final double _speed = tileSize * npcSpeed;
   bool _isTutorial = false;
 
   @override

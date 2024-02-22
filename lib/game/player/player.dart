@@ -37,6 +37,7 @@ class Player extends SpriteAnimationComponent
   late SpriteAnimation idleLeft;
   late SpriteAnimation idleRight;
   late RectangleHitbox _playerHitbox;
+  late double _playerSpeed;
 
   bool _isMovingUp = false;
   bool _isMovingDown = false;
@@ -44,7 +45,6 @@ class Player extends SpriteAnimationComponent
   bool _isMovingRight = false;
   bool _rejectFromRoom = false;
   int _moveDirection = 0;
-  final double _speed = tileSize * playerSpeed;
 
   void setRejectFromRoom(bool rejectFromRoom) {
     _rejectFromRoom = rejectFromRoom;
@@ -61,6 +61,8 @@ class Player extends SpriteAnimationComponent
   @override
   Future<void> onLoad() async {
     bool isMale = game.playerStateBloc.state.isMale;
+    _playerSpeed = tileSize * game.playerStateBloc.state.playerSpeed;
+
     final spriteSheet = SpriteSheet(
       image: await Flame.images.load(
         isMale
@@ -113,7 +115,7 @@ class Player extends SpriteAnimationComponent
     final originalPosition = position.clone();
 
     Vector2 movement = getMovement(_moveDirection);
-    final movementThisFrame = movement * _speed * dt;
+    final movementThisFrame = movement * _playerSpeed * dt;
     position.add(movementThisFrame);
     checkMovement(
       movementThisFrame: movementThisFrame,

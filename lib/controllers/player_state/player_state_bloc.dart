@@ -55,6 +55,12 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
       ),
     );
 
+    on<SetPlayerSpeed>(
+      (event, emit) => emit(
+        state.copyWith(playerSpeed: event.playerSpeed),
+      ),
+    );
+
     on<SetFriendsList>(
       (event, emit) => emit(
         state.copyWith(friendsList: event.friendsList),

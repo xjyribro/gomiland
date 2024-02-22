@@ -5,6 +5,8 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
@@ -79,10 +81,23 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
       ..variables.setVariable('\$name', _friendInfo.playerName)
       ..variables.setVariable('\$country', _friendInfo.country)
       ..variables.setVariable('\$daysInGame', _friendInfo.daysInGame)
+      ..commands.addCommand0('upgradeShoe', upgradeShoe)
+      ..commands.addCommand0('upgradeBag', upgradeBag)
         ..parse(await rootBundle.loadString(Assets.assets_yarn_friend_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue('talk');
+    await dialogueRunner.startDialogue(getFriendDialogue(_friendInfo, game));
     game.unfreezePlayer();
+  }
+
+
+  void upgradeShoe() {
+    int currSpeed = game.playerStateBloc.state.playerSpeed;
+    game.playerStateBloc.add(SetPlayerSpeed(currSpeed + 1));
+  }
+
+  void upgradeBag() {
+    int currCount = game.gameStateBloc.state.bagCount;
+    game.gameStateBloc.add(SetBagSize(currCount + 1));
   }
 }

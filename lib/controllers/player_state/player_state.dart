@@ -7,6 +7,7 @@ class PlayerState extends Equatable {
   final bool isMale;
   final String playerName;
   final String country;
+  final int playerSpeed;
   final List<String> friendsList;
   final List<String> friendRequestsSent;
   final List<String> friendRequestsReceived;
@@ -22,6 +23,7 @@ class PlayerState extends Equatable {
     required this.isMale,
     required this.playerName,
     required this.country,
+    required this.playerSpeed,
     required this.savedLocation,
     required this.friendsList,
     required this.friendRequestsSent,
@@ -37,6 +39,7 @@ class PlayerState extends Equatable {
           isMale: true,
           playerName: '',
           country: '',
+          playerSpeed: playerBaseSpeed,
           savedLocation: SceneName.hood,
           friendsList: [],
           friendRequestsSent: [],
@@ -51,6 +54,7 @@ class PlayerState extends Equatable {
     bool? isMale,
     String? playerName,
     String? country,
+    int? playerSpeed,
     SceneName? savedLocation,
     List<String>? friendsList,
     List<String>? friendRequestsSent,
@@ -64,6 +68,7 @@ class PlayerState extends Equatable {
       isMale: isMale ?? this.isMale,
       playerName: playerName ?? this.playerName,
       country: country ?? this.country,
+      playerSpeed: playerSpeed ?? this.playerSpeed,
       savedLocation: savedLocation ?? this.savedLocation,
       friendsList: friendsList ?? this.friendsList,
       friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
@@ -78,6 +83,7 @@ class PlayerState extends Equatable {
       context: context,
       playerXPosit: hoodStartFromRoomX,
       playerYPosit: hoodStartFromRoomY,
+      playerSpeed: playerBaseSpeed,
     );
   }
 
@@ -86,6 +92,7 @@ class PlayerState extends Equatable {
     String? playerName,
     String? country,
     bool? isMale,
+    int? playerSpeed,
     SceneName? savedLocation,
     num? playerXPosit,
     num? playerYPosit,
@@ -111,6 +118,9 @@ class PlayerState extends Equatable {
     if (playerXDir != null && playerYDir != null) {
       Vector2 direction = Vector2(playerXDir.toDouble(), playerYDir.toDouble());
       context.read<PlayerStateBloc>().add(SetPlayerDirection(direction));
+    }
+    if (playerSpeed != null) {
+      context.read<PlayerStateBloc>().add(SetPlayerSpeed(playerSpeed));
     }
     if (savedLocation != null) {
       context.read<PlayerStateBloc>().add(SetSavedLocation(savedLocation));
@@ -141,6 +151,7 @@ class PlayerState extends Equatable {
         isMale,
         playerName,
         country,
+        playerSpeed,
         savedLocation,
         friendsList,
         friendRequestsSent,

@@ -41,6 +41,15 @@ bool checkMainQuestsCompleted(ProgressState state) {
       state.stark >= completedCharInt;
 }
 
+bool checkFriendMainQuestsCompleted(OtherPlayer playerInfo) {
+  return playerInfo.qianBi >= completedCharInt &&
+      playerInfo.risa >= completedCharInt &&
+      playerInfo.asimov >= completedCharInt &&
+      playerInfo.moon >= completedCharInt &&
+      playerInfo.manuka >= completedCharInt &&
+      playerInfo.stark >= completedCharInt;
+}
+
 String pickRandKey(Map<String, OtherPlayer> friends) {
   return friends.keys.elementAt(Random().nextInt(friends.length));
 }

@@ -19,7 +19,8 @@ const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // player
-const double playerSpeed = 16;
+const int playerBaseSpeed = 2;
+const double npcSpeed = 2;
 const double maxRaycastDist = 40;
 
 // day cycle
@@ -69,6 +70,7 @@ class Strings {
   static const playerName = 'playerName';
   static const country = 'country';
   static const isMale = 'isMale';
+  static const playerSpeed = 'playerSpeed';
   static const playerXPosit = 'playerXPosit';
   static const playerYPosit = 'playerYPosit';
   static const playerXDir = 'playerXDir';

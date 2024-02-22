@@ -22,6 +22,15 @@ class SetPlayerDirection extends PlayerStatesEvent {
   List<Object?> get props => [playerDirection];
 }
 
+class SetPlayerSpeed extends PlayerStatesEvent {
+  const SetPlayerSpeed(this.playerSpeed);
+
+  final int playerSpeed;
+
+  @override
+  List<Object?> get props => [playerSpeed];
+}
+
 class SetSavedLocation extends PlayerStatesEvent {
   const SetSavedLocation(this.playerLocation);
 

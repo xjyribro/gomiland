@@ -47,6 +47,7 @@ Future<bool> saveGameState({
         .doc(playerId)
         .update({
       Strings.hasSave: true,
+      Strings.playerSpeed: playerState.playerSpeed,
       Strings.playerXPosit: playerState.playerPosition.x,
       Strings.playerYPosit: playerState.playerPosition.y,
       Strings.playerXDir: playerState.playerDirection.x,
@@ -103,10 +104,11 @@ Future<bool> refreshFriends({
               ? List.from(data[Strings.friendRequestsReceived])
               : [];
       context.read<PlayerStateBloc>().state.setPlayerState(
-          context: context,
-          friendsList: friendsList,
-          friendRequestsSent: friendRequestsSent,
-          friendRequestsReceived: friendRequestsReceived);
+            context: context,
+            friendsList: friendsList,
+            friendRequestsSent: friendRequestsSent,
+            friendRequestsReceived: friendRequestsReceived,
+          );
       return true;
     }
   });
@@ -147,6 +149,7 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
           playerName: data[Strings.playerName] ?? '',
           country: data[Strings.country] ?? '',
           isMale: data[Strings.isMale] ?? true,
+          playerSpeed: data[Strings.playerSpeed] ?? 2,
           playerXPosit: data[Strings.playerXPosit],
           playerYPosit: data[Strings.playerYPosit],
           playerXDir: data[Strings.playerXDir],
