@@ -21,7 +21,8 @@ import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/signs/sign.dart';
+import 'package:gomiland/game/objects/signs/general_sign.dart';
+import 'package:gomiland/game/objects/signs/statue.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
@@ -421,16 +422,11 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
         case 'statue':
           bool isMainQuestsCompleted =
               checkMainQuestsCompleted(game.progressStateBloc.state);
-          if (isMainQuestsCompleted) {
-            await add(
-              SpriteComponent(
-                sprite:
-                    await Sprite.load(Assets.assets_images_objects_samurai_png),
+          await add(
+            Statue(
                 position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-              ),
-            );
-          }
+                isMainQuestCompleted: isMainQuestsCompleted),
+          );
           break;
         case 'charms':
           await add(
@@ -569,7 +565,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadSigns(ObjectGroup signs) async {
     for (final TiledObject sign in signs.objects) {
       await add(
-        Sign(
+        GeneralSign(
           position: Vector2(sign.x, sign.y),
           signName: sign.name,
         ),

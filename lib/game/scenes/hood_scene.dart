@@ -35,7 +35,7 @@ import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/signs/combini_sign.dart';
-import 'package:gomiland/game/objects/signs/sign.dart';
+import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
@@ -231,7 +231,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         await add(CombiniSign(position: Vector2(sign.x, sign.y)));
       } else {
         await add(
-          Sign(
+          GeneralSign(
             position: Vector2(sign.x, sign.y),
             signName: sign.name,
           ),

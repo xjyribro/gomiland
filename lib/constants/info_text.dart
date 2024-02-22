@@ -125,4 +125,11 @@ class InfoText{
       'Plastic, Paper, Glass, Metal, Food waste and Electronic waste'
       '3. Get G-coins from the city council for getting it right.'
       '4. Get fined if you get it wrong.';
+
+  static const String statue = 'Statue under restoration\n\n\n'
+      'We apologise for the inconvenience';
+  static const String warrior = 'Statue of brave eco-warrior\n\n\n'
+      'Provider of aid to those in need,\n'
+      'protector of our ecosystems\n'
+      'guardian of our natural habitat.';
 }
