@@ -7,8 +7,9 @@ title: talk
     Kushi: We run the largest 24hr convenient store chain in Gomiland!
     Kushi: Our goal is to ensure our customers are happy each time they visit our stores.
 <<else>>
-    Kushi: What? You have picked up over 80 plastics from the ground?
-    Kushi: I guess many are products of Go 24hr convenient store...
+    Kushi: Good {$timeOfDay}! Ah Risa sent you. She is a great employee!
+    Kushi: Oh? You have picked up over 80 plastics from the ground?
+    Kushi: I see many are products of Go 24hr convenient store...
     Kushi: I am thinking of reducing the single use plastics that we use.
     Kushi: Tell me, do you use reusable bags?
     -> No

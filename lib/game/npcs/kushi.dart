@@ -5,6 +5,8 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/npcs/utils.dart';
@@ -22,8 +24,7 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image =
-        await Flame.images.load(Assets.assets_images_npcs_boss_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_boss_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -65,16 +66,26 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
   Future<void> startConversation(Vector2 playerPosition) async {
     game.freezePlayer();
     _facePlayer(playerPosition);
+    int progress =
+        getCharProgress(RubbishType.plastic, game.progressStateBloc.state);
+    String timeOfDay = getTimeOfDay(game.gameStateBloc.state.minutes);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_kushi_yarn));
+      ..commands.addCommand1('changeProgress', changeProgress)
+      ..variables.setVariable('\$progress', progress)
+      ..variables.setVariable('\$timeOfDay', timeOfDay)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_kushi_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
     game.unfreezePlayer();
+  }
+
+  void changeProgress(int newLevel) {
+    game.progressStateBloc.add(SetRisaProgress(newLevel));
   }
 }

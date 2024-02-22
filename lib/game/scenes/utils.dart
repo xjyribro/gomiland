@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 
@@ -26,4 +27,13 @@ Vector2 getPlayerHoodStartLookDir() {
 
 Vector2 getPlayerTutorialStartLookDir() {
   return Vector2(1, 0);
+}
+
+bool checkMainQuestsCompleted(ProgressState state) {
+  return state.qianBi >= completedCharInt &&
+      state.risa >= completedCharInt &&
+      state.asimov >= completedCharInt &&
+      state.moon >= completedCharInt &&
+      state.manuka >= completedCharInt &&
+      state.stark >= completedCharInt;
 }

@@ -14,7 +14,7 @@ class LoadingOverlay extends StatelessWidget {
         width: size.width,
         child: const Center(
           child: Text(
-            'Loading...',
+            'Loading...\nPlease wait',
             textAlign: TextAlign.center,
             style: TextStyles.menuWhiteTextStyle,
           ),

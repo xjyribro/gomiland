@@ -15,6 +15,9 @@ class InfoText{
       'For your own safety, keep clear of worksite\n\n'
       '-Stark Construction Company';
 
+  static const String combini = 'Go 24hr convenience store\n'
+      'Get the best deals in town';
+
   static const String soup_kitchen = 'Soup Kitchen\n'
       'Run by Florence';
 

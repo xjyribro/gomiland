@@ -21,7 +21,7 @@ import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
 import 'package:gomiland/game/objects/obsticle.dart';
-import 'package:gomiland/game/objects/sign.dart';
+import 'package:gomiland/game/objects/signs/sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
@@ -419,14 +419,18 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           );
           break;
         case 'statue':
-          await add(
-            SpriteComponent(
-              sprite:
-                  await Sprite.load(Assets.assets_images_objects_samurai_png),
-              position: Vector2(building.x, building.y),
-              size: Vector2(building.width, building.height),
-            ),
-          );
+          bool isMainQuestsCompleted =
+              checkMainQuestsCompleted(game.progressStateBloc.state);
+          if (isMainQuestsCompleted) {
+            await add(
+              SpriteComponent(
+                sprite:
+                    await Sprite.load(Assets.assets_images_objects_samurai_png),
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+              ),
+            );
+          }
           break;
         case 'charms':
           await add(
