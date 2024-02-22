@@ -18,10 +18,11 @@ const double hoodStartFromRoomY = 580;
 const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
-// player
+// game
 const int playerBaseSpeed = 2;
 const double npcSpeed = 2;
 const double maxRaycastDist = 40;
+const int maxCoinAmount = 999999;
 
 // day cycle
 const gameMinToRealSecond = 0.5;

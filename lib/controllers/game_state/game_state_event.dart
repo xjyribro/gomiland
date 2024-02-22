@@ -13,8 +13,8 @@ class SceneChanged extends GameStateEvent {
   List<Object?> get props => [sceneName];
 }
 
-class ChangeCoinAmount extends GameStateEvent {
-  const ChangeCoinAmount(this.coinAmount);
+class SetCoinAmount extends GameStateEvent {
+  const SetCoinAmount(this.coinAmount);
 
   final int coinAmount;
 

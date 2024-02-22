@@ -20,11 +20,11 @@ class GameStateBloc extends Bloc<GameStateEvent, GameState> {
       ),
     );
 
-    on<ChangeCoinAmount>(
+    on<SetCoinAmount>(
       (event, emit) {
         int coinAmount = state.coinAmount + event.coinAmount;
         return emit(
-          state.copyWith(coinAmount: coinAmount.clamp(0, 999999)),
+          state.copyWith(coinAmount: coinAmount.clamp(0, maxCoinAmount)),
         );
       },
     );

@@ -138,7 +138,7 @@ int getExtraReward(int progress) {
 }
 
 void changeCoinAmount(GomilandGame game, int amount) {
-  game.gameStateBloc.add(ChangeCoinAmount(amount));
+  game.gameStateBloc.add(SetCoinAmount(amount));
 }
 
 void updateProgress(GomilandGame game, RubbishType rubbishType) {

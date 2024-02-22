@@ -78,7 +78,9 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-      ..variables.setVariable('\$name', _friendInfo.playerName)
+      ..variables.setVariable('\$playerName', game.playerStateBloc.state.playerName)
+      ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
+      ..variables.setVariable('\$friendName', _friendInfo.playerName)
       ..variables.setVariable('\$country', _friendInfo.country)
       ..variables.setVariable('\$daysInGame', _friendInfo.daysInGame)
       ..commands.addCommand0('upgradeShoe', upgradeShoe)
@@ -90,14 +92,21 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
     game.unfreezePlayer();
   }
 
+  void deduct500Coins() {
+    int currAmount = game.gameStateBloc.state.coinAmount;
+    int newAmount = (currAmount - 500).clamp(0, maxCoinAmount);
+    game.gameStateBloc.add(SetCoinAmount(newAmount));
+  }
 
   void upgradeShoe() {
     int currSpeed = game.playerStateBloc.state.playerSpeed;
-    game.playerStateBloc.add(SetPlayerSpeed(currSpeed + 1));
+    game.playerStateBloc.add(SetPlayerSpeed(currSpeed + 2));
+    deduct500Coins();
   }
 
   void upgradeBag() {
     int currCount = game.gameStateBloc.state.bagCount;
-    game.gameStateBloc.add(SetBagSize(currCount + 1));
+    game.gameStateBloc.add(SetBagSize(currCount + 10));
+    deduct500Coins();
   }
 }

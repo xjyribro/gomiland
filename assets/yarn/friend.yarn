@@ -1,48 +1,48 @@
 title: new_player
 ---
-{$name}\: Hi I'm new to Gomiland. Nice to meet you!
+{$friendName}\: Hi I'm new to Gomiland. Nice to meet you!
 ===
 title: progress_player
 ---
-{$name}\: How's it going? Gomiland has so many areas to explore.
-{$name}\: Have you visited them all?
+{$friendName}\: How's it going? Gomiland has so many areas to explore.
+{$friendName}\: Have you visited them all?
     -> Yes
-    {$name}\: Wow lucky you. I'm still finding new places everyday!
+    {$friendName}\: Wow lucky you. I'm still finding new places everyday!
     -> No
-    {$name}\: Me neither! I'm on a mission to check out all the landmarks.
+    {$friendName}\: Me neither! I'm on a mission to check out all the landmarks.
 ===
 title: seasoned_player
 ---
-{$name}\: I've stayed in Gomiland for ${daysInGame} days.
-{$name}\: I really like it here.
+{$friendName}\: I've stayed in Gomiland for ${daysInGame} days.
+{$friendName}\: I really like it here.
 ===
 title: buy_shoe
 ---
-{$name}\: Hey {$playerName}, looks like you are wearing you old shoes. Want to get new ones?
-{$name}\: They cost just 500 coins
+{$friendName}\: Hey {$playerName}, looks like you are wearing you old shoes. Want to get new ones?
+{$friendName}\: They cost just 500 coins
     -> No
-        {$name}\: That's fine. Just to let you know that shoes can be recycled too.
-        {$name}\: If you want to get new ones, you should recycle your old ones.
+        {$friendName}\: That's fine. Just to let you know that shoes can be recycled too.
+        {$friendName}\: If you want to get new ones, you should recycle your old ones.
     -> Yes
         <<if $coins < 500>>
-            {$name}\: Looks like you don't have enough coins. Come back when you do!
+            {$friendName}\: Looks like you don't have enough coins. Come back when you do!
         <<else>>
-            {$name}\: Here you go! New jogging shoes
-            {$name}\: I can take your old ones to recycle. Companies make playgrounds and running tracks from recycled shoes!
+            {$friendName}\: Here you go! New jogging shoes
+            {$friendName}\: I can take your old ones to recycle. Companies make playgrounds and running tracks from recycled shoes!
             <<upgradeShoe>>
 ===
 title: buy_bag
 ---
-{$name}\: Hello {$playerName}, your collection bag looks pretty small.
-{$name}\: Want to get a bigger bag for 500 coins?
+{$friendName}\: Hello {$playerName}, your collection bag looks pretty small.
+{$friendName}\: Want to get a bigger bag for 500 coins?
     -> No
-        {$name}\: No problem. I know the company that sells them.
-        {$name}\: They use recycled materials to make their bags as well!
+        {$friendName}\: No problem. I know the company that sells them.
+        {$friendName}\: They use recycled materials to make their bags as well!
     -> Yes
         <<if $coins < 500>>
-            {$name}\: Looks like you don't have enough coins. Come back when you do!
+            {$friendName}\: Looks like you don't have enough coins. Come back when you do!
         <<else>>
-            {$name}\: Here you go! A bag that can hold 20 pieces of trash.
-            {$name}\: You can give your old one to Himiko. She will hand them out to people who don't have one.
+            {$friendName}\: Here you go! A bag that can hold 20 pieces of trash.
+            {$friendName}\: You can give your old one to Himiko. She will hand them out to people who don't have one.
             <<upgradeBag>>
 ===
