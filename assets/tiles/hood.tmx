@@ -1957,10 +1957,10 @@
   <object id="1273" name="shop_back_eng_2" x="3072" y="3808" width="128" height="224"/>
   <object id="1274" name="shop_back_eng_2" x="3328" y="3808" width="128" height="224"/>
   <object id="1267" name="shop_eng_1" x="3712" y="3968" width="128" height="224"/>
-  <object id="1061" name="shop_back_eng_1" x="5888" y="3104" width="128" height="224"/>
-  <object id="1292" name="shop_back_eng_1" x="5632" y="3104" width="128" height="224"/>
-  <object id="1293" name="shop_back_eng_2" x="5760" y="3104" width="128" height="224"/>
-  <object id="1294" name="shop_back_eng_2" x="5120" y="3104" width="128" height="224"/>
+  <object id="1061" name="shop_back_eng_1" x="5888" y="3072" width="128" height="256"/>
+  <object id="1292" name="shop_back_eng_1" x="5632" y="3072" width="128" height="256"/>
+  <object id="1293" name="shop_back_eng_2" x="5760" y="3072" width="128" height="256"/>
+  <object id="1294" name="shop_back_eng_2" x="5120" y="3072" width="128" height="256"/>
   <object id="1295" name="shop_back_eng_3" x="5248" y="3104" width="128" height="224"/>
   <object id="1296" name="shop_back_eng_3" x="5376" y="3104" width="128" height="224"/>
   <object id="1297" name="shop_back_eng_3" x="5504" y="3104" width="128" height="224"/>
