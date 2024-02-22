@@ -3,10 +3,7 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 Future<String?> signIn({
   required BuildContext context,
@@ -72,45 +69,6 @@ const List<String> scopes = <String>[
   'https://www.googleapis.com/auth/contacts.readonly',
 ];
 
-Future<UserCredential?> signInUpWithGoogle() async {
-  GoogleSignIn googleSignIn = GoogleSignIn(scopes: scopes);
-  GoogleSignInAccount? googleSignInAccount = kIsWeb
-      ? await (googleSignIn.signInSilently())
-      : await (googleSignIn.signIn());
-
-  if (kIsWeb && googleSignInAccount == null) {
-    googleSignInAccount = await (googleSignIn.signIn());
-  }
-
-  try {
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: scopes).signIn();
-    if (googleUser == null) throw Exception("Not logged in");
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
-  }
-  return null;
-}
-
-Future<AuthCredential?> getGoogleCredentials() async {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signInSilently();
-  if (googleUser == null) throw Exception("Not logged in");
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-  return GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-}
-
 String generateNonce([int length = 32]) {
   const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
@@ -125,40 +83,7 @@ String sha256ofString(String input) {
   return digest.toString();
 }
 
-Future<void> signInWithApple() async {
-  final rawNonce = generateNonce();
-  final nonce = sha256ofString(rawNonce);
-  getAppleCredentials(nonce).then((credential) async {
-    if (credential != null) {
-      final oauthCredential = OAuthProvider("apple.com").credential(
-        idToken: credential.identityToken,
-        rawNonce: rawNonce,
-      );
-      return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-    }
-  });
-}
-
-Future<AuthorizationCredentialAppleID?> getAppleCredentials(
-    String nonce) async {
-  try {
-    final credential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      nonce: nonce,
-    );
-    return credential;
-  } catch (e) {
-    return null;
-  }
-}
-
 Future<void> signOut() async {
-  if (await GoogleSignIn().isSignedIn()) {
-    GoogleSignIn().disconnect();
-  }
   await FirebaseAuth.instance.signOut();
 }
 
