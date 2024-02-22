@@ -27,8 +27,6 @@ dependencies:
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
   cloud_firestore: ^4.15.4
-  crypto: ^3.0.3
-  google_sign_in_web: ^0.12.3+2
   flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:

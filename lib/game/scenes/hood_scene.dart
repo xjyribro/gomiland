@@ -329,6 +329,15 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     for (final TiledObject npc in npcs.objects) {
       switch (npc.name) {
+        case 'friend':
+          await add(
+            GeneralNpc(
+              position: Vector2(npc.x, npc.y),
+              imgPath: Assets.assets_images_npcs_man_png,
+              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
+              npcName: NpcName.man,
+            ),
+          );
         case 'man':
           await add(
             GeneralNpc(
