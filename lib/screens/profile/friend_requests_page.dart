@@ -7,7 +7,7 @@ import 'package:gomiland/screens/profile/widgets/players_list.dart';
 import 'package:gomiland/screens/profile/widgets/request_friend_row.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
-import 'package:gomiland/utils/other_player.dart';
+import 'package:gomiland/game/data/other_player.dart';
 
 class FriendRequestsPage extends StatefulWidget {
   const FriendRequestsPage({super.key});

@@ -4,9 +4,11 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/florence.dart';
+import 'package:gomiland/game/npcs/friend.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/kushi.dart';
@@ -44,6 +46,7 @@ import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/scenes/utils.dart';
 
 class HoodMap extends Component with HasGameReference<GomilandGame> {
+  Map<String, OtherPlayer> friends = {};
   late Function _setNewSceneName;
   late bool _loadFromSave;
   late Player _player;
@@ -327,17 +330,20 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
+    friends = game.playerStateBloc.state.friends;
     for (final TiledObject npc in npcs.objects) {
       switch (npc.name) {
         case 'friend':
+          if (friends.isEmpty) break;
+          String friendId = pickRandKey(friends);
           await add(
-            GeneralNpc(
+            Friend(
               position: Vector2(npc.x, npc.y),
-              imgPath: Assets.assets_images_npcs_man_png,
-              dialoguePath: Assets.assets_yarn_hood_npcs_yarn,
-              npcName: NpcName.man,
+              friendInfo: friends[friendId]!,
             ),
           );
+          friends.remove(friendId);
+          break;
         case 'man':
           await add(
             GeneralNpc(

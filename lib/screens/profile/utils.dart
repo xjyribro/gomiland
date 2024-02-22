@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/utils/firestore.dart';
-import 'package:gomiland/utils/other_player.dart';
+import 'package:gomiland/game/data/other_player.dart';
 
 Map<String, OtherPlayer> getPlayersFromSearchResult(QuerySnapshot<Object?> players, List<String> friendsList) {
   Map<String, OtherPlayer> playersList = {};
@@ -20,9 +20,9 @@ Map<String, OtherPlayer> getPlayersFromSearchResult(QuerySnapshot<Object?> playe
   return playersList;
 }
 
-Future<Map<String, OtherPlayer>> getPlayersFromList(List<String> friendRequestsReceived) async {
+Future<Map<String, OtherPlayer>> getPlayersFromList(List<String> playerIdList) async {
   Map<String, OtherPlayer> playersList = {};
-  for (var playerId in friendRequestsReceived) {
+  for (var playerId in playerIdList) {
     try {
       DocumentSnapshot<Map<String, dynamic>> doc = await getPlayerById(playerId);
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;

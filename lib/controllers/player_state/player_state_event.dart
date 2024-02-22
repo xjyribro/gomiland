@@ -93,3 +93,12 @@ class SetFriendRequestReceived extends PlayerStatesEvent {
   @override
   List<Object?> get props => [friendRequestsReceived];
 }
+
+class SetFriends extends PlayerStatesEvent {
+  const SetFriends(this.friends);
+
+  final Map<String, OtherPlayer> friends;
+
+  @override
+  List<Object?> get props => [friends];
+}

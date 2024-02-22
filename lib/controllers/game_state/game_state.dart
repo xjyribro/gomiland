@@ -70,7 +70,7 @@ class GameState extends Equatable {
     );
   }
 
-  void resetGameState(BuildContext context) {
+  void setGameStateForNewGame(BuildContext context) {
     List<int> hoodSpawnList = generateNewHoodRubbishList();
     List<int> parkSpawnList = generateNewParkRubbishList();
     context.read<GameStateBloc>().add(SetGameState(

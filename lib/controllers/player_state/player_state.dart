@@ -10,6 +10,7 @@ class PlayerState extends Equatable {
   final List<String> friendsList;
   final List<String> friendRequestsSent;
   final List<String> friendRequestsReceived;
+  final Map<String, OtherPlayer> friends;
 
   // this is for ignore hitbox during raycast
   final RectangleHitbox? playerHitbox;
@@ -25,6 +26,7 @@ class PlayerState extends Equatable {
     required this.friendsList,
     required this.friendRequestsSent,
     required this.friendRequestsReceived,
+    required this.friends,
   });
 
   PlayerState.empty()
@@ -39,6 +41,7 @@ class PlayerState extends Equatable {
           friendsList: [],
           friendRequestsSent: [],
           friendRequestsReceived: [],
+          friends: {},
         );
 
   PlayerState copyWith({
@@ -52,6 +55,7 @@ class PlayerState extends Equatable {
     List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
+    Map<String, OtherPlayer>? friends,
   }) {
     return PlayerState(
       playerPosition: playerPosition ?? this.playerPosition,
@@ -65,10 +69,11 @@ class PlayerState extends Equatable {
       friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
       friendRequestsReceived:
           friendRequestsReceived ?? this.friendRequestsReceived,
+      friends: friends ?? this.friends,
     );
   }
 
-  void resetPlayerState(BuildContext context) {
+  void setPlayerStateForNewGame(BuildContext context) {
     setPlayerState(
       context: context,
       playerXPosit: hoodStartFromRoomX,
@@ -89,6 +94,7 @@ class PlayerState extends Equatable {
     List<String>? friendsList,
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
+    Map<String, OtherPlayer>? friends,
   }) {
     if (playerName != null) {
       context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
@@ -122,6 +128,9 @@ class PlayerState extends Equatable {
           .read<PlayerStateBloc>()
           .add(SetFriendRequestReceived(friendRequestsReceived));
     }
+    if (friends != null) {
+      context.read<PlayerStateBloc>().add(SetFriends(friends));
+    }
   }
 
   @override
@@ -136,5 +145,6 @@ class PlayerState extends Equatable {
         friendsList,
         friendRequestsSent,
         friendRequestsReceived,
+        friends,
       ];
 }

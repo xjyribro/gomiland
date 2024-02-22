@@ -7,6 +7,7 @@ import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
+import 'package:gomiland/screens/profile/utils.dart';
 
 Future<void> savePlayerInfo({
   required String playerId,
@@ -115,26 +116,33 @@ Future<bool> loadSaved({
   required String playerId,
   required BuildContext context,
 }) async {
-  return await getPlayerById(playerId).then((doc) {
+  return await getPlayerById(playerId).then((doc) async {
     if (doc.data() == null) {
       return false;
     } else {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      String savedLocation =
-          data[Strings.savedLocation] ?? SceneName.hood.string;
-      List<String> friendsList = data[Strings.friendsList] != null
-          ? List.from(data[Strings.friendsList])
+      setGame(context, data);
+      setProgress(context, data);
+      await setPlayer(context, data);
+      return true;
+    }
+  });
+}
+
+Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
+  String savedLocation = data[Strings.savedLocation] ?? SceneName.hood.string;
+  List<String> friendsList = data[Strings.friendsList] != null
+      ? List.from(data[Strings.friendsList])
+      : [];
+  List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
+      ? List.from(data[Strings.friendRequestsSent])
+      : [];
+  List<String> friendRequestsReceived =
+      data[Strings.friendRequestsReceived] != null
+          ? List.from(data[Strings.friendRequestsReceived])
           : [];
-      List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
-          ? List.from(data[Strings.friendRequestsSent])
-          : [];
-      List<String> friendRequestsReceived =
-          data[Strings.friendRequestsReceived] != null
-              ? List.from(data[Strings.friendRequestsReceived])
-              : [];
-      List<int> hoodSpawners = data[Strings.hoodSpawners]?.cast<int>() ?? [];
-      List<int> parkSpawners = data[Strings.parkSpawners]?.cast<int>() ?? [];
-      context.read<PlayerStateBloc>().state.setPlayerState(
+  await getPlayersFromList(friendsList).then((friends) {
+    context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
           playerName: data[Strings.playerName] ?? '',
           country: data[Strings.country] ?? '',
@@ -146,38 +154,46 @@ Future<bool> loadSaved({
           savedLocation: savedLocation.sceneName,
           friendsList: friendsList,
           friendRequestsSent: friendRequestsSent,
-          friendRequestsReceived: friendRequestsReceived);
-      context.read<GameStateBloc>().state.setGameState(
-            context: context,
-            coinAmount: data[Strings.coinAmount] ?? 0,
-            bagCount: data[Strings.bagCount] ?? 0,
-            bagSize: data[Strings.bagSize] ?? 1,
-            minutes: data[Strings.minutes] ?? gameStartTime,
-            daysInGame: data[Strings.daysInGame] ?? 0,
-            hoodSpawners: hoodSpawners,
-            parkSpawners: parkSpawners,
-          );
-      context.read<ProgressStateBloc>().state.setProgress(
-            context: context,
-            hasSave: data[Strings.hasSave] ?? false,
-            neighbour: data[Strings.neighbour] ?? 'intro',
-            plastic: data[Strings.plastic] ?? 0,
-            paper: data[Strings.paper] ?? 0,
-            metal: data[Strings.metal] ?? 0,
-            electronics: data[Strings.electronics] ?? 0,
-            glass: data[Strings.glass] ?? 0,
-            food: data[Strings.food] ?? 0,
-            wrong: data[Strings.wrong] ?? 0,
-            manuka: data[Strings.manuka] ?? -1,
-            qianBi: data[Strings.qianBi] ?? -1,
-            risa: data[Strings.risa] ?? -1,
-            stark: data[Strings.stark] ?? -1,
-            asimov: data[Strings.asimov] ?? -1,
-            moon: data[Strings.moon] ?? -1,
-          );
-      return true;
-    }
+          friendRequestsReceived: friendRequestsReceived,
+          friends: friends,
+        );
   });
+}
+
+void setGame(BuildContext context, Map<String, dynamic> data) {
+  List<int> hoodSpawners = data[Strings.hoodSpawners]?.cast<int>() ?? [];
+  List<int> parkSpawners = data[Strings.parkSpawners]?.cast<int>() ?? [];
+  context.read<GameStateBloc>().state.setGameState(
+        context: context,
+        coinAmount: data[Strings.coinAmount] ?? 0,
+        bagCount: data[Strings.bagCount] ?? 0,
+        bagSize: data[Strings.bagSize] ?? 1,
+        minutes: data[Strings.minutes] ?? gameStartTime,
+        daysInGame: data[Strings.daysInGame] ?? 0,
+        hoodSpawners: hoodSpawners,
+        parkSpawners: parkSpawners,
+      );
+}
+
+void setProgress(BuildContext context, Map<String, dynamic> data) {
+  context.read<ProgressStateBloc>().state.setProgress(
+        context: context,
+        hasSave: data[Strings.hasSave] ?? false,
+        neighbour: data[Strings.neighbour] ?? 'intro',
+        plastic: data[Strings.plastic] ?? 0,
+        paper: data[Strings.paper] ?? 0,
+        metal: data[Strings.metal] ?? 0,
+        electronics: data[Strings.electronics] ?? 0,
+        glass: data[Strings.glass] ?? 0,
+        food: data[Strings.food] ?? 0,
+        wrong: data[Strings.wrong] ?? 0,
+        manuka: data[Strings.manuka] ?? -1,
+        qianBi: data[Strings.qianBi] ?? -1,
+        risa: data[Strings.risa] ?? -1,
+        stark: data[Strings.stark] ?? -1,
+        asimov: data[Strings.asimov] ?? -1,
+        moon: data[Strings.moon] ?? -1,
+      );
 }
 
 Future<DocumentSnapshot<Map<String, dynamic>>> getPlayerById(

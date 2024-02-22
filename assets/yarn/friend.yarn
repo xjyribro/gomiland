@@ -1,0 +1,12 @@
+title: greeting
+---
+{$name}\: Hi
+===
+title: buy_shoe
+---
+{$name}\: Your bag is full. Go home to sort what you picked up.
+===
+title: buy_bag
+---
+{$name}\: Your bag is full. Go home to sort what you picked up.
+===
