@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/screens/profile/widgets/high_score_table.dart';
 import 'package:gomiland/screens/profile/widgets/score_row.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
@@ -17,7 +21,14 @@ class HighScores extends StatefulWidget {
 
 class _HighScoresState extends State<HighScores> {
   bool _isGlobal = false;
+  RubbishType _criteria = RubbishType.plastic;
   List<OtherPlayer> _playersList = [];
+
+  void _changeCriteria(RubbishType type) {
+    setState(() {
+      _criteria = type;
+    });
+  }
 
   void _switchList() {
     setState(() {
@@ -31,14 +42,45 @@ class _HighScoresState extends State<HighScores> {
     if (_isGlobal) {
       // call firebase
     } else {
-      Map<String, OtherPlayer> friends = context.read<PlayerStateBloc>().state.friends;
-
+      Map<String, OtherPlayer> playersMap =
+          context.read<PlayerStateBloc>().state.friends;
+      String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
+      ProgressState progressState = context.read<ProgressStateBloc>().state;
+      PlayerState playerState = context.read<PlayerStateBloc>().state;
+      GameState gameState = context.read<GameStateBloc>().state;
+      playersMap[playerId] = OtherPlayer.fromBlocState(
+        progressState: progressState,
+        playerState: playerState,
+        gameState: gameState,
+      );
+      playersList = sortPlayersList(playersMap.values.toList());
     }
     setState(() {
       _playersList = playersList;
     });
   }
 
+  List<OtherPlayer> sortPlayersList(List<OtherPlayer> players) {
+    if (_criteria == RubbishType.plastic) {
+      players.sort((a, b) => a.plastic.compareTo(b.plastic));
+    }
+    if (_criteria == RubbishType.glass) {
+      players.sort((a, b) => a.glass.compareTo(b.glass));
+    }
+    if (_criteria == RubbishType.metal) {
+      players.sort((a, b) => a.metal.compareTo(b.metal));
+    }
+    if (_criteria == RubbishType.food) {
+      players.sort((a, b) => a.food.compareTo(b.food));
+    }
+    if (_criteria == RubbishType.electronics) {
+      players.sort((a, b) => a.electronics.compareTo(b.electronics));
+    }
+    if (_criteria == RubbishType.paper) {
+      players.sort((a, b) => a.paper.compareTo(b.paper));
+    }
+    return players;
+  }
 
   @override
   void initState() {
