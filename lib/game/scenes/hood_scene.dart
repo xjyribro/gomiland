@@ -4,25 +4,18 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/npcs/anri.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
-import 'package:gomiland/game/npcs/brock.dart';
-import 'package:gomiland/game/npcs/brocky.dart';
 import 'package:gomiland/game/npcs/florence.dart';
 import 'package:gomiland/game/npcs/friend.dart';
-import 'package:gomiland/game/npcs/gaia.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/hardy.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/kushi.dart';
-import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/margret.dart';
-import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/mr_mrs_star.dart';
-import 'package:gomiland/game/npcs/peach.dart';
-import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/risa.dart';
 import 'package:gomiland/game/npcs/rocky.dart';
 import 'package:gomiland/game/npcs/scarlett.dart';
@@ -336,8 +329,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           );
           break;
         case 'bonsai_1':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.bonsai_1)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_1] ?? false;
+          if (shouldAdd) {
             await add(
               Bonsai(
                 id: 0,
@@ -348,8 +342,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'bonsai_2':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.bonsai_2)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_2] ?? false;
+          if (shouldAdd) {
             await add(
               Bonsai(
                 id: 1,
@@ -360,8 +355,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'bonsai_3':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.bonsai_3)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_3] ?? false;
+          if (shouldAdd) {
             await add(
               Bonsai(
                 id: 2,
@@ -372,8 +368,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'bonsai_4':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.bonsai_4)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_4] ?? false;
+          if (shouldAdd) {
             await add(
               Bonsai(
                 id: 3,
@@ -384,8 +381,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             break;
           }
         case 'rock_1':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.rock_1)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_1] ?? false;
+          if (shouldAdd) {
             await add(
               SpriteComponent(
                 sprite: await Sprite.load(
@@ -397,8 +395,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'rock_2':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.rock_2)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_2] ?? false;
+          if (shouldAdd) {
             await add(
               SpriteComponent(
                 sprite: await Sprite.load(
@@ -410,8 +409,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'rock_3':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.rock_3)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_3] ?? false;
+          if (shouldAdd) {
             await add(
               SpriteComponent(
                 sprite: await Sprite.load(
@@ -423,8 +423,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           }
           break;
         case 'rock_4':
-          if (game.playerStateBloc.state.zenGarden
-              .containsKey(ZenGardenObjectStrings.rock_4)) {
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_4] ?? false;
+          if (shouldAdd) {
             await add(
               SpriteComponent(
                 sprite: await Sprite.load(
@@ -528,32 +529,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'scarlett':
           await add(Scarlett(position: Vector2(npc.x, npc.y)));
-          break;
-
-        // TODO remove these
-        case 'qianbi':
-          await add(QianBi(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'moon':
-          await add(MrMoon(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'manuka':
-          await add(Manuka(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'brock':
-          await add(Brock(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'brocky':
-          await add(Brocky(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'gaia':
-          await add(Gaia(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'peach':
-          await add(Peach(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'anri':
-          await add(Anri(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -383,4 +384,20 @@ Future<QuerySnapshot<Object?>?> getCode(String code) async {
   }
 }
 
+Future<bool> redeemCode(DocumentSnapshot doc, int newCount) async {
+  try {
+    await doc.reference.update({
+      Strings.count: newCount
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<void> savePlayerZenGardenToDb(Map<String, bool> zenGardenState) async {
+  String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
+  DocumentSnapshot doc = await getPlayerById(playerId);
+  doc.reference.update({Strings.zenGarden : zenGardenState});
+}
 

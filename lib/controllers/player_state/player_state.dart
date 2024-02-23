@@ -74,7 +74,7 @@ class PlayerState extends Equatable {
       friendRequestsReceived:
       friendRequestsReceived ?? this.friendRequestsReceived,
       friends: friends ?? this.friends,
-      zenGarden: zenGarden ?? this.zenGarden,
+      zenGarden: zenGarden != null ? Map<String, bool>.from(zenGarden) : this.zenGarden,
     );
   }
 

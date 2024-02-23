@@ -116,49 +116,49 @@ String getZenGardenSellerDialogue(
     Map<String, bool> zenGarden, String charName) {
   switch (charName) {
     case 'hardy':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_4)) {
-        return zenGarden[ZenGardenObjectStrings.rock_4]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.rock_4)) {
+        return zenGarden[ZenStrings.rock_4]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'brocky':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_1)) {
-        return zenGarden[ZenGardenObjectStrings.rock_1]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.rock_1)) {
+        return zenGarden[ZenStrings.rock_1]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'brock':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_2)) {
-        return zenGarden[ZenGardenObjectStrings.rock_2]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.rock_2)) {
+        return zenGarden[ZenStrings.rock_2]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'rocky':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_3)) {
-        return zenGarden[ZenGardenObjectStrings.rock_3]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.rock_3)) {
+        return zenGarden[ZenStrings.rock_3]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'florence':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_1)) {
-        return zenGarden[ZenGardenObjectStrings.bonsai_1]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.bonsai_1)) {
+        return zenGarden[ZenStrings.bonsai_1]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'peach':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_2)) {
-        return zenGarden[ZenGardenObjectStrings.bonsai_2]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.bonsai_2)) {
+        return zenGarden[ZenStrings.bonsai_2]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
     case 'margret':
-      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_3)) {
-        return zenGarden[ZenGardenObjectStrings.bonsai_3]!
-            ? ZenGardenObjectStrings.post_buy
-            : ZenGardenObjectStrings.buy;
+      if (zenGarden.containsKey(ZenStrings.bonsai_3)) {
+        return zenGarden[ZenStrings.bonsai_3]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
       }
   }
-  return ZenGardenObjectStrings.pre_buy;
+  return ZenStrings.pre_buy;
 }
 
 void deductCoins(GomilandGame game, int price) {

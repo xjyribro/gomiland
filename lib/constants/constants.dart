@@ -77,10 +77,10 @@ const List<String> zenGardenObjects = [
 ];
 
 const Map<String, bool> defaultZenGardenData = {
-  ZenGardenObjectStrings.rock_4: false
+  ZenStrings.rock_4: false
 };
 
-class ZenGardenObjectStrings {
+class ZenStrings {
   static const rock_1 = 'rock_1';
   static const rock_2 = 'rock_2';
   static const rock_3 = 'rock_3';
@@ -146,4 +146,6 @@ class Strings {
   static const parkSpawners = 'parkSpawners';
   static const zenGarden = 'zenGarden';
   static const code = 'code';
+  static const count = 'count';
+  static const object = 'object';
 }

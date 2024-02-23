@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/utils/firestore.dart';
@@ -84,4 +85,34 @@ void updateFriendRequestReceivedList(BuildContext context, String senderId) {
   context
       .read<PlayerStateBloc>()
       .add(SetFriendRequestReceived(friendRequestsReceived));
+}
+
+String getObjectName(String objectName) {
+  if (objectName.contains('bonsai')) {
+    return 'Bonsai';
+  }
+  if (objectName.contains('rock')) {
+    return 'Rock';
+  }
+  return '';
+}
+
+(String, String)? getMerchantAndLocation(String objectName) {
+  switch (objectName) {
+    case ZenStrings.bonsai_1:
+      return ('Florence', 'at the Soup kitchen');
+    case ZenStrings.bonsai_2:
+      return ('Peach', 'next to the Bamboo Forest Shrine');
+    case ZenStrings.bonsai_3:
+      return ('Ms Margret', 'at Gomiland Elementary');
+    case ZenStrings.bonsai_4:
+      return ('Gaia', 'in the World Forest');
+    case ZenStrings.rock_1:
+      return ('Brocky', 'deep in the World Forest');
+    case ZenStrings.rock_2:
+      return ('Brock', 'at the park castle');
+    case ZenStrings.rock_3:
+      return ('Rocky', 'at the construction site');
+  }
+  return null;
 }

@@ -195,7 +195,6 @@ class _MainMenuState extends State<MainMenu> {
                       text: 'Code input',
                       style: TextStyles.menuPurpleTextStyle,
                       onPressed: () => goToCodeInput(context),
-                      isLoading: _isLoading,
                     ),
                   ),
                   Padding(
