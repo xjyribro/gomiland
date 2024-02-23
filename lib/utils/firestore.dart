@@ -160,12 +160,13 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
       : [];
   Map<String, bool> zenGarden =
       data[Strings.zenGarden] != null && data[Strings.zenGarden].length > 0
-          ? data[Strings.zenGarden] as Map<String, bool>
+          ? Map<String, bool>.from(data[Strings.zenGarden])
           : defaultZenGardenData;
   List<String> friendRequestsReceived =
       data[Strings.friendRequestsReceived] != null
           ? List.from(data[Strings.friendRequestsReceived])
           : [];
+
   await getPlayersFromList(friendsList).then((friends) {
     context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
