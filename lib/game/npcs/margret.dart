@@ -24,7 +24,7 @@ class Margret extends Npc with HasGameReference<GomilandGame> {
   @override
   void onLoad() async {
     final image =
-        await Flame.images.load(Assets.assets_images_npcs_florence_png);
+        await Flame.images.load(Assets.assets_images_npcs_ms_margret_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),

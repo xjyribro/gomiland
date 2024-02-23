@@ -49,6 +49,7 @@ import 'package:gomiland/game/objects/signs/combini_sign.dart';
 import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
+import 'package:gomiland/game/objects/zen_garden/bonsai.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
@@ -334,6 +335,106 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
+        case 'bonsai_1':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.bonsai_1)) {
+            await add(
+              Bonsai(
+                id: 0,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_2':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.bonsai_2)) {
+            await add(
+              Bonsai(
+                id: 1,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_3':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.bonsai_3)) {
+            await add(
+              Bonsai(
+                id: 2,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_4':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.bonsai_4)) {
+            await add(
+              Bonsai(
+                id: 3,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+            break;
+          }
+        case 'rock_1':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.rock_1)) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_tall_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_2':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.rock_2)) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_3':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.rock_3)) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_4':
+          if (game.playerStateBloc.state.zenGarden
+              .containsKey(ZenGardenObjectStrings.rock_4)) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
       }
     }
   }
@@ -422,10 +523,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'rocky':
           await add(Rocky(position: Vector2(npc.x, npc.y)));
           break;
-        case 'florence':
-          await add(Florence(position: Vector2(npc.x, npc.y)));
-          break;
-        case 'margret':
+        case 'ms_margret':
           await add(Margret(position: Vector2(npc.x, npc.y)));
           break;
         case 'scarlett':

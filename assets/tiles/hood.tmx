@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="25" nextobjectid="1582">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="25" nextobjectid="1583">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -2130,8 +2130,8 @@
   <object id="1556" name="bonsai_3" x="640" y="704" width="64" height="64"/>
   <object id="1559" name="bonsai_1" x="896" y="704" width="64" height="64"/>
   <object id="1560" name="rock_3" x="736" y="576" width="64" height="64"/>
-  <object id="1563" name="rock_1" x="704" y="672" width="64" height="64"/>
-  <object id="1564" name="rock_2" x="800" y="608" width="32" height="64"/>
+  <object id="1563" name="rock_2" x="704" y="672" width="64" height="64"/>
+  <object id="1564" name="rock_1" x="800" y="608" width="32" height="64"/>
   <object id="1565" name="rock_4" x="800" y="736" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="20" name="signs">
@@ -2448,7 +2448,7 @@
   <object id="403" name="street_light" x="1600" y="2016" width="32" height="64"/>
   <object id="464" name="street_light" x="3808" y="3744" width="32" height="64"/>
  </objectgroup>
- <objectgroup id="16" name="obstacles">
+ <objectgroup id="16" name="obstacles" visible="0">
   <object id="168" x="1920" y="416" width="256" height="160"/>
   <object id="180" x="0" y="320" width="320" height="4480"/>
   <object id="181" x="320" y="4640" width="6080" height="160"/>
@@ -2719,6 +2719,7 @@
   <object id="1578" name="florence" x="1216" y="512" width="32" height="32"/>
   <object id="1580" name="anri" x="1248" y="800" width="32" height="32"/>
   <object id="1581" name="peach" x="1472" y="640" width="32" height="32"/>
+  <object id="1582" name="scarlett" x="800" y="2720" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="11" name="gates">
   <object id="29" name="park" x="6368" y="4256" width="32" height="160"/>
