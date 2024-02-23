@@ -11,10 +11,10 @@ import 'package:gomiland/screens/profile/add_friends_page.dart';
 import 'package:gomiland/screens/profile/friend_requests_page.dart';
 import 'package:gomiland/screens/profile/friends_list_page.dart';
 import 'package:gomiland/screens/profile/high_scores.dart';
-import 'package:gomiland/screens/profile/profile.dart';
+import 'package:gomiland/screens/profile/profile_page.dart';
 
-void goToProfile(BuildContext context) {
-  Navigator.push(
+Future<bool?> goToProfile(BuildContext context) async {
+  return await Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => const ProfilePage(),

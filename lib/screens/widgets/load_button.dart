@@ -12,7 +12,12 @@ import 'package:gomiland/utils/navigation.dart';
 class LoadButton extends StatelessWidget {
   final bool isLoading;
   final Function setIsLoading;
-  const LoadButton({super.key, required this.isLoading, required this.setIsLoading});
+
+  const LoadButton({
+    super.key,
+    required this.isLoading,
+    required this.setIsLoading,
+  });
 
   @override
   Widget build(BuildContext context) {

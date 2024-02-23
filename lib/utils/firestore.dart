@@ -31,6 +31,21 @@ Future<void> savePlayerInfo({
       Strings.playerName: playerName,
       Strings.country: country,
       Strings.isMale: isMale,
+      Strings.hasSave: false,
+      Strings.daysInGame: 0,
+      Strings.plastic: 0,
+      Strings.paper: 0,
+      Strings.metal: 0,
+      Strings.electronics: 0,
+      Strings.glass: 0,
+      Strings.food: 0,
+      Strings.wrong: 0,
+      Strings.manuka: -1,
+      Strings.qianBi: -1,
+      Strings.risa: -1,
+      Strings.stark: -1,
+      Strings.asimov: -1,
+      Strings.moon: -1,
     });
   }
 }

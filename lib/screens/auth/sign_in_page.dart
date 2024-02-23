@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/utils/authentication.dart';
 import 'package:gomiland/screens/auth/utils.dart';
-import 'package:gomiland/utils/validations.dart';
 import 'package:gomiland/screens/auth/widgets/visibility_icon.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
+import 'package:gomiland/utils/authentication.dart';
 import 'package:gomiland/utils/firestore.dart';
-import 'package:gomiland/utils/navigation.dart';
+import 'package:gomiland/utils/validations.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -53,7 +52,7 @@ class _SignInPageState extends State<SignInPage> {
         if (errorMessage != null) {
           showSignUpErrorPopup(context, errorMessage);
         } else {
-          goToProfile(context);
+          Navigator.pop(context);
         }
       });
     } else {
@@ -71,8 +70,6 @@ class _SignInPageState extends State<SignInPage> {
                 .then((hasData) {
               if (hasData) {
                 Navigator.pop(context);
-              } else {
-                goToProfile(context);
               }
             });
           }

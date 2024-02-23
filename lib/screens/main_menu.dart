@@ -7,6 +7,8 @@ import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/screens/auth/utils.dart';
 import 'package:gomiland/screens/popups/popups.dart';
+import 'package:gomiland/screens/widgets/friends_button.dart';
+import 'package:gomiland/screens/widgets/hi_score_button.dart';
 import 'package:gomiland/screens/widgets/load_button.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -25,6 +27,7 @@ class _MainMenuState extends State<MainMenu> {
   bool _showSplash = true;
   bool _isSignedIn = false;
   bool _isLoading = false;
+  bool _isSentToProfile = false;
 
   void _setIsLoading(bool isLoading) {
     setState(() {
@@ -46,9 +49,11 @@ class _MainMenuState extends State<MainMenu> {
         loadSaved(
           playerId: user.uid,
           context: context,
-        ).then((hasData) {
-          if (!hasData) {
-            goToProfile(context);
+        ).then((hasData) async {
+          if (!hasData && !_isSentToProfile) {
+            _isSentToProfile = true;
+            await goToProfile(context);
+            _isSentToProfile = false;
           }
         });
       }
@@ -137,6 +142,16 @@ class _MainMenuState extends State<MainMenu> {
                 },
               ),
               const SpacerNormal(),
+              _isSignedIn
+                  ? FriendsButton(
+                      isLoading: _isLoading,
+                    )
+                  : Container(),
+              _isSignedIn
+                  ? HiScoreButton(
+                isLoading: _isLoading,
+              )
+                  : Container(),
               MenuButton(
                 text: 'Credits',
                 style: TextStyles.menuPurpleTextStyle,
