@@ -8,6 +8,7 @@ import 'package:gomiland/screens/auth/sign_in_page.dart';
 import 'package:gomiland/screens/credits.dart';
 import 'package:gomiland/screens/main_menu.dart';
 import 'package:gomiland/screens/profile/add_friends_page.dart';
+import 'package:gomiland/screens/profile/code_input_page.dart';
 import 'package:gomiland/screens/profile/friend_requests_page.dart';
 import 'package:gomiland/screens/profile/friends_list_page.dart';
 import 'package:gomiland/screens/profile/high_scores.dart';
@@ -98,6 +99,15 @@ void goToHighScores(BuildContext context) {
     context,
     MaterialPageRoute(
       builder: (context) => const HighScores(),
+    ),
+  );
+}
+
+void goToCodeInput(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const CodeInputPage(),
     ),
   );
 }

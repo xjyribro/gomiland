@@ -17,7 +17,7 @@ Future<void> savePlayerInfo({
   required bool isMale,
 }) async {
   DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance
-      .collection(Strings.playersCollection)
+      .collection(CollectionStrings.players)
       .doc(playerId)
       .get();
   if (doc.exists) {
@@ -59,7 +59,7 @@ Future<bool> saveGameState({
     PlayerState playerState = context.read<PlayerStateBloc>().state;
     ProgressState progressState = context.read<ProgressStateBloc>().state;
     await FirebaseFirestore.instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(playerId)
         .update({
       Strings.hasSave: true,
@@ -226,7 +226,7 @@ void setProgress(BuildContext context, Map<String, dynamic> data) {
 Future<DocumentSnapshot<Map<String, dynamic>>> getPlayerById(
     String playerId) async {
   return await FirebaseFirestore.instance
-      .collection(Strings.playersCollection)
+      .collection(CollectionStrings.players)
       .doc(playerId)
       .get();
 }
@@ -238,7 +238,7 @@ Future<QuerySnapshot<Object?>?> getPlayers({
 }) async {
   try {
     Query collection =
-        FirebaseFirestore.instance.collection(Strings.playersCollection);
+        FirebaseFirestore.instance.collection(CollectionStrings.players);
     if (playerName != null) {
       collection = collection.where(Strings.playerName, isEqualTo: playerName);
     }
@@ -261,7 +261,7 @@ Future<bool> sendFriendRequest({
   try {
     DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(receiverId)
         .get();
     if (receiverDoc.exists) {
@@ -278,7 +278,7 @@ Future<bool> sendFriendRequest({
     }
     DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(senderId)
         .get();
     if (senderDoc.exists) {
@@ -309,7 +309,7 @@ Future<bool> acceptFriendRequest({
   try {
     DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(receiverId)
         .get();
     if (receiverDoc.exists) {
@@ -332,7 +332,7 @@ Future<bool> acceptFriendRequest({
 
     DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(senderId)
         .get();
     if (senderDoc.exists) {
@@ -363,7 +363,7 @@ Future<bool> acceptFriendRequest({
 Future<QuerySnapshot<Object?>?> getHiScorePlayers(RubbishType type) async {
   try {
     return await FirebaseFirestore.instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .orderBy(type.string)
         .limit(50)
         .get();
@@ -371,3 +371,16 @@ Future<QuerySnapshot<Object?>?> getHiScorePlayers(RubbishType type) async {
     return null;
   }
 }
+
+Future<QuerySnapshot<Object?>?> getCode(String code) async {
+  try {
+    return await FirebaseFirestore.instance
+        .collection(CollectionStrings.redemptionCode)
+        .where(Strings.code, isEqualTo: code)
+        .get();
+  } catch (e) {
+    return null;
+  }
+}
+
+

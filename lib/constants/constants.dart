@@ -102,9 +102,13 @@ String getBonsaiStringFromInt(int index) {
   return 'bonsai_$index';
 }
 
+class CollectionStrings {
+  static const players = 'players';
+  static const redemptionCode = 'redemptionCode';
+}
+
 class Strings {
   static const minecraft = 'minecraft';
-  static const playersCollection = 'players';
   static const hasSave = 'hasSave';
   static const playerName = 'playerName';
   static const country = 'country';
@@ -141,4 +145,5 @@ class Strings {
   static const hoodSpawners = 'hoodSpawners';
   static const parkSpawners = 'parkSpawners';
   static const zenGarden = 'zenGarden';
+  static const code = 'code';
 }

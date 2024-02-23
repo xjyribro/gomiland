@@ -172,6 +172,7 @@ class _SearchPlayersState extends State<SearchPlayers> {
           },
           isLoading: _isLoading,
         ),
+        const SpacerNormal(),
         const Text(
           'Search results',
           style: TextStyles.mainHeaderTextStyle,

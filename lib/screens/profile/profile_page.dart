@@ -125,6 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Profile',
                   style: TextStyles.mainHeaderTextStyle,
                 ),
+                const SpacerNormal(),
                 ProfileSettingRow(
                   children: [
                     const Text(
@@ -195,6 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                   text: 'Select your country',
                   style: TextStyles.menuPurpleTextStyle,
+                  buttonWidth: 320,
                 ),
                 const SpacerNormal(),
                 MenuButton(
@@ -204,6 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     _onSubmit();
                   },
                   isLoading: _isLoading,
+                  buttonWidth: 320,
                 ),
                 const SpacerNormal(),
               ],

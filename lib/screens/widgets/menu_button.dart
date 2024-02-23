@@ -11,7 +11,7 @@ class MenuButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.text,
-    this.buttonWidth = 300,
+    this.buttonWidth = 250,
     this.isLoading,
     this.style,
   });
