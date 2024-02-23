@@ -2630,12 +2630,8 @@
   <object id="280" name="risa" x="896" y="2304" width="32" height="32"/>
   <object id="285" name="stark" x="4480" y="4032" width="32" height="32"/>
   <object id="287" name="mrs_star" x="3968" y="800" width="32" height="32"/>
-  <object id="1525" name="mrs_star" x="1504" y="864" width="32" height="32"/>
   <object id="288" name="mr_star" x="4544" y="928" width="32" height="32"/>
-  <object id="1526" name="mr_star" x="1568" y="864" width="32" height="32"/>
   <object id="292" name="kushi" x="3840" y="1440" width="32" height="32"/>
-  <object id="1523" name="kushi" x="1920" y="704" width="32" height="32"/>
-  <object id="1524" name="florence" x="1632" y="864" width="32" height="32"/>
   <object id="1231" name="asimov" x="5760" y="768" width="32" height="32"/>
   <object id="1232" name="himiko" x="2080" y="576" width="32" height="32"/>
   <object id="1364" name="girl" x="6176" y="3904" width="32" height="32"/>
@@ -2652,7 +2648,7 @@
   <object id="1423" name="girl" x="2944" y="864" width="32" height="32"/>
   <object id="1384" name="girl" x="2208" y="1760" width="32" height="32"/>
   <object id="1385" name="girl" x="1792" y="1376" width="32" height="32"/>
-  <object id="1386" name="girl" x="1280" y="608" width="32" height="32"/>
+  <object id="1386" name="girl" x="1216" y="576" width="32" height="32"/>
   <object id="1365" name="boy" x="6112" y="3648" width="32" height="32"/>
   <object id="1366" name="boy" x="5408" y="3552" width="32" height="32"/>
   <object id="1367" name="boy" x="5056" y="2848" width="32" height="32"/>
@@ -2683,8 +2679,7 @@
   <object id="1465" name="man" x="640" y="4576" width="32" height="32"/>
   <object id="1466" name="man" x="1216" y="3648" width="32" height="32"/>
   <object id="1467" name="man" x="832" y="3168" width="32" height="32"/>
-  <object id="1468" name="man" x="1184" y="864" width="32" height="32"/>
-  <object id="1424" name="man" x="1920" y="864" width="32" height="32"/>
+  <object id="1468" name="man" x="1248" y="800" width="32" height="32"/>
   <object id="1425" name="man" x="1056" y="1248" width="32" height="32"/>
   <object id="1426" name="man" x="3584" y="1312" width="32" height="32"/>
   <object id="1409" name="man" x="6080" y="2144" width="32" height="32"/>
@@ -2693,12 +2688,6 @@
   <object id="1413" name="man" x="448" y="1824" width="32" height="32"/>
   <object id="1410" name="man" x="6144" y="1280" width="32" height="32"/>
   <object id="1391" name="florence" x="2752" y="2496" width="32" height="32"/>
-  <object id="1431" name="asimov" x="1856" y="864" width="32" height="32"/>
-  <object id="1434" name="moon" x="1760" y="864" width="32" height="32"/>
-  <object id="1435" name="risa" x="1696" y="864" width="32" height="32"/>
-  <object id="1436" name="manuka" x="1984" y="864" width="32" height="32"/>
-  <object id="1437" name="stark" x="2080" y="864" width="32" height="32"/>
-  <object id="1440" name="qianbi" x="2016" y="704" width="32" height="32"/>
   <object id="1533" name="friend" x="4352" y="2880" width="32" height="32"/>
   <object id="1534" name="friend" x="4416" y="3072" width="32" height="32"/>
   <object id="1535" name="friend" x="4448" y="2912" width="32" height="32"/>
@@ -2712,13 +2701,6 @@
   <object id="1569" name="rocky" x="5408" y="4192" width="32" height="32"/>
   <object id="1570" name="ms_margret" x="4032" y="2624" width="32" height="32"/>
   <object id="1571" name="hardy" x="1024" y="736" width="32" height="32"/>
-  <object id="1573" name="gaia" x="1152" y="768" width="32" height="32"/>
-  <object id="1575" name="ms_margret" x="1216" y="704" width="32" height="32"/>
-  <object id="1576" name="brock" x="1216" y="608" width="32" height="32"/>
-  <object id="1577" name="brocky" x="1120" y="544" width="32" height="32"/>
-  <object id="1578" name="florence" x="1216" y="512" width="32" height="32"/>
-  <object id="1580" name="anri" x="1248" y="800" width="32" height="32"/>
-  <object id="1581" name="peach" x="1472" y="640" width="32" height="32"/>
   <object id="1582" name="scarlett" x="800" y="2720" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="11" name="gates">

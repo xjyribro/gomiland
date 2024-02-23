@@ -4,17 +4,21 @@ title: pre_buy
 MsMargret: Good day to you. You can call me Ms Margert.
 MsMargret: I teach Geography at Gomiland Elementary School.
 MsMargret: Do you know about sustainability? Let me give you a test.
-MsMargret: Question:
+MsMargret: Question 1 - All plastics can be recycled.
 -> True
-    MsMargret: Incorrect. You should find out more about it.
+   MsMargret: Incorrect. Only about 75% of plastics can be melted and molded to produce new plastics.
+   MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle
 -> False
-    MsMargret: Correct.
-    MsMargret: Next question: .
+    MsMargret: Correct. Only about 75% of plastics can be melted and molded to produce new plastics.
+    MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle.
+    MsMargret: Question 2 - The creator of plastic bags says they were meant to be used only once.
     -> False
-        MsMargret: Incorrect. You should find out more about it.
+        MsMargret: Incorrect. The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
+        MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
     -> True
-        MsMargret: Correct again! No prizes for getting it right this time...
-        MsMargret: but come see me if you input a code you get by contributing to sustainability efforts
+        MsMargret: Correct again! The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
+        MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
+        MsMargret: No prizes for getting full marks but come see me if you get a code by contributing to sustainability efforts.
 ===
 title: buy
 ---

@@ -102,6 +102,7 @@ class _SignInPageState extends State<SignInPage> {
                     onPressed: _toggleIsSignUp,
                     text: 'Change to ${_isSignUp ? 'Sign In' : 'Sign Up'}',
                     isLoading: _isLoading,
+                    buttonWidth: 280,
                   ),
                   const SpacerNormal(),
                   const Text(
