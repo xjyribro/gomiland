@@ -6,14 +6,15 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/utils/validations.dart';
 import 'package:gomiland/screens/popups/popups.dart';
+import 'package:gomiland/screens/profile/widgets/profile_setting_row.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
+import 'package:gomiland/utils/validations.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -126,82 +127,66 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Profile',
                   style: TextStyles.mainHeaderTextStyle,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Player Name',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      TextInput(
-                        controller: _playerNameController,
-                        validator: playerNameValidator,
-                        obscureText: false,
-                      ),
-                    ],
-                  ),
+                ProfileSettingRow(
+                  children: [
+                    const Text(
+                      'Player Name',
+                      style: TextStyles.menuWhiteTextStyle,
+                    ),
+                    TextInput(
+                      controller: _playerNameController,
+                      validator: playerNameValidator,
+                      obscureText: false,
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Avatar gender',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      DropDownMenu(
-                        options: genderOptions,
-                        onSelect: _onGenderSelect,
-                        chosenValue:
-                            _isMale ? genderOptions[0] : genderOptions[1],
-                      ),
-                    ],
-                  ),
+                ProfileSettingRow(
+                  children: [
+                    const Text(
+                      'Avatar gender',
+                      style: TextStyles.menuWhiteTextStyle,
+                    ),
+                    DropDownMenu(
+                      options: genderOptions,
+                      onSelect: _onGenderSelect,
+                      chosenValue:
+                          _isMale ? genderOptions[0] : genderOptions[1],
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Show joystick',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      BlocBuilder<GameStateBloc, GameState>(
-                          builder: (context, state) {
-                        return DropDownMenu(
-                          options: showControlOptions,
-                          onSelect: (String showControls) {
-                            _onShowControlsSelect(context, showControls);
-                          },
-                          chosenValue: state.showControls
-                              ? showControlOptions[0]
-                              : showControlOptions[1],
-                        );
-                      }),
-                    ],
-                  ),
+                ProfileSettingRow(
+                  children: [
+                    const Text(
+                      'Show joystick',
+                      style: TextStyles.menuWhiteTextStyle,
+                    ),
+                    BlocBuilder<GameStateBloc, GameState>(
+                        builder: (context, state) {
+                      return DropDownMenu(
+                        options: showControlOptions,
+                        onSelect: (String showControls) {
+                          _onShowControlsSelect(context, showControls);
+                        },
+                        chosenValue: state.showControls
+                            ? showControlOptions[0]
+                            : showControlOptions[1],
+                      );
+                    }),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Country',
-                        style: TextStyles.menuWhiteTextStyle,
-                      ),
-                      Text(
-                        _country?.name ?? 'No country selected',
-                        style: _country == null
-                            ? TextStyles.menuRedTextStyle
-                            : TextStyles.menuGreenTextStyle,
-                      ),
-                    ],
-                  ),
+                ProfileSettingRow(
+                  children: [
+                    const Text(
+                      'Country',
+                      style: TextStyles.menuWhiteTextStyle,
+                    ),
+                    Text(
+                      _country?.name ?? 'No country selected',
+                      style: _country == null
+                          ? TextStyles.menuRedTextStyle
+                          : TextStyles.menuGreenTextStyle,
+                    ),
+                  ],
                 ),
                 MenuButton(
                   onPressed: () {
