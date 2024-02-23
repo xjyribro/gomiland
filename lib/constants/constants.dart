@@ -1,4 +1,6 @@
 // flame
+// ignore_for_file: constant_identifier_names
+
 const isDebugMode = false;
 const double gameWidth = 1000;
 const double gameHeight = 600;
@@ -90,6 +92,14 @@ class ZenGardenObjectStrings {
   static const pre_buy = 'pre_buy';
   static const buy = 'buy';
   static const post_buy = 'post_buy';
+}
+
+String getRockStringFromInt(int index) {
+  return 'rock_$index';
+}
+
+String getBonsaiStringFromInt(int index) {
+  return 'bonsai_$index';
 }
 
 class Strings {

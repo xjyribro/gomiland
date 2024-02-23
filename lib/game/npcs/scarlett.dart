@@ -5,7 +5,6 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
-import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/npcs/utils.dart';
@@ -13,8 +12,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Margret extends Npc with HasGameReference<GomilandGame> {
-  Margret({required super.position});
+class Scarlett extends Npc with HasGameReference<GomilandGame> {
+  Scarlett({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -24,7 +23,7 @@ class Margret extends Npc with HasGameReference<GomilandGame> {
   @override
   void onLoad() async {
     final image =
-        await Flame.images.load(Assets.assets_images_npcs_florence_png);
+        await Flame.images.load(Assets.assets_images_npcs_scarlett_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -67,26 +66,15 @@ class Margret extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
 
-    Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
-
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-      ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
-      ..commands.addCommand1('buyBonsai', buyBonsai)
-        ..parse(await rootBundle.loadString(Assets.assets_yarn_margret_yarn));
+        .parse(await rootBundle.loadString(Assets.assets_yarn_scarlett_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'margret'));
+    await dialogueRunner.startDialogue('talk');
     game.unfreezePlayer();
-  }
-
-  void buyBonsai(int index) {
-    Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
-    zenGarden[getBonsaiStringFromInt(index)] = true;
-    game.playerStateBloc.add(SetZenGarden(zenGarden));
-    deductCoins(game, 500);
   }
 }

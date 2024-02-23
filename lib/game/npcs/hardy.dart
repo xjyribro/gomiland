@@ -5,6 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/npcs/utils.dart';
@@ -73,10 +74,18 @@ class Hardy extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_hardy_yarn));
+      ..commands.addCommand1('buyRock', buyRock)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_hardy_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'hardy'));
+    await dialogueRunner
+        .startDialogue(getZenGardenSellerDialogue(zenGarden, 'hardy'));
     game.unfreezePlayer();
+  }
+
+  void buyRock(int index) {
+    Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
+    zenGarden[getRockStringFromInt(index)] = true;
+    game.playerStateBloc.add(SetZenGarden(zenGarden));
   }
 }

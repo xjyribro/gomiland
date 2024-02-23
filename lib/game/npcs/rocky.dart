@@ -5,6 +5,7 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/npc.dart';
 import 'package:gomiland/game/npcs/utils.dart';
@@ -73,10 +74,20 @@ class Rocky extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_rocky_yarn));
+      ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
+      ..commands.addCommand1('buyRock', buyRock)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_rocky_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'rocky'));
+    await dialogueRunner
+        .startDialogue(getZenGardenSellerDialogue(zenGarden, 'rocky'));
     game.unfreezePlayer();
+  }
+
+  void buyRock(int index) {
+    Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
+    zenGarden[getRockStringFromInt(index)] = true;
+    game.playerStateBloc.add(SetZenGarden(zenGarden));
+    deductCoins(game, 500);
   }
 }

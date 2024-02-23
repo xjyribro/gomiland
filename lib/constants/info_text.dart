@@ -44,7 +44,11 @@ class InfoText{
       'Best vegan food in town!\n\n'
       'Choosing plant-based proteins like beans, lentils, and tofu shrinks your carbon footprint.\n\n'
       'It conserves precious water and protects biodiversity.\n\n'
-      'Go green, go meatless, and savor the positive impact on our planet, one delicious bite at a time\n';
+      'Go green, go meatless, and savor the positive impact on our planet, one delicious bite at a time\n\n'
+      'Greenhouse Gases: Animal agriculture is responsible for 14.5% of global greenhouse gas emissions\n'
+      'Livestock production uses 70% of all agricultural land globally, yet only provides 18% of the world\'s calories. '
+      'Choosing plant-based foods frees up land for other uses, like restoring natural ecosystems\n\n'
+      'Source: https://www.reuters.com/business/environment/ factbox-how-food-agriculture-contribute-climate-change-2023-12-02/';
 
   static const String friendship_square = 'Friendship Square\n\n'
       'Meet your friends from around the world here.\n\n'

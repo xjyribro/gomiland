@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
@@ -158,4 +159,8 @@ String getZenGardenSellerDialogue(
       }
   }
   return ZenGardenObjectStrings.pre_buy;
+}
+
+void deductCoins(GomilandGame game, int price) {
+  game.gameStateBloc.add(ChangeCoinAmount(-price));
 }

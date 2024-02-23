@@ -13,8 +13,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Margret extends Npc with HasGameReference<GomilandGame> {
-  Margret({required super.position});
+class Gaia extends Npc with HasGameReference<GomilandGame> {
+  Gaia({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -24,7 +24,7 @@ class Margret extends Npc with HasGameReference<GomilandGame> {
   @override
   void onLoad() async {
     final image =
-        await Flame.images.load(Assets.assets_images_npcs_florence_png);
+        await Flame.images.load(Assets.assets_images_npcs_gaia_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -76,10 +76,10 @@ class Margret extends Npc with HasGameReference<GomilandGame> {
     yarnProject
       ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
       ..commands.addCommand1('buyBonsai', buyBonsai)
-        ..parse(await rootBundle.loadString(Assets.assets_yarn_margret_yarn));
+        ..parse(await rootBundle.loadString(Assets.assets_yarn_gaia_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'margret'));
+    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'florence'));
     game.unfreezePlayer();
   }
 
