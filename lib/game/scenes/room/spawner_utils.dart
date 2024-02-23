@@ -11,8 +11,11 @@ import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/rubbish_component.dart';
 
-Future<RubbishComponent> getRubbishComponent(Function binCheck) async {
-  RubbishType rubbishType = getRandomRubbishType();
+Future<RubbishComponent> getRubbishComponent(
+  Function binCheck,
+  bool isPlasticReduced,
+) async {
+  RubbishType rubbishType = getRandomRubbishType(isPlasticReduced);
   RubbishComponent component = await getRandomRubbishComponent(
     rubbishType: rubbishType,
     binCheck: binCheck,
@@ -20,17 +23,33 @@ Future<RubbishComponent> getRubbishComponent(Function binCheck) async {
   return component;
 }
 
-RubbishType getRandomRubbishType() {
-  int rand = Random().nextInt(6);
-  List<RubbishType> types = [
-    RubbishType.plastic,
-    RubbishType.paper,
-    RubbishType.food,
-    RubbishType.glass,
-    RubbishType.metal,
-    RubbishType.electronics,
-  ];
-  return types[rand];
+RubbishType getRandomRubbishType(bool isPlasticReduced) {
+  if (isPlasticReduced) {
+    int rand = Random().nextInt(6);
+    List<RubbishType> types = [
+      RubbishType.plastic,
+      RubbishType.paper,
+      RubbishType.food,
+      RubbishType.glass,
+      RubbishType.metal,
+      RubbishType.electronics,
+    ];
+    return types[rand];
+  } else {
+    int rand = Random().nextInt(25);
+    if (rand > 4) {
+      return RubbishType.plastic;
+    } else {
+      List<RubbishType> types = [
+        RubbishType.paper,
+        RubbishType.food,
+        RubbishType.glass,
+        RubbishType.metal,
+        RubbishType.electronics,
+      ];
+      return types[rand];
+    }
+  }
 }
 
 Future<RubbishComponent> getRandomRubbishComponent({
@@ -149,13 +168,13 @@ void updateProgress(GomilandGame game, RubbishType rubbishType) {
       int risa = game.progressStateBloc.state.risa;
       if (risa >= levelOneBaseInt && risa < levelTwoBaseInt) {
         risa += 1;
-        game.progressStateBloc.add(SetRisaProgress(
-            risa.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
+        game.progressStateBloc.add(
+            SetRisaProgress(risa.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
       }
       if (risa >= levelTwoBaseInt && risa < completedCharInt) {
         risa += 1;
-        game.progressStateBloc.add(SetRisaProgress(
-            risa.clamp(levelTwoBaseInt, completedCharInt - 1)));
+        game.progressStateBloc.add(
+            SetRisaProgress(risa.clamp(levelTwoBaseInt, completedCharInt - 1)));
       }
       break;
     case RubbishType.glass:
@@ -224,13 +243,13 @@ void updateProgress(GomilandGame game, RubbishType rubbishType) {
       int moon = game.progressStateBloc.state.moon;
       if (moon >= levelOneBaseInt && moon < levelTwoBaseInt) {
         moon += 1;
-        game.progressStateBloc.add(SetMoonProgress(
-            moon.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
+        game.progressStateBloc.add(
+            SetMoonProgress(moon.clamp(levelOneBaseInt, levelTwoBaseInt - 1)));
       }
       if (moon >= levelTwoBaseInt && moon < completedCharInt) {
         moon += 1;
-        game.progressStateBloc.add(SetMoonProgress(
-            moon.clamp(levelTwoBaseInt, completedCharInt - 1)));
+        game.progressStateBloc.add(
+            SetMoonProgress(moon.clamp(levelTwoBaseInt, completedCharInt - 1)));
       }
       break;
     default:

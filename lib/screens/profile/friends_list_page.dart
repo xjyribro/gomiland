@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/screens/profile/utils.dart';
+import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/screens/profile/widgets/friends_row.dart';
 import 'package:gomiland/screens/profile/widgets/players_list.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
-import 'package:gomiland/game/data/other_player.dart';
 
 class FriendsListPage extends StatefulWidget {
   const FriendsListPage({super.key});
@@ -29,11 +28,9 @@ class _FriendsListPageState extends State<FriendsListPage> {
   }
 
   Future<void> _getRequestInfo() async {
-    List<String> friendsList =
-        context.read<PlayerStateBloc>().state.friendsList;
-    Map<String, OtherPlayer> playersList =
-        await getPlayersFromList(friendsList);
-    _setPlayersList(playersList);
+    Map<String, OtherPlayer> friends =
+        context.read<PlayerStateBloc>().state.friends;
+    _setPlayersList(friends);
   }
 
   Future<void> _reloadInfo() async {

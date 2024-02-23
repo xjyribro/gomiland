@@ -39,13 +39,11 @@ class RubbishComponent extends SpriteComponent
     String rubbishName,
   ) {
     _binCheck(binType, rubbishType, rubbishName);
-    // TODO animate out
     removeFromParent();
   }
 
   @override
   Future<void> onLoad() async {
-    // TODO animate in
     add(RectangleHitbox(
       position: Vector2(size.x / 2, size.y / 2),
       size: _hitboxSize,

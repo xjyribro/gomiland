@@ -1,0 +1,29 @@
+<<character Gaia>>
+title: pre_buy
+---
+Gaia: The air is fresh, the grass is green... National parks are really great!
+Gaia: My name is Gaia and I've lived in Gomiland since the beginning.
+Gaia: As our planet is facing challenges, we should do our best to reduce our waste and carbon footprint.
+Gaia: Meet me here again if you do something to promote sustainability in your life.
+===
+title: buy
+---
+Gaia: Thank you for your efforts in improving the sustainability for the planet.
+Gaia: Would you like to buy a bonsai for your zen garden?
+Gaia: It costs 500 coins
+-> No
+    Gaia: No problem. I'll sit here an enjoy the best the park has to offer.
+-> Yes
+    <<if $coins < 500>>
+        Gaia: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Gaia: I hope you enjoy looking at the bonsais in the garden on a slow walk.
+        Gaia: It is good to take it easy once in a while and enjoy the beauty of nature.
+        <<buyBonsai 4>>
+    <<endif>>
+===
+title: post_buy
+---
+Gaia: Small efforts go a long way to making our planet beautiful for future generations.
+Gaia: I hope the bonsais in your garden last for many years and people all around the world can come see them!
+===

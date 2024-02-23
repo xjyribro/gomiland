@@ -26,3 +26,8 @@ String? playerNameValidator(String? value) {
   final trimmed = (value == null) ? '' : value.trim();
   return (trimmed.isEmpty) ? 'Name required' : null;
 }
+
+String? codeValidator(String? value) {
+  final trimmed = (value == null) ? '' : value.trim();
+  return (trimmed.isEmpty) ? 'Required' : null;
+}

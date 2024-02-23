@@ -5,9 +5,14 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/npcs/anri.dart';
+import 'package:gomiland/game/npcs/brock.dart';
+import 'package:gomiland/game/npcs/brocky.dart';
+import 'package:gomiland/game/npcs/gaia.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
+import 'package:gomiland/game/npcs/peach.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/beehive.dart';
@@ -624,6 +629,21 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'manuka':
           await add(Manuka(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'brock':
+          await add(Brock(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'brocky':
+          await add(Brocky(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'gaia':
+          await add(Gaia(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'peach':
+          await add(Peach(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'anri':
+          await add(Anri(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

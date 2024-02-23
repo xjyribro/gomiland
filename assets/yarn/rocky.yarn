@@ -1,0 +1,27 @@
+<<character Rocky>>
+title: talk
+---
+Rocky: Muscle. Strength. Power.
+Rocky: You need these to achieve sustainability.
+Rocky: Huh? You don't are you sure?.
+===
+title: buy
+---
+Rocky: Looks like you make a positive impact without big muscles...
+Rocky: Would you like to buy a small but heavy rock for your zen garden?
+Rocky: I costs 500 coins
+-> No
+    Rocky: Ok you don't have to get it now. I will be here training all day.
+-> Yes
+    <<if $coins < 500>>
+        Rocky: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Rocky: That's great! I will move it for you of course. These are heavy.
+        <<buyRock 3>>
+    <<endif>>
+===
+title: post_buy
+---
+Rocky: You don't need big muscles to contribute to sustainability.
+Rocky: But if you want to move rocks, then yes you need them.
+===

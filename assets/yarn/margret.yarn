@@ -1,0 +1,42 @@
+<<character "Ms Margret" MsMargret>>
+title: pre_buy
+---
+MsMargret: Good day to you. You can call me Ms Margert.
+MsMargret: I teach Geography at Gomiland Elementary School.
+MsMargret: Do you know about sustainability? Let me give you a test.
+MsMargret: Question 1 - All plastics can be recycled.
+-> True
+   MsMargret: Incorrect. Only about 75% of plastics can be melted and molded to produce new plastics.
+   MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle
+-> False
+    MsMargret: Correct. Only about 75% of plastics can be melted and molded to produce new plastics.
+    MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle.
+    MsMargret: Question 2 - The creator of plastic bags says they were meant to be used only once.
+    -> False
+        MsMargret: Incorrect. The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
+        MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
+    -> True
+        MsMargret: Correct again! The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
+        MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
+        MsMargret: No prizes for getting full marks but come see me if you get a code by contributing to sustainability efforts.
+===
+title: buy
+---
+MsMargret: Ah you get an A for sustainability.
+MsMargret: As a bonus, you can buy a bonsai that the students are selling.
+MsMargret: It costs 500 coins
+-> No
+    MsMargret: They sell out fast so if you want it, you should get it soon.
+-> Yes
+    <<if $coins < 500>>
+        MsMargret: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        MsMargret: The students will be happy. I will get one of them to send it to the garden soon.
+        <<buyBonsai 3>>
+    <<endif>>
+===
+title: post_buy
+---
+MsMargret: My students spend 1 day a week to clean up the school grounds and recycle any rubbish they find.
+MsMargret: It takes the whole community to drive recycling initiatives so get more people involved!
+===

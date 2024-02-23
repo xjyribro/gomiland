@@ -1,0 +1,27 @@
+<<character Peach>>
+title: pre_buy
+---
+Peach: Hi I'm Peach and I love hanging out here in the park
+Peach: It's really important that people know how to preserve the natural environment.
+Peach: If you can show that you have what it takes to contribute to sustainability efforts, input a code and find me again!
+===
+title: buy
+---
+Peach: I see you have done a good job contributing to sustainability efforts in your own life.
+Peach: Would you like to buy a bonsai for your zen garden?
+Peach: It costs 500 coins
+-> No
+    Peach: No? It would look really nice, I promise.
+-> Yes
+    <<if $coins < 500>>
+        Peach: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Peach: Nice! I will appear in your garden soon.
+        <<buyBonsai 2>>
+    <<endif>>
+===
+title: post_buy
+---
+Peach: Your resident zen garden is looking really nice now!
+Peach: Remember to turn off the power if you are not using it!
+===

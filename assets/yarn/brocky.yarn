@@ -1,0 +1,27 @@
+<<character Brocky>>
+title: pre_buy
+---
+Brocky: I was training in the park but I got lost in this forest...
+Brocky: I think I will stay here a while to observe these old trees
+Brocky: They grew so big over thousands of years that even I can't lift them!
+===
+title: buy
+---
+Brocky: Oh it seems you have been doing a great job ...
+Brocky: Would you like to buy a huge rock for your zen garden?
+Brocky: I costs 500 coins
+-> No
+    Brocky: Ok you don't have to get it now. I will be here training all day.
+-> Yes
+    <<if $coins < 500>>
+        Brocky: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Brocky: That's great! I will move it for you of course. These are heavy.
+        <<buyRock 1>>
+    <<endif>>
+===
+title: post_buy
+---
+Brocky: Your garden is looking great!
+Brocky: Get some codes in real life and talk to other people in Gomiland to get more items.
+===

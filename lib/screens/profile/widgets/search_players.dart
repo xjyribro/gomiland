@@ -75,9 +75,9 @@ class _SearchPlayersState extends State<SearchPlayers> {
     );
     if (result != null) {
       if (context.mounted) {
-        List<String> friendsList =
-            context.read<PlayerStateBloc>().state.friendsList;
-        _setPlayersList(getPlayersFromSearchResult(result, friendsList));
+        Map<String, OtherPlayer> friends =
+            context.read<PlayerStateBloc>().state.friends;
+        _setPlayersList(getPlayersFromSearchResult(result, friends));
       }
     } else {
       if (context.mounted) {
@@ -172,6 +172,7 @@ class _SearchPlayersState extends State<SearchPlayers> {
           },
           isLoading: _isLoading,
         ),
+        const SpacerNormal(),
         const Text(
           'Search results',
           style: TextStyles.mainHeaderTextStyle,

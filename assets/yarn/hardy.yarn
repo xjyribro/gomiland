@@ -1,0 +1,23 @@
+<<character Hardy>>
+title: pre_buy
+---
+Hardy: The garden is looking great!
+Hardy: Get some codes in real life and talk to other people in Gomiland to get more items.
+===
+title: buy
+---
+Hardy: Yo. The zen garden here is shared by the people who live around this area.
+Hardy: Anyone can contribute to it. Hey you live here right?
+Hardy: Do you want to get a rock for the garden? This one is free!
+-> No
+    Hardy: Alright, come see me if you change your mind.
+    Hardy: I don't stay here so the residents have to decide.
+-> Yes
+    Hardy: That's great! I will move it for you of course. These are heavy.
+    <<buyRock 4>>
+===
+title: post_buy
+---
+Hardy: The garden is looking great!
+Hardy: Get some codes in real life and talk to other people in Gomiland to get more items.
+===

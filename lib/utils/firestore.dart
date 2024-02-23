@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/screens/profile/utils.dart';
 
@@ -16,7 +18,7 @@ Future<void> savePlayerInfo({
   required bool isMale,
 }) async {
   DocumentSnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance
-      .collection(Strings.playersCollection)
+      .collection(CollectionStrings.players)
       .doc(playerId)
       .get();
   if (doc.exists) {
@@ -30,6 +32,21 @@ Future<void> savePlayerInfo({
       Strings.playerName: playerName,
       Strings.country: country,
       Strings.isMale: isMale,
+      Strings.hasSave: false,
+      Strings.daysInGame: 0,
+      Strings.plastic: 0,
+      Strings.paper: 0,
+      Strings.metal: 0,
+      Strings.electronics: 0,
+      Strings.glass: 0,
+      Strings.food: 0,
+      Strings.wrong: 0,
+      Strings.manuka: -1,
+      Strings.qianBi: -1,
+      Strings.risa: -1,
+      Strings.stark: -1,
+      Strings.asimov: -1,
+      Strings.moon: -1,
     });
   }
 }
@@ -43,7 +60,7 @@ Future<bool> saveGameState({
     PlayerState playerState = context.read<PlayerStateBloc>().state;
     ProgressState progressState = context.read<ProgressStateBloc>().state;
     await FirebaseFirestore.instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(playerId)
         .update({
       Strings.hasSave: true,
@@ -52,6 +69,7 @@ Future<bool> saveGameState({
       Strings.playerYPosit: playerState.playerPosition.y,
       Strings.playerXDir: playerState.playerDirection.x,
       Strings.playerYDir: playerState.playerDirection.y,
+      Strings.zenGarden: playerState.zenGarden,
       Strings.savedLocation: gameState.sceneName.string,
       Strings.coinAmount: gameState.coinAmount,
       Strings.bagCount: gameState.bagCount,
@@ -88,7 +106,7 @@ Future<bool> refreshFriends({
   required String playerId,
   required BuildContext context,
 }) async {
-  return await getPlayerById(playerId).then((doc) {
+  return await getPlayerById(playerId).then((doc) async {
     if (doc.data() == null) {
       return false;
     } else {
@@ -103,12 +121,14 @@ Future<bool> refreshFriends({
           data[Strings.friendRequestsReceived] != null
               ? List.from(data[Strings.friendRequestsReceived])
               : [];
-      context.read<PlayerStateBloc>().state.setPlayerState(
-            context: context,
-            friendsList: friendsList,
-            friendRequestsSent: friendRequestsSent,
-            friendRequestsReceived: friendRequestsReceived,
-          );
+      await getPlayersFromList(friendsList).then((friends) {
+        context.read<PlayerStateBloc>().state.setPlayerState(
+              context: context,
+              friends: friends,
+              friendRequestsSent: friendRequestsSent,
+              friendRequestsReceived: friendRequestsReceived,
+            );
+      });
       return true;
     }
   });
@@ -139,10 +159,15 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
   List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
       ? List.from(data[Strings.friendRequestsSent])
       : [];
+  Map<String, bool> zenGarden =
+      data[Strings.zenGarden] != null && data[Strings.zenGarden].length > 0
+          ? Map<String, bool>.from(data[Strings.zenGarden])
+          : defaultZenGardenData;
   List<String> friendRequestsReceived =
       data[Strings.friendRequestsReceived] != null
           ? List.from(data[Strings.friendRequestsReceived])
           : [];
+
   await getPlayersFromList(friendsList).then((friends) {
     context.read<PlayerStateBloc>().state.setPlayerState(
           context: context,
@@ -155,10 +180,10 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
           playerXDir: data[Strings.playerXDir],
           playerYDir: data[Strings.playerYDir],
           savedLocation: savedLocation.sceneName,
-          friendsList: friendsList,
           friendRequestsSent: friendRequestsSent,
           friendRequestsReceived: friendRequestsReceived,
           friends: friends,
+          zenGarden: zenGarden,
         );
   });
 }
@@ -202,7 +227,7 @@ void setProgress(BuildContext context, Map<String, dynamic> data) {
 Future<DocumentSnapshot<Map<String, dynamic>>> getPlayerById(
     String playerId) async {
   return await FirebaseFirestore.instance
-      .collection(Strings.playersCollection)
+      .collection(CollectionStrings.players)
       .doc(playerId)
       .get();
 }
@@ -214,7 +239,7 @@ Future<QuerySnapshot<Object?>?> getPlayers({
 }) async {
   try {
     Query collection =
-        FirebaseFirestore.instance.collection(Strings.playersCollection);
+        FirebaseFirestore.instance.collection(CollectionStrings.players);
     if (playerName != null) {
       collection = collection.where(Strings.playerName, isEqualTo: playerName);
     }
@@ -237,7 +262,7 @@ Future<bool> sendFriendRequest({
   try {
     DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(receiverId)
         .get();
     if (receiverDoc.exists) {
@@ -254,7 +279,7 @@ Future<bool> sendFriendRequest({
     }
     DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(senderId)
         .get();
     if (senderDoc.exists) {
@@ -285,7 +310,7 @@ Future<bool> acceptFriendRequest({
   try {
     DocumentSnapshot<Map<String, dynamic>> receiverDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(receiverId)
         .get();
     if (receiverDoc.exists) {
@@ -308,7 +333,7 @@ Future<bool> acceptFriendRequest({
 
     DocumentSnapshot<Map<String, dynamic>> senderDoc = await FirebaseFirestore
         .instance
-        .collection(Strings.playersCollection)
+        .collection(CollectionStrings.players)
         .doc(senderId)
         .get();
     if (senderDoc.exists) {
@@ -335,3 +360,44 @@ Future<bool> acceptFriendRequest({
     return false;
   }
 }
+
+Future<QuerySnapshot<Object?>?> getHiScorePlayers(RubbishType type) async {
+  try {
+    return await FirebaseFirestore.instance
+        .collection(CollectionStrings.players)
+        .orderBy(type.string)
+        .limit(50)
+        .get();
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<QuerySnapshot<Object?>?> getCode(String code) async {
+  try {
+    return await FirebaseFirestore.instance
+        .collection(CollectionStrings.redemptionCode)
+        .where(Strings.code, isEqualTo: code)
+        .get();
+  } catch (e) {
+    return null;
+  }
+}
+
+Future<bool> redeemCode(DocumentSnapshot doc, int newCount) async {
+  try {
+    await doc.reference.update({
+      Strings.count: newCount
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<void> savePlayerZenGardenToDb(Map<String, bool> zenGardenState) async {
+  String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
+  DocumentSnapshot doc = await getPlayerById(playerId);
+  doc.reference.update({Strings.zenGarden : zenGardenState});
+}
+

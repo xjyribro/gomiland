@@ -1,4 +1,7 @@
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 
 class OtherPlayer {
   String playerName;
@@ -58,6 +61,32 @@ class OtherPlayer {
       stark: json[Strings.stark] ?? -1,
       asimov: json[Strings.asimov] ?? -1,
       moon: json[Strings.moon] ?? -1,
+    );
+  }
+
+  static OtherPlayer fromBlocState({
+    required ProgressState progressState,
+    required PlayerState playerState,
+    required GameState gameState,
+  }) {
+    return OtherPlayer(
+      playerName: playerState.playerName,
+      country: playerState.country,
+      isMale: playerState.isMale,
+      daysInGame: gameState.daysInGame,
+      plastic: progressState.plastic,
+      paper: progressState.paper,
+      metal: progressState.metal,
+      electronics: progressState.electronics,
+      glass: progressState.glass,
+      food: progressState.food,
+      wrong: progressState.wrong,
+      manuka: progressState.manuka,
+      qianBi: progressState.qianBi,
+      risa: progressState.risa,
+      stark: progressState.stark,
+      asimov: progressState.asimov,
+      moon: progressState.moon,
     );
   }
 }

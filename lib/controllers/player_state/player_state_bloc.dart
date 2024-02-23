@@ -61,12 +61,6 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
       ),
     );
 
-    on<SetFriendsList>(
-      (event, emit) => emit(
-        state.copyWith(friendsList: event.friendsList),
-      ),
-    );
-
     on<SetFriendRequestSent>(
       (event, emit) => emit(
         state.copyWith(friendRequestsSent: event.friendRequestsSent),
@@ -76,6 +70,12 @@ class PlayerStateBloc extends Bloc<PlayerStatesEvent, PlayerState> {
     on<SetFriendRequestReceived>(
       (event, emit) => emit(
         state.copyWith(friendRequestsReceived: event.friendRequestsReceived),
+      ),
+    );
+
+    on<SetZenGarden>(
+      (event, emit) => emit(
+        state.copyWith(zenGarden: event.zenGarden),
       ),
     );
 

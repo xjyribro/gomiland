@@ -4,19 +4,21 @@ import 'package:flame_tiled_utils/flame_tiled_utils.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/npcs/asimov.dart';
 import 'package:gomiland/game/npcs/florence.dart';
 import 'package:gomiland/game/npcs/friend.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
+import 'package:gomiland/game/npcs/hardy.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
 import 'package:gomiland/game/npcs/kushi.dart';
-import 'package:gomiland/game/npcs/manuka.dart';
-import 'package:gomiland/game/npcs/mr_moon.dart';
+import 'package:gomiland/game/npcs/margret.dart';
 import 'package:gomiland/game/npcs/mr_mrs_star.dart';
-import 'package:gomiland/game/npcs/qian_bi.dart';
 import 'package:gomiland/game/npcs/risa.dart';
+import 'package:gomiland/game/npcs/rocky.dart';
+import 'package:gomiland/game/npcs/scarlett.dart';
 import 'package:gomiland/game/npcs/stark.dart';
 import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/apt_side.dart';
@@ -40,6 +42,7 @@ import 'package:gomiland/game/objects/signs/combini_sign.dart';
 import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
+import 'package:gomiland/game/objects/zen_garden/bonsai.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
@@ -325,6 +328,114 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
+        case 'bonsai_1':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_1] ?? false;
+          if (shouldAdd) {
+            await add(
+              Bonsai(
+                id: 0,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_2':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_2] ?? false;
+          if (shouldAdd) {
+            await add(
+              Bonsai(
+                id: 1,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_3':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_3] ?? false;
+          if (shouldAdd) {
+            await add(
+              Bonsai(
+                id: 2,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'bonsai_4':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.bonsai_4] ?? false;
+          if (shouldAdd) {
+            await add(
+              Bonsai(
+                id: 3,
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+            break;
+          }
+        case 'rock_1':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_1] ?? false;
+          if (shouldAdd) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_tall_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_2':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_2] ?? false;
+          if (shouldAdd) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_3':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_3] ?? false;
+          if (shouldAdd) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
+        case 'rock_4':
+          PlayerState playerState = game.playerStateBloc.state;
+          bool shouldAdd = playerState.zenGarden[ZenStrings.rock_4] ?? false;
+          if (shouldAdd) {
+            await add(
+              SpriteComponent(
+                sprite: await Sprite.load(
+                    Assets.assets_images_objects_rock_small_png),
+                position: Vector2(tree.x, tree.y),
+                size: Vector2(tree.width, tree.height),
+              ),
+            );
+          }
+          break;
       }
     }
   }
@@ -407,20 +518,17 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'mrs_star':
           await add(MrsStar(position: Vector2(npc.x, npc.y)));
           break;
-        case 'qianbi':
-          await add(
-            QianBi(position: Vector2(npc.x, npc.y)),
-          );
+        case 'hardy':
+          await add(Hardy(position: Vector2(npc.x, npc.y)));
           break;
-        case 'moon':
-          await add(
-            MrMoon(position: Vector2(npc.x, npc.y)),
-          );
+        case 'rocky':
+          await add(Rocky(position: Vector2(npc.x, npc.y)));
           break;
-        case 'manuka':
-          await add(
-            Manuka(position: Vector2(npc.x, npc.y)),
-          );
+        case 'ms_margret':
+          await add(Margret(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'scarlett':
+          await add(Scarlett(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
@@ -109,4 +110,57 @@ String getFriendDialogue(OtherPlayer friendInfo, GomilandGame game) {
     }
     return 'progress_player';
   }
+}
+
+String getZenGardenSellerDialogue(
+    Map<String, bool> zenGarden, String charName) {
+  switch (charName) {
+    case 'hardy':
+      if (zenGarden.containsKey(ZenStrings.rock_4)) {
+        return zenGarden[ZenStrings.rock_4]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'brocky':
+      if (zenGarden.containsKey(ZenStrings.rock_1)) {
+        return zenGarden[ZenStrings.rock_1]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'brock':
+      if (zenGarden.containsKey(ZenStrings.rock_2)) {
+        return zenGarden[ZenStrings.rock_2]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'rocky':
+      if (zenGarden.containsKey(ZenStrings.rock_3)) {
+        return zenGarden[ZenStrings.rock_3]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'florence':
+      if (zenGarden.containsKey(ZenStrings.bonsai_1)) {
+        return zenGarden[ZenStrings.bonsai_1]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'peach':
+      if (zenGarden.containsKey(ZenStrings.bonsai_2)) {
+        return zenGarden[ZenStrings.bonsai_2]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+    case 'margret':
+      if (zenGarden.containsKey(ZenStrings.bonsai_3)) {
+        return zenGarden[ZenStrings.bonsai_3]!
+            ? ZenStrings.post_buy
+            : ZenStrings.buy;
+      }
+  }
+  return ZenStrings.pre_buy;
+}
+
+void deductCoins(GomilandGame game, int price) {
+  game.gameStateBloc.add(ChangeCoinAmount(-price));
 }
