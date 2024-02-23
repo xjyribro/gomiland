@@ -28,7 +28,10 @@ class RubbishSpawner extends PositionComponent
   late final Map<RubbishType, int> _rewardMap = {};
 
   void _addRubbishUpdateBag() async {
-    SpriteComponent rubbishComponent = await getRubbishComponent(_binCheck);
+    int risaQuestState = game.progressStateBloc.state.risa;
+    bool isPlasticsReduced = risaQuestState >= completedCharInt;
+    SpriteComponent rubbishComponent =
+        await getRubbishComponent(_binCheck, isPlasticsReduced);
     await add(rubbishComponent);
     _setHasUncleared(true);
     _removeOneFromBag();
