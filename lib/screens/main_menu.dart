@@ -48,7 +48,7 @@ class _MainMenuState extends State<MainMenu> {
           context: context,
         ).then((hasData) {
           if (!hasData) {
-            goToSettings(context);
+            goToProfile(context);
           }
         });
       }
@@ -133,7 +133,7 @@ class _MainMenuState extends State<MainMenu> {
                 style: TextStyles.menuPurpleTextStyle,
                 onPressed: () {
                   if (_isLoading) return;
-                  goToSettings(context);
+                  goToProfile(context);
                 },
               ),
               const SpacerNormal(),

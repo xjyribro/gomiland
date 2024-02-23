@@ -53,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
         if (errorMessage != null) {
           showSignUpErrorPopup(context, errorMessage);
         } else {
-          goToSettings(context);
+          goToProfile(context);
         }
       });
     } else {
@@ -72,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
               if (hasData) {
                 Navigator.pop(context);
               } else {
-                goToSettings(context);
+                goToProfile(context);
               }
             });
           }

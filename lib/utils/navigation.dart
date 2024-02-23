@@ -13,7 +13,7 @@ import 'package:gomiland/screens/profile/friends_list_page.dart';
 import 'package:gomiland/screens/profile/high_scores.dart';
 import 'package:gomiland/screens/profile/profile.dart';
 
-void goToSettings(BuildContext context) {
+void goToProfile(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(
