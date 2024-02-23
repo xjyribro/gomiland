@@ -44,9 +44,15 @@ class _HighScoresState extends State<HighScores> {
     if (_isGlobal) {
       QuerySnapshot<Object?>? result = await getHiScorePlayers(_criteria);
       if (result != null) {
+        List<OtherPlayer> tempPlayersList = [];
         for (var doc in result.docs) {
-          String otherPlayerId = doc.id;
+          if (doc.data() != null ) {
+            Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+            OtherPlayer player = OtherPlayer.fromJson(data);
+            tempPlayersList.add(player);
+          }
         }
+        playersList = sortPlayersList(tempPlayersList);
       }
     } else {
       Map<String, OtherPlayer> playersMap =
