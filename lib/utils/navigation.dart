@@ -49,21 +49,12 @@ void pushReplacementToMainMenu(BuildContext context) {
   );
 }
 
-void pushReplacementToSettings(BuildContext context) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (context) => const ProfilePage(),
-    ),
-  );
-}
-
 void goToGame({
   required BuildContext context,
   required bool loadFromSave,
 }) {
   if (!loadFromSave) {
-    context.read<ProgressStateBloc>().state.setProgressForNewGame(context);
+    context.read<ProgressStateBloc>().state.setProgressStateForNewGame(context);
     context.read<GameStateBloc>().state.setGameStateForNewGame(context);
     context.read<PlayerStateBloc>().state.setPlayerStateForNewGame(context);
   }

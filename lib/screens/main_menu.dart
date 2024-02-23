@@ -5,11 +5,12 @@ import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
-import 'package:gomiland/screens/auth/authentication.dart';
+import 'package:gomiland/screens/auth/utils.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/load_button.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/authentication.dart';
 import 'package:gomiland/utils/firestore.dart';
 import 'package:gomiland/utils/navigation.dart';
 
@@ -116,13 +117,13 @@ class _MainMenuState extends State<MainMenu> {
               MenuButton(
                 text: _isSignedIn ? 'Sign out' : 'Sign in',
                 style: TextStyles.menuPurpleTextStyle,
-                onPressed: () {
+                onPressed: () async {
                   if (_isLoading) return;
                   if (!_isSignedIn) {
                     goToSignIn(context);
                     return;
                   } else {
-                    signOut();
+                    await signOut().then((_) => resetBlocStates(context));
                   }
                 },
               ),

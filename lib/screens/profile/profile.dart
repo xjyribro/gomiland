@@ -6,7 +6,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
-import 'package:gomiland/screens/auth/validations.dart';
+import 'package:gomiland/utils/validations.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/widgets/dropdown_menu.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';

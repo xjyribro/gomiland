@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/constants/styles.dart';
-import 'package:gomiland/screens/auth/authentication.dart';
+import 'package:gomiland/utils/authentication.dart';
 import 'package:gomiland/screens/auth/utils.dart';
-import 'package:gomiland/screens/auth/validations.dart';
+import 'package:gomiland/utils/validations.dart';
 import 'package:gomiland/screens/auth/widgets/visibility_icon.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -53,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
         if (errorMessage != null) {
           showSignUpErrorPopup(context, errorMessage);
         } else {
-          pushReplacementToSettings(context);
+          goToSettings(context);
         }
       });
     } else {
@@ -81,36 +81,6 @@ class _SignInPageState extends State<SignInPage> {
     }
     _setIsLoading(false);
   }
-
-  // Future<void> _loginWithGoogle() async {
-  //   if (_isLoading) return;
-  //   _setIsLoading(true);
-  //   await signInUpWithGoogle()
-  //       .then((value) => Navigator.pop(context))
-  //       .onError((e, s) {
-  //     Popups.showMessage(
-  //       context: context,
-  //       title: 'Unable to sign in with Google',
-  //       subTitle: 'Please check web connection and try again',
-  //     );
-  //   });
-  //   _setIsLoading(false);
-  // }
-  //
-  // Future<void> _loginWithApple() async {
-  //   if (_isLoading) return;
-  //   _setIsLoading(true);
-  //   await signInWithApple()
-  //       .then((value) => Navigator.pop(context))
-  //       .onError((e, s) {
-  //     Popups.showMessage(
-  //       context: context,
-  //       title: 'Unable to sign in with Apple',
-  //       subTitle: 'Please check web connection and try again',
-  //     );
-  //   });
-  //   _setIsLoading(false);
-  // }
 
   @override
   Widget build(BuildContext context) {

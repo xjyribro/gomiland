@@ -1,4 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
+import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 
 void showSignInErrorPopup(BuildContext context, String errorMessage) {
@@ -40,4 +44,10 @@ void showSignUpErrorPopup(BuildContext context, String errorMessage) {
       subTitle: 'Please check web connection and try again',
     );
   }
+}
+
+void resetBlocStates(BuildContext context) {
+  context.read<GameStateBloc>().state.setGameStateForNewGame(context);
+  context.read<ProgressStateBloc>().state.setProgressStateForNewGame(context);
+  context.read<PlayerStateBloc>().state.resetPlayerState(context);
 }

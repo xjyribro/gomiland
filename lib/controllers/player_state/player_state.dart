@@ -31,18 +31,18 @@ class PlayerState extends Equatable {
 
   PlayerState.empty()
       : this(
-          playerPosition: Vector2.zero(),
-          playerDirection: Vector2.zero(),
-          playerHitbox: null,
-          isMale: true,
-          playerName: '',
-          country: '',
-          playerSpeed: playerBaseSpeed,
-          savedLocation: SceneName.hood,
-          friendRequestsSent: [],
-          friendRequestsReceived: [],
-          friends: {},
-        );
+    playerPosition: Vector2.zero(),
+    playerDirection: Vector2.zero(),
+    playerHitbox: null,
+    isMale: true,
+    playerName: '',
+    country: '',
+    playerSpeed: playerBaseSpeed,
+    savedLocation: SceneName.hood,
+    friendRequestsSent: [],
+    friendRequestsReceived: [],
+    friends: {},
+  );
 
   PlayerState copyWith({
     Vector2? playerPosition,
@@ -68,8 +68,23 @@ class PlayerState extends Equatable {
       savedLocation: savedLocation ?? this.savedLocation,
       friendRequestsSent: friendRequestsSent ?? this.friendRequestsSent,
       friendRequestsReceived:
-          friendRequestsReceived ?? this.friendRequestsReceived,
+      friendRequestsReceived ?? this.friendRequestsReceived,
       friends: friends ?? this.friends,
+    );
+  }
+
+  void resetPlayerState(BuildContext context) {
+    setPlayerState(
+      context: context,
+      playerName: '',
+      country: '',
+      isMale: true,
+      friendRequestsSent: [],
+      friendRequestsReceived: [],
+      friends: {},
+      playerXPosit: hoodStartFromRoomX,
+      playerYPosit: hoodStartFromRoomY,
+      playerSpeed: playerBaseSpeed,
     );
   }
 
@@ -106,7 +121,7 @@ class PlayerState extends Equatable {
     if (isMale != null) context.read<PlayerStateBloc>().add(SetIsMale(isMale));
     if (playerXPosit != null && playerYPosit != null) {
       Vector2 position =
-          Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
+      Vector2(playerXPosit.toDouble(), playerYPosit.toDouble());
       context.read<PlayerStateBloc>().add(SetPlayerPosition(position));
     }
     if (playerXDir != null && playerYDir != null) {
@@ -135,7 +150,8 @@ class PlayerState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props =>
+      [
         playerPosition,
         playerDirection,
         playerHitbox,

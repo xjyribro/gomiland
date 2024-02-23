@@ -6,6 +6,7 @@ import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
+import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/screens/profile/utils.dart';
 
@@ -334,5 +335,17 @@ Future<bool> acceptFriendRequest({
       print(e);
     }
     return false;
+  }
+}
+
+Future<QuerySnapshot<Object?>?> getHiScorePlayers(RubbishType type) async {
+  try {
+    return await FirebaseFirestore.instance
+        .collection(Strings.playersCollection)
+        .orderBy(type.string)
+        .limit(50)
+        .get();
+  } catch (e) {
+    return null;
   }
 }

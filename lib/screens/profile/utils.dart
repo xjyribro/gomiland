@@ -8,7 +8,9 @@ import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/utils/firestore.dart';
 
 Map<String, OtherPlayer> getPlayersFromSearchResult(
-    QuerySnapshot<Object?> players, Map<String, OtherPlayer> friendsList) {
+  QuerySnapshot<Object?> players,
+  Map<String, OtherPlayer> friendsList,
+) {
   Map<String, OtherPlayer> playersList = {};
   String playerId = FirebaseAuth.instance.currentUser?.uid ?? '';
   for (var doc in players.docs) {

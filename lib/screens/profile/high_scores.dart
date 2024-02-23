@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:gomiland/screens/profile/widgets/high_score_table.dart';
 import 'package:gomiland/screens/profile/widgets/score_row.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
+import 'package:gomiland/utils/firestore.dart';
 
 class HighScores extends StatefulWidget {
   const HighScores({super.key});
@@ -37,10 +39,15 @@ class _HighScoresState extends State<HighScores> {
     _getSortedList();
   }
 
-  void _getSortedList() {
+  Future<void> _getSortedList() async {
     List<OtherPlayer> playersList = [];
     if (_isGlobal) {
-      // call firebase
+      QuerySnapshot<Object?>? result = await getHiScorePlayers(_criteria);
+      if (result != null) {
+        for (var doc in result.docs) {
+          String otherPlayerId = doc.id;
+        }
+      }
     } else {
       Map<String, OtherPlayer> playersMap =
           context.read<PlayerStateBloc>().state.friends;
@@ -62,22 +69,22 @@ class _HighScoresState extends State<HighScores> {
 
   List<OtherPlayer> sortPlayersList(List<OtherPlayer> players) {
     if (_criteria == RubbishType.plastic) {
-      players.sort((a, b) => a.plastic.compareTo(b.plastic));
+      players.sort((a, b) => b.plastic.compareTo(a.plastic));
     }
     if (_criteria == RubbishType.glass) {
-      players.sort((a, b) => a.glass.compareTo(b.glass));
+      players.sort((a, b) => b.glass.compareTo(a.glass));
     }
     if (_criteria == RubbishType.metal) {
-      players.sort((a, b) => a.metal.compareTo(b.metal));
+      players.sort((a, b) => b.metal.compareTo(a.metal));
     }
     if (_criteria == RubbishType.food) {
-      players.sort((a, b) => a.food.compareTo(b.food));
+      players.sort((a, b) => b.food.compareTo(a.food));
     }
     if (_criteria == RubbishType.electronics) {
-      players.sort((a, b) => a.electronics.compareTo(b.electronics));
+      players.sort((a, b) => b.electronics.compareTo(a.electronics));
     }
     if (_criteria == RubbishType.paper) {
-      players.sort((a, b) => a.paper.compareTo(b.paper));
+      players.sort((a, b) => b.paper.compareTo(a.paper));
     }
     return players;
   }
@@ -112,7 +119,7 @@ class _HighScoresState extends State<HighScores> {
                     ),
                   ),
                   Text(
-                    '${_isGlobal ? 'Global' : 'Friends'} high scores',
+                    '${_isGlobal ? 'Global' : 'Friend'} scores',
                     style: TextStyles.mainHeaderTextStyle,
                   ),
                   SizedBox(

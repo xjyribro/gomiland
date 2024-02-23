@@ -48,42 +48,46 @@ class ScoreRow extends StatelessWidget {
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(plastic, style: style),
+              child: Center(child: Text(plastic, style: style)),
             ),
           ),
           Expanded(
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(paper, style: style),
+              child: Center(child: Text(paper, style: style)),
             ),
           ),
           Expanded(
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(glass, style: style),
+              child: Center(child: Text(glass, style: style)),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(food, style: style),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Text(metal, style: style),
+              ),
             ),
           ),
           Expanded(
             flex: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(food, style: style),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(metal, style: style),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(electronics, style: style),
+              child: Center(child: Text(electronics, style: style)),
             ),
           ),
         ],
