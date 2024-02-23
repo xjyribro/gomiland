@@ -29,6 +29,7 @@ class MenuButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0),
           ),
           minimumSize: const Size(100, 40),
+          padding: EdgeInsets.zero,
         ),
         onPressed: onPressed == null
             ? null

@@ -9,7 +9,7 @@ import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/screens/profile/widgets/high_score_table.dart';
-import 'package:gomiland/screens/profile/widgets/score_row.dart';
+import 'package:gomiland/screens/profile/widgets/score_header.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/utils/firestore.dart';
@@ -27,9 +27,8 @@ class _HighScoresState extends State<HighScores> {
   List<OtherPlayer> _playersList = [];
 
   void _changeCriteria(RubbishType type) {
-    setState(() {
-      _criteria = type;
-    });
+    _criteria = type;
+    _getSortedList();
   }
 
   void _switchList() {
@@ -46,7 +45,7 @@ class _HighScoresState extends State<HighScores> {
       if (result != null) {
         List<OtherPlayer> tempPlayersList = [];
         for (var doc in result.docs) {
-          if (doc.data() != null ) {
+          if (doc.data() != null) {
             Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
             OtherPlayer player = OtherPlayer.fromJson(data);
             tempPlayersList.add(player);
@@ -115,7 +114,7 @@ class _HighScoresState extends State<HighScores> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    width: 200,
+                    width: 180,
                     child: MenuButton(
                       text: 'Back',
                       style: TextStyles.menuRedTextStyle,
@@ -129,7 +128,7 @@ class _HighScoresState extends State<HighScores> {
                     style: TextStyles.mainHeaderTextStyle,
                   ),
                   SizedBox(
-                    width: 200,
+                    width: 180,
                     child: MenuButton(
                       onPressed: _switchList,
                       text: 'Switch to ${_isGlobal ? 'Friends' : 'Global'}',
@@ -139,17 +138,9 @@ class _HighScoresState extends State<HighScores> {
                 ],
               ),
               const SpacerNormal(),
-              const ScoreRow(
-                playerName: 'Player Name',
-                plastic: 'Plastic',
-                paper: 'Paper',
-                glass: 'Glass',
-                food: 'Food',
-                metal: 'Metal',
-                electronics: 'Electronics',
-                style: TextStyles.creditsTextStyle,
+              ScoreHeader(
+                changeCriteria: _changeCriteria,
               ),
-              const SpacerNormal(),
               HighScoreTable(playersList: _playersList),
               const SpacerNormal(),
             ],

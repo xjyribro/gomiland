@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/constants/constants.dart';
 
 class TextStyles {
+  static const double verySmallTextSize = 16;
   static const double smallTextSize = 20;
   static const double normalTextSize = 28;
   static const double headerTextSize = 36;
@@ -45,6 +46,10 @@ class TextStyles {
   );
   static const smallMenuTextStyle = TextStyle(
     fontSize: smallTextSize,
+    color: GameColors.purple,
+  );
+  static const verySmallMenuTextStyle = TextStyle(
+    fontSize: verySmallTextSize,
     color: GameColors.purple,
   );
   static const sendFriendRequestTextStyle = TextStyle(

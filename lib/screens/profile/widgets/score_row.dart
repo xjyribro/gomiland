@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gomiland/constants/styles.dart';
 
 class ScoreRow extends StatelessWidget {
-  final int? index;
+  final int index;
   final String playerName;
   final String plastic;
   final String paper;
@@ -13,7 +14,7 @@ class ScoreRow extends StatelessWidget {
 
   const ScoreRow({
     super.key,
-    this.index,
+    required this.index,
     required this.plastic,
     required this.paper,
     required this.glass,
@@ -21,7 +22,7 @@ class ScoreRow extends StatelessWidget {
     required this.metal,
     required this.electronics,
     required this.playerName,
-    required this.style,
+    this.style = TextStyles.smallMenuTextStyle,
   });
 
   @override
@@ -34,7 +35,7 @@ class ScoreRow extends StatelessWidget {
             flex: 1,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(index != null ? index.toString() : '', style: style),
+              child: Text(index.toString(), style: style),
             ),
           ),
           Expanded(
@@ -70,7 +71,7 @@ class ScoreRow extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Text(food, style: style),
+                child: Center(child: Text(food, style: style)),
               ),
             ),
           ),
@@ -79,7 +80,7 @@ class ScoreRow extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Text(metal, style: style),
+                child: Center(child: Text(metal, style: style)),
               ),
             ),
           ),
