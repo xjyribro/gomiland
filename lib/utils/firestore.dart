@@ -68,6 +68,7 @@ Future<bool> saveGameState({
       Strings.playerYPosit: playerState.playerPosition.y,
       Strings.playerXDir: playerState.playerDirection.x,
       Strings.playerYDir: playerState.playerDirection.y,
+      Strings.zenGarden: playerState.zenGarden,
       Strings.savedLocation: gameState.sceneName.string,
       Strings.coinAmount: gameState.coinAmount,
       Strings.bagCount: gameState.bagCount,
@@ -157,6 +158,10 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
   List<String> friendRequestsSent = data[Strings.friendRequestsSent] != null
       ? List.from(data[Strings.friendRequestsSent])
       : [];
+  Map<String, bool> zenGarden =
+      data[Strings.zenGarden] != null && data[Strings.zenGarden].length > 0
+          ? data[Strings.zenGarden] as Map<String, bool>
+          : defaultZenGardenData;
   List<String> friendRequestsReceived =
       data[Strings.friendRequestsReceived] != null
           ? List.from(data[Strings.friendRequestsReceived])
@@ -176,6 +181,7 @@ Future<void> setPlayer(BuildContext context, Map<String, dynamic> data) async {
           friendRequestsSent: friendRequestsSent,
           friendRequestsReceived: friendRequestsReceived,
           friends: friends,
+          zenGarden: zenGarden,
         );
   });
 }

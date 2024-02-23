@@ -12,8 +12,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Florence extends Npc with HasGameReference<GomilandGame> {
-  Florence({required super.position});
+class Hardy extends Npc with HasGameReference<GomilandGame> {
+  Hardy({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -23,7 +23,7 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
   @override
   void onLoad() async {
     final image =
-        await Flame.images.load(Assets.assets_images_npcs_florence_png);
+        await Flame.images.load(Assets.assets_images_npcs_muscle_man_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -73,10 +73,10 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_florence_yarn));
+        .parse(await rootBundle.loadString(Assets.assets_yarn_hardy_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'florence'));
+    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'hardy'));
     game.unfreezePlayer();
   }
 }

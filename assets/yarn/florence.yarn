@@ -1,5 +1,28 @@
 <<character Florence>>
-title: talk
+title: pre_buy
 ---
-Florence: Hi! I'm Florence and I run the soup kitchen.
+Florence: Hi I'm Florence and I run the soup kitchen.
+Florence: Our kitchen uses recycled packaging for all our containers!
+Florence: By the way I'm also a hobby gardener.
+Florence: If you manage to do eco-friendly deeds in your own life, get a code and look for me!
+===
+title: buy
+---
+Florence: I see you have done a good job contributing to sustainability efforts in your own life.
+Florence: Would you like to buy a bonsai for your zen garden?
+Florence: It costs 500 coins
+-> No
+    Florence: Ah ok. Come back anytime!
+-> Yes
+    <<if $coins < 500>>
+        Florence: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Florence: Nice! I will appear in your garden soon.
+        <<buyBonsai 1>>
+    <<endif>>
+===
+title: post_buy
+---
+Florence: I will go visit your zen garden one day.
+Florence: Work in the kitchen never stops so I don't have a break.
 ===

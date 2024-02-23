@@ -94,6 +94,15 @@ class SetFriendRequestReceived extends PlayerStatesEvent {
   List<Object?> get props => [friendRequestsReceived];
 }
 
+class SetZenGarden extends PlayerStatesEvent {
+  const SetZenGarden(this.zenGarden);
+
+  final Map<String, bool> zenGarden;
+
+  @override
+  List<Object?> get props => [zenGarden];
+}
+
 class SetFriends extends PlayerStatesEvent {
   const SetFriends(this.friends);
 

@@ -63,6 +63,34 @@ const completedCharInt = 200;
 
 const List<String> genderOptions = ['Male', 'Female'];
 const List<String> showControlOptions = ['Yes', 'No'];
+const List<String> zenGardenObjects = [
+  'rock_1',
+  'rock_2',
+  'rock_3',
+  'rock_4',
+  'bonsai_1',
+  'bonsai_2',
+  'bonsai_3',
+  'bonsai_4',
+];
+
+const Map<String, bool> defaultZenGardenData = {
+  ZenGardenObjectStrings.rock_4: false
+};
+
+class ZenGardenObjectStrings {
+  static const rock_1 = 'rock_1';
+  static const rock_2 = 'rock_2';
+  static const rock_3 = 'rock_3';
+  static const rock_4 = 'rock_4';
+  static const bonsai_1 = 'bonsai_1';
+  static const bonsai_2 = 'bonsai_2';
+  static const bonsai_3 = 'bonsai_3';
+  static const bonsai_4 = 'bonsai_4';
+  static const pre_buy = 'pre_buy';
+  static const buy = 'buy';
+  static const post_buy = 'post_buy';
+}
 
 class Strings {
   static const minecraft = 'minecraft';
@@ -102,4 +130,5 @@ class Strings {
   static const friendRequestsReceived = 'friendRequestsReceived';
   static const hoodSpawners = 'hoodSpawners';
   static const parkSpawners = 'parkSpawners';
+  static const zenGarden = 'zenGarden';
 }

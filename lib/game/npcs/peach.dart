@@ -12,8 +12,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Florence extends Npc with HasGameReference<GomilandGame> {
-  Florence({required super.position});
+class Peach extends Npc with HasGameReference<GomilandGame> {
+  Peach({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -73,10 +73,10 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     yarnProject
-        .parse(await rootBundle.loadString(Assets.assets_yarn_florence_yarn));
+        .parse(await rootBundle.loadString(Assets.assets_yarn_peach_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'florence'));
+    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'peach'));
     game.unfreezePlayer();
   }
 }

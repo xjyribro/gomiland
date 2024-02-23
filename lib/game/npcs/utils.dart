@@ -110,3 +110,52 @@ String getFriendDialogue(OtherPlayer friendInfo, GomilandGame game) {
     return 'progress_player';
   }
 }
+
+String getZenGardenSellerDialogue(
+    Map<String, bool> zenGarden, String charName) {
+  switch (charName) {
+    case 'hardy':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_4)) {
+        return zenGarden[ZenGardenObjectStrings.rock_4]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'brocky':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_1)) {
+        return zenGarden[ZenGardenObjectStrings.rock_1]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'brock':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_2)) {
+        return zenGarden[ZenGardenObjectStrings.rock_2]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'rocky':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.rock_3)) {
+        return zenGarden[ZenGardenObjectStrings.rock_3]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'florence':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_1)) {
+        return zenGarden[ZenGardenObjectStrings.bonsai_1]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'peach':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_2)) {
+        return zenGarden[ZenGardenObjectStrings.bonsai_2]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+    case 'margret':
+      if (zenGarden.containsKey(ZenGardenObjectStrings.bonsai_3)) {
+        return zenGarden[ZenGardenObjectStrings.bonsai_3]!
+            ? ZenGardenObjectStrings.post_buy
+            : ZenGardenObjectStrings.buy;
+      }
+  }
+  return ZenGardenObjectStrings.pre_buy;
+}

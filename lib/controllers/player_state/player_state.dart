@@ -11,6 +11,7 @@ class PlayerState extends Equatable {
   final List<String> friendRequestsSent;
   final List<String> friendRequestsReceived;
   final Map<String, OtherPlayer> friends;
+  final Map<String, bool> zenGarden;
 
   // this is for ignore hitbox during raycast
   final RectangleHitbox? playerHitbox;
@@ -27,6 +28,7 @@ class PlayerState extends Equatable {
     required this.friendRequestsSent,
     required this.friendRequestsReceived,
     required this.friends,
+    required this.zenGarden,
   });
 
   PlayerState.empty()
@@ -42,6 +44,7 @@ class PlayerState extends Equatable {
     friendRequestsSent: [],
     friendRequestsReceived: [],
     friends: {},
+    zenGarden: {},
   );
 
   PlayerState copyWith({
@@ -56,6 +59,7 @@ class PlayerState extends Equatable {
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
     Map<String, OtherPlayer>? friends,
+    Map<String, bool>? zenGarden,
   }) {
     return PlayerState(
       playerPosition: playerPosition ?? this.playerPosition,
@@ -70,6 +74,7 @@ class PlayerState extends Equatable {
       friendRequestsReceived:
       friendRequestsReceived ?? this.friendRequestsReceived,
       friends: friends ?? this.friends,
+      zenGarden: zenGarden ?? this.zenGarden,
     );
   }
 
@@ -85,6 +90,7 @@ class PlayerState extends Equatable {
       playerXPosit: hoodStartFromRoomX,
       playerYPosit: hoodStartFromRoomY,
       playerSpeed: playerBaseSpeed,
+      zenGarden: defaultZenGardenData,
     );
   }
 
@@ -94,6 +100,7 @@ class PlayerState extends Equatable {
       playerXPosit: hoodStartFromRoomX,
       playerYPosit: hoodStartFromRoomY,
       playerSpeed: playerBaseSpeed,
+      zenGarden: defaultZenGardenData,
     );
   }
 
@@ -111,6 +118,7 @@ class PlayerState extends Equatable {
     List<String>? friendRequestsSent,
     List<String>? friendRequestsReceived,
     Map<String, OtherPlayer>? friends,
+    Map<String, bool>? zenGarden,
   }) {
     if (playerName != null) {
       context.read<PlayerStateBloc>().add(SetPlayerName(playerName));
@@ -147,6 +155,9 @@ class PlayerState extends Equatable {
     if (friends != null) {
       context.read<PlayerStateBloc>().add(SetFriends(friends));
     }
+    if (zenGarden != null) {
+      context.read<PlayerStateBloc>().add(SetZenGarden(zenGarden));
+    }
   }
 
   @override
@@ -163,5 +174,6 @@ class PlayerState extends Equatable {
         friendRequestsSent,
         friendRequestsReceived,
         friends,
+        zenGarden,
       ];
 }

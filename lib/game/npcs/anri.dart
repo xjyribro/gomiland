@@ -12,8 +12,8 @@ import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/utils/directions.dart';
 import 'package:jenny/jenny.dart';
 
-class Florence extends Npc with HasGameReference<GomilandGame> {
-  Florence({required super.position});
+class Anri extends Npc with HasGameReference<GomilandGame> {
+  Anri({required super.position});
 
   late SpriteAnimation idleUp;
   late SpriteAnimation idleDown;
@@ -66,7 +66,7 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
 
-    Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
+    int daysInGame = game.gameStateBloc.state.daysInGame;
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -76,7 +76,7 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
         .parse(await rootBundle.loadString(Assets.assets_yarn_florence_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
-    await dialogueRunner.startDialogue(getZenGardenSellerDialogue(zenGarden, 'florence'));
+    await dialogueRunner.startDialogue(daysInGame < 10 ? 'unbloomed' : 'bloomed');
     game.unfreezePlayer();
   }
 }

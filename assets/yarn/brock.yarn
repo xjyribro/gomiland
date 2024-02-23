@@ -1,0 +1,27 @@
+<<character Brock>>
+title: pre_buy
+---
+Brock: Wow this castle is big, just like me.
+Brock: What? I'm not that big? No no, I meant I'm big on sustainability.
+Brock: If you are big on sustainability, get a code in real life and I could give you something nice.
+===
+title: buy
+---
+Brock: I heard you are big on sustainability, just like me.
+Brock: Would you like to buy a small but heavy rock for your zen garden?
+Brock: I costs 500 coins
+-> No
+    Brock: Ok you don't have to get it now. I will be here training all day.
+-> Yes
+    <<if $coins < 500>>
+        Brock: Hmm.. doesn't look like you have enough coins...
+    <<else>>
+        Brock: That's great! I will move it for you of course. These are heavy.
+        <<buyRock 2>>
+    <<endif>>
+===
+title: post_buy
+---
+Brock: It's amazing how the efforts of many individuals can make a big difference.
+Brock: The more individuals the bigger the impact!
+===
