@@ -22,8 +22,8 @@ class DialogueBoxComponent extends HudMarginComponent {
     _dialogueBoxSpriteComponent.changeText(text, isFirstLine);
   }
 
-  void showNextButton(Function onClose) {
-    _dialogueBoxSpriteComponent.showNextButton(onClose);
+  void showNextButton(Function goNextLine) {
+    _dialogueBoxSpriteComponent.showNextButton(goNextLine);
   }
 
   void showOptions({
