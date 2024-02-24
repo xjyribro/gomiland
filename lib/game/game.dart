@@ -14,12 +14,10 @@ import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/gomiland_world.dart';
 import 'package:gomiland/game/npcs/npc.dart';
+import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/signs/statue.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
-import 'package:gomiland/game/ui/warning_popups/confirm_exit_game.dart';
-import 'package:gomiland/game/ui/warning_popups/confirm_exit_room.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
 import 'package:gomiland/game/ui/game_menu.dart';
 import 'package:gomiland/game/ui/hud/a_button.dart';
@@ -30,6 +28,8 @@ import 'package:gomiland/game/ui/hud/coins.dart';
 import 'package:gomiland/game/ui/hud/game_menu_button.dart';
 import 'package:gomiland/game/ui/loading_overlay.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
+import 'package:gomiland/game/ui/warning_popups/confirm_exit_game.dart';
+import 'package:gomiland/game/ui/warning_popups/confirm_exit_room.dart';
 
 class GameWidgetWrapper extends StatelessWidget {
   final bool loadFromSave;
@@ -114,41 +114,47 @@ class GomilandGame extends FlameGame
   }
 
   void castRay() {
-    final Vector2 playerPosition = playerStateBloc.state.playerPosition;
-    final Vector2 playerDirection = playerStateBloc.state.playerDirection;
+    PlayerState playerState = playerStateBloc.state;
+    final Vector2 playerPosition = playerState.playerPosition;
+    final Vector2 playerDirection = playerState.playerDirection;
+    final RectangleHitbox? playerHitbox = playerState.playerHitbox;
     final isValid =
         playerPosition != Vector2.zero() && playerDirection != Vector2.zero();
     if (isValid) {
-      RectangleHitbox? playerHitbox = playerStateBloc.state.playerHitbox;
+      Vector2 origin = playerPosition + Vector2.all(playerSize / 2);
       final ray = Ray2(
-        origin: playerPosition + Vector2.all(16),
+        origin: origin,
         direction: playerDirection,
       );
-      final result = collisionDetection.raycast(
+      final RaycastResult<ShapeHitbox>? result = collisionDetection.raycast(
         ray,
         maxDistance: maxRaycastDist,
         ignoreHitboxes: playerHitbox != null ? [playerHitbox] : null,
       );
       if (result != null && result.hitbox != null) {
-        final Component? parent = result.hitbox!.parent;
-        if (parent != null) {
-          bool isMute = gameStateBloc.state.isMute;
-          if (parent is RubbishSpawner) {
-            parent.pickupRubbish();
-          }
-          if (parent is Npc) {
-            if (!isMute) Sounds.next();
-            parent.startConversation(playerPosition);
-          }
-          if (parent is GeneralSign) {
-            if (!isMute) Sounds.next();
-            parent.readSign();
-          }
-          if (parent is Statue) {
-            if (!isMute) Sounds.next();
-            parent.readSign();
-          }
-        }
+        _onRaycastHit(result.hitbox!, playerPosition);
+      }
+    }
+  }
+
+  void _onRaycastHit(ShapeHitbox hitbox, Vector2 playerPosition) {
+    final Component? parent = hitbox.parent;
+    if (parent != null) {
+      bool isMute = gameStateBloc.state.isMute;
+      if (parent is RubbishSpawner) {
+        parent.pickupRubbish();
+      }
+      if (parent is Npc) {
+        if (!isMute) Sounds.next();
+        parent.startConversation(playerPosition);
+      }
+      if (parent is GeneralSign) {
+        if (!isMute) Sounds.next();
+        parent.readSign();
+      }
+      if (parent is Statue) {
+        if (!isMute) Sounds.next();
+        parent.readSign();
       }
     }
   }

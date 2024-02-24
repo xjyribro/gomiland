@@ -9,6 +9,7 @@ const double viewportHeight = 400;
 
 // ui
 const double boxMarginFromLeft = 28;
+const double dialogueBoxMarginFromTop = 270;
 
 // map
 const double tileSize = 32;
@@ -21,6 +22,7 @@ const double hoodStartFromParkX = 6270;
 const double hoodStartFromParkY = 4300;
 
 // game
+const int playerSize = 32;
 const int playerBaseSpeed = 2;
 const double npcSpeed = 2;
 const double maxRaycastDist = 40;

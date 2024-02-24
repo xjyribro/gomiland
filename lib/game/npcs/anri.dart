@@ -72,9 +72,7 @@ class Anri extends Npc with HasGameReference<GomilandGame> {
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
 
-    yarnProject
-      ..variables.setVariable('\$daysInGame', daysInGame)
-        ..parse(await rootBundle.loadString(Assets.assets_yarn_anri_yarn));
+    yarnProject.parse(await rootBundle.loadString(Assets.assets_yarn_anri_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue(daysInGame < 10 ? 'unbloomed' : 'bloomed');

@@ -11,7 +11,7 @@ class DialogueBoxComponent extends HudMarginComponent {
   DialogueBoxComponent({
     super.margin = const EdgeInsets.only(
       left: boxMarginFromLeft,
-      top: 270,
+      top: dialogueBoxMarginFromTop,
     ),
   });
 
