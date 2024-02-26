@@ -162,7 +162,9 @@ class GomilandGame extends FlameGame
   }
 
   void addHudComponentsForWorld() {
-    addMiniMapButton();
+    if (!gameStateBloc.state.playerFrozen) {
+      addMiniMapButton();
+    }
     List<BrightnessOverlay> brightnessOverlays =
         cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isEmpty) {
@@ -178,7 +180,8 @@ class GomilandGame extends FlameGame
     cameraComponent.viewport.children.query<MiniMapButton>();
     if (miniMapButtons.isEmpty) {
       cameraComponent.viewport.add(_mapButton);
-    }}
+    }
+  }
 
   void _addPlayerControls() {
     List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();

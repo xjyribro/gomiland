@@ -6,7 +6,7 @@ import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/hud/mini_map.dart';
 
 class MiniMapButton extends HudMarginComponent with HasGameReference<GomilandGame> {
-  MiniMapButton({super.margin = const EdgeInsets.only(left: 64, top: 250)});
+  MiniMapButton({super.margin = const EdgeInsets.only(left: 32, top: 160)});
 
   @override
   Future<void> onLoad() async {
