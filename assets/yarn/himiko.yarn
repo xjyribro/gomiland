@@ -8,7 +8,7 @@ Himiko: I think people are unsure about how to do this. I will teach you!
 Himiko: We have 6 different kinds of rubbish: plastics, paper, glass, metal, food and electronics.
 Himiko: There are 6 bins in your home for each kind. The images on the bin tell you what they are.
 Himiko: Throw the rubbish into the correct bin and get coins!
-Himiko: First, you have pick up the trash from the street.
+Himiko: First, you have to pick up the trash from the street.
 Himiko: There is one right over there! Pick it up and head home to throw it.
 <<increaseBagSize 1>>
 <<changeState "post_intro">>
