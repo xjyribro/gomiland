@@ -24,7 +24,7 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
 
   @override
   void onLoad() async {
-    final image = await Flame.images.load(Assets.assets_images_npcs_manuka_png);
+    final image = await Flame.images.load(Assets.assets_images_npcs_boss_png);
     final spriteSheet = SpriteSheet(
       image: image,
       srcSize: Vector2.all(tileSize),
@@ -45,7 +45,7 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
 
   void _facePlayer(Vector2 playerPosition) {
     Direction direction =
-        getDirection(getPlayerAngle(playerPosition, position));
+    getDirection(getPlayerAngle(playerPosition, position));
     switch (direction) {
       case Direction.up:
         animation = idleUp;
@@ -67,7 +67,8 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
     game.freezePlayer();
     _facePlayer(playerPosition);
     int progress =
-        getCharProgress(RubbishType.glass, game.progressStateBloc.state);
+    getCharProgress(RubbishType.plastic, game.progressStateBloc.state);
+    String timeOfDay = getTimeOfDay(game.gameStateBloc.state.minutes);
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
@@ -76,7 +77,8 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
     yarnProject
       ..commands.addCommand1('changeProgress', changeProgress)
       ..variables.setVariable('\$progress', progress)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_manuka_yarn));
+      ..variables.setVariable('\$timeOfDay', timeOfDay)
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_kushi_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue('talk');
@@ -84,6 +86,6 @@ class MrKushi extends Npc with HasGameReference<GomilandGame> {
   }
 
   void changeProgress(int newLevel) {
-    game.progressStateBloc.add(SetManukaProgress(newLevel));
+    game.progressStateBloc.add(SetRisaProgress(newLevel));
   }
 }

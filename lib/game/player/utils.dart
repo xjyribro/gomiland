@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_controller_component.dart';
@@ -43,4 +44,10 @@ Future<void> _showBagIsEmptyDialogue(GomilandGame game) async {
     dialogueViews: [dialogueControllerComponent],
   );
   await dialogueRunner.startDialogue('bag_is_empty');
+}
+
+Vector2 translateMiniMapPosit(Vector2 position) {
+  double translatedX = position.x / mapSizeX * miniMapSizeX;
+  double translatedY = position.y / mapSizeY * miniMapSizeY;
+  return Vector2(translatedX, translatedY);
 }

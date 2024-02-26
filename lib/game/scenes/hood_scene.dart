@@ -13,8 +13,8 @@ import 'package:gomiland/game/npcs/friend.dart';
 import 'package:gomiland/game/npcs/general_npc.dart';
 import 'package:gomiland/game/npcs/hardy.dart';
 import 'package:gomiland/game/npcs/himiko.dart';
-import 'package:gomiland/game/npcs/kushi.dart';
 import 'package:gomiland/game/npcs/margret.dart';
+import 'package:gomiland/game/npcs/mr_kushi.dart';
 import 'package:gomiland/game/npcs/mr_mrs_star.dart';
 import 'package:gomiland/game/npcs/risa.dart';
 import 'package:gomiland/game/npcs/rocky.dart';
@@ -157,19 +157,21 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadPlayer() async {
+    SceneName sceneName = game.gameStateBloc.state.sceneName;
+    final bool comingFromPark = sceneName == SceneName.park;
     Vector2 playerStartPosit = _loadFromSave
         ? game.playerStateBloc.state.playerPosition
-        : getPlayerHoodStartPosit(game);
+        : getPlayerHoodStartPosit(comingFromPark);
 
     bool isTutorial = game.gameStateBloc.state.bagSize < 10;
-    if (isTutorial) {
+    if (isTutorial && !comingFromPark) {
       game.freezePlayer();
     }
     Vector2 playerStartLookDir = isTutorial
         ? getPlayerTutorialStartLookDir()
         : _loadFromSave
             ? game.playerStateBloc.state.playerDirection
-            : getPlayerHoodStartLookDir();
+            : getPlayerHoodStartLookDir(comingFromPark);
     Player player =
         Player(position: playerStartPosit, lookDir: playerStartLookDir);
     _player = player;

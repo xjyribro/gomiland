@@ -4,29 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/ui/hud/mini_map.dart';
 
-class ExitRoomButton extends HudMarginComponent
+class MiniMapButton extends HudMarginComponent
     with HasGameReference<GomilandGame> {
-  ExitRoomButton({
-    required Function leaveRoomCheck,
+  MiniMapButton({
     super.margin = const EdgeInsets.only(
       left: rightSideButtonFromLeft,
       top: rightSideButtonFromTop,
     ),
-  }) : super() {
-    _leaveRoomCheck = leaveRoomCheck;
-  }
-
-  late Function _leaveRoomCheck;
+  });
 
   @override
   Future<void> onLoad() async {
     final SpriteButtonComponent buttonSprite = SpriteButtonComponent(
-      button: await Sprite.load(Assets.assets_images_ui_exit_button_png),
-      buttonDown:
-          await Sprite.load(Assets.assets_images_ui_exit_button_down_png),
+      button: await Sprite.load(Assets.assets_images_ui_map_button_png),
       onPressed: () {
-        _leaveRoomCheck();
+        game.cameraComponent.viewport.add(MiniMap());
       },
     );
     add(buttonSprite);

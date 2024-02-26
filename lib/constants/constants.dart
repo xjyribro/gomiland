@@ -9,7 +9,10 @@ const double viewportHeight = 400;
 
 // ui
 const double boxMarginFromLeft = 28;
+const double miniMapMarginFromLeft = 144;
 const double dialogueBoxMarginFromTop = 270;
+const double rightSideButtonFromLeft = 700;
+const double rightSideButtonFromTop = 250;
 
 // map
 const double tileSize = 32;
@@ -18,8 +21,12 @@ const double parkStartX = 96;
 const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1780;
 const double hoodStartFromRoomY = 580;
-const double hoodStartFromParkX = 6270;
+const double hoodStartFromParkX = 6280;
 const double hoodStartFromParkY = 4300;
+const double mapSizeX = 6400;
+const double mapSizeY = 4800;
+const double miniMapSizeX = 512;
+const double miniMapSizeY = 382;
 
 // game
 const int playerSize = 32;
