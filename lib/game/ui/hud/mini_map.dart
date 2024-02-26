@@ -26,6 +26,7 @@ import 'package:gomiland/game/player/min_map_player.dart';
 import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
+import 'package:gomiland/game/ui/hud/ExclamationComponent.dart';
 
 class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
   MiniMap({
@@ -82,6 +83,10 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
           break;
         case 'asimov':
           await add(Asimov(position: Vector2(posit.x, posit.y)));
+          int asimovProgress = game.progressStateBloc.state.asimov;
+          if (asimovProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'kushi':
           await add(MrKushi(position: Vector2(posit.x, posit.y)));
@@ -91,9 +96,17 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
           break;
         case 'stark':
           await add(Stark(position: Vector2(posit.x, posit.y)));
+          int starkProgress = game.progressStateBloc.state.stark;
+          if (starkProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'risa':
           await add(Risa(position: Vector2(posit.x, posit.y)));
+          int risaProgress = game.progressStateBloc.state.risa;
+          if (risaProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'hardy':
           await add(Hardy(position: Vector2(posit.x, posit.y)));
@@ -127,12 +140,24 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
       switch (npc.name) {
         case 'qianbi':
           await add(QianBi(position: Vector2(posit.x, posit.y)));
+          int qianBiProgress = game.progressStateBloc.state.qianBi;
+          if (qianBiProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'moon':
           await add(MrMoon(position: Vector2(posit.x, posit.y)));
+          int moonProgress = game.progressStateBloc.state.moon;
+          if (moonProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'manuka':
           await add(Manuka(position: Vector2(posit.x, posit.y)));
+          int asimovProgress = game.progressStateBloc.state.manuka;
+          if (asimovProgress == -1) {
+            add(ExclamationComponent(position: Vector2(posit.x, posit.y)));
+          }
           break;
         case 'brock':
           await add(Brock(position: Vector2(posit.x, posit.y)));

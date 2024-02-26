@@ -248,7 +248,6 @@ class Player extends SpriteAnimationComponent
       if (event.logicalKey == LogicalKeyboardKey.keyE) {
         game.castRay();
       }
-
       return false;
     } else if (event is RawKeyUpEvent) {
       if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {
