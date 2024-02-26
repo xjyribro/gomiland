@@ -36,19 +36,19 @@ class Sounds {
   }
 
   static void playMainMenuBgm() async {
-    FlameAudio.bgm.play('bgm/olib_oil.mp3');
+    FlameAudio.bgm.play('bgm/olib_oil.mp3', volume: 0.2);
   }
 
   static void playHoodBgm() {
-    FlameAudio.bgm.play('bgm/hood_bgm.mp3');
+    FlameAudio.bgm.play('bgm/hood_bgm.mp3', volume: 0.4);
   }
 
   static void playParkBgm() {
-    FlameAudio.bgm.play('bgm/park_bgm.mp3');
+    FlameAudio.bgm.play('bgm/park_bgm.mp3', volume: 0.4);
   }
 
   static void playRoomBgm() {
-    FlameAudio.bgm.play('bgm/behind_the_rocks.mp3');
+    FlameAudio.bgm.play('bgm/behind_the_rocks.mp3', volume: 0.4);
   }
 
   static void pauseBackgroundSound() {
