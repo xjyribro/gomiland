@@ -47,7 +47,7 @@ class DialogueBoxComponent extends HudMarginComponent {
 class DialogueBoxSpriteComponent extends SpriteComponent {
   DialogueTextBox _textBox = DialogueTextBox(text: '', showFullText: true,);
   late final ButtonRow _buttonRow = ButtonRow(size: _size);
-  final Vector2 _size = Vector2(736, 128);
+  final Vector2 _size = Vector2(dialogueBoxWidth, dialogueBoxHeight);
   String _text = '';
   Function _goNextLine = () {};
   @override

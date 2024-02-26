@@ -14,25 +14,6 @@ class DialogueControllerComponent extends Component
   late final DialogueBoxComponent _dialogueBoxComponent =
       DialogueBoxComponent();
 
-  Future<void> _advance() async {
-    return _forwardCompleter.future;
-  }
-
-  void _goNextLine() {
-    if (!_forwardCompleter.isCompleted) {
-      _forwardCompleter.complete();
-    }
-  }
-
-  void _onChoice(int optionNum) {
-    if (!_forwardCompleter.isCompleted) {
-      _forwardCompleter.complete();
-    }
-    if (!_choiceCompleter.isCompleted) {
-      _choiceCompleter.complete(optionNum);
-    }
-  }
-
   @override
   Future<void> onNodeStart(Node node) async {
     _isFirstLine = true;
@@ -40,10 +21,41 @@ class DialogueControllerComponent extends Component
     _addDialogueBox();
   }
 
+  void _addDialogueBox() {
+    List<DialogueBoxComponent> list =
+    game.cameraComponent.viewport.children.query<DialogueBoxComponent>();
+    if (list.isEmpty) {
+      game.cameraComponent.viewport.add(_dialogueBoxComponent);
+    }
+  }
+
   @override
   Future<void> onNodeFinish(Node node) async {
     _dialogueBoxComponent.showCloseButton(_onClose);
     await _returnClosed();
+  }
+
+  Future<void> _returnClosed() async {
+    return _closeCompleter.future;
+  }
+
+  void _onClose() {
+    List<DialogueBoxComponent> list =
+    game.cameraComponent.viewport.children.query<DialogueBoxComponent>();
+    if (list.isNotEmpty) {
+      game.cameraComponent.viewport.removeAll(list);
+    }
+    _completeClose();
+  }
+
+  Future<void> _completeClose() async {
+    if (!_closeCompleter.isCompleted) {
+      _closeCompleter.complete();
+    }
+  }
+
+  Future<void> _advance() async {
+    return _forwardCompleter.future;
   }
 
   @override
@@ -61,13 +73,9 @@ class DialogueControllerComponent extends Component
     _dialogueBoxComponent.changeText(dialogueLineText, isFirstLine, _goNextLine);
   }
 
-  Future<void> _returnClosed() async {
-    return _closeCompleter.future;
-  }
-
-  Future<void> _completeClose() async {
-    if (!_closeCompleter.isCompleted) {
-      _closeCompleter.complete();
+  void _goNextLine() {
+    if (!_forwardCompleter.isCompleted) {
+      _forwardCompleter.complete();
     }
   }
 
@@ -84,20 +92,12 @@ class DialogueControllerComponent extends Component
     return _choiceCompleter.future;
   }
 
-  void _addDialogueBox() {
-    List<DialogueBoxComponent> list =
-        game.cameraComponent.viewport.children.query<DialogueBoxComponent>();
-    if (list.isEmpty) {
-      game.cameraComponent.viewport.add(_dialogueBoxComponent);
+  void _onChoice(int optionNum) {
+    if (!_forwardCompleter.isCompleted) {
+      _forwardCompleter.complete();
     }
-  }
-
-  void _onClose() {
-    List<DialogueBoxComponent> list =
-        game.cameraComponent.viewport.children.query<DialogueBoxComponent>();
-    if (list.isNotEmpty) {
-      game.cameraComponent.viewport.removeAll(list);
+    if (!_choiceCompleter.isCompleted) {
+      _choiceCompleter.complete(optionNum);
     }
-    _completeClose();
   }
 }

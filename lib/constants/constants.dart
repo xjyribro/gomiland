@@ -48,6 +48,8 @@ const newDayMins = 0;
 const spawnRatio = .5;
 
 // dialogue
+const double dialogueBoxWidth = 736;
+const double dialogueBoxHeight = 128;
 const double dialogueBoxFontSize = 24;
 const double infoPopupFontSize = 17;
 const double dialogueButtonFontSize = 16;
