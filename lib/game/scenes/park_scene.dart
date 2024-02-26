@@ -29,7 +29,6 @@ import 'package:gomiland/game/objects/obsticle.dart';
 import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/signs/statue.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
-import 'package:gomiland/game/objects/trees/bamboo.dart';
 import 'package:gomiland/game/objects/trees/tree_with_fade.dart';
 import 'package:gomiland/game/player/player.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
@@ -231,14 +230,6 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
   Future<void> _loadTrees(ObjectGroup trees) async {
     for (final TiledObject tree in trees.objects) {
       switch (tree.name) {
-        case 'bamboo':
-          await add(
-            Bamboo(
-              position: Vector2(tree.x, tree.y),
-              size: Vector2(tree.width, tree.height),
-            ),
-          );
-          break;
         case 'tree_bonsai':
           await add(
             TreeWthFade(

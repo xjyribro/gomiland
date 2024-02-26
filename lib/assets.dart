@@ -405,6 +405,9 @@ class Assets {
   static const String assets_images_tile_maps_apt_side_japanese_png = 'assets/images/tile_maps/apt_side_japanese.png';
   static const String gomiland$assets_images_tile_maps_apt_side_japanese_png = 'packages/gomiland/assets/images/tile_maps/apt_side_japanese.png';
 
+  static const String assets_images_tile_maps_bamboo_png = 'assets/images/tile_maps/bamboo.png';
+  static const String gomiland$assets_images_tile_maps_bamboo_png = 'packages/gomiland/assets/images/tile_maps/bamboo.png';
+
   static const String assets_images_tile_maps_bee_colony_png = 'assets/images/tile_maps/bee_colony.png';
   static const String gomiland$assets_images_tile_maps_bee_colony_png = 'packages/gomiland/assets/images/tile_maps/bee_colony.png';
 
@@ -563,9 +566,6 @@ class Assets {
 
   static const String assets_images_tile_maps_wood_base_png = 'assets/images/tile_maps/wood_base.png';
   static const String gomiland$assets_images_tile_maps_wood_base_png = 'packages/gomiland/assets/images/tile_maps/wood_base.png';
-
-  static const String assets_images_trees_bamboo_png = 'assets/images/trees/bamboo.png';
-  static const String gomiland$assets_images_trees_bamboo_png = 'packages/gomiland/assets/images/trees/bamboo.png';
 
   static const String assets_images_trees_tree_bonsai_png = 'assets/images/trees/tree_bonsai.png';
   static const String gomiland$assets_images_trees_tree_bonsai_png = 'packages/gomiland/assets/images/trees/tree_bonsai.png';

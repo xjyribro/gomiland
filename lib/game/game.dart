@@ -280,7 +280,6 @@ class GomilandGame extends FlameGame
       Assets.assets_images_objects_light_png,
       Assets.assets_images_objects_street_lamp_png,
       Assets.assets_images_objects_park_lamp_png,
-      Assets.assets_images_trees_bamboo_png,
       Assets.assets_images_rubbish_rubbish_small_png,
     ]);
 

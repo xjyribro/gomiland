@@ -136,20 +136,16 @@ class Player extends SpriteAnimationComponent
   }
 
   void _onJoystickStop() {
-    _moveDirection = 0;
-    if (_isMovingUp) {
+    if (_moveDirection == 1) {
       animation = idleUp;
-      _isMovingUp = false;
-    } else if (_isMovingDown) {
+    } else if (_moveDirection == 2) {
       animation = idleDown;
-      _isMovingDown = false;
-    } else if (_isMovingLeft) {
+    } else if (_moveDirection == 3) {
       animation = idleLeft;
-      _isMovingLeft = false;
-    } else if (_isMovingRight) {
+    } else if (_moveDirection == 4) {
       animation = idleRight;
-      _isMovingRight = false;
     }
+    _moveDirection = 0;
   }
 
   void _moveWithJoystick(JoystickDirection direction) {
@@ -157,37 +153,21 @@ class Player extends SpriteAnimationComponent
       case JoystickDirection.up:
         animation = moveUp;
         _moveDirection = 1;
-        _isMovingUp = true;
-        _isMovingDown = false;
-        _isMovingLeft = false;
-        _isMovingRight = false;
         game.playerStateBloc.add(SetPlayerDirection(Vector2(0, -1)));
         break;
       case JoystickDirection.down:
         animation = moveDown;
         _moveDirection = 2;
-        _isMovingUp = false;
-        _isMovingDown = true;
-        _isMovingLeft = false;
-        _isMovingRight = false;
         game.playerStateBloc.add(SetPlayerDirection(Vector2(0, 1)));
         break;
       case JoystickDirection.left:
         animation = moveLeft;
         _moveDirection = 3;
-        _isMovingUp = false;
-        _isMovingDown = false;
-        _isMovingLeft = true;
-        _isMovingRight = false;
         game.playerStateBloc.add(SetPlayerDirection(Vector2(-1, 0)));
         break;
       case JoystickDirection.right:
         animation = moveRight;
         _moveDirection = 4;
-        _isMovingUp = false;
-        _isMovingDown = false;
-        _isMovingLeft = false;
-        _isMovingRight = true;
         game.playerStateBloc.add(SetPlayerDirection(Vector2(1, 0)));
         break;
       default:
@@ -211,6 +191,7 @@ class Player extends SpriteAnimationComponent
       }
     }
   }
+
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {

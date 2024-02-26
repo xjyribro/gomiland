@@ -48,8 +48,8 @@ class _GameMenuState extends State<GameMenu> {
           context: context,
           onAccept: () async {
             await saveGameState(playerId: user.uid, context: context)
-                .then((success) {
-              Popups.showMessage(
+                .then((success) async {
+              await Popups.showMessage(
                 context: context,
                 title:
                     success ? 'Saving game successful' : 'Saving game failed',
@@ -57,9 +57,9 @@ class _GameMenuState extends State<GameMenu> {
                     ? ''
                     : 'Please check internet connection and try again',
               );
-              _setIsLoading(false);
             });
           });
+      _setIsLoading(false);
     }
   }
 

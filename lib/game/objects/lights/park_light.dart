@@ -13,7 +13,7 @@ class ParkLight extends PositionComponent {
   }
 
   late bool _shouldAddLight;
-  LightSprite light = LightSprite(position: Vector2(-48, -36));
+  LightSprite light = LightSprite(position: Vector2(-48, -22));
 
   @override
   Future<void> onLoad() async {
