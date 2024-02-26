@@ -56,7 +56,7 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
         spriteSheet.createAnimation(row: 2, stepTime: stepTime, from: 0, to: 1);
 
     animation = idleDown;
-    if (game.gameStateBloc.state.bagSize == 0) {
+    if (game.gameStateBloc.state.bagSize < 10) {
       _isTutorial = true;
     }
     addAll([npcObstacle(Vector2.zero()), RectangleHitbox()]);

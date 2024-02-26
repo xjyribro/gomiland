@@ -160,7 +160,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         ? game.playerStateBloc.state.playerPosition
         : getPlayerHoodStartPosit(game);
 
-    bool isTutorial = game.gameStateBloc.state.bagSize == 0;
+    bool isTutorial = game.gameStateBloc.state.bagSize < 10;
     if (isTutorial) {
       game.freezePlayer();
     }

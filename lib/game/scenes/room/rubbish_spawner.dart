@@ -51,7 +51,7 @@ class RubbishSpawner extends PositionComponent
     updateProgress(game, rubbishType);
     _showScore(binType, reward);
     if (game.gameStateBloc.state.bagSize < 2) {
-      _onFirstThrow(true);
+      _updateTutorialThrow(true);
     }
   }
 
@@ -61,14 +61,12 @@ class RubbishSpawner extends PositionComponent
     String rubbishName,
   ) async {
     int rubbishFine = _rewardMap[rubbishType] ?? 1;
-    int binFine = _rewardMap[binType] ?? 1;
-    int totalFine = rubbishFine + binFine;
-    changeCoinAmount(game, -totalFine);
-    _showScore(binType, -totalFine);
+    changeCoinAmount(game, -rubbishFine);
+    _showScore(binType, -rubbishFine);
     _updateFailureProgress();
     await _showErrorDialogue(binType, rubbishType, rubbishName);
     if (game.gameStateBloc.state.bagSize < 2) {
-      _onFirstThrow(false);
+      _updateTutorialThrow(false);
     }
   }
 
@@ -77,7 +75,7 @@ class RubbishSpawner extends PositionComponent
         .add(SetWrongProgress(game.progressStateBloc.state.wrong + 1));
   }
 
-  void _onFirstThrow(bool isCorrect) {
+  void _updateTutorialThrow(bool isCorrect) {
     game.progressStateBloc.add(
       SetNeighbourState('level_1_${isCorrect ? 'correct' : 'incorrect'}'),
     );
