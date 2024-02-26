@@ -96,7 +96,7 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
 
   void upgradeShoe() {
     int currSpeed = game.playerStateBloc.state.playerSpeed;
-    game.playerStateBloc.add(SetPlayerSpeed(currSpeed + 2));
+    game.playerStateBloc.add(const SetPlayerSpeed(playerFastSpeed));
     deductCoins(game, 500);
   }
 

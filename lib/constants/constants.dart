@@ -23,7 +23,8 @@ const double hoodStartFromParkY = 4300;
 
 // game
 const int playerSize = 32;
-const int playerBaseSpeed = 2;
+const int playerBaseSpeed = 3;
+const int playerFastSpeed = 6;
 const double npcSpeed = 2;
 const double maxRaycastDist = 40;
 const int maxCoinAmount = 999999;
