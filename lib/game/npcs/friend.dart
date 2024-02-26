@@ -80,14 +80,15 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
     yarnProject.strictCharacterNames = false;
 
     yarnProject
-      ..variables.setVariable('\$playerName', game.playerStateBloc.state.playerName)
+      ..variables
+          .setVariable('\$playerName', game.playerStateBloc.state.playerName)
       ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
       ..variables.setVariable('\$friendName', _friendInfo.playerName)
       ..variables.setVariable('\$country', _friendInfo.country)
       ..variables.setVariable('\$daysInGame', _friendInfo.daysInGame)
       ..commands.addCommand0('upgradeShoe', upgradeShoe)
       ..commands.addCommand0('upgradeBag', upgradeBag)
-        ..parse(await rootBundle.loadString(Assets.assets_yarn_friend_yarn));
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_friend_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner.startDialogue(getFriendDialogue(_friendInfo, game));
@@ -95,7 +96,6 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
   }
 
   void upgradeShoe() {
-    int currSpeed = game.playerStateBloc.state.playerSpeed;
     game.playerStateBloc.add(const SetPlayerSpeed(playerFastSpeed));
     deductCoins(game, 500);
   }
