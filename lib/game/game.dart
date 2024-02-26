@@ -26,6 +26,7 @@ import 'package:gomiland/game/ui/hud/brightness.dart';
 import 'package:gomiland/game/ui/hud/clock.dart';
 import 'package:gomiland/game/ui/hud/coins.dart';
 import 'package:gomiland/game/ui/hud/game_menu_button.dart';
+import 'package:gomiland/game/ui/hud/mini_map_button.dart';
 import 'package:gomiland/game/ui/loading_overlay.dart';
 import 'package:gomiland/game/ui/mute_button.dart';
 import 'package:gomiland/game/ui/warning_popups/confirm_exit_game.dart';
@@ -103,6 +104,7 @@ class GomilandGame extends FlameGame
 
   final BrightnessOverlay brightnessOverlay = BrightnessOverlay();
   late final AButton _aButton;
+  late final MiniMapButton _mapButton;
   late final JoystickComponent joystick;
 
   DialogueControllerComponent dialogueControllerComponent =
@@ -160,6 +162,7 @@ class GomilandGame extends FlameGame
   }
 
   void addHudComponentsForWorld() {
+    addMiniMapButton();
     List<BrightnessOverlay> brightnessOverlays =
         cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isEmpty) {
@@ -169,6 +172,13 @@ class GomilandGame extends FlameGame
       _addPlayerControls();
     }
   }
+
+  void addMiniMapButton() {
+    List<MiniMapButton> miniMapButtons =
+    cameraComponent.viewport.children.query<MiniMapButton>();
+    if (miniMapButtons.isEmpty) {
+      cameraComponent.viewport.add(_mapButton);
+    }}
 
   void _addPlayerControls() {
     List<AButton> aButtons = cameraComponent.viewport.children.query<AButton>();
@@ -182,7 +192,16 @@ class GomilandGame extends FlameGame
     }
   }
 
+  void removeMiniMapButton() {
+    List<MiniMapButton> miniMapButtons =
+    cameraComponent.viewport.children.query<MiniMapButton>();
+    if (miniMapButtons.isNotEmpty) {
+      cameraComponent.viewport.remove(_mapButton);
+    }
+  }
+
   void removeHudComponentsForWorld() {
+    removeMiniMapButton();
     List<BrightnessOverlay> brightnessOverlays =
         cameraComponent.viewport.children.query<BrightnessOverlay>();
     if (brightnessOverlays.isNotEmpty) {
@@ -201,9 +220,11 @@ class GomilandGame extends FlameGame
 
   void freezePlayer() {
     gameStateBloc.add(const PlayerFrozen(true));
+    removeMiniMapButton();
   }
 
   void unfreezePlayer() {
+    addMiniMapButton();
     gameStateBloc.add(const PlayerFrozen(false));
   }
 
@@ -223,6 +244,7 @@ class GomilandGame extends FlameGame
       loadFromSave: loadFromSave,
     );
     final GameMenuButton gameMenuButton = GameMenuButton();
+    _mapButton = MiniMapButton();
     _aButton = AButton(game: this);
     joystick = JoystickComponent(
       knob: SpriteComponent(

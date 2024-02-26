@@ -9,6 +9,7 @@ const double viewportHeight = 400;
 
 // ui
 const double boxMarginFromLeft = 28;
+const double miniMapMarginFromLeft = 144;
 const double dialogueBoxMarginFromTop = 270;
 
 // map
@@ -23,7 +24,7 @@ const double hoodStartFromParkY = 4300;
 
 // game
 const int playerSize = 32;
-const int playerBaseSpeed = 3;
+const int playerBaseSpeed = 16;
 const int playerFastSpeed = 6;
 const double npcSpeed = 2;
 const double maxRaycastDist = 40;
