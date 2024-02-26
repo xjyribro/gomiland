@@ -2580,10 +2580,10 @@
   <object id="1174" x="1504" y="1504" width="64" height="32"/>
   <object id="1175" x="1664" y="1440" width="64" height="32"/>
   <object id="1193" x="3936" y="1664" width="64" height="32"/>
-  <object id="1200" x="4288" y="3008" width="64" height="64"/>
-  <object id="1543" x="4608" y="3008" width="64" height="64"/>
-  <object id="1201" x="1344" y="3520" width="64" height="64"/>
-  <object id="1203" x="2112" y="3552" width="64" height="64"/>
+  <object id="1200" x="4288" y="3024" width="64" height="48"/>
+  <object id="1543" x="4608" y="3024" width="64" height="48"/>
+  <object id="1201" x="1344" y="3536" width="64" height="48"/>
+  <object id="1203" x="2112" y="3568" width="64" height="48"/>
   <object id="1218" x="5664" y="1120" width="32" height="32"/>
   <object id="1219" x="5888" y="1120" width="32" height="32"/>
   <object id="1220" x="5888" y="1024" width="32" height="32"/>

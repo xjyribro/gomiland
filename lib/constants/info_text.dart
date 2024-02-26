@@ -15,13 +15,13 @@ class InfoText{
       'For your own safety, keep clear of worksite\n\n'
       '-Stark Construction Company';
 
-  static const String combini = 'Go 24hr convenience store\n'
+  static const String combini = 'Go 24hr convenience store\n\n'
       'Get the best deals in town';
 
-  static const String soup_kitchen = 'Soup Kitchen\n'
+  static const String soup_kitchen = 'Soup Kitchen\n\n'
       'Run by Florence';
 
-  static const String school = 'Gomiland Elementary School\n'
+  static const String school = 'Gomiland Elementary School\n\n'
       'Where young minds flourish';
 
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
@@ -93,7 +93,7 @@ class InfoText{
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n';
 
-  static const String castle = 'Gomiland castle\n\n'
+  static const String castle = 'Gomiland castle\n\n\n'
       'Please do not throw trash on the castle grounds.';
 
   static const String sakuras = 'Cherry Blossoms\n\n'
@@ -102,8 +102,8 @@ class InfoText{
       'Because of warming climate, flowers may bloom before insects are ready and vice versa.\n'
       'This means there may not be enough food for the insects or plants.\n\n'
       'Let\'s do our part to protect the environment today!\n\n'
-      'Source: https://www.washingtonpost.com/weather/2023/03/18/cherry-blossoms-climate-change-washington,\n'
-      'https://edition.cnn.com/travel/article/climate-crisis-cherry-blossom-kyoto-japan-intl-hnk-scn';
+      'Source: https://www.washingtonpost.com/weather/2023/03/18/ cherry-blossoms-climate-change-washington,\n'
+      'https://edition.cnn.com/travel/article/ climate-crisis-cherry-blossom-kyoto-japan-intl-hnk-scn';
 
   static const String bee_colony = 'Honey Bee colony\n\n'
       'Best honey in Gomiland! Look for Manuka to find out how to get your honey!\n\n'
@@ -111,8 +111,8 @@ class InfoText{
       'However their global population is in decline which is a threat to our food security\n'
       'Image a world where you can\'t get tasty honey!\n'
       'Found out how you can do your part to save the bees at https://thebeeconservancy.org/10-ways-to-save-the-bees/\n\n'
-      'Source: https://e360.yale.edu/features/declining_bee_populations_pose_a_threat_to_global_agriculture,\n'
-      'https://www.clemson.edu/extension/pollinators/apiculture/importance.html';
+      'Source: https://e360.yale.edu/features/ declining_bee_populations_pose_a_threat_to_global_agriculture,\n'
+      'https://www.clemson.edu/extension/ pollinators/apiculture/importance.html';
 
   static const String world_forest = 'World forest\n\n'
       'Check out trees from all over the world!\n\n'
