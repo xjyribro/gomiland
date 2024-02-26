@@ -2,11 +2,18 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/ui/hud/mini_map.dart';
 
-class MiniMapButton extends HudMarginComponent with HasGameReference<GomilandGame> {
-  MiniMapButton({super.margin = const EdgeInsets.only(left: 32, top: 160)});
+class MiniMapButton extends HudMarginComponent
+    with HasGameReference<GomilandGame> {
+  MiniMapButton({
+    super.margin = const EdgeInsets.only(
+      left: rightSideButtonFromLeft,
+      top: rightSideButtonFromTop,
+    ),
+  });
 
   @override
   Future<void> onLoad() async {

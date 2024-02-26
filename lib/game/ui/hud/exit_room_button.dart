@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
 
 class ExitRoomButton extends HudMarginComponent
@@ -9,8 +10,8 @@ class ExitRoomButton extends HudMarginComponent
   ExitRoomButton({
     required Function leaveRoomCheck,
     super.margin = const EdgeInsets.only(
-      left: 700,
-      top: 250,
+      left: rightSideButtonFromLeft,
+      top: rightSideButtonFromTop,
     ),
   }) : super() {
     _leaveRoomCheck = leaveRoomCheck;
