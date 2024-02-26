@@ -157,19 +157,21 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
   }
 
   Future<void> _loadPlayer() async {
+    SceneName sceneName = game.gameStateBloc.state.sceneName;
+    final bool comingFromPark = sceneName == SceneName.park;
     Vector2 playerStartPosit = _loadFromSave
         ? game.playerStateBloc.state.playerPosition
-        : getPlayerHoodStartPosit(game);
+        : getPlayerHoodStartPosit(comingFromPark);
 
     bool isTutorial = game.gameStateBloc.state.bagSize < 10;
-    if (isTutorial) {
+    if (isTutorial && !comingFromPark) {
       game.freezePlayer();
     }
     Vector2 playerStartLookDir = isTutorial
         ? getPlayerTutorialStartLookDir()
         : _loadFromSave
             ? game.playerStateBloc.state.playerDirection
-            : getPlayerHoodStartLookDir();
+            : getPlayerHoodStartLookDir(comingFromPark);
     Player player =
         Player(position: playerStartPosit, lookDir: playerStartLookDir);
     _player = player;

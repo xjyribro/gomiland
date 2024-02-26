@@ -19,7 +19,7 @@ const double parkStartX = 96;
 const double parkStartY = 3660;
 const double hoodStartFromRoomX = 1780;
 const double hoodStartFromRoomY = 580;
-const double hoodStartFromParkX = 6270;
+const double hoodStartFromParkX = 6280;
 const double hoodStartFromParkY = 4300;
 
 // game

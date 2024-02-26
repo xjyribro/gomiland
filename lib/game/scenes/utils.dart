@@ -3,13 +3,9 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
-import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/data/other_player.dart';
 
-Vector2 getPlayerHoodStartPosit(GomilandGame game) {
-  SceneName sceneName = game.gameStateBloc.state.sceneName;
-  final bool comingFromPark = sceneName == SceneName.park;
+Vector2 getPlayerHoodStartPosit(bool comingFromPark) {
   Vector2 playerStartPosit = comingFromPark
       ? Vector2(hoodStartFromParkX, hoodStartFromParkY)
       : Vector2(hoodStartFromRoomX, hoodStartFromRoomY);
@@ -24,8 +20,8 @@ Vector2 getPlayerParkStartLookDir() {
   return Vector2(1, 0);
 }
 
-Vector2 getPlayerHoodStartLookDir() {
-  return Vector2(0, 1);
+Vector2 getPlayerHoodStartLookDir(bool comingFromPark) {
+  return comingFromPark ? Vector2(0, 1) : Vector2(-1, 0);
 }
 
 Vector2 getPlayerTutorialStartLookDir() {
