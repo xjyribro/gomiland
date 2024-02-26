@@ -17,14 +17,14 @@ class ButtonRow extends PositionComponent {
     }
   }
 
-  void showNextButton(Function goNextLine) {
+  void showNextButton(Function onNextButtonPressed) {
     removeButtons();
     DialogueButton nextButton = DialogueButton(
       assetPath: Assets.assets_images_ui_blue_button_png,
       text: 'Next',
       posit: Vector2(size.x/2, 0),
       onTap: () {
-        goNextLine();
+        onNextButtonPressed();
         removeButtons();
       },
     );

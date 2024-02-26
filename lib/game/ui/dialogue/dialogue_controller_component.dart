@@ -56,10 +56,9 @@ class DialogueControllerComponent extends Component
   }
 
   void _changeTextAndShowNextButton(DialogueLine line, bool isFirstLine) {
-    _dialogueBoxComponent.showNextButton(_goNextLine);
     String characterName = line.character?.name ?? '';
     String dialogueLineText = '$characterName: ${line.text}';
-    _dialogueBoxComponent.changeText(dialogueLineText, isFirstLine);
+    _dialogueBoxComponent.changeText(dialogueLineText, isFirstLine, _goNextLine);
   }
 
   Future<void> _returnClosed() async {
