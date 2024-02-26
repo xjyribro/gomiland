@@ -152,6 +152,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         ));
       }
     }
+
     _checkBgm();
   }
 
@@ -698,7 +699,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               position: Vector2(building.x, building.y),
               size: Vector2(building.width, building.height),
               hitboxSize: Vector2(512, 224),
-              spritePath: Assets.assets_images_buildings_hostpital_png,
+              spritePath: Assets.assets_images_buildings_hospital_png,
             ),
           );
           break;

@@ -211,11 +211,7 @@ class GomilandGame extends FlameGame
     return gameStateBloc.state.playerFrozen;
   }
 
-  @override
-  Future<void> onLoad() async {
-    debugMode = isDebugMode;
-
-    // UI
+  Future<void> _addUIElements() async {
     final RectangleComponent hudTranslucent = RectangleComponent(
       size: Vector2(size.x, 96),
       paint: Paint()..color = const Color.fromARGB(32, 255, 255, 255),
@@ -248,11 +244,26 @@ class GomilandGame extends FlameGame
       hudTranslucent,
       FpsTextComponent(),
     ]);
+  }
 
+  @override
+  Future<void> onLoad() async {
+    debugMode = isDebugMode;
+
+    await images.loadAll([
+      Assets.assets_images_objects_light_png,
+      Assets.assets_images_objects_street_lamp_png,
+      Assets.assets_images_objects_park_lamp_png,
+      Assets.assets_images_trees_bamboo_png,
+      Assets.assets_images_rubbish_rubbish_small_png,
+    ]);
+
+    _addUIElements();
     addAll([
       world,
       cameraComponent,
       dialogueControllerComponent,
     ]);
+
   }
 }

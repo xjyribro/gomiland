@@ -22,7 +22,9 @@ class RubbishSpawner extends SpriteComponent
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_rubbish_rubbish_small_png);
+    sprite = Sprite(game.images.fromCache(
+      Assets.assets_images_rubbish_rubbish_small_png,
+    ));
     _hitbox = RectangleHitbox(
       size: Vector2(40, 40),
       position: Vector2(16, 16),

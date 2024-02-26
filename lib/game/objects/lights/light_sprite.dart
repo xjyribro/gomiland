@@ -1,7 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/game.dart';
 
-class LightSprite extends SpriteComponent {
+class LightSprite extends SpriteComponent with HasGameReference<GomilandGame>{
   LightSprite({
     required Vector2 position,
   }) : super(
@@ -11,6 +12,8 @@ class LightSprite extends SpriteComponent {
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_objects_light_png);
+    sprite = Sprite(game.images.fromCache(
+      Assets.assets_images_objects_light_png,
+    ));
   }
 }

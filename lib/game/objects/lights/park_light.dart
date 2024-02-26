@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/objects/lights/light_sprite.dart';
 
 class ParkLight extends PositionComponent {
@@ -41,7 +42,7 @@ class ParkLight extends PositionComponent {
   }
 }
 
-class ParkLamp extends SpriteComponent {
+class ParkLamp extends SpriteComponent with HasGameReference<GomilandGame>{
   ParkLamp({
     required Vector2 position,
     required Vector2 size,
@@ -52,6 +53,8 @@ class ParkLamp extends SpriteComponent {
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_objects_park_lamp_png);
+    sprite = Sprite(game.images.fromCache(
+      Assets.assets_images_objects_park_lamp_png,
+    ));
   }
 }

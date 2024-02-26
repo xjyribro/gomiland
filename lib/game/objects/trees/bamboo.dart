@@ -2,15 +2,18 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:gomiland/assets.dart';
+import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/player/player.dart';
 
-class Bamboo extends SpriteComponent with CollisionCallbacks {
+class Bamboo extends SpriteComponent with CollisionCallbacks, HasGameReference<GomilandGame>{
   Bamboo({required Vector2 position, required Vector2 size})
       : super(position: position, size: size);
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load(Assets.assets_images_trees_bamboo_png);
+    sprite = Sprite(game.images.fromCache(
+      Assets.assets_images_trees_bamboo_png,
+    ));
     RectangleHitbox hitbox = RectangleHitbox(
         size: Vector2(64, 64),
         position: Vector2.zero(),
