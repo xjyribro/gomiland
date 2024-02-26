@@ -21,6 +21,10 @@ const double hoodStartFromRoomX = 1780;
 const double hoodStartFromRoomY = 580;
 const double hoodStartFromParkX = 6280;
 const double hoodStartFromParkY = 4300;
+const double mapSizeX = 6400;
+const double mapSizeY = 4800;
+const double miniMapSizeX = 512;
+const double miniMapSizeY = 382;
 
 // game
 const int playerSize = 32;

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/player/min_map_player.dart';
+import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
 
@@ -20,12 +22,18 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
     game.freezePlayer();
     SceneName currSceneName = game.gameStateBloc.state.sceneName;
     bool isHood = currSceneName == SceneName.hood;
-    MiniMapSprite infoPopupSpriteComponent = MiniMapSprite(
+    MiniMapSprite miniMapSprite = MiniMapSprite(
       mapSpritePath: isHood
           ? Assets.assets_images_tile_maps_mini_hood_png
           : Assets.assets_images_tile_maps_mini_park_png,
     );
-    add(infoPopupSpriteComponent);
+    Vector2 playerPosit = game.playerStateBloc.state.playerPosition;
+    bool isMale = game.playerStateBloc.state.isMale;
+    MiniMapPlayer player = MiniMapPlayer(
+      position: translatePlayerMiniMapPosit(playerPosit),
+      isMale: isMale,
+    );
+    addAll([miniMapSprite, player]);
   }
 }
 
