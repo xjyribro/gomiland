@@ -46,7 +46,7 @@ Future<void> _showBagIsEmptyDialogue(GomilandGame game) async {
   await dialogueRunner.startDialogue('bag_is_empty');
 }
 
-Vector2 translatePlayerMiniMapPosit(Vector2 position) {
+Vector2 translateMiniMapPosit(Vector2 position) {
   double translatedX = position.x / mapSizeX * miniMapSizeX;
   double translatedY = position.y / mapSizeY * miniMapSizeY;
   return Vector2(translatedX, translatedY);
