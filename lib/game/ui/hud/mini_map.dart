@@ -26,7 +26,7 @@ import 'package:gomiland/game/player/min_map_player.dart';
 import 'package:gomiland/game/player/utils.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/dialogue/dialogue_button.dart';
-import 'package:gomiland/game/ui/hud/ExclamationComponent.dart';
+import 'package:gomiland/game/ui/hud/exclamation_component.dart';
 
 class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
   MiniMap({

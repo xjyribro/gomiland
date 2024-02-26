@@ -176,6 +176,7 @@ class GomilandGame extends FlameGame
   }
 
   void addMiniMapButton() {
+    if (gameStateBloc.state.bagSize < 2) return;
     List<MiniMapButton> miniMapButtons =
     cameraComponent.viewport.children.query<MiniMapButton>();
     if (miniMapButtons.isEmpty) {

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
@@ -24,7 +23,6 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
-  bool _showSplash = true;
   bool _isSignedIn = false;
   bool _isLoading = false;
   bool _isSentToProfile = false;
@@ -78,11 +76,6 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return buildMenu();
-    return _showSplash ? buildSplash() : buildMenu(); // TODO REPLACE
-  }
-
-  Widget buildMenu() {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
@@ -150,7 +143,9 @@ class _MainMenuState extends State<MainMenu> {
                     padding: EdgeInsets.symmetric(horizontal: _sidePadding),
                     child: MenuButton(
                       text: _isSignedIn ? 'Sign out' : 'Sign in',
-                      style: _isSignedIn ? TextStyles.menuRedTextStyle : TextStyles.menuPurpleTextStyle,
+                      style: _isSignedIn
+                          ? TextStyles.menuRedTextStyle
+                          : TextStyles.menuPurpleTextStyle,
                       onPressed: () async {
                         if (_isLoading) return;
                         if (!_isSignedIn) {
@@ -216,17 +211,6 @@ class _MainMenuState extends State<MainMenu> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildSplash() {
-    return FlameSplashScreen(
-      theme: FlameSplashTheme.dark,
-      onFinish: (BuildContext context) {
-        setState(() {
-          _showSplash = false;
-        });
-      },
     );
   }
 }
