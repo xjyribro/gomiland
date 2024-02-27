@@ -71,12 +71,11 @@ class Ranger extends Npc with HasGameReference<GomilandGame> {
     YarnProject yarnProject = YarnProject();
 
     int bagSize = game.gameStateBloc.state.bagSize;
-    yarnProject.strictCharacterNames = false;
 
     yarnProject
       ..variables.setVariable('\$coins', game.gameStateBloc.state.coinAmount)
       ..commands.addCommand0('upgradeBag', upgradeBag)
-      ..parse(await rootBundle.loadString(Assets.assets_yarn_friend_yarn));
+      ..parse(await rootBundle.loadString(Assets.assets_yarn_ranger_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
         yarnProject: yarnProject, dialogueViews: [dialogueControllerComponent]);
     await dialogueRunner
@@ -85,7 +84,7 @@ class Ranger extends Npc with HasGameReference<GomilandGame> {
   }
 
   void upgradeBag() {
-    game.gameStateBloc.add(const SetBagSize(20));
+    game.gameStateBloc.add(const SetBagSize(mediumBagSize));
     deductCoins(game, 500);
   }
 }
