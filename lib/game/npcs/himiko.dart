@@ -125,8 +125,8 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
         game.dialogueControllerComponent;
     YarnProject yarnProject = YarnProject();
     yarnProject
-      ..commands.addCommand0('increaseBagSize', increaseBagSize)
       ..commands.addCommand1('changeState', changeState)
+      ..commands.addCommand1('increaseBagSize', increaseBagSize)
       ..variables.setVariable('\$dayOfWeek', getDayOfWeek())
       ..parse(await rootBundle.loadString(Assets.assets_yarn_himiko_yarn));
     DialogueRunner dialogueRunner = DialogueRunner(
@@ -149,8 +149,8 @@ class Himiko extends Npc with HasGameReference<GomilandGame> {
     game.progressStateBloc.add(SetNeighbourState(newState));
   }
 
-  void increaseBagSize() {
-    game.gameStateBloc.add(const SetBagSize(smallBagSize));
+  void increaseBagSize(int newSize) {
+    game.gameStateBloc.add(SetBagSize(newSize));
   }
 
   String getDialogueName() {

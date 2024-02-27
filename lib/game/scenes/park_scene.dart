@@ -14,6 +14,7 @@ import 'package:gomiland/game/npcs/manuka.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/peach.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/ranger.dart';
 import 'package:gomiland/game/npcs/utils.dart';
 import 'package:gomiland/game/objects/buildings/beehive.dart';
 import 'package:gomiland/game/objects/buildings/building_with_fade.dart';
@@ -635,6 +636,9 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
           break;
         case 'anri':
           await add(Anri(position: Vector2(npc.x, npc.y)));
+          break;
+        case 'ranger':
+          await add(Ranger(position: Vector2(npc.x, npc.y)));
           break;
       }
     }

@@ -19,6 +19,7 @@ import 'package:gomiland/game/npcs/mr_kushi.dart';
 import 'package:gomiland/game/npcs/mr_moon.dart';
 import 'package:gomiland/game/npcs/peach.dart';
 import 'package:gomiland/game/npcs/qian_bi.dart';
+import 'package:gomiland/game/npcs/ranger.dart';
 import 'package:gomiland/game/npcs/risa.dart';
 import 'package:gomiland/game/npcs/rocky.dart';
 import 'package:gomiland/game/npcs/stark.dart';
@@ -173,6 +174,9 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
           break;
         case 'anri':
           await add(Anri(position: Vector2(posit.x, posit.y)));
+          break;
+        case 'ranger':
+          await add(Ranger(position: Vector2(posit.x, posit.y)));
           break;
       }
     }
