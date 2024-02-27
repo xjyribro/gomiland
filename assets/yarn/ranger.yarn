@@ -1,0 +1,25 @@
+<<character "Ranger Sean" Ranger>>
+title: buy_bag
+---
+Ranger: Hello adventurer! I'm Ranger Sean, Gomiland National Park's Chief Park Ranger.
+Ranger: Recently there has been a bit of rubbish that park goers leave behind.
+Ranger: Could you help make the park a cleaner place? I can sell you a big bag that you can hold more trash in!
+Ranger: I costs 500 coins for the bag. Do you want it?
+-> No
+    Ranger: No problem. The one you have works fine!
+    Ranger: But if you want to pick up more, come buy the bag from me next time.
+-> Yes
+    <<if $coins < 500>>
+        Ranger: Looks like you don't have enough coins. Come back when you do!
+    <<else>>
+        <<upgradeBag>>
+        Ranger: Here you go! A bag that can hold 30 pieces of trash.
+        Ranger: You can give your old one to Himiko. She will hand them out to people who don't have one.
+    <<endif>>
+===
+title: greeting
+---
+Ranger: Hello again adventurer! Gomiland National Park offers a great variety of attractions.
+Ranger: Visit the Bamboo Forest and shrine, Park Castle or World Forest!
+Ranger: There is never ending places to explore. Remember to pick up the trash along the way!
+===

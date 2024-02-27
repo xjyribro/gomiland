@@ -26,7 +26,7 @@ Himiko: Remember if you get any wrong, you get a fine from the city!
 Himiko: Here is a bigger bag for you to hold more rubbish.
 Himiko: Let's go clean up Gomiland! Here is a map for you if you are lost
 Himiko: Oh and don't forget to stop and talk to people. Some need help!
-<<increaseBagSize 10>>
+<<increaseBagSize>>
 <<changeState "level_2">>
 ===
 title: level_1_incorrect

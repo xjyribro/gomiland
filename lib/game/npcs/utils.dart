@@ -96,11 +96,16 @@ String getFriendDialogue(OtherPlayer friendInfo, GomilandGame game) {
     int playerSpeed = game.playerStateBloc.state.playerSpeed;
     int bagSize = game.gameStateBloc.state.bagSize;
     if (playerCompletedMainQuests) {
-      if (playerSpeed > playerBaseSpeed && bagSize > 10) {
+      if (playerSpeed > playerBaseSpeed && bagSize > largeBagSize) {
         return 'seasoned_player';
       } else {
         if (playerSpeed > playerBaseSpeed) {
-          return 'buy_bag';
+          // only allow buying a big bag if player has a medium bag
+          if (bagSize == mediumBagSize) {
+            return 'buy_bag';
+          } else {
+            return 'progress_player';
+          }
         } else if (bagSize > 10) {
           return 'buy_shoe';
         }

@@ -35,6 +35,9 @@ const int playerFastSpeed = 6;
 const double npcSpeed = 2;
 const double maxRaycastDist = 40;
 const int maxCoinAmount = 999999;
+const int smallBagSize = 10;
+const int mediumBagSize = 30;
+const int largeBagSize = 50;
 
 // day cycle
 const gameMinToRealSecond = 0.1;
