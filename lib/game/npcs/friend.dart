@@ -75,9 +75,7 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
 
     DialogueControllerComponent dialogueControllerComponent =
         game.dialogueControllerComponent;
-    YarnProject yarnProject = YarnProject();
-
-    yarnProject.strictCharacterNames = false;
+    YarnProject yarnProject = YarnProject()..strictCharacterNames = false;
 
     yarnProject
       ..variables
