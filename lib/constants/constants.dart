@@ -40,7 +40,7 @@ const int mediumBagSize = 30;
 const int largeBagSize = 50;
 
 // day cycle
-const gameMinToRealSecond = 0.1;
+const gameMinToRealSecond = 0.2;
 const gameStartTime = 360;
 const minsInADay = 1440;
 const morningStartMins = 360;

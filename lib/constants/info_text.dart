@@ -131,9 +131,11 @@ class InfoText{
       '4. Get fined if you get it wrong.';
 
   static const String statue = 'Statue under restoration\n\n\n'
-      'We apologise for the inconvenience';
+      'We apologise for the inconvenience\n\n'
+      'Helping others could speed up restoration efforts...';
   static const String warrior = 'Statue of brave eco-warrior\n\n\n'
       'Provider of aid to those in need,\n'
       'protector of our ecosystems\n'
-      'guardian of our natural habitat.';
+      'guardian of our natural habitat.\n\n'
+      'Thanks for contributing to sustainability player!';
 }
