@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/styles.dart';
+import 'package:gomiland/controllers/game_state/game_state_bloc.dart';
 import 'package:gomiland/game/game.dart';
+import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/utils/navigation.dart';
 import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
@@ -46,6 +49,7 @@ class ConfirmExitGame extends StatelessWidget {
                       onPressed: () {
                         game.overlays.remove('ConfirmExitGame');
                         pushReplacementToMainMenu(context);
+                        context.read<GameStateBloc>().add(const SceneChanged(SceneName.menu));
                       },
                       text: 'Yes',
                       style: TextStyles.menuGreenTextStyle,
