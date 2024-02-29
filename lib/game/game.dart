@@ -268,7 +268,6 @@ class GomilandGame extends FlameGame
       clockComponent,
       gameMenuButton,
       hudTranslucent,
-      FpsTextComponent(),
     ]);
   }
 

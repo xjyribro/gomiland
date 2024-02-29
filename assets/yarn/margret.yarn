@@ -12,10 +12,10 @@ MsMargret: Question 1 - All plastics can be recycled.
     MsMargret: Correct. Only about 75% of plastics can be melted and molded to produce new plastics.
     MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle.
     MsMargret: Question 2 - The creator of plastic bags says they were meant to be used only once.
-    -> False
+    -> True
         MsMargret: Incorrect. The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
         MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
-    -> True
+    -> False
         MsMargret: Correct again! The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
         MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
         MsMargret: No prizes for getting full marks but come see me if you get a code by contributing to sustainability efforts.
