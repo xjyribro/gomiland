@@ -44,25 +44,25 @@ Himiko: Oh and don't forget to stop and talk to people. Some need help!
 title: level_2
 ---
 <<if $dayOfWeek == "Monday">>
-    Himiko: Happy Monday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Meatless Monday! Skip the meat and opt for plant-based protein like beans, lentils, or tofu.
+    Himiko: This helps reduce your environmental footprint and supports sustainable food practices.
 <<elseif $dayOfWeek == "Tuesday">>
-    Himiko : Happy Tuesday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Turn it Off Tuesday! As you leave a room, turn off lights, electronics, and appliances left on standby.
+    Himiko: This simple step conserves energy and saves you money on your electricity bill.
 <<elseif $dayOfWeek == "Wednesday">>
-    Himiko : Happy Wednesday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Water Wise Wednesday! Take shorter showers and use less water when brushing your teeth or washing dishes.
+    Himiko: Every drop saved helps conserve this precious resource.
 <<elseif $dayOfWeek == "Thursday">>
-    Himiko : Happy Thursday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Thrift Thursday! Give pre-loved items a new life!
+    Himiko: Visit a local thrift store or online marketplace, reducing your reliance on new products.
 <<elseif $dayOfWeek == "Friday">>
-    Himiko : Happy Friday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Fuel-Free Friday! Walk, bike, or use public transportation for errands or work when possible.
+    Himiko: This reduces your carbon footprint and promotes cleaner air for everyone.
 <<elseif $dayOfWeek == "Saturday">>
-    Himiko : Happy Saturday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Sustainable Shopping Saturday! Choose local farmers' markets and shops that offer eco-friendly products.
+    Himiko: This supports local businesses and promotes sustainable practices.
 <<elseif $dayOfWeek == "Sunday">>
-    Himiko : Happy Sunday! How's the collection going?
-    Himiko: Some people give extra incentives for helping them.
+    Himiko: It's Swap Sunday! Swap clothes or household items with friends or family instead of buying new ones.
+    Himiko: This reduces waste, saves money, and gives a new life to pre-loved items.
 <<endif>>
 ===
