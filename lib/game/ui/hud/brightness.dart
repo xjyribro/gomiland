@@ -26,7 +26,7 @@ class BrightnessOverlay extends RectangleComponent
   void makeNightDim() {
     add(
       OpacityEffect.to(
-        0.4,
+        0.3,
         EffectController(
           duration: 1,
           curve: Curves.easeOut,
