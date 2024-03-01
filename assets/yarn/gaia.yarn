@@ -10,11 +10,11 @@ title: buy
 ---
 Gaia: Thank you for your efforts in improving the sustainability for the planet.
 Gaia: Would you like to buy a bonsai for your zen garden?
-Gaia: It costs 500 coins
+Gaia: It costs 10 coins
 -> No
     Gaia: No problem. I'll sit here an enjoy the best the park has to offer.
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         Gaia: Hmm.. doesn't look like you have enough coins...
     <<else>>
         Gaia: I hope you enjoy looking at the bonsais in the garden on a slow walk.

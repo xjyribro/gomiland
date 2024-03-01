@@ -38,6 +38,7 @@ const int maxCoinAmount = 999999;
 const int smallBagSize = 10;
 const int mediumBagSize = 30;
 const int largeBagSize = 50;
+const int buyObjectCost = 10;
 
 // day cycle
 const gameMinToRealSecond = 0.2;

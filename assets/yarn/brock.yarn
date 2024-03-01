@@ -9,11 +9,11 @@ title: buy
 ---
 Brock: I heard you are big on sustainability, just like me.
 Brock: Would you like to buy a small but heavy rock for your zen garden?
-Brock: I costs 500 coins
+Brock: I costs 10 coins
 -> No
     Brock: Ok you don't have to get it now. I will be here training all day.
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         Brock: Hmm.. doesn't look like you have enough coins...
     <<else>>
         Brock: That's great! I will move it for you of course. These are heavy.

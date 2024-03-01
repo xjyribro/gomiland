@@ -95,11 +95,11 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
 
   void upgradeShoe() {
     game.playerStateBloc.add(const SetPlayerSpeed(playerFastSpeed));
-    deductCoins(game, 500);
+    deductCoins(game, buyObjectCost);
   }
 
   void upgradeBag() {
     game.gameStateBloc.add(const SetBagSize(20));
-    deductCoins(game, 500);
+    deductCoins(game, buyObjectCost);
   }
 }

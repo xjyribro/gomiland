@@ -12,22 +12,22 @@ title: talk
         Risa: No worries
     -> Yes
         Risa: Great!
-        Risa: Help me collect 30 plastics from the streets and I will show my boss that not only is it expensive,
+        Risa: Help me collect 5 plastics from the streets and I will show my boss that not only is it expensive,
         Risa: but it creates a lot of waste to use single ue plastics!
         <<changeProgress 0>>
-<<elseif $progress < 30>>
-    <<set $remainder = 30 - $progress>>
+<<elseif $progress < 5>>
+    <<set $remainder = 5 - $progress>>
     Risa: Collect any plastic pieces you find and throw them at home.
     Risa: {$remainder} more to go!
-<<elseif $progress >= 30 and $progress < 100>>
+<<elseif $progress >= 5 and $progress < 100>>
     Risa: Thank you for your effort.
     Risa: I have shown my boss the rubbish that you collected.
     Risa: He isn't convinced...
-    Risa: I bet he needs more evidence. Could you collect another 50 more plastics please?
+    Risa: I bet he needs more evidence. Could you collect another 10 more plastics please?
     Risa: I will also ask the city to increase the coins for plastics you throw as an incentive.
     <<changeProgress 100>>
-<<elseif $progress < 150>>
-    <<set $remainder = 150 - $progress>>
+<<elseif $progress < 110>>
+    <<set $remainder = 110 - $progress>>
     Risa: Help me collect {$remainder} more plastics to show my boss!
 <<elseif $progress < 200>>
     Risa: Thank you for your hard work.
