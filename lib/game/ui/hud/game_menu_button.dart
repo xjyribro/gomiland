@@ -10,6 +10,7 @@ class GameMenuButton extends HudButtonComponent {
       right: 128,
       top: 16,
     ),
+    super.priority = 1,
   });
 
   @override

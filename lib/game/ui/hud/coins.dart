@@ -15,6 +15,7 @@ class CoinsComponent extends HudMarginComponent {
       left: 128,
       top: 32,
     ),
+    super.priority = 1,
   }) : super() {
     _game = game;
   }

@@ -53,6 +53,7 @@ class ClockComponent extends HudMarginComponent {
       ),
       position: Vector2(32, 0),
       anchor: Anchor.centerLeft,
+      priority: 1,
     );
     int daysInGame = _game.gameStateBloc.state.daysInGame;
     _dayTextComponent = TextComponent(
@@ -67,6 +68,7 @@ class ClockComponent extends HudMarginComponent {
     final SpriteComponent clock = SpriteComponent(
       sprite: await Sprite.load(Assets.assets_images_ui_clock_png),
       anchor: Anchor.center,
+      priority: 1,
     );
     addAll([_timeTextComponent, _dayTextComponent, clock]);
     onLoadBrightnessCheck();
