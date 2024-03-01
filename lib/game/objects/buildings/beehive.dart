@@ -107,7 +107,7 @@ class Beehive extends SpriteAnimationComponent with CollisionCallbacks {
         ]));
 
     RectangleHitbox hitbox = RectangleHitbox(
-        size: Vector2(128, 160),
+        size: Vector2(64, 32),
         position: Vector2.zero(),
         collisionType: CollisionType.passive,
         isSolid: true);
