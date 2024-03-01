@@ -286,7 +286,7 @@ class ParkMap extends Component with HasGameReference<GomilandGame> {
             TreeWthFade(
               position: Vector2(tree.x, tree.y),
               size: Vector2(tree.width, tree.height),
-              spritePath: game.gameStateBloc.state.daysInGame < 10
+              spritePath: game.gameStateBloc.state.daysInGame < daysForSakura
                   ? Assets.assets_images_trees_tree_sakura_bare_png
                   : Assets.assets_images_trees_tree_sakura_png,
               hitboxSize: Vector2(96, 64),
