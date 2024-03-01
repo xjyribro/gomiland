@@ -25,7 +25,7 @@ class Popups {
     required BuildContext context,
     required Function onAccept,
   }) async {
-    await showDialog(
+    return await showDialog(
       context: context,
       builder: (context) {
         return ConfirmActionModal(

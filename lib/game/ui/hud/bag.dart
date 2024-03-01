@@ -12,6 +12,7 @@ class BagComponent extends HudMarginComponent {
       left: 320,
       top: 32,
     ),
+    super.priority = 1,
   }) : super() {
     _game = game;
   }

@@ -85,6 +85,6 @@ class Ranger extends Npc with HasGameReference<GomilandGame> {
 
   void upgradeBag() {
     game.gameStateBloc.add(const SetBagSize(mediumBagSize));
-    deductCoins(game, 500);
+    deductCoins(game, buyObjectCost);
   }
 }

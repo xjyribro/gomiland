@@ -24,11 +24,11 @@ title: buy
 ---
 MsMargret: Ah you get an A for sustainability.
 MsMargret: As a bonus, you can buy a bonsai that the students are selling.
-MsMargret: It costs 500 coins
+MsMargret: It costs 10 coins
 -> No
     MsMargret: They sell out fast so if you want it, you should get it soon.
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         MsMargret: Hmm.. doesn't look like you have enough coins...
     <<else>>
         MsMargret: The students will be happy. I will get one of them to send it to the garden soon.

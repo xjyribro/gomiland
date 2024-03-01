@@ -19,12 +19,12 @@ title: seasoned_player
 title: buy_shoe
 ---
 {$friendName}: Hey {$playerName}, looks like you are wearing you old shoes. Want to get new ones?
-{$friendName}: They cost just 500 coins
+{$friendName}: They cost just 10 coins
 -> No
     {$friendName}\: That's fine. Just to let you know that shoes can be recycled too.
     {$friendName}\: If you want to get new ones, you should recycle your old ones.
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         {$friendName}\: Looks like you don't have enough coins. Come back when you do!
     <<else>>
         <<upgradeShoe>>
@@ -35,12 +35,12 @@ title: buy_shoe
 title: buy_bag
 ---
 {$friendName}: Hello {$playerName}, your collection bag looks pretty small.
-{$friendName}: Want to get a bigger bag for 500 coins?
+{$friendName}: Want to get a bigger bag for 10 coins?
 -> No
     {$friendName}: No problem. I know the company that sells them.
     {$friendName}: They use recycled materials to make their bags as well!
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         {$friendName}: Looks like you don't have enough coins. Come back when you do!
     <<else>>
         <<upgradeBag>>

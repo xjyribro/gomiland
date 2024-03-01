@@ -11,6 +11,7 @@ class AButton extends HudMarginComponent{
       left: 700,
       top: 250,
     ),
+    super.priority = 1,
   }) : super() {
     _game = game;
   }

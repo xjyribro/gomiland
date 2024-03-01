@@ -1,7 +1,7 @@
 <<character "Mr Kushi" Kushi>>
 title: talk
 ---
-<<if $progress < 150>>
+<<if $progress < 110>>
     Kushi: Good {$timeOfDay}! Pleased to meet you.
     Kushi: I am Mr Kushi, boss of Go convenient stores.
     Kushi: We run the largest 24hr convenient store chain in Gomiland!

@@ -87,6 +87,6 @@ class Florence extends Npc with HasGameReference<GomilandGame> {
     Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
     zenGarden[getBonsaiStringFromInt(index)] = true;
     game.playerStateBloc.add(SetZenGarden(zenGarden));
-    deductCoins(game, 500);
+    deductCoins(game, buyObjectCost);
   }
 }

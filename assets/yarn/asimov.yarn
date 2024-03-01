@@ -7,24 +7,24 @@ title: talk
     Asimov: I'm Asimov, builder of robots
     Asimov: Recently I've started building some self-thinking robots
     Asimov: I need more electronics to make them better.
-    Asimov: Could you toss some electronics that no one wants into your bin?
+    Asimov: Could you toss 5 electronics that no one wants into your bin?
     Asimov: Don't worry if they are broken. Asimov will make them work again.
     Asimov: I would go myself but I gotta keep an eye on these robots.
     Asimov: I think they are becoming sentient....
     <<changeProgress 0>>
-<<elseif $progress < 30>>
-    <<set $remainder = 30 - $progress>>
+<<elseif $progress < 5>>
+    <<set $remainder = 5 - $progress>>
     Asimov: Don't worry if they are broken. Asimov will make them work again.
-<<elseif $progress >= 30 and $progress < 100>>
+<<elseif $progress >= 5 and $progress < 100>>
     Asimov: Oh it's you!
     Asimov: The electronics that you sent were perfect.
     Asimov: It's amazing how people just throw things that can still work.
     Asimov: How's the robot you ask?
     Asimov: Erm... they are not done yet.
     Asimov: More electronics!
-    Asimov: 50 more to be precise.
+    Asimov: 10 more to be precise.
     <<changeProgress 100>>
-<<elseif $progress < 150>>
+<<elseif $progress < 110>>
     Asimov: More electronics!
 <<else>>
     Asimov: end

@@ -88,6 +88,6 @@ class Brock extends Npc with HasGameReference<GomilandGame> {
     Map<String, bool> zenGarden = game.playerStateBloc.state.zenGarden;
     zenGarden[getRockStringFromInt(index)] = true;
     game.playerStateBloc.add(SetZenGarden(zenGarden));
-    deductCoins(game, 500);
+    deductCoins(game, buyObjectCost);
   }
 }

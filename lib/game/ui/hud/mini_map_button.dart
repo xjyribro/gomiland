@@ -13,6 +13,7 @@ class MiniMapButton extends HudMarginComponent
       left: rightSideButtonFromLeft,
       top: rightSideButtonFromTop,
     ),
+    super.priority = 1,
   });
 
   @override

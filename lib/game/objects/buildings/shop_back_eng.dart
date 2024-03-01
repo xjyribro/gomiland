@@ -26,7 +26,7 @@ class ShopBackEng extends SpriteComponent with CollisionCallbacks {
     );
     sprite = spriteSheet.getSprite(0, _id);
     RectangleHitbox hitbox = RectangleHitbox(
-        size: Vector2(128, 96),
+        size: Vector2(128, 160),
         position: Vector2.zero(),
         collisionType: CollisionType.passive,
         isSolid: true);

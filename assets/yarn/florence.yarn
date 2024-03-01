@@ -10,11 +10,11 @@ title: buy
 ---
 Florence: I see you have done a good job contributing to sustainability efforts in your own life.
 Florence: Would you like to buy a bonsai for your zen garden?
-Florence: It costs 500 coins
+Florence: It costs 10 coins
 -> No
     Florence: Ah ok. Come back anytime!
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         Florence: Hmm.. doesn't look like you have enough coins...
     <<else>>
         Florence: Nice! I will appear in your garden soon.

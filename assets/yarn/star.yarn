@@ -8,13 +8,13 @@ title: mr_Star
     MrStar: We grow our own plants for cooking!
     MrStar: I think Mr Moon requires some help.
     MrStar: You can find him in the park.
-<<elseif $progress < 130>>
+<<elseif $progress < 15>>
     MrStar: Mr Moon asked to collect food waste?
     MrStar: Great idea. We can make natural compost with them.
-<<elseif $progress >= 130 and $progress < 200>>
+<<elseif $progress >= 15 and $progress < 100>>
     MrStar: Thanks for collecting all that food waste.
     MrStar: It's a shame how much food people throw out.
-<<elseif $progress < 250>>
+<<elseif $progress < 110>>
     MrStar: Mr Moon asked to collect more food waste?
     MrStar: Yes of course. We can make more compost with them.
 <<else>>
@@ -30,13 +30,13 @@ title: mrs_Star
     MrsStar: We grow our own plants for medicine!
     MrsStar: I think Mr Moon is looking for some help.
     MrsStar: You can find him in the park.
-<<elseif $progress < 30>>
+<<elseif $progress < 5>>
     MrStar: Mr Moon asked to collect food waste?
     MrStar: Great idea. We can make natural compost with them.
-<<elseif $progress >= 30 and $progress < 100>>
+<<elseif $progress >= 5 and $progress < 100>>
     MrsStar: Thanks for collecting all that food waste.
     MrsStar: We never waste any food in our house.
-<<elseif $progress < 150>>
+<<elseif $progress < 110>>
     MrsStar: Mr Moon asked to collect more food waste?
     MrsStar: Yes of course. We can make more compost with them.
 <<else>>

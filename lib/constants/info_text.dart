@@ -24,6 +24,12 @@ class InfoText{
   static const String school = 'Gomiland Elementary School\n\n'
       'Where young minds flourish';
 
+  static const String player_garden = 'Community Zen Garden\n\n'
+      'Beautify the garden with these simple steps!\n\n'
+      '1. Get a code in real life.\n'
+      '2. Talk to NPCs across the map to find those that are selling objects for the garden.\n'
+      '3. Buy the item and see it appear in the garden after some time!';
+
   static const String charging_kisok = 'Asimov\'s E-charging station\n\n'
       'Charge your electric vehicles here!\n'
       '(We accept robot vacuum charging too).\n\n'

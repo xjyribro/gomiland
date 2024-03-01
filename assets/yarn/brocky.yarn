@@ -9,11 +9,11 @@ title: buy
 ---
 Brocky: Oh it seems you have been doing a great job ...
 Brocky: Would you like to buy a huge rock for your zen garden?
-Brocky: I costs 500 coins
+Brocky: I costs 10 coins
 -> No
     Brocky: Ok you don't have to get it now. I will be here training all day.
 -> Yes
-    <<if $coins < 500>>
+    <<if $coins < 10>>
         Brocky: Hmm.. doesn't look like you have enough coins...
     <<else>>
         Brocky: That's great! I will move it for you of course. These are heavy.
