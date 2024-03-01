@@ -29,7 +29,7 @@ class Friend extends Npc with HasGameReference<GomilandGame> {
   @override
   void onLoad() async {
     final image = await Flame.images.load(_friendInfo.isMale
-        ? Assets.assets_images_player_female_png
+        ? Assets.assets_images_player_male_png
         : Assets.assets_images_player_female_png);
     final spriteSheet = SpriteSheet(
       image: image,

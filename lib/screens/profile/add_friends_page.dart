@@ -22,8 +22,6 @@ class AddFriendsPage extends StatelessWidget {
                 style: TextStyles.mainHeaderTextStyle,
               ),
               const SpacerNormal(),
-              const SearchPlayers(),
-              const SpacerNormal(),
               MenuButton(
                 text: 'Back',
                 style: TextStyles.menuRedTextStyle,
@@ -31,6 +29,8 @@ class AddFriendsPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
+              const SpacerNormal(),
+              const SearchPlayers(),
               const SpacerNormal(),
             ],
           ),
