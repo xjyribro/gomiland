@@ -64,6 +64,7 @@ class _GameMenuState extends State<GameMenu> {
   }
 
   void _returnToMainMenu() {
+    if (_isLoading) return;
     widget.game.overlays.add('ConfirmExitGame');
   }
 
