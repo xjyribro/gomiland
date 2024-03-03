@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gomiland/constants/constants.dart';
 import 'package:gomiland/constants/styles.dart';
 import 'package:gomiland/controllers/player_state/player_state_bloc.dart';
+import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/screens/popups/popups.dart';
 import 'package:gomiland/screens/profile/utils.dart';
 import 'package:gomiland/screens/profile/widgets/players_list.dart';
@@ -14,7 +14,6 @@ import 'package:gomiland/screens/widgets/menu_button.dart';
 import 'package:gomiland/screens/widgets/spacer.dart';
 import 'package:gomiland/screens/widgets/text_input.dart';
 import 'package:gomiland/utils/firestore.dart';
-import 'package:gomiland/game/data/other_player.dart';
 
 class SearchPlayers extends StatefulWidget {
   const SearchPlayers({super.key});
@@ -69,25 +68,26 @@ class _SearchPlayersState extends State<SearchPlayers> {
   Future<void> _searchPlayers() async {
     String? playerName =
         _playerNameController.text != '' ? _playerNameController.text : null;
-    QuerySnapshot<Object?>? result = await getPlayers(
+    await getPlayers(
       playerName: playerName,
       country: _country?.name,
-    );
-    if (result != null) {
-      if (context.mounted) {
-        Map<String, OtherPlayer> friends =
-            context.read<PlayerStateBloc>().state.friends;
-        _setPlayersList(getPlayersFromSearchResult(result, friends));
+    ).then((result) {
+      if (result != null) {
+        if (context.mounted) {
+          Map<String, OtherPlayer> friends =
+              context.read<PlayerStateBloc>().state.friends;
+          _setPlayersList(getPlayersFromSearchResult(result, friends));
+        }
+      } else {
+        if (context.mounted) {
+          Popups.showMessage(
+            context: context,
+            title: 'Error in searching database',
+            subTitle: '',
+          );
+        }
       }
-    } else {
-      if (context.mounted) {
-        Popups.showMessage(
-          context: context,
-          title: 'Error in searching database',
-          subTitle: '',
-        );
-      }
-    }
+    });
   }
 
   @override
