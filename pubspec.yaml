@@ -12,9 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  flame: ^1.14.0
+  flame: ^1.16.0
   flame_audio: ^2.1.7
-  flame_splash_screen: ^0.2.0
   provider: ^6.1.1
   flame_tiled: ^1.18.3
   flame_bloc: ^1.10.9

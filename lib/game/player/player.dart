@@ -194,9 +194,9 @@ class Player extends SpriteAnimationComponent
 
 
   @override
-  bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+  bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (game.gameStateBloc.state.showControls) return false;
-    if (event is RawKeyDownEvent) {
+    if (event is KeyDownEvent) {
       if (game.playerIsFrozen()) return false;
       _isMovingUp = false;
       _isMovingDown = false;
@@ -231,7 +231,7 @@ class Player extends SpriteAnimationComponent
         game.castRay();
       }
       return false;
-    } else if (event is RawKeyUpEvent) {
+    } else if (event is KeyUpEvent) {
       if (event.logicalKey == LogicalKeyboardKey.keyW && _isMovingUp) {
         _moveDirection = 0;
         animation = idleUp;
