@@ -198,9 +198,10 @@ class Player extends SpriteAnimationComponent
     if (game.gameStateBloc.state.showControls) return false;
     if (event is RawKeyDownEvent) {
       if (game.playerIsFrozen()) return false;
-      bool isMoving =
-          _isMovingDown || _isMovingUp || _isMovingLeft || _isMovingRight;
-      if (isMoving) return false;
+      _isMovingUp = false;
+      _isMovingDown = false;
+      _isMovingLeft = false;
+      _isMovingRight = false;
       if (event.logicalKey == LogicalKeyboardKey.keyW) {
         animation = moveUp;
         _isMovingUp = true;
