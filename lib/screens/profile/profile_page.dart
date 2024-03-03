@@ -90,10 +90,9 @@ class _ProfilePageState extends State<ProfilePage> {
         playerName: playerName,
         country: country,
         isMale: _isMale,
-      );
+      ).then((value) => Navigator.pop(context, true));
     }
     _setIsLoading(false);
-    if (context.mounted) Navigator.pop(context, true);
   }
 
   void _initForm() {
