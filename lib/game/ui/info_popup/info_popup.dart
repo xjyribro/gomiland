@@ -15,6 +15,7 @@ class InfoPopup extends HudMarginComponent with HasGameReference<GomilandGame> {
       left: boxMarginFromLeft,
       top: 16,
     ),
+    super.priority = 2,
   }) : super() {
     _infoPopupObject = infoPopupObject;
   }
