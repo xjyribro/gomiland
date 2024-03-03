@@ -6,6 +6,7 @@ import 'package:gomiland/controllers/audio_controller.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
 import 'package:gomiland/game/scenes/room/bin.dart';
+import 'package:gomiland/game/scenes/room/bin_info_button.dart';
 import 'package:gomiland/game/scenes/room/rubbish_spawner.dart';
 import 'package:gomiland/game/scenes/scene_name.dart';
 import 'package:gomiland/game/ui/hud/exit_room_button.dart';
@@ -96,6 +97,19 @@ class RoomMap extends Component with HasGameReference<GomilandGame> {
         );
         add(bin);
         _bins[binType] = bin;
+      }
+    }
+
+    final binInfoLayer = map.tileMap.getLayer<ObjectGroup>('bin_info');
+    if (binInfoLayer != null) {
+      for (final TiledObject object in binInfoLayer.objects) {
+        RubbishType binType = object.name.rubbishType;
+        BinInfoButton button = BinInfoButton(
+          position: Vector2(object.x, object.y),
+          size: object.size,
+          binType: binType,
+        );
+        add(button);
       }
     }
 
