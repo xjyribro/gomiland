@@ -13,6 +13,7 @@ const double miniMapMarginFromLeft = 144;
 const double dialogueBoxMarginFromTop = 270;
 const double rightSideButtonFromLeft = 700;
 const double rightSideButtonFromTop = 250;
+const double miniMapButtonFromTop = 150;
 
 // map
 const double tileSize = 32;

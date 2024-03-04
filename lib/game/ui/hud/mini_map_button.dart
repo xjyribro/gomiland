@@ -11,7 +11,7 @@ class MiniMapButton extends HudMarginComponent
   MiniMapButton({
     super.margin = const EdgeInsets.only(
       left: rightSideButtonFromLeft,
-      top: rightSideButtonFromTop,
+      top: miniMapButtonFromTop,
     ),
     super.priority = 1,
   });

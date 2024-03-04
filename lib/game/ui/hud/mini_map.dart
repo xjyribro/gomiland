@@ -35,6 +35,7 @@ class MiniMap extends HudMarginComponent with HasGameReference<GomilandGame> {
       left: miniMapMarginFromLeft,
       top: 16,
     ),
+    super.priority = 2,
   });
 
   @override
