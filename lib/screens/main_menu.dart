@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/styles.dart';
@@ -74,8 +75,132 @@ class _MainMenuState extends State<MainMenu> {
     super.dispose();
   }
 
+  List<Widget> _menuButtons() {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: MenuButton(
+              text: 'New game',
+              style: TextStyles.menuGreenTextStyle,
+              onPressed: () {
+                if (_isLoading) return;
+                _setIsLoading(true);
+                if (!_isSignedIn) {
+                  Popups.showUnsavableWarning(
+                    context: context,
+                    onAccept: () =>
+                        goToGame(context: context, loadFromSave: false),
+                  );
+                } else {
+                  goToGame(context: context, loadFromSave: false);
+                }
+                _setIsLoading(false);
+              },
+            ),
+          ),
+          _isSignedIn
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+                  child: LoadButton(
+                    isLoading: _isLoading,
+                    setIsLoading: _setIsLoading,
+                  ),
+                )
+              : Container(),
+        ],
+      ),
+      const SpacerNormal(),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: MenuButton(
+              text: 'Profile',
+              style: TextStyles.menuPurpleTextStyle,
+              onPressed: () {
+                if (_isLoading) return;
+                goToProfile(context);
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: MenuButton(
+              text: _isSignedIn ? 'Sign out' : 'Sign in',
+              style: _isSignedIn
+                  ? TextStyles.menuRedTextStyle
+                  : TextStyles.menuPurpleTextStyle,
+              onPressed: () async {
+                if (_isLoading) return;
+                if (!_isSignedIn) {
+                  goToSignIn(context);
+                  return;
+                } else {
+                  await signOut().then((_) => resetBlocStates(context));
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+      const SpacerNormal(),
+      _isSignedIn
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+                  child: FriendsButton(
+                    isLoading: _isLoading,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+                  child: HiScoreButton(
+                    isLoading: _isLoading,
+                  ),
+                ),
+              ],
+            )
+          : Container(),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: MenuButton(
+              text: 'Code input',
+              style: TextStyles.menuPurpleTextStyle,
+              onPressed: () => goToCodeInput(context),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: _sidePadding),
+            child: MenuButton(
+              text: 'Credits',
+              style: TextStyles.menuPurpleTextStyle,
+              onPressed: () {
+                if (_isLoading) return;
+                goToCredits(context);
+              },
+            ),
+          ),
+        ],
+      ),
+      const MuteButton(),
+      const SpacerNormal(),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool isWebMobile = kIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.iOS ||
+            defaultTargetPlatform == TargetPlatform.android);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
@@ -88,125 +213,14 @@ class _MainMenuState extends State<MainMenu> {
                 height: 164,
               ),
               const SpacerNormal(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                    child: MenuButton(
-                      text: 'New game',
-                      style: TextStyles.menuGreenTextStyle,
-                      onPressed: () {
-                        if (_isLoading) return;
-                        _setIsLoading(true);
-                        if (!_isSignedIn) {
-                          Popups.showUnsavableWarning(
-                            context: context,
-                            onAccept: () =>
-                                goToGame(context: context, loadFromSave: false),
-                          );
-                        } else {
-                          goToGame(context: context, loadFromSave: false);
-                        }
-                        _setIsLoading(false);
-                      },
-                    ),
-                  ),
-                  _isSignedIn
-                      ? Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: _sidePadding),
-                          child: LoadButton(
-                            isLoading: _isLoading,
-                            setIsLoading: _setIsLoading,
-                          ),
-                        )
-                      : Container(),
-                ],
-              ),
-              const SpacerNormal(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                    child: MenuButton(
-                      text: 'Profile',
-                      style: TextStyles.menuPurpleTextStyle,
-                      onPressed: () {
-                        if (_isLoading) return;
-                        goToProfile(context);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                    child: MenuButton(
-                      text: _isSignedIn ? 'Sign out' : 'Sign in',
-                      style: _isSignedIn
-                          ? TextStyles.menuRedTextStyle
-                          : TextStyles.menuPurpleTextStyle,
-                      onPressed: () async {
-                        if (_isLoading) return;
-                        if (!_isSignedIn) {
-                          goToSignIn(context);
-                          return;
-                        } else {
-                          await signOut().then((_) => resetBlocStates(context));
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SpacerNormal(),
-              _isSignedIn
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: _sidePadding),
-                          child: FriendsButton(
-                            isLoading: _isLoading,
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: _sidePadding),
-                          child: HiScoreButton(
-                            isLoading: _isLoading,
-                          ),
-                        ),
-                      ],
-                    )
-                  : Container(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                    child: MenuButton(
-                      text: 'Code input',
-                      style: TextStyles.menuPurpleTextStyle,
-                      onPressed: () => goToCodeInput(context),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _sidePadding),
-                    child: MenuButton(
-                      text: 'Credits',
-                      style: TextStyles.menuPurpleTextStyle,
-                      onPressed: () {
-                        if (_isLoading) return;
-                        goToCredits(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const MuteButton(),
-              const SpacerNormal(),
+              if (isWebMobile)
+                const Text(
+                  'Gomiland is for desktop browsers only, for Android and iOS, please go to this page for more info',
+                  textAlign: TextAlign.center,
+                  style: TextStyles.menuWhiteTextStyle,
+                )
+              else
+                ..._menuButtons(),
             ],
           ),
         ),

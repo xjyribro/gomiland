@@ -200,7 +200,9 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
       layerNames.add('med_crops');
     }
     final ground = imageCompiler.compileMapLayer(
-        tileMap: map.tileMap, layerNames: layerNames);
+      tileMap: map.tileMap,
+      layerNames: layerNames,
+    );
     add(ground);
     await TileProcessor.processTileType(
         tileMap: map.tileMap,
