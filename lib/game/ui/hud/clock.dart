@@ -74,7 +74,7 @@ class ClockComponent extends HudMarginComponent {
     onLoadBrightnessCheck();
   }
 
-  void _brightnessCheck() {
+  void _timeCheck() {
     if (_gameMins == eveningStartMins) {
       _game.brightnessOverlay.makeEveningDim();
       if (_game.world is GomilandWorld) {
@@ -118,6 +118,8 @@ class ClockComponent extends HudMarginComponent {
     if (_seconds > gameMinToRealSecond) {
       _seconds = 0;
       _gameMins += 1;
+      _timeCheck();
+      _respawnRubbishCheck();
       if (_gameMins > minsInADay) {
         _gameMins = 0;
         _game.gameStateBloc.add(const SetMinsInGame(0));
@@ -125,8 +127,6 @@ class ClockComponent extends HudMarginComponent {
         _game.gameStateBloc.add(const AddOneMin());
       }
     }
-    _brightnessCheck();
-    _respawnRubbishCheck();
     final int hours = (_gameMins / 60).floor();
     final int mins = _gameMins % 60;
     final String hourString = hours.toString().padLeft(2, "0");
