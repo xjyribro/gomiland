@@ -30,9 +30,11 @@ class _MainMenuState extends State<MainMenu> {
   final double _sidePadding = 16.0;
 
   void _setIsLoading(bool isLoading) {
-    setState(() {
-      _isLoading = isLoading;
-    });
+    if (context.mounted) {
+      setState(() {
+        _isLoading = isLoading;
+      });
+    }
   }
 
   void _initAuthStateListener() {

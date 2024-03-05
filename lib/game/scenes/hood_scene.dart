@@ -635,6 +635,18 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
             ),
           );
           break;
+        case 'vacbot':
+          if (asimovProgress >= 200) {
+            await add(
+              SpriteComponent(
+                position: Vector2(building.x, building.y),
+                size: Vector2(building.width, building.height),
+                sprite:
+                await Sprite.load(Assets.assets_images_objects_vacbot_png),
+              ),
+            );
+          }
+          break;
         case 'kiosk_roof':
           await add(
             BuildingWithFade(
@@ -654,18 +666,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               size: Vector2(building.width, building.height),
             ),
           );
-          break;
-        case 'vacbot':
-          if (asimovProgress >= 200) {
-            await add(
-              SpriteComponent(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-                sprite:
-                    await Sprite.load(Assets.assets_images_objects_vacbot_png),
-              ),
-            );
-          }
           break;
         case 'school':
           await add(
