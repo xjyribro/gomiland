@@ -192,7 +192,6 @@ class Player extends SpriteAnimationComponent
     }
   }
 
-
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (game.gameStateBloc.state.showControls) return false;

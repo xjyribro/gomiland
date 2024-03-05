@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/objects/obstacle.dart';
 
 class CombiniSign extends SpriteComponent with HasGameReference<GomilandGame> {
   CombiniSign({required Vector2 super.position});

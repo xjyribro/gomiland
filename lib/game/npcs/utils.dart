@@ -7,7 +7,7 @@ import 'package:gomiland/controllers/progress/progress_state_bloc.dart';
 import 'package:gomiland/game/data/other_player.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_type.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/objects/obstacle.dart';
 import 'package:gomiland/game/scenes/utils.dart';
 
 class NpcNameStrings {

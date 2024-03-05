@@ -37,7 +37,7 @@ import 'package:gomiland/game/objects/buildings/shoukudou.dart';
 import 'package:gomiland/game/objects/buildings/tea_shop.dart';
 import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/street_light.dart';
-import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/objects/obstacle.dart';
 import 'package:gomiland/game/objects/signs/combini_sign.dart';
 import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';
@@ -447,6 +447,7 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
 
   Future<void> _loadNpcs(ObjectGroup npcs) async {
     friends = game.playerStateBloc.state.friends;
+    int asimovProgress = game.progressStateBloc.state.asimov;
     for (final TiledObject npc in npcs.objects) {
       switch (npc.name) {
         case 'friend':
@@ -535,13 +536,28 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
         case 'scarlett':
           await add(Scarlett(position: Vector2(npc.x, npc.y)));
           break;
+        case 'vacbot':
+          if (asimovProgress >= 200) {
+            await add(
+              SpriteComponent(
+                position: Vector2(npc.x, npc.y),
+                size: Vector2(npc.width, npc.height),
+                sprite:
+                await Sprite.load(Assets.assets_images_objects_vacbot_png),
+              ),
+            );
+            add(Obstacle(
+              position: Vector2(npc.x + 4, npc.y),
+              size: Vector2(npc.width - 8, npc.height),
+            ));
+          }
+          break;
       }
     }
   }
 
   Future<void> _loadBuildings(ObjectGroup buildings) async {
     int starkProgress = game.progressStateBloc.state.stark;
-    int asimovProgress = game.progressStateBloc.state.asimov;
     for (final TiledObject building in buildings.objects) {
       switch (building.name) {
         case 'home':
@@ -634,18 +650,6 @@ class HoodMap extends Component with HasGameReference<GomilandGame> {
               spritePath: Assets.assets_images_buildings_combini_png,
             ),
           );
-          break;
-        case 'vacbot':
-          if (asimovProgress >= 200) {
-            await add(
-              SpriteComponent(
-                position: Vector2(building.x, building.y),
-                size: Vector2(building.width, building.height),
-                sprite:
-                await Sprite.load(Assets.assets_images_objects_vacbot_png),
-              ),
-            );
-          }
           break;
         case 'kiosk_roof':
           await add(

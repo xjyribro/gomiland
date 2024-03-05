@@ -26,7 +26,7 @@ import 'package:gomiland/game/objects/buildings/temizuya.dart';
 import 'package:gomiland/game/objects/gate.dart';
 import 'package:gomiland/game/objects/lights/park_light.dart';
 import 'package:gomiland/game/objects/lights/stone_light.dart';
-import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/objects/obstacle.dart';
 import 'package:gomiland/game/objects/signs/general_sign.dart';
 import 'package:gomiland/game/objects/signs/statue.dart';
 import 'package:gomiland/game/objects/spawners/rubbish_spawner.dart';

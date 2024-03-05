@@ -26,7 +26,7 @@ class RubbishSpawner extends SpriteComponent
       Assets.assets_images_rubbish_rubbish_small_png,
     ));
     _hitbox = RectangleHitbox(
-      size: Vector2(40, 40),
+      size: Vector2(31, 31),
       position: Vector2(16, 16),
       anchor: Anchor.center,
       collisionType: CollisionType.passive,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="25" nextobjectid="1586">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="200" height="150" tilewidth="32" tileheight="32" infinite="0" nextlayerid="25" nextobjectid="1588">
  <tileset firstgid="1" source="water.tsx"/>
  <tileset firstgid="401" source="waterfront.tsx"/>
  <tileset firstgid="801" source="grass.tsx"/>
@@ -2037,11 +2037,10 @@
   <object id="1336" name="pilar" x="5888" y="768" width="32" height="96"/>
   <object id="1337" name="pilar" x="5888" y="960" width="32" height="96"/>
   <object id="1445" name="pilar" x="5888" y="1056" width="32" height="96"/>
-  <object id="1338" name="kiosk_roof" x="5632" y="928" width="320" height="192"/>
+  <object id="1586" name="kiosk_roof" x="5632" y="928" width="320" height="192"/>
   <object id="1446" name="kiosk_roof" x="5632" y="640" width="320" height="192"/>
   <object id="1527" name="digger" x="4992" y="3872" width="128" height="64"/>
   <object id="1528" name="digger" x="4608" y="4064" width="128" height="64"/>
-  <object id="1529" name="vacbot" x="5760" y="704" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="18" name="trees">
   <object id="1140" name="tree_popsicle" x="384" y="288" width="128" height="192"/>
@@ -2471,6 +2470,7 @@
   <object id="288" name="mr_star" x="4544" y="928" width="32" height="32"/>
   <object id="292" name="kushi" x="3840" y="1440" width="32" height="32"/>
   <object id="1231" name="asimov" x="5760" y="768" width="32" height="32"/>
+  <object id="1587" name="vacbot" x="5760" y="704" width="64" height="64"/>
   <object id="1232" name="himiko" x="2080" y="576" width="32" height="32"/>
   <object id="1364" name="girl" x="6176" y="3904" width="32" height="32"/>
   <object id="1377" name="girl" x="5376" y="4544" width="32" height="32"/>

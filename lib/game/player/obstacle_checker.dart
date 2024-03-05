@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:gomiland/game/game.dart';
-import 'package:gomiland/game/objects/obsticle.dart';
+import 'package:gomiland/game/objects/obstacle.dart';
 
 mixin ObstacleChecker on PositionComponent, HasGameReference<GomilandGame> {
   void checkMovement({
