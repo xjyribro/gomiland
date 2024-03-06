@@ -95,7 +95,9 @@ class InfoText{
       '2. Water and energy conservation\n'
       '3. Walking and bike friendly roads\n'
       '4. Eco-friendly buildings\n'
-      '5. Waste management system (new)';
+      '5. Waste management system (new)\n\n'
+      'Read about sustainable cities: https://www.digi.com/blog/post/sustainable-city\n'
+      'https://earth.org/how-sustainable-cities-like -singapore-succeed-in-green-urban-development/';
 
   static const String park_centre = 'Gomiland National Park\n'
       'Home to many different species of plants and wildlife.\n\n'
