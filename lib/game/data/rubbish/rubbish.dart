@@ -41,6 +41,7 @@ class RubbishData {
       gameDevice,
       tablet,
       mobilePhone,
+      headphone,
     ];
     metalObjects = [
       drinkCan,
@@ -251,7 +252,7 @@ class RubbishData {
     assetPath: Assets.assets_images_rubbish_wine_glass_png,
     rubbishType: RubbishType.glass,
     spriteCount: 1,
-    size: Vector2(64, 64),
+    size: Vector2(32, 64),
     hitboxSize: Vector2(32, 32),
   );
 
@@ -300,6 +301,14 @@ class RubbishData {
   RubbishObject mobilePhone = RubbishObject(
     name: 'mobile phone',
     assetPath: Assets.assets_images_rubbish_mobile_png,
+    rubbishType: RubbishType.electronics,
+    spriteCount: 1,
+    size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
+  );
+  RubbishObject headphone = RubbishObject(
+    name: 'headphone',
+    assetPath: Assets.assets_images_rubbish_headphones_png,
     rubbishType: RubbishType.electronics,
     spriteCount: 1,
     size: Vector2(64, 64),
