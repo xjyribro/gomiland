@@ -128,7 +128,8 @@ class InfoText{
 
   static const String world_forest = 'World forest\n\n'
       'Check out trees from all over the world!\n\n'
-      'Important habitats like forests and jungles are being cleared at an unsustainable rate globally\n'
+      'Forests and jungles play a crucial role in our natural environment.\n'
+      'They are important habitats for many plants and animals, but are being cleared at an unsustainable rate globally.\n'
       'We must do our part to conserve these essential wild spaces for future generations\n\n'
       'Be a tree advocate:\n'
       'Support organizations working to conserve forests and advocate for policies that protect these vital ecosystems.\n'
