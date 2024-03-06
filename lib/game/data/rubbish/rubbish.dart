@@ -32,6 +32,7 @@ class RubbishData {
       glassPlate,
       bowl,
       teapot,
+      wineGlass,
     ];
     electronicObjects = [
       drone,
@@ -47,6 +48,8 @@ class RubbishData {
       spanner,
       pot,
       fryingPan,
+      fork,
+      spoon,
     ];
     foodObjects = [
       bananaPeel,
@@ -243,6 +246,14 @@ class RubbishData {
     size: Vector2(64, 64),
     hitboxSize: Vector2(32, 32),
   );
+  RubbishObject wineGlass = RubbishObject(
+    name: 'wine glass',
+    assetPath: Assets.assets_images_rubbish_wine_glass_png,
+    rubbishType: RubbishType.glass,
+    spriteCount: 1,
+    size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
+  );
 
   // ELECTRONICS
   List<RubbishObject> electronicObjects = [];
@@ -332,6 +343,22 @@ class RubbishData {
   RubbishObject fryingPan = RubbishObject(
     name: 'frying pan',
     assetPath: Assets.assets_images_rubbish_pan_png,
+    rubbishType: RubbishType.metal,
+    spriteCount: 1,
+    size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
+  );
+  RubbishObject fork = RubbishObject(
+    name: 'fork',
+    assetPath: Assets.assets_images_rubbish_fork_png,
+    rubbishType: RubbishType.metal,
+    spriteCount: 1,
+    size: Vector2(64, 64),
+    hitboxSize: Vector2(32, 32),
+  );
+  RubbishObject spoon = RubbishObject(
+    name: 'spoon',
+    assetPath: Assets.assets_images_rubbish_spoon_png,
     rubbishType: RubbishType.metal,
     spriteCount: 1,
     size: Vector2(64, 64),

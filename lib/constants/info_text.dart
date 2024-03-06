@@ -88,7 +88,7 @@ class InfoText{
       'Bamboo requires less water than most trees\n'
       'They prevent soil erosion, maintain soil fertility, and promote healthy watersheds\n';
 
-  static const String hood_sign = 'Gomiland Neighbourhood\n'
+  static const String hood_sign = 'This way to Gomiland Neighbourhood\n'
       'Bustling energy meets friendly charm\n\n'
       'Gomiland achieves sustainability through:\n'
       '1. Green public spaces\n'
@@ -99,7 +99,7 @@ class InfoText{
       'Read about sustainable cities: https://www.digi.com/blog/post/sustainable-city\n'
       'https://earth.org/how-sustainable-cities-like -singapore-succeed-in-green-urban-development/';
 
-  static const String park_centre = 'Gomiland National Park\n'
+  static const String park_centre = 'This way to Gomiland National Park\n'
       'Home to many different species of plants and wildlife.\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
