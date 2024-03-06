@@ -15,14 +15,18 @@ class InfoText{
       'For your own safety, keep clear of worksite\n\n'
       '-Stark Construction Company';
 
-  static const String combini = 'Go 24hr convenience store\n\n'
-      'Get the best deals in town';
-
   static const String soup_kitchen = 'Soup Kitchen\n\n'
-      'Run by Florence';
+      'Run by Florence\n\n'
+      'Our facility uses low-flow toilets, faucets, and shower heads to conserve water\n\n'
+      'We also practice greywater recycling.\n'
+      'Water from sinks and showers (greywater) can be treated then reused for tasks that don\'t require clean water\n'
+      'These tasks include flushing toilets and watering plants.';
 
   static const String school = 'Gomiland Elementary School\n\n'
-      'Where young minds flourish';
+      'Where young minds flourish\n\n'
+      'This building like many others in Gomiland have solar panels on its roof\n'
+      'Solar panels can significantly reduce electricity bills and dependence on the grid.\n'
+      'They also contribute to sustainability by generating clean, renewable energy.';
 
   static const String player_garden = 'Community Zen Garden\n\n'
       'Beautify the garden with these simple steps!\n\n'
@@ -100,7 +104,7 @@ class InfoText{
       '2. Provide economic support for natural and cultural resources through tourism\n';
 
   static const String castle = 'Gomiland castle\n\n\n'
-      'Please do not throw trash on the castle grounds.';
+      'Please do not throw trash on the castle grounds.\n\n';
 
   static const String sakuras = 'Cherry Blossoms\n\n'
       'Due to climate change, Cherry Blossom blooms are happening earlier each year.\n'
@@ -139,6 +143,7 @@ class InfoText{
   static const String statue = 'Statue under restoration\n\n\n'
       'We apologise for the inconvenience\n\n'
       'Helping others could speed up restoration efforts...';
+
   static const String warrior = 'Statue of brave eco-warrior\n\n\n'
       'Provider of aid to those in need,\n'
       'protector of our ecosystems\n'

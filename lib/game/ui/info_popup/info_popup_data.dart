@@ -41,7 +41,6 @@ class InfoPopData {
     _data['warrior'] = InfoPopupObject(text: InfoText.warrior);
     // Room
     _data['how_to_sort'] = InfoPopupObject(text: InfoText.how_to_sort);
-    _data['combini'] = InfoPopupObject(text: InfoText.combini);
   }
 
   final Map<String, InfoPopupObject> _data = {};
