@@ -52,11 +52,9 @@ class InfoText{
 
   static const String cafe = 'Enjoyeux cafe\n\n'
       'Best vegan food in town!\n\n'
-      'Choosing plant-based proteins like beans, lentils, and tofu shrinks your carbon footprint.\n\n'
-      'It conserves precious water and protects biodiversity.\n\n'
-      'Go green, go meatless, and savor the positive impact on our planet, one delicious bite at a time\n\n'
-      'Greenhouse Gases: Animal agriculture is responsible for 14.5% of global greenhouse gas emissions\n'
-      'Livestock production uses 70% of all agricultural land globally, yet only provides 18% of the world\'s calories. '
+      'Plant-based foods like beans, lentils, and tofu reduce your carbon footprint\n\n'
+      'Go meatless, and savor the positive impact on our planet, one bite at a time\n\n'
+      'Animal agriculture is responsible for 14.5% of global greenhouse gas emissions and uses 70% of all agricultural land globally, yet only provides 18% of the world\'s calories.'
       'Choosing plant-based foods frees up land for other uses, like restoring natural ecosystems\n\n'
       'Source: https://www.reuters.com/business/environment/ factbox-how-food-agriculture-contribute-climate-change-2023-12-02/';
 
@@ -66,12 +64,12 @@ class InfoText{
       'Talk to everyone!';
 
   static const String park_sign = 'This way to Gomiland National Park.\n\n'
-      'Don\'t forget to visit the Castle, Bamboo Forest Shrine, World forest and the Honey Bee Colony\n\n'
+      'Visit the Castle, Bamboo Forest Shrine, World forest and the Honey Bee Colony\n\n'
       'Please pick up rubbish in the park. Let\'s do our part to keep the park clean!\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n'
-      '3. Protection from threats including logging and land clearing, pollution, and urban development\n'
+      '3. Protection from threats like logging, land clearing, pollution, and urbanisation\n'
       '4. Provide a safe haven for threatened native species\n\n'
       'Source: https://blog.nationalparks.nsw.gov.au/whats-a-national-park-and-why-does-it-matter,\n'
       'https://www.nathab.com/blog/why-national-parks-matter,';
@@ -103,7 +101,9 @@ class InfoText{
       'Home to many different species of plants and wildlife.\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
-      '2. Provide economic support for natural and cultural resources through tourism\n';
+      '2. Provide economic support for natural and cultural resources through tourism\n'
+      'Did you know: Yellowstone National Park, established in 1872, was the first ever National Park!\n'
+      'Now there are over 6500 parks around the world!';
 
   static const String castle = 'Gomiland castle\n\n\n'
       'Please do not throw trash on the castle grounds.\n\n';
