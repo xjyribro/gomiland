@@ -75,7 +75,9 @@ class InfoText{
       'https://www.nathab.com/blog/why-national-parks-matter,';
 
   static const String zen_garden = 'Zen garden\n\n'
-      'Stay and enjoy the tranquility of the garden';
+      'Stay and enjoy the tranquility of the garden\n'
+      'Learn how to contribute to sustainability\n'
+      'Download the Global citizen app today!';
 
   static const String shrine_complex = 'Bamboo forest shrine\n\n'
       'Welcome traveller to the shrine.\n'
@@ -106,7 +108,9 @@ class InfoText{
       'Now there are over 6500 parks around the world!';
 
   static const String castle = 'Gomiland castle\n\n\n'
-      'Please do not throw trash on the castle grounds.\n\n';
+      'Please do not throw trash on the castle grounds.\n\n'
+      'Did you know: Lighting accounts for 15% of global electricity use.\n'
+      'Switching to LEDs will use 90% less energy and last far longer than with the use of incandescent lights.';
 
   static const String sakuras = 'Cherry Blossoms\n\n'
       'Due to climate change, Cherry Blossom blooms are happening earlier each year.\n'
