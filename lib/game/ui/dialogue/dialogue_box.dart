@@ -47,11 +47,15 @@ class DialogueBoxComponent extends HudMarginComponent {
 }
 
 class DialogueBoxSpriteComponent extends SpriteComponent {
-  DialogueTextBox _textBox = DialogueTextBox(text: '', showFullText: true,);
+  DialogueTextBox _textBox = DialogueTextBox(
+    text: '',
+    showFullText: true,
+  );
   late final ButtonRow _buttonRow = ButtonRow(size: _size);
   final Vector2 _size = Vector2(dialogueBoxWidth, dialogueBoxHeight);
   String _text = '';
   Function _goNextLine = () {};
+
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(
@@ -85,12 +89,18 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
   }
 
   void showTyperText() {
-    _textBox = DialogueTextBox(text: _text, showFullText: false,);
+    _textBox = DialogueTextBox(
+      text: _text,
+      showFullText: false,
+    );
     add(_textBox);
   }
 
   void showFullText() {
-    _textBox = DialogueTextBox(text: _text, showFullText: true,);
+    _textBox = DialogueTextBox(
+      text: _text,
+      showFullText: true,
+    );
     add(_textBox);
   }
 
@@ -119,10 +129,11 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
   }
 
   void showCloseButton(Function onClose) {
-    void closeDialogue () {
+    void closeDialogue() {
       removeTextBox();
       onClose();
     }
+
     _buttonRow.showCloseButton(closeDialogue);
   }
 }
