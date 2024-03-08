@@ -35,6 +35,10 @@ From the main menu you can:
 7. If it states "Untrusted developer, ...", allow the app to be run by going to Settings > General > Device management > trust profile
 8. Run again
 
+To install the app and use it without plugging in"
+1. Attach iPhone/ iPad
+2. Run `flutter run --release`
+
 If there is an error caused by a conflict in pod file:
 1. Delete file _ios/Podfile.lock_ in root folder
 2. run `cd ios && pod install && cd ..`
