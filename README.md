@@ -2,6 +2,14 @@
 
 Recycling game
 
+#How to set up
+
+**Web**
+
+**Android**
+
+**iOS**
+
 #Redemption codes
 
 These redemption codes are given out to NGOs/ recycling centres/ companies to give players when they contribute to sustainability.

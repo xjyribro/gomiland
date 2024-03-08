@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gomiland/assets.dart';
 import 'package:gomiland/constants/constants.dart';
@@ -80,7 +79,7 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
     if (text.startsWith(':')) {
       _text = text.substring(2);
     }
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       showFullText();
     } else {
       showTyperText();
