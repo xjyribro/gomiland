@@ -80,6 +80,7 @@ class _MainMenuState extends State<MainMenu> {
   List<Widget> _menuButtons() {
     return [
       Wrap(
+        alignment: WrapAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: _sidePadding),
@@ -115,6 +116,7 @@ class _MainMenuState extends State<MainMenu> {
       ),
       const SpacerNormal(),
       Wrap(
+        alignment: WrapAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: _sidePadding),
@@ -150,6 +152,7 @@ class _MainMenuState extends State<MainMenu> {
       const SpacerNormal(),
       _isSignedIn
           ? Wrap(
+              alignment: WrapAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: _sidePadding),
@@ -167,6 +170,7 @@ class _MainMenuState extends State<MainMenu> {
             )
           : Container(),
       Wrap(
+        alignment: WrapAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: _sidePadding),
