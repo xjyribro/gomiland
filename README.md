@@ -33,6 +33,7 @@ From the main menu you can:
 5. Select target device
 6. Run on target device
 7. If it states "Untrusted developer, ...", allow the app to be run by going to Settings > General > Device management > trust profile
+8. Run again
 
 If there is an error caused by a conflict in pod file:
 1. Delete file _ios/Podfile.lock_ in root folder
