@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
@@ -74,12 +76,21 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
     if (text.startsWith(':')) {
       _text = text.substring(2);
     }
-    showTyperText();
+    if (Platform.isIOS) {
+      showFullText();
+    } else {
+      showTyperText();
+    }
     _buttonRow.showNextButton(onNextButtonPressed);
   }
 
   void showTyperText() {
     _textBox = DialogueTextBox(text: _text, showFullText: false,);
+    add(_textBox);
+  }
+
+  void showFullText() {
+    _textBox = DialogueTextBox(text: _text, showFullText: true,);
     add(_textBox);
   }
 
@@ -90,8 +101,7 @@ class DialogueBoxSpriteComponent extends SpriteComponent {
     } else {
       // else show complete text and new next button
       removeTextBox();
-      _textBox = DialogueTextBox(text: _text, showFullText: true,);
-      add(_textBox);
+      showFullText();
       _buttonRow.showNextButton(_goNextLine);
     }
   }
