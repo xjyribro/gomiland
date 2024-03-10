@@ -217,7 +217,7 @@ class _MainMenuState extends State<MainMenu> {
               const SpacerNormal(),
               if (isWebMobile)
                 const Text(
-                  'Gomiland is for desktop browsers only, for Android and iOS, please go to this page for more info',
+                  'Gomiland is for desktop browsers only',
                   textAlign: TextAlign.center,
                   style: TextStyles.menuWhiteTextStyle,
                 )

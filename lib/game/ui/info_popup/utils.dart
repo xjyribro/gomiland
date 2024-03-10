@@ -3,7 +3,7 @@ import 'package:flame/sprite.dart';
 import 'package:gomiland/game/data/rubbish/rubbish_object.dart';
 
 double getSpriteYPosit(double height) {
-  const topMargin = 60;
+  const topMargin = 96;
   const maxHeight = 96;
   return topMargin + ((maxHeight - height) / 2);
 }

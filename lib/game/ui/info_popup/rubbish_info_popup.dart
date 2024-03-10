@@ -89,7 +89,7 @@ class RubbishInfoPopupSpriteComponent extends SpriteComponent
         text:
             '${_rubbishType.string.capitalize()} bin. Example items that go here:\n'
                 'Not all items shown.',
-        size: Vector2(704, 32),
+        size: Vector2(704, 64),
         position: Vector2(16, 24),
         textRenderer: TextPaint(
           style: TextStyles.popupTextStyle,
