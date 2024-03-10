@@ -143,9 +143,10 @@ class InfoText{
   static const String how_to_sort = 'Sorting instructions:\n\n'
       '1. Drag and drop the rubbish on the table into the bins\n'
       '2. The bins correspond to a recyclable material type:\n'
-      'Plastic, Paper, Glass, Metal, Food waste and Electronic waste'
-      '3. Get G-coins from the city council for getting it right.'
-      '4. Get fined if you get it wrong.';
+      'Plastic, paper, glass, metal, food waste and electronics.\n'
+      '3. Get G-coins from the city council for getting it right.\n'
+      '4. Get fined if you get it wrong.\n\n'
+      'Hint: you can tap on the bins to see what they are.';
 
   static const String statue = 'Statue under restoration\n\n\n'
       'We apologise for the inconvenience\n\n'
