@@ -8,14 +8,14 @@ title: talk
     MrMoon: What a wonderful person you are.
     MrMoon: I have an idea. My neighbours and I run a community garden.
     MrMoon: If you help us collect food scraps, we can make fertilizer.
-    MrMoon: Toss 5 food waste then come see me.
+    MrMoon: Toss 5 types of food waste then come see me.
     <<changeProgress 0>>
 <<elseif $progress < 5>>
     <<set $remainder = 5 - $progress>>
     MrMoon: If you help us collect food scraps, we can make fertilizer.
-    MrMoon: Toss another {$remainder} food waste then come see me.
+    MrMoon: Toss another {$remainder} types of food waste then come see me.
 <<elseif $progress >= 5 and $progress < 100>>
-    MrMoon: Our plants have grown splendidly well all thanks to you.
+    MrMoon: Our plants have grown splendidly well all thanks to you!
     MrMoon: Making compost from food waste saves us from buying fertilizer and it is all natural as well!
     MrMoon: I will ask the city to give you more coins for each food waste.
     MrMoon: Collect another 10 and maybe we can produce better crops.
@@ -24,7 +24,7 @@ title: talk
     <<set $remainder = 110 - $progress>>
     MrMoon: Collect another {$remainder} and maybe we can produce better crops.
 <<else>>
-    MrMoon: The community garden can now create a wider variety of plants!
+    MrMoon: The community garden can now cultivate a wider variety of plants!
     MrMoon: Using our own compost beats having to buy expensive chemicals from the store.
     <<changeProgress 200>>
 <<endif>>

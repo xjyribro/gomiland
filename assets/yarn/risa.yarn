@@ -4,24 +4,24 @@ title: talk
 ---
 <<if $progress == -1>>
     Risa: Nice to meet you.
-    Risa: My name is Risa. I work for Go 24hr convenient stores.
-    Risa: I have been trying for months to convince the boss to reduce the single use plastics that our stores currently use.
+    Risa: My name is Risa. I work for Go 24hr convenience stores.
+    Risa: I have been trying for months to convince the boss to reduce the single-use plastics that our stores currently use.
     Risa: Hmm... could you help me?
     -> No
         Risa: Oh you don't have time?
-        Risa: No worries
+        Risa: No worries!
     -> Yes
         Risa: Great!
         Risa: Help me collect 5 plastics from the streets and I will show my boss that not only is it expensive,
-        Risa: but it creates a lot of waste to use single ue plastics!
+        Risa: but it creates a lot of waste to use single-use plastics!
         <<changeProgress 0>>
 <<elseif $progress < 5>>
     <<set $remainder = 5 - $progress>>
-    Risa: Collect any plastic pieces you find and throw them at home.
+    Risa: Collect any plastic pieces you find and sort them at home.
     Risa: {$remainder} more to go!
 <<elseif $progress >= 5 and $progress < 100>>
     Risa: Thank you for your effort.
-    Risa: I have shown my boss the rubbish that you collected.
+    Risa: I have shown my boss the trash that you collected.
     Risa: He isn't convinced...
     Risa: I bet he needs more evidence. Could you collect another 10 more plastics please?
     Risa: I will also ask the city to increase the coins for plastics you throw as an incentive.
@@ -31,13 +31,13 @@ title: talk
     Risa: Help me collect {$remainder} more plastics to show my boss!
 <<elseif $progress < 200>>
     Risa: Thank you for your hard work.
-    Risa: Unfortunately my boss didn't think the idea of reducing plastics was feasible...
-    Risa: maybe if a customer went to see him, he would be persuaded. He values the customer a great deal.
+    Risa: Unfortunately, my boss didn't think the idea of reducing plastics was feasible...
+    Risa: Maybe if a customer went to see him, he would be persuaded. He values the customer a great deal.
     Risa: Look for him in front of the Gomiland office building between the hospital and the school.
     Risa: His name is Mr Kushi.
 <<else>>
-    Risa: Our plan worked! Mr Kushi is determined to phase out single use plastics in all our prouducts!
-    Risa: We also reward people who bring their own bags and containers to fill drinks.
-    Risa: Thanks so much for your help.
+    Risa: Our plan worked! Mr Kushi is determined to phase out single-use plastics in all our products!
+    Risa: We also reward people who bring their own bags for shopping and containers for food and drinks.
+    Risa: Thanks so much for your help!
 <<endif>>
 ===

@@ -1,17 +1,17 @@
 <<character "Ms Margret" MsMargret>>
 title: pre_buy
 ---
-MsMargret: Good day to you. You can call me Ms Margert.
+MsMargret: Good day to you. You can call me Ms Margret.
 MsMargret: I teach Geography at Gomiland Elementary School.
-MsMargret: Do you know about sustainability? Let me give you a test.
-MsMargret: Question 1 - All plastics can be recycled.
+MsMargret: Do you know about sustainability? Let me give you a test!
+MsMargret: Question 1 - All plastics can be recycled. True or False?
 -> True
    MsMargret: Incorrect. Only about 75% of plastics can be melted and molded to produce new plastics.
-   MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle
+   MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle.
 -> False
     MsMargret: Correct. Only about 75% of plastics can be melted and molded to produce new plastics.
     MsMargret: The remaining 25% of plastics do not soften when exposed to heat, making them near-impossible to recycle.
-    MsMargret: Question 2 - The creator of plastic bags says they were meant to be used only once.
+    MsMargret: Question 2 - The creator of plastic bags says they were meant to be used only once. True or False?
     -> True
         MsMargret: Incorrect. The inventor of plastic bags was Swedish engineer Sten Gustaf Thulin.
         MsMargret: His son said his dad thinks that the idea that people would simply throw these away would be bizarre.
@@ -22,16 +22,16 @@ MsMargret: Question 1 - All plastics can be recycled.
 ===
 title: buy
 ---
-MsMargret: Ah you get an A for sustainability.
+MsMargret: Ah, you get an A for sustainability.
 MsMargret: As a bonus, you can buy a bonsai that the students are selling.
-MsMargret: It costs 10 coins
+MsMargret: It costs 10 coins.
 -> No
     MsMargret: They sell out fast so if you want it, you should get it soon.
 -> Yes
     <<if $coins < 10>>
         MsMargret: Hmm.. doesn't look like you have enough coins...
     <<else>>
-        MsMargret: The students will be happy. I will get one of them to send it to the garden soon.
+        MsMargret: The students will be happy. I will get one of them to send it to your garden soon.
         <<buyBonsai 3>>
     <<endif>>
 ===

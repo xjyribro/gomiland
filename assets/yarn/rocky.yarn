@@ -3,15 +3,15 @@ title: pre_buy
 ---
 Rocky: Muscle. Strength. Power.
 Rocky: You need these to achieve sustainability.
-Rocky: Huh? You don't are you sure?.
+Rocky: Huh? You don't? ....Are you sure?.
 ===
 title: buy
 ---
-Rocky: Looks like you make a positive impact without big muscles...
+Rocky: Looks like you can make a positive impact without big muscles...
 Rocky: Would you like to buy a small but heavy rock for your zen garden?
-Rocky: I costs 10 coins
+Rocky: It costs 10 coins.
 -> No
-    Rocky: Ok you don't have to get it now. I will be here training all day.
+    Rocky: Okay, you don't have to get it now. I will be here training all day.
 -> Yes
     <<if $coins < 10>>
         Rocky: Hmm.. doesn't look like you have enough coins...

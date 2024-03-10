@@ -20,7 +20,7 @@ Manuka: Bzzzz! {$rubbishName} is not made of glass.
 ===
 title: metal_error
 ---
-Stark: Hey be careful kid! {$rubbishName} ain't made of metal.
+Stark: Hey, be careful kid! {$rubbishName} ain't made of metal.
 ===
 title: electronics_error
 ---

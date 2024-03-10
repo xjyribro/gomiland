@@ -1,13 +1,13 @@
 title: new_player
 ---
-{$friendName}: Hi I'm new to Gomiland. Nice to meet you!
+{$friendName}: Hi, I'm new to Gomiland. Nice to meet you!
 ===
 title: progress_player
 ---
 {$friendName}: How's it going? Gomiland has so many areas to explore.
 {$friendName}: Have you visited them all?
 -> Yes
-    {$friendName}: Wow lucky you. I'm still finding new places everyday!
+    {$friendName}: Wow, lucky you. I'm still discovering new places everyday!
 -> No
     {$friendName}: Me neither! I'm on a mission to check out all the landmarks.
 ===
@@ -18,18 +18,18 @@ title: seasoned_player
 ===
 title: buy_shoe
 ---
-{$friendName}: Hey {$playerName}, looks like you are wearing you old shoes. Want to get new ones?
-{$friendName}: They cost just 10 coins
+{$friendName}: Hey {$playerName}, looks like you are wearing old shoes. Want to get new ones?
+{$friendName}: They cost just 10 coins.
 -> No
     {$friendName}\: That's fine. Just to let you know that shoes can be recycled too.
-    {$friendName}\: If you want to get new ones, you should recycle your old ones.
+    {$friendName}\: If you want to get new ones, you should recycle your old ones!
 -> Yes
     <<if $coins < 10>>
         {$friendName}\: Looks like you don't have enough coins. Come back when you do!
     <<else>>
         <<upgradeShoe>>
-        {$friendName}\: Here you go! New jogging shoes
-        {$friendName}\: I can take your old ones to recycle. Companies make playgrounds and running tracks from recycled shoes!
+        {$friendName}\: Here you go! New jogging shoes!
+        {$friendName}\: I can take your old ones to be recycled. Companies make playground areas and running tracks from recycled shoes!
     <<endif>>
 ===
 title: buy_bag

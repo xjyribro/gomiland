@@ -11,7 +11,7 @@ title: boy
     Boy : There is a decline in honey bees.
     Boy : It would be sad if we had no more bees to make honey.
 <<elseif  $rand == 3>>
-    Boy : I wonder why there is so much trash in the park.
+    Boy : I wonder why there is so much trash in the park...
 <<elseif  $rand == 4>>
     Boy : Let's make our planet cleaner, by using reusable bags and containers.
 <<elseif  $rand == 5>>
@@ -28,7 +28,7 @@ title: girl
 <<elseif  $rand == 3>>
     Girl : Sorting recyclables is a small effort with big impact.
 <<elseif  $rand == 4>>
-    Girl : I'm looking for  a shady spot to enjoy a picnic.
+    Girl : I'm looking for a shady spot to enjoy a picnic.
 <<elseif  $rand == 5>>
     Girl : Have you tried Manuka's honey?
 <<endif>>
@@ -37,14 +37,14 @@ title: man
 ---
 <<set $rand = dice(5)>>
 <<if $rand == 1>>
-    Man : The planners did a great job planting so many trees.
+    Man : The city planners did a great job planting so many trees.
     Man : The trees are from all over the world!
 <<elseif  $rand == 2>>
     Man : The Global Citizen app has many environmental sustainability programs.
 <<elseif  $rand == 3>>
     Man : Conserving water and energy is essential for a sustainable future.
 <<elseif  $rand == 4>>
-    Man : Image a city with zero waste. Let's make it happen!
+    Man : Imagine a city with zero waste. Let's make it happen!
 <<elseif  $rand == 5>>
     Man : Recycled materials are made into new products.
     Man : We burn less waste and don't need to harvest more materials. Win-win!
@@ -63,6 +63,6 @@ title: woman
 <<elseif  $rand == 4>>
     Woman : I've started recycling at home.
 <<elseif  $rand == 5>>
-    Woman : Have you made friends from other cities?
+    Woman : Have you made friends with people from other cities?
 <<endif>>
 ===

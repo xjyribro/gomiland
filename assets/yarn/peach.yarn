@@ -1,7 +1,7 @@
 <<character Peach>>
 title: pre_buy
 ---
-Peach: Hi I'm Peach and I love hanging out here in the park
+Peach: Hi I'm Peach and I love hanging out here in the park!
 Peach: It's really important that people know how to preserve the natural environment.
 Peach: If you can show that you have what it takes to contribute to sustainability efforts, input a code and find me again!
 ===
@@ -9,14 +9,14 @@ title: buy
 ---
 Peach: I see you have done a good job contributing to sustainability efforts in your own life.
 Peach: Would you like to buy a bonsai for your zen garden?
-Peach: It costs 10 coins
+Peach: It costs 10 coins.
 -> No
     Peach: No? It would look really nice, I promise.
 -> Yes
     <<if $coins < 10>>
         Peach: Hmm.. doesn't look like you have enough coins...
     <<else>>
-        Peach: Nice! I will appear in your garden soon.
+        Peach: Nice! It will appear in your garden soon.
         <<buyBonsai 2>>
     <<endif>>
 ===

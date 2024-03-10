@@ -29,8 +29,8 @@ title: girl
     Girl : I love that our city has given recycling bins to everyone.
     Girl : It makes it so much easier and fun!
 <<elseif  $rand == 4>>
-    Girl : Just came back from a stroll in Gomiland National Park.
-    Girl : I feel so refreshed.
+    Girl : I just came back from a stroll in Gomiland National Park.
+    Girl : I feel so refreshed!
 <<elseif  $rand == 5>>
     Girl : Do you know about recycling projects in other countries?
 <<endif>>
@@ -40,7 +40,7 @@ title: man
 <<set $rand = dice(5)>>
 <<if $rand == 1>>
     Man : Plastic takes a really long time to decompose.
-    Man : Using less single use plastics makes the most sense.
+    Man : Using less single-use plastics makes the most sense.
 <<elseif  $rand == 2>>
     Man : Have you downloaded the Online Citizen app yet?
 <<elseif  $rand == 3>>
@@ -56,15 +56,15 @@ title: woman
 ---
 <<set $rand = dice(5)>>
 <<if $rand == 1>>
-    Woman : I use Flutter for developing cross platform games.
+    Woman : I use Flutter for developing cross-platform games.
 <<elseif  $rand == 2>>
     Woman : Do you know about Friendship Square?
     Woman : It's in the North West of the city.
 <<elseif  $rand == 3>>
     Woman : No matter which country you are in, you can find recycling efforts.
 <<elseif  $rand == 4>>
-    Woman : I heard the local cafe is planning to reduce single-use containers.
+    Woman : I heard the local convenience store is planning to reduce single-use plastic containers.
 <<elseif  $rand == 5>>
-    Woman : It's tough sorting out rubbish.
+    Woman : It's tough sorting out all the trash!
 <<endif>>
 ===

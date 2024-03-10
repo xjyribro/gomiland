@@ -10,20 +10,20 @@ title: buy
 ---
 Gaia: Thank you for your efforts in improving the sustainability for the planet.
 Gaia: Would you like to buy a bonsai for your zen garden?
-Gaia: It costs 10 coins
+Gaia: It costs 10 coins.
 -> No
-    Gaia: No problem. I'll sit here an enjoy the best the park has to offer.
+    Gaia: No problem. I'll sit here and enjoy the best the park has to offer.
 -> Yes
     <<if $coins < 10>>
         Gaia: Hmm.. doesn't look like you have enough coins...
     <<else>>
-        Gaia: I hope you enjoy looking at the bonsais in the garden on a slow walk.
+        Gaia: I hope you enjoy looking at the bonsai in the garden on a slow walk.
         Gaia: It is good to take it easy once in a while and enjoy the beauty of nature.
         <<buyBonsai 4>>
     <<endif>>
 ===
 title: post_buy
 ---
-Gaia: Small efforts go a long way to making our planet beautiful for future generations.
-Gaia: I hope the bonsais in your garden last for many years and people all around the world can come see them!
+Gaia: Small efforts go a long way in making our planet beautiful for future generations.
+Gaia: I hope the bonsai in your garden last for many years and people all around the world can come see them!
 ===

@@ -3,27 +3,27 @@ title: talk
 ---
 <<if $progress < 110>>
     Kushi: Good {$timeOfDay}! Pleased to meet you.
-    Kushi: I am Mr Kushi, boss of Go convenient stores.
-    Kushi: We run the largest 24hr convenient store chain in Gomiland!
+    Kushi: I am Mr Kushi, boss of Go convenience stores.
+    Kushi: We run the largest 24-hour convenience store chain in Gomiland!
     Kushi: Our goal is to ensure our customers are happy each time they visit our stores.
 <<elseif $progress < 200>>
-    Kushi: Good {$timeOfDay}! Ah Risa sent you. She is a great employee!
+    Kushi: Good {$timeOfDay}! Ah, Risa sent you. She is a great employee!
     Kushi: Oh? You have picked up over 80 plastics from the ground?
-    Kushi: I see many are products of Go 24hr convenient stores...
-    Kushi: I am thinking of reducing the single use plastics that we use.
+    Kushi: I see many are products from our stores...
+    Kushi: I am thinking of reducing the single-use plastics that we use.
     Kushi: Tell me, do you use reusable bags?
     -> No
-        Kushi: Hmm... I guess our customers also would not use them.
+        Kushi: Hmm... I guess our customers would not use them either.
     -> Yes
         Kushi: Ah. Maybe getting our customers to bring reusable bags is feasible.
-        Kushi: What about the plastic packaging and containers we currently use.
+        Kushi: What about the plastic packaging and containers we currently use?
         Kushi: Are customers going to pay more and be inconvenienced if we switch to alternatives?
         -> Yes
             Kushi: Oh no. I cannot let that happen.
-            Kushi: The customers are the most important.
+            Kushi: The customers are the most important!
         -> No
-            Kushi: I see. In that case we could start encouraging buyers to bring their own bags
-            Kushi: We will also change some of our single use plastic products to use alternative materials!
+            Kushi: I see. In that case, we could start encouraging buyers to bring their own bags.
+            Kushi: We will also change some of our single-use plastic products to alternative materials instead!
             Kushi: Thank you for your help. We hope that this change would benefit our brand and the residents.
             <<changeProgress 200>>
 <<else>>

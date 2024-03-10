@@ -4,19 +4,19 @@ title: mr_Star
 ---
 <<if $progress == -1>>
     MrStar: Good {$timeOfDay}!
-    MrStar: This garden here is a community led effort.
+    MrStar: This garden here is a community-led effort.
     MrStar: We grow our own plants for cooking!
     MrStar: I think Mr Moon requires some help.
     MrStar: You can find him in the park.
 <<elseif $progress < 15>>
-    MrStar: Mr Moon asked to collect food waste?
+    MrStar: Mr Moon asked you to collect food waste?
     MrStar: Great idea. We can make natural compost with them.
 <<elseif $progress >= 15 and $progress < 100>>
     MrStar: Thanks for collecting all that food waste.
     MrStar: It's a shame how much food people throw out.
 <<elseif $progress < 110>>
-    MrStar: Mr Moon asked to collect more food waste?
-    MrStar: Yes of course. We can make more compost with them.
+    MrStar: Mr Moon asked you to collect more food waste?
+    MrStar: Yes, of course. We can make more compost with them.
 <<else>>
     MrStar: Thanks for collecting all that food waste.
     MrStar: It's a shame how much food people throw out.
@@ -26,18 +26,18 @@ title: mrs_Star
 ---
 <<if $progress == -1>>
     MrsStar: Good {$timeOfDay}!
-    MrsStar: This garden here is a community led effort.
+    MrsStar: This garden here is a community-led effort.
     MrsStar: We grow our own plants for medicine!
     MrsStar: I think Mr Moon is looking for some help.
     MrsStar: You can find him in the park.
 <<elseif $progress < 5>>
-    MrStar: Mr Moon asked to collect food waste?
+    MrStar: Mr Moon asked you to collect food waste?
     MrStar: Great idea. We can make natural compost with them.
 <<elseif $progress >= 5 and $progress < 100>>
     MrsStar: Thanks for collecting all that food waste.
     MrsStar: We never waste any food in our house.
 <<elseif $progress < 110>>
-    MrsStar: Mr Moon asked to collect more food waste?
+    MrsStar: Mr Moon asked you to collect more food waste?
     MrsStar: Yes of course. We can make more compost with them.
 <<else>>
     MrsStar: Thanks for collecting all that food waste.

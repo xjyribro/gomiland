@@ -3,9 +3,9 @@
 title: talk
 ---
 <<if $progress == -1>>
-    QianBi: Peace be with you visitor.
-    QianBi: We need paper for writing at our shrine.
-    QianBi: However we don't want to cut more trees.
+    QianBi: Peace be with you, visitor.
+    QianBi: We need parchment for writing at our shrine.
+    QianBi: However, we don't want to cut more trees.
     QianBi: If you toss another 5 paper items into the bin at home...
     QianBi: we can receive them to make recycled parchment.
     <<changeProgress 0>>
@@ -28,8 +28,8 @@ title: talk
 <<else>>
     QianBi: We turned the extra paper into charms for our visitors.
     QianBi: They bring good fortune and safe travels.
-    QianBi: More coins will be give for paper disposals.
-    QianBi: Feel free to ome visit anytime.
+    QianBi: More coins will be given for paper disposals.
+    QianBi: Feel free to come visit anytime.
     <<changeProgress 200>>
 <<endif>>
 ===

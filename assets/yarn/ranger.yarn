@@ -2,9 +2,9 @@
 title: buy_bag
 ---
 Ranger: Hello adventurer! I'm Ranger Sean, Gomiland National Park's Chief Park Ranger.
-Ranger: Recently there has been a bit of rubbish that park goers leave behind.
+Ranger: Recently, there has been a bit of trash that park-goers leave behind.
 Ranger: Could you help make the park a cleaner place? I can sell you a big bag that you can hold more trash in!
-Ranger: I costs 10 coins for the bag. Do you want it?
+Ranger: It costs 10 coins for the bag. Do you want it?
 -> No
     Ranger: No problem. The one you have works fine!
     Ranger: But if you want to pick up more, come buy the bag from me next time.
@@ -21,5 +21,5 @@ title: greeting
 ---
 Ranger: Hello again adventurer! Gomiland National Park offers a great variety of attractions.
 Ranger: Visit the Bamboo Forest and shrine, Park Castle or World Forest!
-Ranger: There is never ending places to explore. Remember to pick up the trash along the way!
+Ranger: There are never ending places to explore. Remember to pick up the trash along the way!
 ===
