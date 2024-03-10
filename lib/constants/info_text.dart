@@ -2,35 +2,35 @@
 
 class InfoText{
   static const String how_to_play = 'How to move:\n'
-      'For mobile devices, the Directional Joystick and A button is automatically enabled.\n'
-      'For Web and desktop, use WASD keys for movement. Use keyboard E for interactions.\n'
+      'For mobile devices, the Directional Joystick and A button are automatically enabled.\n'
+      'For Web and desktop, use WASD keys for movement. Press E on the keyboard for interactions.\n'
       'You can enable the Directional Joystick and A button in Settings.\n\n'
       'Gameplay:\n'
       '1. Walk around and explore the city of Gomiland!\n'
       '2. Pick up trash on the ground. Press E on the keyboard or use the A button.\n'
-      '3. Start conversations people. Press E on the keyboard or use the A button.\n'
+      '3. Start conversations with people. Press E on the keyboard or use the A button.\n'
       '4. Head home when your bag is full. The current trash amount is on the top of the screen.\n';
 
   static const String construction_site = 'Construction of new town centre in progress\n\n'
-      'For your own safety, keep clear of worksite\n\n'
+      'For your own safety, keep clear of worksite.\n\n'
       '-Stark Construction Company';
 
   static const String soup_kitchen = 'Soup Kitchen\n\n'
       'Run by Florence\n\n'
-      'Our facility uses low-flow toilets, faucets, and shower heads to conserve water\n\n'
+      'Our facility uses low-flow toilets, faucets, and shower heads to conserve water.\n\n'
       'We also practice greywater recycling.\n'
-      'Water from sinks and showers (greywater) can be treated then reused for tasks that don\'t require clean water\n'
+      'Water from sinks and showers (greywater) can be treated, and is then reused for tasks that don\'t require clean water.\n'
       'These tasks include flushing toilets and watering plants.';
 
   static const String school = 'Gomiland Elementary School\n\n'
       'Where young minds flourish\n\n'
-      'This building like many others in Gomiland have solar panels on its roof\n'
+      'This building like many others in Gomiland have solar panels on its roof.\n'
       'Solar panels can significantly reduce electricity bills and dependence on the grid.\n'
       'They also contribute to sustainability by generating clean, renewable energy.';
 
   static const String player_garden = 'Community Zen Garden\n\n'
       'Beautify the garden with these simple steps!\n\n'
-      '1. Get a code in real life.\n'
+      '1. Get a code in outside the game.\n'
       '2. Talk to NPCs across the map to find those that are selling objects for the garden.\n'
       '3. Buy the item and see it appear in the garden after some time!';
 
@@ -44,7 +44,7 @@ class InfoText{
       'https://climate.mit.edu/ask-mit/are-electric -vehicles-definitely-better-climate-gas-powered-cars';
 
   static const String garden = 'Gomiland Community garden\n\n'
-      'Plants here are grown with sunlight, love and of course, organic fertilizers.\n'
+      'Plants here are grown with sunlight, love, and of course, organic fertilizers.\n'
       'Our crops grown here are served at cafes around the town.\n'
       'Community gardens reduce transport costs of ingredients and promotes sustainable living\n'
       'Get involved today by collecting food scraps to make compost!\n\n'
@@ -52,20 +52,20 @@ class InfoText{
 
   static const String cafe = 'Enjoyeux cafe\n\n'
       'Best vegan food in town!\n\n'
-      'Plant-based foods like beans, lentils, and tofu reduce your carbon footprint\n\n'
-      'Go meatless, and savor the positive impact on our planet, one bite at a time\n\n'
+      'Plant-based foods like beans, lentils, and tofu reduce your carbon footprint.\n\n'
+      'Go meatless, and savor the positive impact on our planet, one bite at a time!\n\n'
       'Animal agriculture is responsible for 14.5% of global greenhouse gas emissions and uses 70% of all agricultural land globally, yet only provides 18% of the world\'s calories.'
-      'Choosing plant-based foods frees up land for other uses, like restoring natural ecosystems\n\n'
+      'Choosing plant-based foods free up land for other uses, like restoring natural ecosystems.\n\n'
       'Source: https://www.reuters.com/business/environment/ factbox-how-food-agriculture-contribute-climate-change-2023-12-02/';
 
   static const String friendship_square = 'Friendship Square\n\n'
-      'Meet your friends from around the world here.\n\n'
+      'Meet your friends from around the world here!\n\n'
       'Learn interesting facts, receive wonderful gifts and much more.\n'
       'Talk to everyone!';
 
   static const String park_sign = 'This way to Gomiland National Park.\n\n'
-      'Visit the Castle, Bamboo Forest Shrine, World forest and the Honey Bee Colony\n\n'
-      'Please pick up rubbish in the park. Let\'s do our part to keep the park clean!\n\n'
+      'Visit the Castle, Bamboo Forest Shrine, World Forest and the Honey Bee Colony\n\n'
+      'Please pick up trash in the park. Let\'s do our part to keep the park clean!\n\n'
       'Importance of National Parks:\n'
       '1. Protect ecological biodiversity, preserve landscapes\n'
       '2. Provide economic support for natural and cultural resources through tourism\n'
@@ -75,21 +75,21 @@ class InfoText{
       'https://www.nathab.com/blog/why-national-parks-matter,';
 
   static const String zen_garden = 'Zen garden\n\n'
-      'Stay and enjoy the tranquility of the garden\n'
-      'Learn how to contribute to sustainability\n'
-      'Download the Global citizen app today!';
+      'Stay and enjoy the tranquility of the garden.\n'
+      'Learn how to contribute to sustainability.\n'
+      'Download the Global Citizen app today!';
 
   static const String shrine_complex = 'Bamboo forest shrine\n\n'
       'Welcome traveller to the shrine.\n'
       'Due to a paper shortage, we are unable to provide books, charms or talismans.\n'
-      'We seek your understanding for this matter.';
+      'We seek your understanding on this matter.';
 
   static const String bamboo_forest = 'Bamboo forest\n\n'
-      'Bamboo requires less water than most trees\n'
-      'They prevent soil erosion, maintain soil fertility, and promote healthy watersheds\n';
+      'Bamboo requires less water than most trees.\n'
+      'They prevent soil erosion, maintain soil fertility, and promote healthy watersheds.\n';
 
   static const String hood_sign = 'This way to Gomiland Neighbourhood\n'
-      'Bustling energy meets friendly charm\n\n'
+      'Bustling energy meets friendly charm.\n\n'
       'Gomiland achieves sustainability through:\n'
       '1. Green public spaces\n'
       '2. Water and energy conservation\n'
@@ -123,30 +123,30 @@ class InfoText{
 
   static const String bee_colony = 'Honey Bee colony\n\n'
       'Best honey in Gomiland! Look for Manuka to find out how to get your honey!\n\n'
-      'Honey bees perform majority of pollination for our food crops\n'
-      'However their global population is in decline which is a threat to our food security\n'
-      'Image a world where you can\'t get tasty honey!\n'
+      'Honey bees perform majority of pollination for our food crops.\n'
+      'However, their global population is in decline which is a threat to our food security.\n'
+      'Imagine a world where you can\'t get tasty honey!\n'
       'Found out how you can do your part to save the bees at https://thebeeconservancy.org/10-ways-to-save-the-bees/\n\n'
       'Source: https://e360.yale.edu/features/ declining_bee_populations_pose_a_threat_to_global_agriculture,\n'
       'https://www.clemson.edu/extension/ pollinators/apiculture/importance.html';
 
-  static const String world_forest = 'World forest\n\n'
+  static const String world_forest = 'World Forest\n\n'
       'Check out trees from all over the world!\n\n'
       'Forests and jungles play a crucial role in our natural environment.\n'
       'They are important habitats for many plants and animals, but are being cleared at an unsustainable rate globally.\n'
-      'We must do our part to conserve these essential wild spaces for future generations\n\n'
+      'We must do our part to conserve these essential wild spaces for future generations.\n\n'
       'Be a tree advocate:\n'
       'Support organizations working to conserve forests and advocate for policies that protect these vital ecosystems.\n'
       'Speak up for our trees!\n\n'
       'Find out about deforestation at https://ourworldindata.org/deforestation';
 
-  static const String how_to_sort = 'Sorting instructions:\n\n'
-      '1. Drag and drop the rubbish on the table into the bins\n'
+  static const String how_to_sort = 'Sorting Instructions:\n\n'
+      '1. Drag and drop the trash on the table into the bins\n'
       '2. The bins correspond to a recyclable material type:\n'
-      'Plastic, paper, glass, metal, food waste and electronics.\n'
+      'Plastics, paper, glass, metal, food waste and electronics.\n'
       '3. Get G-coins from the city council for getting it right.\n'
       '4. Get fined if you get it wrong.\n\n'
-      'Hint: you can tap on the bins to see what they are.';
+      'Hint: you can tap on the bins to see what items belong there.';
 
   static const String statue = 'Statue under restoration\n\n\n'
       'We apologise for the inconvenience\n\n'
@@ -154,7 +154,7 @@ class InfoText{
 
   static const String warrior = 'Statue of brave eco-warrior\n\n\n'
       'Provider of aid to those in need,\n'
-      'protector of our ecosystems\n'
-      'guardian of our natural habitat.\n\n'
+      'Protector of our ecosystems\n'
+      'Guardian of our natural habitat.\n\n'
       'Thanks for contributing to sustainability player!';
 }
